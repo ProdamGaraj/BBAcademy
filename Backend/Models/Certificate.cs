@@ -2,22 +2,18 @@
 {
     public class Certificate : Entity
     {
-        public string UserName { get; set; }
-        public string UserSurname { get; set; }
-        public string UserLastname { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }
-        public string Content { get; set; }
-        public string ImageTemplatePath { get; set; }
-        public Certificate(string userName, string userSurname, string userLastname, int userId, User user, string description, string imageTemplatePath)
+        public int CourseId { get; set; }
+        public Course Course { get; set; }
+        public string MediaTemplatePath { get; set; }
+        public Certificate(int userId, User user, string mediaTemplatePath, int courseId, Course course)
         {
-            UserName = userName;
-            UserSurname = userSurname;
-            UserLastname = userLastname;
             UserId = userId;
             User = user;
-            Description = description;
-            ImageTemplatePath = imageTemplatePath;
+            MediaTemplatePath = mediaTemplatePath;
+            CourseId = courseId;
+            Course = course;
         }
     }
 }

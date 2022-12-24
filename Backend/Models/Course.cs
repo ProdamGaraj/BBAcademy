@@ -6,9 +6,9 @@
         public string Description { get; set; }
         public List<Lesson> Lessons { get; set; }
         public Exam Exam{ get; set; }
-
-        public Course(string description, List<Lesson> lessons, Exam exam)
+        public Course(string duration, string description, List<Lesson> lessons, Exam exam)
         {
+            Duration = duration;
             Description = description;
             Lessons = lessons;
             Exam = exam;
