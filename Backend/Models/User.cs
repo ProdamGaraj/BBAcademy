@@ -2,7 +2,7 @@
 {
     public class User : Entity
     {
-
+        public string PhotoPath { get; set; }//
         public string LastName { get; set; }
         public string SurName { get; set; }
         public string Email { get; set; }
@@ -12,6 +12,8 @@
         public UserType Status { get; set; }
         public List<Certificate> Certificates { get; set; }
         public List<Course> Courses { get; set; }
+        public List<Course> SolvedCourses { get; set; }
+        public List<Lesson> SolvedLessons { get; set; }
         public string AboutMe { get; set; }//Сделать ограничение
     }
 }
