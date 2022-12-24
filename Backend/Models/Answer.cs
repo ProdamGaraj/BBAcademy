@@ -10,5 +10,14 @@
         // Foreign key to the question to which the answer belongs
         public int QuestionId { get; set; }
         public Question Question { get; set; }
+        public Answer(string description, bool isCorrect, int points, int order, int questionId, Question question)
+        {
+            Description = description;
+            IsCorrect = isCorrect;
+            Points = points;
+            Order = order;
+            QuestionId = questionId;
+            Question = question;
+        }
     }
 }

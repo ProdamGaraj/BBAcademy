@@ -11,6 +11,7 @@ namespace Backend
         DbSet<Certificate> Certificates { get; set; }
         DbSet<Exam> Exams { get; set; }
         DbSet<Lesson> Lessons { get; set; }
-        DbSet<Question> Question { get; set; }
+        DbSet<Question> Questions { get; set; }
+        DbSet<Answer> Answers { get; set; }
     }
 }
