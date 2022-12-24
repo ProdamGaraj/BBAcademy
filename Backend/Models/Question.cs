@@ -2,12 +2,12 @@
 {
     public class Question:Entity
     {
-        public string Description { get; set; }
+        public string Content { get; set; }
         public List<Answer> Answers { get; set; }
-        public Answer CorrectAnswer { get; set; }
-        public Question()
+        public Question(string content,List<Answer> answers)
         {
-
+            Content = content;
+            Answers = answers;
         }
     }
 }
