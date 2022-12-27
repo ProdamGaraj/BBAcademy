@@ -1,29 +1,44 @@
-﻿namespace Backend.Models
+﻿
+
+using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
+
+namespace Backend.Models
 {
-    public class User : Entity
+    public class User : IdentityUser
     {
+        [Key]
+        public long ID { get; set; }
         public string Name { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime ModifiedAt { get; set; }
         public string LastName { get; set; }
         public string SurName { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
         public string PhotoPath { get; set; }//
         public bool Sex { get; set; }
         public string Email { get; set; }//
-        public Key Key { get; set; }
+        public List<Key> Keys { get; set; }
         public string JobTitle { get; set; }
         public List<Certificate> Certificates { get; set; }
         public List<Course> CoursesInAction { get; set; }
-        public List<Course> SolvedCourses { get; set; }
+        public List<Course> SolvedCourses { get; set; }//Курсы с пройденным тестированием (запретить тест)
         public List<Lesson> SolvedLessons { get; set; }
         public string AboutMe { get; set; }//Сделать ограничение
-        public User(string name, string lastName, string surName, string photoPath, bool sex, string email, Key key, string jobTitle, List<Certificate> certificates, List<Course> coursesInAction, List<Course> solvedCourses, List<Lesson> solvedLessons, string aboutMe)
+        public bool Deleted { get; set; }
+
+        public User(string name, string lastName, string surName, string login, string password, string photoPath, bool sex, string email, List<Key> keys, string jobTitle, List<Certificate> certificates, List<Course> coursesInAction, List<Course> solvedCourses, List<Lesson> solvedLessons, string aboutMe)
         {
             Name = name;
             LastName = lastName;
             SurName = surName;
+            Login = login;
+            Password = password;
             PhotoPath = photoPath;
             Sex = sex;
             Email = email;
-            Key = key;
+            Keys = keys;
             JobTitle = jobTitle;
             Certificates = certificates;
             CoursesInAction = coursesInAction;
