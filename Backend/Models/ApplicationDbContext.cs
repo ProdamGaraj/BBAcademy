@@ -1,29 +1,17 @@
-﻿using Backend.Models;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+﻿using System.Data.Entity;
+using Backend.Models;
 
 namespace Backend
 {
-    public class ApplicationDbContext:IdentityDbContext<User>
+    public class BBAcademyDb : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-        : base(options)
-        {
-        }
-
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
-            // Customize the ASP.NET Identity model and override the defaults if needed.
-            // For example, you can rename the ASP.NET Identity table names and more.
-            // Add your customizations after calling base.OnModelCreating(builder);
-        }
-        public DbSet<Organisation> Organizations { get; set; }
-        public DbSet<Course> Courses { get; set; }
-        public DbSet<Certificate> Certificates { get; set; }
-        public DbSet<Exam> Exams { get; set; }
-        public DbSet<Lesson> Lessons { get; set; }
-        public DbSet<Question> Questions { get; set; }
-        public DbSet<Answer> Answers { get; set; }
+        DbSet<User> Users { get; set; }
+        DbSet<Organisation> Organizations { get; set; }
+        DbSet<Course> Courses { get; set; }
+        DbSet<Certificate> Certificates { get; set; }
+        DbSet<Exam> Exams { get; set; }
+        DbSet<Lesson> Lessons { get; set; }
+        DbSet<Question> Questions { get; set; }
+        DbSet<Answer> Answers { get; set; }
     }
 }

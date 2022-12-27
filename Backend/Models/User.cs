@@ -2,13 +2,15 @@
 
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Backend.Models
 {
     public class User : IdentityUser
     {
         [Key]
-        public long ID { get; set; }
+        [NotNull]
+        new public long Id { get; set; }
         public string Name { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime ModifiedAt { get; set; }
@@ -18,7 +20,7 @@ namespace Backend.Models
         public string Password { get; set; }
         public string PhotoPath { get; set; }//
         public bool Sex { get; set; }
-        public string Email { get; set; }//
+        new public string Email { get; set; }//
         public List<Key> Keys { get; set; }
         public string JobTitle { get; set; }
         public List<Certificate> Certificates { get; set; }
