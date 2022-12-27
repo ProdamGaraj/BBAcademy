@@ -10,7 +10,7 @@ namespace Backend.Services.Repository
             throw new NotImplementedException();
         }
 
-        public IList<Answer> Get(Answer entity)
+        public Answer Get(int id)
         {
             throw new NotImplementedException();
         }
