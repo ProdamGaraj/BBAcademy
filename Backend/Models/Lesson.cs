@@ -6,12 +6,13 @@
         public string Description { get; set; }
         public string TextContent { get; set; }
         public string MediaContentPath { get; set; }
-        public Lesson(LessonType lesssonType, string description, string textContent, string mediaContentPath)
+        public Lesson(LessonType lesssonType, string description, string textContent, string mediaContentPath, bool deleted=false)
         {
             LesssonType = lesssonType;
             Description = description;
             TextContent = textContent;
             MediaContentPath = mediaContentPath;
+            Deleted = deleted;
         }
     }
 
