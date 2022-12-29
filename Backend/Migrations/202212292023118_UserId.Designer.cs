@@ -7,13 +7,13 @@ namespace Backend.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class UpdateUserModel : IMigrationMetadata
+    public sealed partial class UserId : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdateUserModel));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(UserId));
         
         string IMigrationMetadata.Id
         {
-            get { return "202212281844463_UpdateUserModel"; }
+            get { return "202212292023118_UserId"; }
         }
         
         string IMigrationMetadata.Source

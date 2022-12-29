@@ -4,42 +4,42 @@ using System.Data.Entity.Migrations;
 
 namespace Backend.Services.Repository
 {
-    public class AnswerRepository : IAnswerRepository
+    public class CourseRepository:ICourseRepository
     {
-        public void Add(Answer entity)
+        public void Add(Course entity)
         {
             using (BBAcademyDb db = new BBAcademyDb())
             {
                 entity.CreatedAt = DateTime.Now;
                 entity.ModifiedAt = DateTime.Now;
-                db.Answers.Add(entity);
+                db.Courses.Add(entity);
                 db.SaveChanges();
             }
         }
 
-        public Answer Get(long id)
+        public Course Get(long id)
         {
             using (BBAcademyDb db = new BBAcademyDb())
             {
-                Answer Answer = db.Answers.SingleOrDefault(b => b.Id==id && !b.Deleted);
-                return Answer;
+                Course Course = db.Courses.SingleOrDefault(b => b.Id == id && !b.Deleted);
+                return Course;
             }
         }
 
-        public IList<Answer> GetAll()
+        public IList<Course> GetAll()
         {
             using (BBAcademyDb db = new BBAcademyDb())
             {
-                IList<Answer> myAnswer = db.Answers.ToList();
-                return myAnswer;
+                IList<Course> myCourse = db.Courses.ToList();
+                return myCourse;
             }
         }
 
-        public void MarkAsDeleted(Answer entity)
+        public void MarkAsDeleted(Course entity)
         {
             using (BBAcademyDb db = new BBAcademyDb())
             {
-                var result = db.Answers.SingleOrDefault(b => b.Id.Equals(entity.Id));
+                var result = db.Courses.SingleOrDefault(b => b.Id.Equals(entity.Id));
                 if (result != null)
                 {
                     result.Deleted = true;
@@ -49,15 +49,15 @@ namespace Backend.Services.Repository
             }
         }
 
-        public void Update(Answer entity)
+        public void Update(Course entity)
         {
             using (BBAcademyDb db = new BBAcademyDb())
             {
-                var result = db.Answers.SingleOrDefault(b => b.Id.Equals(entity.Id));
+                var result = db.Courses.SingleOrDefault(b => b.Id.Equals(entity.Id));
                 if (result != null)
                 {
                     entity.ModifiedAt = DateTime.Now;
-                    db.Answers.AddOrUpdate(entity);
+                    db.Courses.AddOrUpdate(entity);
                     db.SaveChanges();
                 }
             }

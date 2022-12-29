@@ -4,42 +4,42 @@ using System.Data.Entity.Migrations;
 
 namespace Backend.Services.Repository
 {
-    public class AnswerRepository : IAnswerRepository
+    public class ExamRepository:IExamRepository
     {
-        public void Add(Answer entity)
+        public void Add(Exam entity)
         {
             using (BBAcademyDb db = new BBAcademyDb())
             {
                 entity.CreatedAt = DateTime.Now;
                 entity.ModifiedAt = DateTime.Now;
-                db.Answers.Add(entity);
+                db.Exams.Add(entity);
                 db.SaveChanges();
             }
         }
 
-        public Answer Get(long id)
+        public Exam Get(long id)
         {
             using (BBAcademyDb db = new BBAcademyDb())
             {
-                Answer Answer = db.Answers.SingleOrDefault(b => b.Id==id && !b.Deleted);
-                return Answer;
+                Exam Exam = db.Exams.SingleOrDefault(b => b.Id == id && !b.Deleted);
+                return Exam;
             }
         }
 
-        public IList<Answer> GetAll()
+        public IList<Exam> GetAll()
         {
             using (BBAcademyDb db = new BBAcademyDb())
             {
-                IList<Answer> myAnswer = db.Answers.ToList();
-                return myAnswer;
+                IList<Exam> myExam = db.Exams.ToList();
+                return myExam;
             }
         }
 
-        public void MarkAsDeleted(Answer entity)
+        public void MarkAsDeleted(Exam entity)
         {
             using (BBAcademyDb db = new BBAcademyDb())
             {
-                var result = db.Answers.SingleOrDefault(b => b.Id.Equals(entity.Id));
+                var result = db.Exams.SingleOrDefault(b => b.Id.Equals(entity.Id));
                 if (result != null)
                 {
                     result.Deleted = true;
@@ -49,15 +49,15 @@ namespace Backend.Services.Repository
             }
         }
 
-        public void Update(Answer entity)
+        public void Update(Exam entity)
         {
             using (BBAcademyDb db = new BBAcademyDb())
             {
-                var result = db.Answers.SingleOrDefault(b => b.Id.Equals(entity.Id));
+                var result = db.Exams.SingleOrDefault(b => b.Id.Equals(entity.Id));
                 if (result != null)
                 {
                     entity.ModifiedAt = DateTime.Now;
-                    db.Answers.AddOrUpdate(entity);
+                    db.Exams.AddOrUpdate(entity);
                     db.SaveChanges();
                 }
             }

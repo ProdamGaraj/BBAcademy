@@ -4,42 +4,42 @@ using System.Data.Entity.Migrations;
 
 namespace Backend.Services.Repository
 {
-    public class AnswerRepository : IAnswerRepository
+    public class CertificateRepository:ICertificateRepository
     {
-        public void Add(Answer entity)
+        public void Add(Certificate entity)
         {
             using (BBAcademyDb db = new BBAcademyDb())
             {
                 entity.CreatedAt = DateTime.Now;
                 entity.ModifiedAt = DateTime.Now;
-                db.Answers.Add(entity);
+                db.Certificates.Add(entity);
                 db.SaveChanges();
             }
         }
 
-        public Answer Get(long id)
+        public Certificate Get(long id)
         {
             using (BBAcademyDb db = new BBAcademyDb())
             {
-                Answer Answer = db.Answers.SingleOrDefault(b => b.Id==id && !b.Deleted);
-                return Answer;
+                Certificate Certificate = db.Certificates.SingleOrDefault(b => b.Id == id && !b.Deleted);
+                return Certificate;
             }
         }
 
-        public IList<Answer> GetAll()
+        public IList<Certificate> GetAll()
         {
             using (BBAcademyDb db = new BBAcademyDb())
             {
-                IList<Answer> myAnswer = db.Answers.ToList();
-                return myAnswer;
+                IList<Certificate> myCertificate = db.Certificates.ToList();
+                return myCertificate;
             }
         }
 
-        public void MarkAsDeleted(Answer entity)
+        public void MarkAsDeleted(Certificate entity)
         {
             using (BBAcademyDb db = new BBAcademyDb())
             {
-                var result = db.Answers.SingleOrDefault(b => b.Id.Equals(entity.Id));
+                var result = db.Certificates.SingleOrDefault(b => b.Id.Equals(entity.Id));
                 if (result != null)
                 {
                     result.Deleted = true;
@@ -49,15 +49,15 @@ namespace Backend.Services.Repository
             }
         }
 
-        public void Update(Answer entity)
+        public void Update(Certificate entity)
         {
             using (BBAcademyDb db = new BBAcademyDb())
             {
-                var result = db.Answers.SingleOrDefault(b => b.Id.Equals(entity.Id));
+                var result = db.Certificates.SingleOrDefault(b => b.Id.Equals(entity.Id));
                 if (result != null)
                 {
                     entity.ModifiedAt = DateTime.Now;
-                    db.Answers.AddOrUpdate(entity);
+                    db.Certificates.AddOrUpdate(entity);
                     db.SaveChanges();
                 }
             }

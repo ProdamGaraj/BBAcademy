@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Backend.Models
 {
-    public class User : IdentityUser
+    public class User : IdentityUser<long>
     {
         public string Name { get; set; }
         public DateTime CreatedAt { get; set; }
@@ -15,7 +16,6 @@ namespace Backend.Models
         public string Password { get; set; }
         public string PhotoPath { get; set; }//
         public bool Sex { get; set; }
-        new public string Email { get; set; }//
         public string Organisation { get; set; }
         public string JobTitle { get; set; }
         public List<Certificate> Certificates { get; set; }
@@ -25,7 +25,10 @@ namespace Backend.Models
         public List<Lesson> SolvedLessons { get; set; }
         public string AboutMe { get; set; }//Сделать ограничение
         public bool Deleted { get; set; }
-
+        public User()
+        {
+               
+        }
         public User( string name, DateTime createdAt, DateTime modifiedAt, string lastName, string surName, string login, string password, string photoPath, bool sex, string email, string organisation, string jobTitle, List<Certificate> certificates, List<Course> boughtCourses,List<Course> coursesInAction, List<Course> solvedCourses, List<Lesson> solvedLessons, string aboutMe, bool deleted=false)
         {
             Name = name;

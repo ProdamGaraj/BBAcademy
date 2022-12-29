@@ -1,4 +1,5 @@
 ﻿using Backend.Services.Repository.ICRUD;
+using Microsoft.AspNetCore.Identity;
 
 namespace Backend.Models
 {
@@ -8,6 +9,10 @@ namespace Backend.Models
         public string Description { get; set; }
         public List<Lesson> Lessons { get; set; }
         public Exam Exam{ get; set; }
+        public Course()
+        {
+
+        }
         public Course(string duration, string description, List<Lesson> lessons, Exam exam,bool deleted= false)
         {
             Duration = duration;
