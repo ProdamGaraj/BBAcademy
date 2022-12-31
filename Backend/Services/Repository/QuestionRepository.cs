@@ -1,5 +1,6 @@
 ﻿using Backend.Models;
 using Backend.Services.Repository.Interfaces;
+using System.Data.Entity;
 using System.Data.Entity.Migrations;
 
 namespace Backend.Services.Repository
@@ -23,6 +24,19 @@ namespace Backend.Services.Repository
             {
                 Question Question = db.Questions.SingleOrDefault(b => b.Id == id && !b.Deleted);
                 return Question;
+            }
+        }
+        public IList<Question> GetConditionalType(Dictionary<QuestionType,int> keyValue)
+        {
+            using (BBAcademyDb db = new BBAcademyDb())
+            {
+                List<Question> questions = new List<Question>();
+                for (int i = 0; i < keyValue.Count; i++)
+                {
+                    List<Question> questionstemp = new List<Question>();
+                    questionstemp.AddRange(db.Questions.Where(x => x.QuestionType.Equals(keyValue.Keys.ElementAt(i))).Take(keyValue.Values.ElementAt(i)));
+                }
+                return questions;
             }
         }
 
