@@ -33,8 +33,8 @@ namespace Backend.Services.Repository
                 List<Question> questions = new List<Question>();
                 for (int i = 0; i < keyValue.Count; i++)
                 {
-                    List<Question> questionstemp = new List<Question>();
-                    questionstemp.AddRange(db.Questions.Where(x => x.QuestionType.Equals(keyValue.Keys.ElementAt(i))).Take(keyValue.Values.ElementAt(i)));
+                    int j = (int)keyValue.Keys.ElementAt(i);
+                    questions.AddRange(db.Questions.Where(x => (int)x.QuestionType==j).Take(keyValue.Values.ElementAt(i)));
                 }
                 return questions;
             }
@@ -45,6 +45,14 @@ namespace Backend.Services.Repository
             using (BBAcademyDb db = new BBAcademyDb())
             {
                 IList<Question> myQuestion = db.Questions.ToList();
+                return myQuestion;
+            }
+        }
+        public IList<Question> GetAllCustomId(long id)
+        {
+            using (BBAcademyDb db = new BBAcademyDb())
+            {
+                List<Question> myQuestion = new List<Question>();
                 return myQuestion;
             }
         }

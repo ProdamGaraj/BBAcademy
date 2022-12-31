@@ -1,4 +1,5 @@
 ﻿using Backend.Models;
+using Backend.Services.Repository.ICRUD;
 using Backend.Services.Repository.Interfaces;
 using System.Data.Entity.Migrations;
 
@@ -13,6 +14,14 @@ namespace Backend.Services.Repository
                 entity.CreatedAt = DateTime.Now;
                 entity.ModifiedAt = DateTime.Now;
                 db.Exams.Add(entity);
+                //QuestionRepository qr = new QuestionRepository();
+                //if (entity.Questions.Count > 0)
+                //{
+                //    foreach (Question q in entity.Questions)
+                //    {
+                //        qr.Update(q);
+                //    }
+                //}
                 db.SaveChanges();
             }
         }
@@ -21,7 +30,7 @@ namespace Backend.Services.Repository
         {
             using (BBAcademyDb db = new BBAcademyDb())
             {
-                Exam Exam = db.Exams.SingleOrDefault(b => b.Id == id && !b.Deleted);
+                Exam Exam = db.Exams.Include("Questions").SingleOrDefault(b => b.Id == id && !b.Deleted);
                 return Exam;
             }
         }
