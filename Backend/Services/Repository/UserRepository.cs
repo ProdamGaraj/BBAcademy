@@ -32,7 +32,7 @@ namespace Backend.Services.Repository
             {
                 using (BBAcademyDb db = new BBAcademyDb())
                 {
-                    User User = await db.Users.Include("Certificates").Include("Courses").Include("Lessons").Include("Exams").Include("Answers").Include("Questions").FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
+                    User User = await db.Users.Include("Certificates").Include("Courses").Include("Lessons").FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
                     return User;
                 }
             }
@@ -48,7 +48,7 @@ namespace Backend.Services.Repository
             {
                 using (BBAcademyDb db = new BBAcademyDb())
                 {
-                    IList<User> myUser = db.Users.Include("Certificates").Include("Courses").Include("Lessons").Include("Exams").Include("Answers").Include("Questions").ToList();
+                    IList<User> myUser = db.Users.Include("Certificates").Include("Courses").Include("Lessons").ToList();
                     return myUser;
                 }
             }

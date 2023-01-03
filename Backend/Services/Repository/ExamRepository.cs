@@ -34,7 +34,7 @@ namespace Backend.Services.Repository
             {
                 using (BBAcademyDb db = new BBAcademyDb())
                 {
-                    Exam Exam = await db.Exams.Include("Questions").Include("Answers").FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
+                    Exam Exam = await db.Exams.Include("Questions").FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
                     return Exam;
                 }
             }
@@ -50,7 +50,7 @@ namespace Backend.Services.Repository
             {
                 using (BBAcademyDb db = new BBAcademyDb())
                 {
-                    IList<Exam> myExam = db.Exams.Include("Questions").Include("Answers").ToList();
+                    IList<Exam> myExam = db.Exams.Include("Questions").ToList();
                     return myExam;
                 }
             }
