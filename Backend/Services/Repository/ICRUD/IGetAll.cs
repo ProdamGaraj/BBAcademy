@@ -2,6 +2,6 @@
 {
     public interface IGetAll<TEntity> where TEntity : class
     {
-        IList<TEntity> GetAll();
+        Task<IList<TEntity>> GetAll();
     }
 }

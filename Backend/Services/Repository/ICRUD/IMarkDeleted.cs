@@ -2,6 +2,6 @@
 {
     public interface IMarkDeleted<TEntity> where TEntity : class
     {
-        void MarkAsDeleted(TEntity entity);
+        public Task<bool> MarkAsDeleted(TEntity entity);
     }
 }

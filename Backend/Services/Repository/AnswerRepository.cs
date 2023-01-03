@@ -1,65 +1,112 @@
 ﻿using Backend.Models;
 using Backend.Services.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System.Data.Entity.Migrations;
 
 namespace Backend.Services.Repository
 {
     public class AnswerRepository : IAnswerRepository
     {
-        public void Add(Answer entity)
+        public async Task<bool> Add(Answer entity)
         {
-            using (BBAcademyDb db = new BBAcademyDb())
+            try
             {
-                entity.CreatedAt = DateTime.Now;
-                entity.ModifiedAt = DateTime.Now;
-                db.Answers.Add(entity);
-                db.SaveChanges();
-            }
-        }
-
-        public Answer Get(long id)
-        {
-            using (BBAcademyDb db = new BBAcademyDb())
-            {
-                Answer Answer = db.Answers.SingleOrDefault(b => b.Id==id && !b.Deleted);
-                return Answer;
-            }
-        }
-
-        public IList<Answer> GetAll()
-        {
-            using (BBAcademyDb db = new BBAcademyDb())
-            {
-                IList<Answer> myAnswer = db.Answers.ToList();
-                return myAnswer;
-            }
-        }
-
-        public void MarkAsDeleted(Answer entity)
-        {
-            using (BBAcademyDb db = new BBAcademyDb())
-            {
-                var result = db.Answers.SingleOrDefault(b => b.Id.Equals(entity.Id));
-                if (result != null)
+                using (BBAcademyDb db = new BBAcademyDb())
                 {
-                    result.Deleted = true;
-                    result.ModifiedAt = DateTime.Now;
-                    db.SaveChanges();
-                }
-            }
-        }
-
-        public void Update(Answer entity)
-        {
-            using (BBAcademyDb db = new BBAcademyDb())
-            {
-                var result = db.Answers.SingleOrDefault(b => b.Id.Equals(entity.Id));
-                if (result != null)
-                {
+                    entity.CreatedAt = DateTime.Now;
                     entity.ModifiedAt = DateTime.Now;
-                    db.Answers.AddOrUpdate(entity);
-                    db.SaveChanges();
+                    db.Answers.Add(entity);
+                    await db.SaveChangesAsync();
                 }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public async Task<Answer> Get(long id)
+        {
+            try
+            {
+                using (BBAcademyDb db = new BBAcademyDb())
+                {
+                    Answer Answer = await db.Answers.Include("Questions").FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
+                    return Answer;
+                }
+            }
+            catch (Exception ex)
+            {
+                return new Answer();
+            }
+        }
+
+        public async Task<IList<Answer>> GetAll()
+        {
+            try
+            {
+                using (BBAcademyDb db = new BBAcademyDb())
+                {
+                    IList<Answer> myAnswer = db.Answers.Include("Questions").ToList();
+                    return myAnswer;
+                }
+            }
+            catch (Exception ex)
+            {
+                return new List<Answer>();
+            }
+        }
+
+        public async Task<bool> MarkAsDeleted(Answer entity)
+        {
+            try
+            {
+                using (BBAcademyDb db = new BBAcademyDb())
+                {
+                    var result = await db.Answers.FirstOrDefaultAsync(b => b.Id.Equals(entity.Id));
+                    if (result != null)
+                    {
+                        result.Deleted = true;
+                        result.ModifiedAt = DateTime.Now;
+                        await db.SaveChangesAsync();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> Update(Answer entity)
+        {
+            try
+            {
+                using (BBAcademyDb db = new BBAcademyDb())
+                {
+                    var result = await db.Answers.FirstOrDefaultAsync(b => b.Id.Equals(entity.Id));
+                    if (result != null)
+                    {
+                        entity.ModifiedAt = DateTime.Now;
+                        db.Answers.AddOrUpdate(entity);
+                        await db.SaveChangesAsync();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
             }
         }
     }

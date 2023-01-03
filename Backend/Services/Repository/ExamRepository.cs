@@ -1,74 +1,114 @@
 ﻿using Backend.Models;
 using Backend.Services.Repository.ICRUD;
 using Backend.Services.Repository.Interfaces;
+using System.Data.Entity;
 using System.Data.Entity.Migrations;
 
 namespace Backend.Services.Repository
 {
     public class ExamRepository:IExamRepository
     {
-        public void Add(Exam entity)
-        {
-            using (BBAcademyDb db = new BBAcademyDb())
-            {
-                entity.CreatedAt = DateTime.Now;
-                entity.ModifiedAt = DateTime.Now;
-                db.Exams.Add(entity);
-                //QuestionRepository qr = new QuestionRepository();
-                //if (entity.Questions.Count > 0)
-                //{
-                //    foreach (Question q in entity.Questions)
-                //    {
-                //        qr.Update(q);
-                //    }
-                //}
-                db.SaveChanges();
-            }
-        }
 
-        public Exam Get(long id)
+        public async Task<bool> Add(Exam entity)
         {
-            using (BBAcademyDb db = new BBAcademyDb())
+            try
             {
-                Exam Exam = db.Exams.Include("Questions").SingleOrDefault(b => b.Id == id && !b.Deleted);
-                return Exam;
-            }
-        }
-
-        public IList<Exam> GetAll()
-        {
-            using (BBAcademyDb db = new BBAcademyDb())
-            {
-                IList<Exam> myExam = db.Exams.ToList();
-                return myExam;
-            }
-        }
-
-        public void MarkAsDeleted(Exam entity)
-        {
-            using (BBAcademyDb db = new BBAcademyDb())
-            {
-                var result = db.Exams.SingleOrDefault(b => b.Id.Equals(entity.Id));
-                if (result != null)
+                using (BBAcademyDb db = new BBAcademyDb())
                 {
-                    result.Deleted = true;
-                    result.ModifiedAt = DateTime.Now;
-                    db.SaveChanges();
-                }
-            }
-        }
-
-        public void Update(Exam entity)
-        {
-            using (BBAcademyDb db = new BBAcademyDb())
-            {
-                var result = db.Exams.SingleOrDefault(b => b.Id.Equals(entity.Id));
-                if (result != null)
-                {
+                    entity.CreatedAt = DateTime.Now;
                     entity.ModifiedAt = DateTime.Now;
-                    db.Exams.AddOrUpdate(entity);
-                    db.SaveChanges();
+                    db.Exams.Add(entity);
+                    await db.SaveChangesAsync();
                 }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public async Task<Exam> Get(long id)
+        {
+            try
+            {
+                using (BBAcademyDb db = new BBAcademyDb())
+                {
+                    Exam Exam = await db.Exams.Include("Questions").Include("Answers").FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
+                    return Exam;
+                }
+            }
+            catch (Exception ex)
+            {
+                return new Exam();
+            }
+        }
+
+        public async Task<IList<Exam>> GetAll()
+        {
+            try
+            {
+                using (BBAcademyDb db = new BBAcademyDb())
+                {
+                    IList<Exam> myExam = db.Exams.Include("Questions").Include("Answers").ToList();
+                    return myExam;
+                }
+            }
+            catch (Exception ex)
+            {
+                return new List<Exam>();
+            }
+        }
+
+        public async Task<bool> MarkAsDeleted(Exam entity)
+        {
+            try
+            {
+                using (BBAcademyDb db = new BBAcademyDb())
+                {
+                    var result = await db.Exams.FirstOrDefaultAsync(b => b.Id.Equals(entity.Id));
+                    if (result != null)
+                    {
+                        result.Deleted = true;
+                        result.ModifiedAt = DateTime.Now;
+                        await db.SaveChangesAsync();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> Update(Exam entity)
+        {
+            try
+            {
+                using (BBAcademyDb db = new BBAcademyDb())
+                {
+                    var result = await db.Exams.FirstOrDefaultAsync(b => b.Id.Equals(entity.Id));
+                    if (result != null)
+                    {
+                        entity.ModifiedAt = DateTime.Now;
+                        db.Exams.AddOrUpdate(entity);
+                        await db.SaveChangesAsync();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
             }
         }
     }

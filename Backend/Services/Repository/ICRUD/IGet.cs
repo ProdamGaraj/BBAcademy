@@ -2,6 +2,6 @@
 {
     public interface IGet<TEntity> where TEntity : class
     {
-        TEntity Get(long id);
+        Task<TEntity> Get(long id);
     }
 }

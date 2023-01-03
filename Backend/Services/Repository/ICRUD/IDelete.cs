@@ -2,6 +2,6 @@
 {
     public interface IDelete<TEntity> where TEntity : class
     {
-        void Delete(TEntity entity);
+        Task<bool> Delete(TEntity entity);
     }
 }

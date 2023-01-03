@@ -2,6 +2,6 @@
 {
     public interface IAdd<TEntity> where TEntity : class
     {
-        void Add(TEntity entity);
+        Task<bool> Add(TEntity entity);
     }
 }
