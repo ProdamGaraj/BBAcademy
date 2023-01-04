@@ -5,13 +5,12 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Backend.Models
 {
-    public class User : IdentityUser<long>
+    public class User : Entity
     {
-        public string Name { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime ModifiedAt { get; set; }
+        public UserRole Role { get; set; }
         public string LastName { get; set; }
         public string SurName { get; set; }
+        public string Email { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
         public string PhotoPath { get; set; }//
