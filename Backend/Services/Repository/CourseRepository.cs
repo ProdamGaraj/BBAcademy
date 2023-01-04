@@ -32,7 +32,7 @@ namespace Backend.Services.Repository
             {
                 using (BBAcademyDb db = new BBAcademyDb())
                 {
-                    Course Course = await db.Courses.Include("Exams").Include("Lessons").FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
+                    Course Course = await db.Courses.Include("CourseToExams").Include("CourseToLessons").FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
                     return Course;
                 }
             }
@@ -48,7 +48,38 @@ namespace Backend.Services.Repository
             {
                 using (BBAcademyDb db = new BBAcademyDb())
                 {
-                    IList<Course> myCourse = db.Courses.Include("Exams").Include("Lessons").ToList();
+                    IList<Course> myCourse = db.Courses.Include("CourseToExams").Include("CourseToLessons").ToList();
+                    return myCourse;
+                }
+            }
+            catch (Exception ex)
+            {
+                return new List<Course>();
+            }
+        }
+        public async Task<Course> GetWithoutContext(long id)
+        {
+            try
+            {
+                using (BBAcademyDb db = new BBAcademyDb())
+                {
+                    Course Course = await db.Courses.FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
+                    return Course;
+                }
+            }
+            catch (Exception ex)
+            {
+                return new Course();
+            }
+        }
+
+        public async Task<IList<Course>> GetAllWithoutContext()
+        {
+            try
+            {
+                using (BBAcademyDb db = new BBAcademyDb())
+                {
+                    IList<Course> myCourse = db.Courses.ToList();
                     return myCourse;
                 }
             }
@@ -94,7 +125,7 @@ namespace Backend.Services.Repository
                     if (result != null)
                     {
                         entity.ModifiedAt = DateTime.Now;
-                        db.Courses.AddOrUpdate(entity);
+                        db.Courses.Update(entity);
                         await db.SaveChangesAsync();
                         return true;
                     }

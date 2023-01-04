@@ -49,7 +49,7 @@ namespace Backend.Services.Repository
             {
                 using (BBAcademyDb db = new BBAcademyDb())
                 {
-                    IList<Lesson> myLesson = db.Lessons.ToList();
+                    IList<Lesson> myLesson = await db.Lessons.ToListAsync();
                     return myLesson;
                 }
             }
@@ -95,7 +95,7 @@ namespace Backend.Services.Repository
                     if (result != null)
                     {
                         entity.ModifiedAt = DateTime.Now;
-                        db.Lessons.AddOrUpdate(entity);
+                        db.Lessons.Update(entity);
                         await db.SaveChangesAsync();
                         return true;
                     }

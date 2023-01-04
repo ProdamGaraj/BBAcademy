@@ -1,6 +1,7 @@
 ﻿using Backend.Models;
 using Backend.Services.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Serilog.Core;
 using System.Data.Entity.Migrations;
 
 namespace Backend.Services.Repository
@@ -32,7 +33,7 @@ namespace Backend.Services.Repository
             {
                 using (BBAcademyDb db = new BBAcademyDb())
                 {
-                    Answer Answer = await db.Answers.Include("Questions").FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
+                    Answer Answer = await db.Answers.FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
                     return Answer;
                 }
             }
@@ -48,7 +49,7 @@ namespace Backend.Services.Repository
             {
                 using (BBAcademyDb db = new BBAcademyDb())
                 {
-                    IList<Answer> myAnswer = db.Answers.Include("Questions").ToList();
+                    IList<Answer> myAnswer = await db.Answers.ToListAsync();
                     return myAnswer;
                 }
             }
@@ -94,7 +95,7 @@ namespace Backend.Services.Repository
                     if (result != null)
                     {
                         entity.ModifiedAt = DateTime.Now;
-                        db.Answers.AddOrUpdate(entity);
+                        db.Answers.Update(entity);
                         await db.SaveChangesAsync();
                         return true;
                     }

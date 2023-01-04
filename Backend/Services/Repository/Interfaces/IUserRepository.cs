@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Update;
 
 namespace Backend.Services.Repository.Interfaces
 {
-    public interface IUserRepository:IAdd<User>, IGet<User>, IGetAll<User>, IUpdate<User>, IMarkDeleted<User>
+    public interface IUserRepository: IAdd<User>, IGet<User>, IGetAll<User>, IGetWithoutContext<User>, IGetAllWithoutContext<User>, IUpdate<User>, IMarkDeleted<User>
     {
     }
 }

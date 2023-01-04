@@ -32,7 +32,7 @@ namespace Backend.Services.Repository
             {
                 using (BBAcademyDb db = new BBAcademyDb())
                 {
-                    User User = await db.Users.Include("Certificates").Include("Courses").Include("Lessons").FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
+                    User User = await db.Users.Include("UserToCertificates").Include("UserToCourses").Include("UserToLessons").FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
                     return User;
                 }
             }
@@ -48,7 +48,38 @@ namespace Backend.Services.Repository
             {
                 using (BBAcademyDb db = new BBAcademyDb())
                 {
-                    IList<User> myUser = db.Users.Include("Certificates").Include("Courses").Include("Lessons").ToList();
+                    IList<User> myUser = await db.Users.Include("UserToCertificates").Include("UserToCourses").Include("UserToLessons").ToListAsync();
+                    return myUser;
+                }
+            }
+            catch (Exception ex)
+            {
+                return new List<User>();
+            }
+        }
+        public async Task<User> GetWithoutContext(long id)
+        {
+            try
+            {
+                using (BBAcademyDb db = new BBAcademyDb())
+                {
+                    User User = await db.Users.FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
+                    return User;
+                }
+            }
+            catch (Exception ex)
+            {
+                return new User();
+            }
+        }
+
+        public async Task<IList<User>> GetAllWithoutContext()
+        {
+            try
+            {
+                using (BBAcademyDb db = new BBAcademyDb())
+                {
+                    IList<User> myUser = await db.Users.ToListAsync();
                     return myUser;
                 }
             }
@@ -94,7 +125,7 @@ namespace Backend.Services.Repository
                     if (result != null)
                     {
                         entity.ModifiedAt = DateTime.Now;
-                        db.Users.AddOrUpdate(entity);
+                        db.Users.Update(entity);
                         await db.SaveChangesAsync();
                         return true;
                     }

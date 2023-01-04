@@ -7,16 +7,18 @@ namespace Backend.Models
     {
         public string Duration { get; set; }
         public string Description { get; set; }
-        public List<Lesson> Lessons { get; set; }
-        public Exam Exam{ get; set; }
+        public CourseType CourseType { get; set; }
+        public List<CourseToLesson> Lessons { get; set; }
+        public CourseToExam Exam{ get; set; }
         public Course()
         {
 
         }
-        public Course(string duration, string description, List<Lesson> lessons, Exam exam,bool deleted= false)
+        public Course(string duration, string description, CourseType courseType, List<CourseToLesson> lessons, CourseToExam exam,bool deleted= false)
         {
             Duration = duration;
             Description = description;
+            CourseType = courseType;
             Lessons = lessons;
             Exam = exam;
             Deleted = deleted;

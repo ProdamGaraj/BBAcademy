@@ -34,7 +34,7 @@ namespace Backend.Services.Repository
             {
                 using (BBAcademyDb db = new BBAcademyDb())
                 {
-                    Exam Exam = await db.Exams.Include("Questions").FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
+                    Exam Exam = await db.Exams.Include("ExamToQuestions").FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
                     return Exam;
                 }
             }
@@ -50,7 +50,38 @@ namespace Backend.Services.Repository
             {
                 using (BBAcademyDb db = new BBAcademyDb())
                 {
-                    IList<Exam> myExam = db.Exams.Include("Questions").ToList();
+                    IList<Exam> myExam = await db.Exams.Include("ExamToQuestions").ToListAsync();
+                    return myExam;
+                }
+            }
+            catch (Exception ex)
+            {
+                return new List<Exam>();
+            }
+        }
+        public async Task<Exam> GetWithoutContext(long id)
+        {
+            try
+            {
+                using (BBAcademyDb db = new BBAcademyDb())
+                {
+                    Exam Exam = await db.Exams.FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
+                    return Exam;
+                }
+            }
+            catch (Exception ex)
+            {
+                return new Exam();
+            }
+        }
+
+        public async Task<IList<Exam>> GetAllWithoutContext()
+        {
+            try
+            {
+                using (BBAcademyDb db = new BBAcademyDb())
+                {
+                    IList<Exam> myExam = await db.Exams.ToListAsync();
                     return myExam;
                 }
             }
@@ -96,7 +127,7 @@ namespace Backend.Services.Repository
                     if (result != null)
                     {
                         entity.ModifiedAt = DateTime.Now;
-                        db.Exams.AddOrUpdate(entity);
+                        db.Exams.Update(entity);
                         await db.SaveChangesAsync();
                         return true;
                     }
