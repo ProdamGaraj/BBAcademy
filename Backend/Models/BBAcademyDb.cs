@@ -1,5 +1,5 @@
-﻿using System.Data.Entity;
-using Backend.Models;
+﻿using Backend.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend
 {
