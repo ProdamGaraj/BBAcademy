@@ -9,23 +9,29 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
+using System.Reflection;
+using System.Configuration;
+
+
+CreateWebHostBuilder(args).Build().Run();
+
+IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+         WebHost.CreateDefaultBuilder(args);
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Logging.ClearProviders();
-builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
+builder.Logging.SetMinimumLevel(LogLevel.Trace);
 
 //builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
 var connection = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<BBAcademyDb>(options =>
-    options.UseSqlServer(connection));
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
-        options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+        options.LoginPath = new PathString("/Account/Login");
+        options.AccessDeniedPath = new PathString("/Account/Login");
     });
 
 //builder.Services.InitializeRepositories();
@@ -57,4 +63,10 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+using var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
+using var dc = serviceScope.ServiceProvider.GetRequiredService<BBAcademyDb>();
+dc.Database.Migrate();
+
+
 app.Run();
