@@ -1,6 +1,7 @@
 ﻿using Backend.Models;
 using Backend.Services.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore.Migrations;
+using NLog;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 
@@ -8,6 +9,12 @@ namespace Backend.Services.Repository
 {
     public class LessonRepository:ILessonRepository
     {
+
+        Logger logger;
+        public LessonRepository()
+        {
+            logger = LogManager.GetCurrentClassLogger();
+        }
         public async Task<bool> Add(Lesson entity)
         {
             try
@@ -23,6 +30,7 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
+                logger.Error(ex.Message + ":" + ex.StackTrace);
                 return false;
             }
         }
@@ -39,6 +47,7 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
+                logger.Error(ex.Message + ":" + ex.StackTrace);
                 return new Lesson();
             }
         }
@@ -55,6 +64,7 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
+                logger.Error(ex.Message + ":" + ex.StackTrace);
                 return new List<Lesson>();
             }
         }
@@ -75,12 +85,14 @@ namespace Backend.Services.Repository
                     }
                     else
                     {
+                        logger.Error("No such entity to mark");
                         return false;
                     }
                 }
             }
             catch (Exception ex)
             {
+                logger.Error(ex.Message + ":" + ex.StackTrace);
                 return false;
             }
         }
@@ -101,12 +113,14 @@ namespace Backend.Services.Repository
                     }
                     else
                     {
+                        logger.Error("No such entity to update");
                         return false;
                     }
                 }
             }
             catch (Exception ex)
             {
+                logger.Error(ex.Message + ":" + ex.StackTrace);
                 return false;
             }
         }

@@ -1,5 +1,6 @@
 ﻿using Backend.Models;
 using Backend.Services.Repository.Interfaces;
+using NLog;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 
@@ -7,6 +8,11 @@ namespace Backend.Services.Repository
 {
     public class CertificateRepository:ICertificateRepository
     {
+        Logger logger;
+        public CertificateRepository()
+        {
+            logger = LogManager.GetCurrentClassLogger();
+        }
         public async Task<bool> Add(Certificate entity)
         {
             try
@@ -22,6 +28,7 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
+                logger.Error(ex.Message + ":" + ex.StackTrace);
                 return false;
             }
         }
@@ -38,6 +45,7 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
+                logger.Error(ex.Message + ":" + ex.StackTrace);
                 return new Certificate();
             }
         }
@@ -54,6 +62,7 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
+                logger.Error(ex.Message + ":" + ex.StackTrace);
                 return new List<Certificate>();
             }
         }
@@ -79,6 +88,8 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
+                logger.Error("No such entity to mark");
+                logger.Error(ex.Message + ":" + ex.StackTrace);
                 return false;
             }
         }
@@ -99,12 +110,14 @@ namespace Backend.Services.Repository
                     }
                     else
                     {
+                        logger.Error("No such entity to update");
                         return false;
                     }
                 }
             }
             catch (Exception ex)
             {
+                logger.Error(ex.Message + ":" + ex.StackTrace);
                 return false;
             }
         }

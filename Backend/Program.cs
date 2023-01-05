@@ -1,16 +1,7 @@
 ﻿using Backend;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Serilog;
-using System.Reflection;
-using System.Configuration;
 
 
 CreateWebHostBuilder(args).Build().Run();
@@ -36,14 +27,6 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 
 //builder.Services.InitializeRepositories();
 //builder.Services.InitializeServices();
-var host = WebHost.CreateDefaultBuilder(args);
-host.UseSerilog();
-//.UseMetrics()
-//.UseMetricsWebTracking()
-host.ConfigureAppConfiguration(cfg
-    => cfg.SetBasePath(Directory.GetCurrentDirectory())
-        .AddJsonFile("appsettings.json", false))
-                .Build().Run(); ;
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
