@@ -57,37 +57,6 @@ namespace Backend.Services.Repository
                 return new List<Course>();
             }
         }
-        public async Task<Course> GetWithoutContext(long id)
-        {
-            try
-            {
-                using (BBAcademyDb db = new BBAcademyDb())
-                {
-                    Course Course = await db.Courses.FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
-                    return Course;
-                }
-            }
-            catch (Exception ex)
-            {
-                return new Course();
-            }
-        }
-
-        public async Task<IList<Course>> GetAllWithoutContext()
-        {
-            try
-            {
-                using (BBAcademyDb db = new BBAcademyDb())
-                {
-                    IList<Course> myCourse = db.Courses.ToList();
-                    return myCourse;
-                }
-            }
-            catch (Exception ex)
-            {
-                return new List<Course>();
-            }
-        }
 
         public async Task<bool> MarkAsDeleted(Course entity)
         {

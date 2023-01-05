@@ -1,4 +1,5 @@
 ﻿using Backend.Models;
+using Backend.Models.Enum;
 using Backend.Services.Repository.Interfaces;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
@@ -49,37 +50,6 @@ namespace Backend.Services.Repository
                 using (BBAcademyDb db = new BBAcademyDb())
                 {
                     IList<Question> myQuestion = await db.Questions.Include("QuestionToAnswers").ToListAsync();
-                    return myQuestion;
-                }
-            }
-            catch (Exception ex)
-            {
-                return new List<Question>();
-            }
-        }
-        public async Task<Question> GetWithoutContext(long id)
-        {
-            try
-            {
-                using (BBAcademyDb db = new BBAcademyDb())
-                {
-                    Question Question = await db.Questions.FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
-                    return Question;
-                }
-            }
-            catch (Exception ex)
-            {
-                return new Question();
-            }
-        }
-
-        public async Task<IList<Question>> GetAllWithoutContext()
-        {
-            try
-            {
-                using (BBAcademyDb db = new BBAcademyDb())
-                {
-                    IList<Question> myQuestion = await db.Questions.ToListAsync();
                     return myQuestion;
                 }
             }

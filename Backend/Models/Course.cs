@@ -1,4 +1,5 @@
-﻿using Backend.Services.Repository.ICRUD;
+﻿using Backend.Models.Enum;
+using Backend.Services.Repository.ICRUD;
 using Microsoft.AspNetCore.Identity;
 
 namespace Backend.Models

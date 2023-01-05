@@ -1,4 +1,5 @@
 ﻿using Backend.Models;
+using Backend.Models.Enum;
 
 namespace Backend.Services.Repository.ICRUD
 {

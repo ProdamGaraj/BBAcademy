@@ -57,38 +57,6 @@ namespace Backend.Services.Repository
                 return new List<User>();
             }
         }
-        public async Task<User> GetWithoutContext(long id)
-        {
-            try
-            {
-                using (BBAcademyDb db = new BBAcademyDb())
-                {
-                    User User = await db.Users.FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
-                    return User;
-                }
-            }
-            catch (Exception ex)
-            {
-                return new User();
-            }
-        }
-
-        public async Task<IList<User>> GetAllWithoutContext()
-        {
-            try
-            {
-                using (BBAcademyDb db = new BBAcademyDb())
-                {
-                    IList<User> myUser = await db.Users.ToListAsync();
-                    return myUser;
-                }
-            }
-            catch (Exception ex)
-            {
-                return new List<User>();
-            }
-        }
-
         public async Task<bool> MarkAsDeleted(User entity)
         {
             try

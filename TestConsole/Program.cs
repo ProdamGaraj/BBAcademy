@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Backend.Models;
+using Backend.Models.Enum;
 using Backend.Services;
 using Backend.Services.Repository;
 using Newtonsoft.Json;

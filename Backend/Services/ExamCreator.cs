@@ -1,4 +1,5 @@
 ﻿using Backend.Models;
+using Backend.Models.Enum;
 using Backend.Services.Repository;
 
 namespace Backend.Services

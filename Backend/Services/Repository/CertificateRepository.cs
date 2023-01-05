@@ -57,38 +57,6 @@ namespace Backend.Services.Repository
                 return new List<Certificate>();
             }
         }
-        public async Task<Certificate> GetWithoutContext(long id)
-        {
-            try
-            {
-                using (BBAcademyDb db = new BBAcademyDb())
-                {
-                    Certificate Certificate = await db.Certificates.FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
-                    return Certificate;
-                }
-            }
-            catch (Exception ex)
-            {
-                return new Certificate();
-            }
-        }
-
-        public async Task<IList<Certificate>> GetAllWithoutContext()
-        {
-            try
-            {
-                using (BBAcademyDb db = new BBAcademyDb())
-                {
-                    IList<Certificate> myCertificate = await db.Certificates.ToListAsync();
-                    return myCertificate;
-                }
-            }
-            catch (Exception ex)
-            {
-                return new List<Certificate>();
-            }
-        }
-
         public async Task<bool> MarkAsDeleted(Certificate entity)
         {
             try

@@ -1,4 +1,6 @@
-﻿namespace Backend.Models
+﻿using Backend.Models.Enum;
+
+namespace Backend.Models
 {
     public class Lesson:Entity
     {
