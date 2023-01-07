@@ -8,6 +8,7 @@ namespace Backend.Models
         public string Description { get; set; }
         public string TextContent { get; set; }
         public string MediaContentPath { get; set; }
+        public Course Course { get; set; }
         public Lesson()
         {}
         public Lesson(LessonType lesssonType, string description, string textContent, string mediaContentPath, bool deleted=false)

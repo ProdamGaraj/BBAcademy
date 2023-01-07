@@ -25,11 +25,11 @@ namespace Backend.Models
         [MaybeNull]
         public string JobTitle { get; set; }
         [MaybeNull]
-        public List<UserToCertificate> Certificates { get; set; }
+        public ICollection<Certificate> Certificates { get; set; }
         [MaybeNull]
-        public List<UserToCourse> Courses { get; set; }
+        public ICollection<Course> Courses { get; set; }
         [MaybeNull]
-        public List<UserToLesson> SolvedLessons { get; set; }
+        public ICollection<Lesson> SolvedLessons { get; set; }
         [MaybeNull]
         public string AboutMe { get; set; }//Сделать ограничение
 
@@ -42,7 +42,7 @@ namespace Backend.Models
             Login = login;
             PasswordHash = password;
         }
-        public User( string name, DateTime createdAt, DateTime modifiedAt, string lastName, string surName, string login, string password, string photoPath, bool sex, string email, string organisation, string jobTitle, List<UserToCertificate> certificates, List<UserToCourse> courses, List<UserToLesson> solvedLessons, string aboutMe, bool deleted=false)
+        public User( string name, DateTime createdAt, DateTime modifiedAt, string lastName, string surName, string login, string password, string photoPath, bool sex, string email, string organisation, string jobTitle, ICollection<Certificate> certificates, ICollection<Course> courses, ICollection<Lesson> solvedLessons, string aboutMe, bool deleted=false)
         {
             Name = name;
             CreatedAt = createdAt;

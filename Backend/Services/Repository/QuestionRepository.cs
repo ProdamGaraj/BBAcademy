@@ -107,7 +107,7 @@ namespace Backend.Services.Repository
                     if (result != null)
                     {
                         entity.ModifiedAt = DateTime.Now;
-                        db.Questions.Update(entity);
+                        db.Questions.AddOrUpdate(entity);
                         await db.SaveChangesAsync();
                         return true;
                     }

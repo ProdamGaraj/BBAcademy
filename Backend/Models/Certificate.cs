@@ -4,18 +4,18 @@
     {
         public int UserId { get; set; }
         public int CourseId { get; set; }
-        public CertificateToCourse Course { get; set; }
+        public ICollection<Course> Courses { get; set; }
         public string MediaTemplatePath { get; set; }
         public Certificate()
         {
                 
         }
-        public Certificate(int userId,  string mediaTemplatePath, int courseId, CertificateToCourse course, bool deleted = false)
+        public Certificate(int userId,  string mediaTemplatePath, int courseId, ICollection<Course> courses, bool deleted = false)
         {
             UserId = userId;
             MediaTemplatePath = mediaTemplatePath;
             CourseId = courseId;
-            Course = course;
+            Courses = courses;
             Deleted = deleted;
         }
     }

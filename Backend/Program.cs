@@ -1,7 +1,8 @@
 ﻿using Backend;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.EntityFrameworkCore;
+//using Microsoft.EntityFrameworkCore;
+using System.Data.Entity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,8 +30,6 @@ internal class Program
         builder.Services.AddScoped<IUserRepository, UserRepository>();
 
         var connection = builder.Configuration.GetConnectionString("DefaultConnection");
-		builder.Services.AddDbContext<BBAcademyDb>(options =>
-			options.UseSqlServer(connection));
 
 		builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 			.AddCookie(options =>
