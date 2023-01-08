@@ -12,8 +12,15 @@ namespace Backend.Services
             {
                 currentGrade += question.Answers.FirstOrDefault(x => x.IsChosen == true).Cost;
             }
+            int roundingUp = 0;
+            double convertingToDecimal = currentGrade;
+            convertingToDecimal /= course.Exam.PassingGrade;
+            if(convertingToDecimal > 0)
+            {
+                roundingUp++;
+            }
             currentGrade *= 100;
-            ExamCheckerResponse ecr = new ExamCheckerResponse() { percent = currentGrade / course.Exam.PassingGrade + 1, passed = currentGrade > course.Exam.PassingGrade };
+            ExamCheckerResponse ecr = new ExamCheckerResponse() { percent = currentGrade / course.Exam.PassingGrade + roundingUp, passed = currentGrade > course.Exam.PassingGrade };
             if(ecr.passed)
             {
                 course.CourseType = CourseType.Passed;
