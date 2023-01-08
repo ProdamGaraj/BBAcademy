@@ -2,6 +2,7 @@
 using Backend.Models.Responce;
 using Backend.Services.Repository;
 using Newtonsoft.Json;
+using NLog;
 
 namespace Backend.Services
 {
@@ -28,36 +29,45 @@ namespace Backend.Services
         }
         public async Task<BaseResponse<object>> Check(User user, Course course)
         {
-            int currentGrade = 0;
-            foreach (Question question in course.Exam.Questions)
+            Logger logger = LogManager.GetCurrentClassLogger();
+            try
             {
-                currentGrade += question.Answers.FirstOrDefault(x => x.IsChosen == true&&x.IsCorrect==true).Cost;
-            }
-            int roundingUp = 0;
-            double convertingToDecimal = currentGrade;
-            convertingToDecimal /= course.Exam.PassingGrade;
-            if(convertingToDecimal > 0)
-            {
-                roundingUp++;
-            }
-            currentGrade *= 100;
-            int percent = currentGrade / course.Exam.PassingGrade + roundingUp;
-            bool passed = currentGrade > course.Exam.PassingGrade;
-            object ecr = new{ percent = percent, passed = passed };
-            if (user.PassedCoursesId is null)
-                user.PassedCoursesId = "";
-            List<long> ids = JsonConvert.DeserializeObject<List<long>>(user.PassedCoursesId);
-            if(passed)
-            {
-                ids.Add(course.Id);
-                user.PassedCoursesId = JsonConvert.SerializeObject(ids);
-                UserRepository ur = new UserRepository();
-                await ur.Update(user);
-            }
-            CertificateService cs = new CertificateService();
-            await cs.CreateCertificate(user,course,passed);
+                int currentGrade = 0;
+                foreach (Question question in course.Exam.Questions)
+                {
+                    currentGrade += question.Answers.FirstOrDefault(x => x.IsChosen == true && x.IsCorrect == true).Cost;
+                }
+                int roundingUp = 0;
+                double convertingToDecimal = currentGrade;
+                convertingToDecimal /= course.Exam.PassingGrade;
+                if (convertingToDecimal > 0)
+                {
+                    roundingUp++;
+                }
+                currentGrade *= 100;
+                int percent = currentGrade / course.Exam.PassingGrade + roundingUp;
+                bool passed = currentGrade > course.Exam.PassingGrade;
+                object ecr = new { percent = percent, passed = passed };
+                if (user.PassedCoursesId is null)
+                    user.PassedCoursesId = "";
+                List<long> ids = JsonConvert.DeserializeObject<List<long>>(user.PassedCoursesId);
+                if (passed)
+                {
+                    ids.Add(course.Id);
+                    user.PassedCoursesId = JsonConvert.SerializeObject(ids);
+                    UserRepository ur = new UserRepository();
+                    await ur.Update(user);
+                }
+                CertificateService cs = new CertificateService();
+                await cs.CreateCertificate(user, course, passed);
 
-            return new BaseResponse<object>() {Description = "result of exam check" , Data = ecr, StatusCode = Models.Enum.StatusCode.OK};
+                return new BaseResponse<object>() { Description = "Result of exam check", Data = ecr, StatusCode = Models.Enum.StatusCode.OK };
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                return new BaseResponse<object>() { Data = null, Description = "Result of exam check", StatusCode = Models.Enum.StatusCode.InternalServerError };
+            }
         }
     }
 }

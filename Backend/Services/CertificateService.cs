@@ -15,7 +15,7 @@ namespace Backend.Services
         public async Task<Certificate> CreateCertificate(User user, Course course, bool examPassed)
         {
            
-
+            
             ICertificateRepository cr = new CertificateRepository();
 
             if (user != null && examPassed && course != null)
