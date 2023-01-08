@@ -5,7 +5,7 @@ namespace Backend.Services
 {
     public class ExamChecker
     {
-        public ExamCheckerResponse Check(Course course)
+        public async Task<ExamCheckerResponse> Check(User user, Course course)
         {
             int currentGrade = 0;
             foreach (Question question in course.Exam.Questions)
@@ -27,6 +27,8 @@ namespace Backend.Services
                 CourseRepository cr = new CourseRepository();
                 cr.Update(course);
             }
+            CertificateService cs = new CertificateService();
+            await cs.CreateCertificate(user,course,ecr.passed);
             return ecr;
         }
     }
