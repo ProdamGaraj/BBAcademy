@@ -4,6 +4,7 @@
     {
         public string Description { get; set; }
         public string ExamType { get; set; } //maybe enum
+        public int PassingGrade { get; set; }
         public ICollection<Question> Questions { get; set; }
         public Exam()
         {
