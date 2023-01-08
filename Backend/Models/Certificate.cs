@@ -2,8 +2,8 @@
 {
     public class Certificate : Entity
     {
-        public int UserId { get; set; }
-        public int CourseId { get; set; }
+        public long UserId { get; set; }
+        public long CourseId { get; set; }
         public ICollection<Course> Courses { get; set; }
         public string MediaTemplatePath { get; set; }
         public Certificate()
