@@ -25,9 +25,11 @@ namespace Backend.Models
         [MaybeNull]
         public string JobTitle { get; set; }
         [MaybeNull]
+        public string PassedCoursesId { get; set; }
+        [MaybeNull]
         public ICollection<Certificate> Certificates { get; set; }
         [MaybeNull]
-        public ICollection<Course> Courses { get; set; }
+        public ICollection<Course> BoughtCourses { get; set; }
         [MaybeNull]
         public ICollection<Lesson> SolvedLessons { get; set; }
         [MaybeNull]
@@ -42,7 +44,7 @@ namespace Backend.Models
             Login = login;
             PasswordHash = password;
         }
-        public User( string name, DateTime createdAt, DateTime modifiedAt, string lastName, string surName, string login, string password, string photoPath, bool sex, string email, string organisation, string jobTitle, ICollection<Certificate> certificates, ICollection<Course> courses, ICollection<Lesson> solvedLessons, string aboutMe, bool deleted=false)
+        public User( string name, DateTime createdAt, DateTime modifiedAt, string lastName, string surName, string login, string password, string photoPath, bool sex, string email, string organisation, string jobTitle,string passedCoursesId, ICollection<Certificate> certificates, ICollection<Course> courses, ICollection<Lesson> solvedLessons, string aboutMe, bool deleted=false)
         {
             Name = name;
             CreatedAt = createdAt;
@@ -56,8 +58,9 @@ namespace Backend.Models
             Email = email;
             Organisation = organisation;
             JobTitle = jobTitle;
+            PassedCoursesId = passedCoursesId;
             Certificates = certificates;
-            Courses = courses;
+            BoughtCourses = courses;
             SolvedLessons = solvedLessons;
             AboutMe = aboutMe;
             Deleted = deleted;

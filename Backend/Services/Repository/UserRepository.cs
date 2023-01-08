@@ -35,8 +35,8 @@ namespace Backend.Services.Repository
                         }
 
                     CourseRepository cor = new CourseRepository();
-                    if (entity.Courses is not null)
-                        foreach (Course course in entity.Courses)
+                    if (entity.BoughtCourses is not null)
+                        foreach (Course course in entity.BoughtCourses)
                         {
                             if (cor.Get(course.Id) is not null)
                             {
@@ -146,8 +146,8 @@ namespace Backend.Services.Repository
 
                         CourseRepository cor = new CourseRepository();
 
-                        if (entity.Courses is not null)
-                            foreach (Course course in entity.Courses)
+                        if (entity.BoughtCourses is not null)
+                            foreach (Course course in entity.BoughtCourses)
                             {
                                 await cor.Update(course);
                             }
