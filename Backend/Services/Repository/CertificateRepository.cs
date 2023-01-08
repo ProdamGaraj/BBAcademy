@@ -22,6 +22,15 @@ namespace Backend.Services.Repository
                     entity.CreatedAt = DateTime.Now;
                     entity.ModifiedAt = DateTime.Now;
                     db.Certificates.Add(entity);
+                    CourseRepository cr = new CourseRepository();
+                    if(entity.Courses is not null) 
+                    foreach (Course course in entity.Courses)
+                    {
+                        if(await cr.Get(course.Id) is not null)
+                        {
+                            db.Entry(course).State = EntityState.Unchanged;
+                        }
+                    }
                     await db.SaveChangesAsync();
                 }
                 return true;
@@ -39,14 +48,14 @@ namespace Backend.Services.Repository
             {
                 using (BBAcademyDb db = new BBAcademyDb())
                 {
-                    Certificate Certificate = await db.Certificates.Include("CertificateToCourses").FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
+                    Certificate Certificate = await db.Certificates.Include("Courses").FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
                     return Certificate;
                 }
             }
             catch (Exception ex)
             {
                 logger.Error(ex.Message + ":" + ex.StackTrace);
-                return new Certificate();
+                return null;
             }
         }
 
@@ -56,14 +65,14 @@ namespace Backend.Services.Repository
             {
                 using (BBAcademyDb db = new BBAcademyDb())
                 {
-                    IList<Certificate> myCertificate = await db.Certificates.Include("CertificateToCourses").ToListAsync();
+                    IList<Certificate> myCertificate = await db.Certificates.Include("Courses").ToListAsync();
                     return myCertificate;
                 }
             }
             catch (Exception ex)
             {
                 logger.Error(ex.Message + ":" + ex.StackTrace);
-                return new List<Certificate>();
+                return null;
             }
         }
         public async Task<bool> MarkAsDeleted(Certificate entity)
@@ -105,6 +114,12 @@ namespace Backend.Services.Repository
                     {
                         entity.ModifiedAt = DateTime.Now;
                         db.Certificates.AddOrUpdate(entity);
+                        CourseRepository cr = new CourseRepository();
+                        if (entity.Courses is not null)
+                        foreach (Course course in entity.Courses)
+                        {
+                            await cr.Update(course);
+                        }
                         await db.SaveChangesAsync();
                         return true;
                     }

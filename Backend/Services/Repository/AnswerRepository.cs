@@ -1,7 +1,7 @@
 ﻿using Backend.Models;
 using Backend.Services.Repository.Interfaces;
-using Microsoft.EntityFrameworkCore;
 using NLog;
+using System.Data.Entity;
 using System.Data.Entity.Migrations;
 
 namespace Backend.Services.Repository
@@ -28,7 +28,7 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.StackTrace);
+                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return false;
             }
         }
@@ -45,8 +45,8 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.StackTrace);
-                return new Answer();
+                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                return null;
             }
         }
 
@@ -62,8 +62,8 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.StackTrace);
-                return new List<Answer>();
+                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                return null;
             }
         }
 
@@ -90,7 +90,7 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.StackTrace);
+                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return false;
             }
         }
@@ -118,7 +118,7 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.StackTrace);
+                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return false;
             }
         }

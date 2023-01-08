@@ -6,7 +6,7 @@ using System.Data.Entity.Migrations;
 
 namespace Backend.Services.Repository
 {
-    public class CourseRepository:ICourseRepository
+    public class CourseRepository : ICourseRepository
     {
         Logger logger;
         public CourseRepository()
@@ -22,6 +22,21 @@ namespace Backend.Services.Repository
                     entity.CreatedAt = DateTime.Now;
                     entity.ModifiedAt = DateTime.Now;
                     db.Courses.Add(entity);
+                    LessonRepository lr = new LessonRepository();
+                    if (entity.Lessons is not null)
+                        foreach (Lesson lesson in entity.Lessons)
+                        {
+                            if (await lr.Get(lesson.Id) is not null)
+                            {
+                                db.Entry(lesson).State = EntityState.Unchanged;
+                            }
+                        }
+                    ExamRepository er = new ExamRepository();
+                    if (entity.Exam is not null)
+                        if (await er.Get(entity.Exam.Id) is not null)
+                        {
+                            db.Entry(entity.Exam).State = EntityState.Unchanged;
+                        }
                     await db.SaveChangesAsync();
                 }
                 return true;
@@ -39,13 +54,13 @@ namespace Backend.Services.Repository
             {
                 using (BBAcademyDb db = new BBAcademyDb())
                 {
-                    Course Course = await db.Courses.Include("CourseToExams").Include("CourseToLessons").FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
+                    Course Course = await db.Courses.Include("Lessons").Include("Exam").FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
                     return Course;
                 }
             }
             catch (Exception ex)
             {
-                return new Course();
+                return null;
             }
         }
 
@@ -55,14 +70,14 @@ namespace Backend.Services.Repository
             {
                 using (BBAcademyDb db = new BBAcademyDb())
                 {
-                    IList<Course> myCourse = db.Courses.Include("CourseToExams").Include("CourseToLessons").ToList();
+                    IList<Course> myCourse = db.Courses.Include("Lessons").Include("Exam").ToList();
                     return myCourse;
                 }
             }
             catch (Exception ex)
             {
                 logger.Error(ex.Message + ":" + ex.StackTrace);
-                return new List<Course>();
+                return null;
             }
         }
 
@@ -105,6 +120,19 @@ namespace Backend.Services.Repository
                     {
                         entity.ModifiedAt = DateTime.Now;
                         db.Courses.AddOrUpdate(entity);
+                        LessonRepository lr = new LessonRepository();
+                        if (entity.Lessons is not null)
+                            foreach (Lesson lesson in entity.Lessons)
+                            {
+                                await lr.Update(lesson);
+                            }
+                        ExamRepository er = new ExamRepository();
+
+                        if (entity.Exam is not null)
+                            if (await er.Get(entity.Exam.Id) is not null)
+                            {
+                                await er.Update(entity.Exam);
+                            }
                         await db.SaveChangesAsync();
                         return true;
                     }

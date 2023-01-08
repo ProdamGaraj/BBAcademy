@@ -1,6 +1,5 @@
 ﻿using Backend.Models;
 using Backend.Services.Repository.Interfaces;
-using Microsoft.EntityFrameworkCore.Migrations;
 using NLog;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;

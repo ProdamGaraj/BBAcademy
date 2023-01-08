@@ -1,5 +1,4 @@
 ﻿using Backend.Models;
-using Backend.Services.Repository.ICRUD;
 using Backend.Services.Repository.Interfaces;
 using NLog;
 using System.Data.Entity;
@@ -7,7 +6,7 @@ using System.Data.Entity.Migrations;
 
 namespace Backend.Services.Repository
 {
-    public class ExamRepository:IExamRepository
+    public class ExamRepository : IExamRepository
     {
 
         Logger logger;
@@ -24,6 +23,15 @@ namespace Backend.Services.Repository
                     entity.CreatedAt = DateTime.Now;
                     entity.ModifiedAt = DateTime.Now;
                     db.Exams.Add(entity);
+                    QuestionRepository qr = new QuestionRepository();
+                    if (entity.Questions is not null)
+                        foreach (Question question in entity.Questions)
+                        {
+                            if (await qr.Get(question.Id) is not null)
+                            {
+                                db.Entry(question).State = EntityState.Unchanged;
+                            }
+                        }
                     await db.SaveChangesAsync();
                 }
                 return true;
@@ -41,7 +49,7 @@ namespace Backend.Services.Repository
             {
                 using (BBAcademyDb db = new BBAcademyDb())
                 {
-                    Exam Exam = await db.Exams.Include("ExamToQuestions").FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
+                    Exam Exam = await db.Exams.Include("Questions").FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
                     return Exam;
                 }
             }
@@ -58,7 +66,7 @@ namespace Backend.Services.Repository
             {
                 using (BBAcademyDb db = new BBAcademyDb())
                 {
-                    IList<Exam> myExam = await db.Exams.Include("ExamToQuestions").ToListAsync();
+                    IList<Exam> myExam = await db.Exams.Include("Questions").ToListAsync();
                     return myExam;
                 }
             }
@@ -108,6 +116,13 @@ namespace Backend.Services.Repository
                     {
                         entity.ModifiedAt = DateTime.Now;
                         db.Exams.AddOrUpdate(entity);
+
+                        QuestionRepository qr = new QuestionRepository();
+                        if (entity.Questions is not null)
+                            foreach (Question question in entity.Questions)
+                            {
+                                await qr.Update(question);
+                            }
                         await db.SaveChangesAsync();
                         return true;
                     }

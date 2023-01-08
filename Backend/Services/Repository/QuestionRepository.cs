@@ -1,5 +1,4 @@
 ﻿using Backend.Models;
-using Backend.Models.Enum;
 using Backend.Services.Repository.Interfaces;
 using NLog;
 using System.Data.Entity;
@@ -24,6 +23,15 @@ namespace Backend.Services.Repository
                     entity.CreatedAt = DateTime.Now;
                     entity.ModifiedAt = DateTime.Now;
                     db.Questions.Add(entity);
+                    AnswerRepository ar = new AnswerRepository();
+                    if (entity.Answers is not null)
+                        foreach (Answer lesson in entity.Answers)
+                        {
+                            if (await ar.Get(lesson.Id) is not null)
+                            {
+                                db.Entry(lesson).State = EntityState.Unchanged;
+                            }
+                        }
                     await db.SaveChangesAsync();
                 }
                 return true;
@@ -41,14 +49,14 @@ namespace Backend.Services.Repository
             {
                 using (BBAcademyDb db = new BBAcademyDb())
                 {
-                    Question Question = await db.Questions.Include("QuestionToAnswers").FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
+                    Question Question = await db.Questions.Include("Answers").FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
                     return Question;
                 }
             }
             catch (Exception ex)
             {
                 logger.Error(ex.Message + ":" + ex.StackTrace);
-                return new Question();
+                return null;
             }
         }
 
@@ -58,14 +66,14 @@ namespace Backend.Services.Repository
             {
                 using (BBAcademyDb db = new BBAcademyDb())
                 {
-                    IList<Question> myQuestion = await db.Questions.Include("QuestionToAnswers").ToListAsync();
+                    IList<Question> myQuestion = await db.Questions.Include("Answers").ToListAsync();
                     return myQuestion;
                 }
             }
             catch (Exception ex)
             {
                 logger.Error(ex.Message + ":" + ex.StackTrace);
-                return new List<Question>();
+                return null;
             }
         }
 
@@ -108,6 +116,12 @@ namespace Backend.Services.Repository
                     {
                         entity.ModifiedAt = DateTime.Now;
                         db.Questions.AddOrUpdate(entity);
+                        AnswerRepository ar = new AnswerRepository();
+                        if (entity.Answers is not null)
+                            foreach (Answer answer in entity.Answers)
+                            {
+                                await ar.Update(answer);
+                            }
                         await db.SaveChangesAsync();
                         return true;
                     }
@@ -142,7 +156,7 @@ namespace Backend.Services.Repository
             catch (Exception ex)
             {
                 logger.Error(ex.Message + ":" + ex.StackTrace);
-                return new List<Question>();
+                return null;
             }
         }
     }
