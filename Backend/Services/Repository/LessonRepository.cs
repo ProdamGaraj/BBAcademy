@@ -29,7 +29,7 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.StackTrace);
+                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return false;
             }
         }
@@ -46,7 +46,7 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.StackTrace);
+                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return new Lesson();
             }
         }
@@ -63,7 +63,7 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.StackTrace);
+                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return new List<Lesson>();
             }
         }
@@ -91,7 +91,7 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.StackTrace);
+                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return false;
             }
         }
@@ -119,7 +119,7 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.StackTrace);
+                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return false;
             }
         }

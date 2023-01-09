@@ -71,7 +71,7 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.StackTrace);
+                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return null;
             }
         }
@@ -91,14 +91,14 @@ namespace Backend.Services.Repository
                     }
                     else
                     {
+                        logger.Error("No such entity to mark");
                         return false;
                     }
                 }
             }
             catch (Exception ex)
             {
-                logger.Error("No such entity to mark");
-                logger.Error(ex.Message + ":" + ex.StackTrace);
+                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return false;
             }
         }
@@ -132,7 +132,7 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.StackTrace);
+                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return false;
             }
         }

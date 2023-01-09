@@ -38,7 +38,7 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.StackTrace);
+                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return false;
             }
         }
@@ -55,7 +55,7 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.StackTrace);
+                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return new Exam();
             }
         }
@@ -72,7 +72,7 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.StackTrace);
+                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return new List<Exam>();
             }
         }
@@ -100,7 +100,7 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.StackTrace);
+                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return false;
             }
         }
@@ -135,7 +135,7 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.StackTrace);
+                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return false;
             }
         }
