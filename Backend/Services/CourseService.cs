@@ -1,6 +1,8 @@
 ﻿using Backend.Models;
+using Backend.Models.Interfaces;
 using Backend.Models.Responce;
 using Backend.Services.Repository;
+using Backend.ViewModels;
 using Newtonsoft.Json;
 using NLog;
 
@@ -8,8 +10,9 @@ namespace Backend.Services
 {
     public class CourseService
     {
-        public async Task<BaseResponse<object>> GetCourses(User user)
+        public async Task<IBaseResponce<object>> GetCourses(CourseViewModel vm)
         {
+            var user = vm.User;
             Logger logger = LogManager.GetCurrentClassLogger();
             try
             {
@@ -32,7 +35,7 @@ namespace Backend.Services
             catch (Exception ex)
             {
                 logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
-                return new BaseResponse<object>() { Data = null, Description = "Get all courses for a user", StatusCode = Models.Enum.StatusCode.InternalServerError };
+                return new BaseResponse<object>() { Data = null, Description = ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace, StatusCode = Models.Enum.StatusCode.InternalServerError };
             }
         }
     }

@@ -1,6 +1,9 @@
 ﻿using Backend.Models;
+using Backend.Models.Enum;
+using Backend.Models.Interfaces;
 using Backend.Models.Responce;
 using Backend.Services.Repository;
+using Backend.ViewModels;
 using Newtonsoft.Json;
 using NLog;
 
@@ -9,26 +12,39 @@ namespace Backend.Services
     public class ExamService
     {
 
-        public async Task<Exam> CreateExamWithId(string description, string examType, List<long> ids)
+        public async Task<IBaseResponce<Exam>> CreateExamWithId(string description, string examType, List<long> ids)
         {
             Exam exam = new Exam(description, examType, new List<Question>());
+            IBaseResponce<Exam> responce = new BaseResponse<Exam>();
             foreach (long id in ids)
             {
                 QuestionRepository qr = new QuestionRepository();
                 exam.Questions.Add(await qr.Get(id));
             }
-            return exam;
+            return new BaseResponse<Exam>()
+            {
+                Data = exam,
+                Description = $"Exam with  Id: {exam.Id}. \nAndname: {exam.Name} \nAnd description: {exam.Description} \n was created at {DateTime.Now}",
+                StatusCode = StatusCode.OK
+            };
         }
-        public async Task<Exam> CreateExamWithType(string description, string examType, Dictionary<QuestionType, int> keyValues)
+        public async Task<IBaseResponce<Exam>> CreateExamWithType(string description, string examType, Dictionary<QuestionType, int> keyValues)
         {
             Exam exam = new Exam(description, examType, new List<Question>());
             QuestionRepository qr = new QuestionRepository();
             IList<Question> list = await qr.GetConditionalType(keyValues);
             exam.Questions = list;
-            return exam;
+            return new BaseResponse<Exam>()
+            {
+                Data = exam,
+                Description = $"Exam with type: {exam.ExamType}. \nAnd name:{exam.Name} \nAnd description:{exam.Description} \n was created at {DateTime.Now}",
+                StatusCode = StatusCode.OK
+            };
         }
-        public async Task<BaseResponse<object>> Check(User user, Course course)
+        public async Task<IBaseResponce<object>> Check(ExamViewModel vm)
         {
+            var course = vm.Course;
+            var user = vm.User;
             Logger logger = LogManager.GetCurrentClassLogger();
             try
             {
@@ -61,12 +77,12 @@ namespace Backend.Services
                 CertificateService cs = new CertificateService();
                 await cs.CreateCertificate(user, course, passed);
 
-                return new BaseResponse<object>() { Description = "Result of exam check", Data = ecr, StatusCode = Models.Enum.StatusCode.OK };
+                return new BaseResponse<object>() { Description = "Result of exam check", Data = ecr, StatusCode = StatusCode.OK };
             }
             catch (Exception ex)
             {
                 logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
-                return new BaseResponse<object>() { Data = null, Description = "Result of exam check", StatusCode = Models.Enum.StatusCode.InternalServerError };
+                return new BaseResponse<object>() { Data = null, Description = ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace, StatusCode = StatusCode.InternalServerError };
             }
         }
     }
