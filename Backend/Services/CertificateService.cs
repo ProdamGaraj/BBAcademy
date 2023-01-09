@@ -1,8 +1,11 @@
 ﻿using Backend.Models;
+using Backend.Models.Enum;
 using Backend.Models.Interfaces;
+using Backend.Models.Responce;
 using Backend.Services.Repository;
 using Backend.Services.Repository.Interfaces;
 using NLog;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Backend.Services
 {
@@ -13,10 +16,9 @@ namespace Backend.Services
         {
             logger = LogManager.GetCurrentClassLogger();
         }
-        public async Task<Certificate> CreateCertificate(User user, Course course, bool examPassed)
+        public async Task<IBaseResponce<Certificate>> CreateCertificate(User user, Course course, bool examPassed)
         {
             ICertificateRepository cr = new CertificateRepository();
-
             if (user != null && examPassed && course != null)
             {
                 try
@@ -29,15 +31,28 @@ namespace Backend.Services
                     };
                     user.Certificates.Add(certificate);
                     await cr.Add(certificate);
-                    return await cr.Get(certificate.Id);
+
+                    return new BaseResponse<Certificate>() {
+                        Data = certificate,
+                        Description = certificate.Name + "Got at" + DateTime.Now.ToString(),
+                        StatusCode = StatusCode.OK
+                    };
                 }
                 catch (Exception ex)
                 {
                     logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
-                    return null;
+                    return new BaseResponse<Certificate>()
+                    {
+                        Description = ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace,
+                        StatusCode = StatusCode.OK
+                    };
                 }
             }
-            return new Certificate() { };
+            return new BaseResponse<Certificate>()
+            {
+                        Description = "Conditions are not passed. Either uaer or course is null, or exam is not passed",
+                        StatusCode = StatusCode.InternalServerError
+                    }; 
         }
     }
 }
