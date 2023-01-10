@@ -19,12 +19,13 @@ internal class Program
 		builder.Services.AddControllersWithViews();
 		builder.Services.AddScoped<IAccountService, AccountService>();
         builder.Services.AddScoped<IUserRepository, UserRepository>();
-		builder.Services.AddScoped<IAnswerRepository,AnswerRepository> ();
-		builder.Services.AddScoped<ICertificateRepository,CertificateRepository> ();
-		builder.Services.AddScoped<ICourseRepository,CourseRepository> ();
-		builder.Services.AddScoped<IExamRepository,ExamRepository> ();
-		builder.Services.AddScoped<ILessonRepository,LessonRepository> ();
-		builder.Services.AddScoped<IQuestionRepository,QuestionRepository> ();
+		builder.Services.AddScoped<IAnswerRepository,AnswerRepository>();
+		builder.Services.AddScoped<ICertificateRepository,CertificateRepository>();
+		builder.Services.AddScoped<ICourseRepository,CourseRepository>();
+		builder.Services.AddScoped<IExamRepository,ExamRepository>();
+		builder.Services.AddScoped<ILessonRepository,LessonRepository>();
+		builder.Services.AddScoped<IQuestionRepository,QuestionRepository>();
+		builder.Services.AddScoped<BBAcademyDb>();
         var connection = builder.Configuration.GetConnectionString("DefaultConnection");
 
 		builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
