@@ -26,7 +26,12 @@ namespace Backend.Services
                 }
                 ExamRepository er = new ExamRepository();
                 CourseRepository cr = new CourseRepository();
-                Exam exam = await er.Get((await cr.Get(vm.Course.Id)).Id);
+                List<long> passedExam = JsonConvert.DeserializeObject<List<long>>(vm.User.PassedCoursesId);
+                if (passedExam.Contains(vm.Course.Id))
+                {
+                    throw new Exception("this course was already passed");
+                }
+                Exam exam = (await cr.Get(vm.Course.Id)).Exam;
                 return new BaseResponse<Exam>()
                 {
                     Data = exam,

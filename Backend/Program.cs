@@ -25,6 +25,7 @@ internal class Program
 		builder.Services.AddScoped<IExamRepository,ExamRepository> ();
 		builder.Services.AddScoped<ILessonRepository,LessonRepository> ();
 		builder.Services.AddScoped<IQuestionRepository,QuestionRepository> ();
+        builder.Services.AddScoped<BBAcademyDb>();
         var connection = builder.Configuration.GetConnectionString("DefaultConnection");
 
 		builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

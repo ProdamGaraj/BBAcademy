@@ -70,7 +70,7 @@ namespace Backend.Services.Repository
             {
                 using (BBAcademyDb db = new BBAcademyDb())
                 {
-                    User User = await db.Users.Include("Certificates").Include("Courses").Include("SolvedLessons").FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
+                    User User = await db.Users.Include("Certificates").Include("BoughtCourses").Include("SolvedLessons").FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
                     return User;
                 }
             }
