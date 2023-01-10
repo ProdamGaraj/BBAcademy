@@ -10,7 +10,6 @@
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "Backend.BBAcademyDb";
         }
 
         protected override void Seed(Backend.BBAcademyDb context)

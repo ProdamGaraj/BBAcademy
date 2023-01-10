@@ -11,35 +11,95 @@ namespace Backend.Services
 {
     public class ExamService
     {
+        public async Task<IBaseResponce<Exam>> GetExamForUser(ExamViewModel vm)
+        {
+            Logger logger = LogManager.GetCurrentClassLogger();
+            try
+            {
+                if (vm.User == null||long.Parse(vm.User.PassedCoursesId) == vm.Course.Id)
+                {
+                    return new BaseResponse<Exam>()
+                    {
+                        Description = "User is null",
+                        StatusCode = StatusCode.InternalServerError
+                    };
+                }
+                ExamRepository er = new ExamRepository();
+                CourseRepository cr = new CourseRepository();
+                Exam exam = await er.Get((await cr.Get(vm.Course.Id)).Id);
+                return new BaseResponse<Exam>()
+                {
+                    Data = exam,
+                    Description = $"Exam for User: {vm.User.Name}.  \n was given at {DateTime.Now}",
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                return new BaseResponse<Exam>()
+                {
+                    Description = ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace,
+                    StatusCode = StatusCode.OK
+                };
+            }
+        }
 
         public async Task<IBaseResponce<Exam>> CreateExamWithId(string description, string examType, List<long> ids)
         {
-            Exam exam = new Exam(description, examType, new List<Question>());
-            IBaseResponce<Exam> responce = new BaseResponse<Exam>();
-            foreach (long id in ids)
+            Logger logger = LogManager.GetCurrentClassLogger();
+            try
             {
-                QuestionRepository qr = new QuestionRepository();
-                exam.Questions.Add(await qr.Get(id));
+                Exam exam = new Exam(description, examType, new List<Question>());
+                foreach (long id in ids)
+                {
+                    QuestionRepository qr = new QuestionRepository();
+                    exam.Questions.Add(await qr.Get(id));
+                }
+                return new BaseResponse<Exam>()
+                {
+                    Data = exam,
+                    Description = $"Exam with  Id: {exam.Id}. \nAndname: {exam.Name} \nAnd description: {exam.Description} \n was created at {DateTime.Now}",
+                    StatusCode = StatusCode.OK
+                };
             }
-            return new BaseResponse<Exam>()
+            catch (Exception ex)
             {
-                Data = exam,
-                Description = $"Exam with  Id: {exam.Id}. \nAndname: {exam.Name} \nAnd description: {exam.Description} \n was created at {DateTime.Now}",
-                StatusCode = StatusCode.OK
-            };
+                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                return new BaseResponse<Exam>()
+                {
+                    Description = ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace,
+                    StatusCode = StatusCode.OK
+                };
+            }
+            
         }
         public async Task<IBaseResponce<Exam>> CreateExamWithType(string description, string examType, Dictionary<QuestionType, int> keyValues)
         {
-            Exam exam = new Exam(description, examType, new List<Question>());
-            QuestionRepository qr = new QuestionRepository();
-            IList<Question> list = await qr.GetConditionalType(keyValues);
-            exam.Questions = list;
-            return new BaseResponse<Exam>()
+            Logger logger = LogManager.GetCurrentClassLogger();
+            try
             {
-                Data = exam,
-                Description = $"Exam with type: {exam.ExamType}. \nAnd name:{exam.Name} \nAnd description:{exam.Description} \n was created at {DateTime.Now}",
-                StatusCode = StatusCode.OK
-            };
+                Exam exam = new Exam(description, examType, new List<Question>());
+                QuestionRepository qr = new QuestionRepository();
+                IList<Question> list = await qr.GetConditionalType(keyValues);
+                exam.Questions = list;
+                return new BaseResponse<Exam>()
+                {
+                    Data = exam,
+                    Description = $"Exam with type: {exam.ExamType}. \nAnd name:{exam.Name} \nAnd description:{exam.Description} \n was created at {DateTime.Now}",
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                return new BaseResponse<Exam>()
+                {
+                    Description = ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace,
+                    StatusCode = StatusCode.OK
+                };
+            }
+
         }
         public async Task<IBaseResponce<object>> Check(ExamViewModel vm)
         {
