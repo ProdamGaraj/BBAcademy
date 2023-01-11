@@ -29,7 +29,7 @@ namespace Backend.Services
                 List<long> passedExam = JsonConvert.DeserializeObject<List<long>>(vm.User.PassedCoursesId);
                 if (passedExam.Contains(vm.Course.Id))
                 {
-                    throw new Exception("this course was already passed");
+                    throw new Exception("This course was already passed");
                 }
                 Exam exam = (await cr.Get(vm.Course.Id)).Exam;
                 return new BaseResponse<Exam>()
@@ -45,7 +45,7 @@ namespace Backend.Services
                 return new BaseResponse<Exam>()
                 {
                     Description = ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace,
-                    StatusCode = StatusCode.OK
+                    StatusCode = StatusCode.InternalServerError
                 };
             }
         }
@@ -74,7 +74,7 @@ namespace Backend.Services
                 return new BaseResponse<Exam>()
                 {
                     Description = ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace,
-                    StatusCode = StatusCode.OK
+                    StatusCode = StatusCode.InternalServerError
                 };
             }
             
@@ -101,7 +101,7 @@ namespace Backend.Services
                 return new BaseResponse<Exam>()
                 {
                     Description = ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace,
-                    StatusCode = StatusCode.OK
+                    StatusCode = StatusCode.InternalServerError
                 };
             }
 
@@ -147,7 +147,9 @@ namespace Backend.Services
             catch (Exception ex)
             {
                 logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
-                return new BaseResponse<object>() { Data = null, Description = ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace, StatusCode = StatusCode.InternalServerError };
+                return new BaseResponse<object>() { 
+                    Description = ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace, 
+                    StatusCode = StatusCode.InternalServerError };
             }
         }
     }
