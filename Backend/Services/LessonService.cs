@@ -21,7 +21,7 @@ namespace Backend.Services
                 if (vm.User.BoughtCourses.Contains(vm.Course))
                     throw new Exception("This course was not bought");
 
-                return new BaseResponse<ICollection<Lesson>>() { Data = vm.Course.Lessons, Description = "Get all courses for a user", StatusCode = Models.Enum.StatusCode.OK };
+                return new BaseResponse<ICollection<Lesson>>() { Data = vm.Course.Lessons, Description = "Get all lessons for course", StatusCode = Models.Enum.StatusCode.OK };
             }
             catch (Exception ex)
             {
