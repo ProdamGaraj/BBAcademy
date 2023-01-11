@@ -16,7 +16,13 @@ namespace Backend.Services
             Logger logger = LogManager.GetCurrentClassLogger();
             try
             {
-                if (vm.User == null||long.Parse(vm.User.PassedCoursesId) == vm.Course.Id)
+
+                CourseRepository cr = new CourseRepository();
+                UserRepository ur = new UserRepository();
+                var course = await cr.Get(vm.Course.Id);
+                var user = await ur.Get(vm.User.Id);
+
+                if (user == null||long.Parse(user.PassedCoursesId) == vm.Course.Id)
                 {
                     return new BaseResponse<Exam>()
                     {
@@ -25,17 +31,16 @@ namespace Backend.Services
                     };
                 }
                 ExamRepository er = new ExamRepository();
-                CourseRepository cr = new CourseRepository();
-                List<long> passedExam = JsonConvert.DeserializeObject<List<long>>(vm.User.PassedCoursesId);
-                if (passedExam.Contains(vm.Course.Id))
+                List<long> passedExam = JsonConvert.DeserializeObject<List<long>>(user.PassedCoursesId);
+                if (passedExam.Contains(course.Id))
                 {
                     throw new Exception("This course was already passed");
                 }
-                Exam exam = (await cr.Get(vm.Course.Id)).Exam;
+                Exam exam = (await cr.Get(course.Id)).Exam;
                 return new BaseResponse<Exam>()
                 {
                     Data = exam,
-                    Description = $"Exam for User: {vm.User.Name}.  \n was given at {DateTime.Now}",
+                    Description = $"Exam for User: {user.Name}.  \n was given at {DateTime.Now}",
                     StatusCode = StatusCode.OK
                 };
             }
@@ -108,8 +113,10 @@ namespace Backend.Services
         }
         public async Task<IBaseResponce<object>> Check(ExamViewModel vm)
         {
-            var course = vm.Course;
-            var user = vm.User;
+            CourseRepository cr = new CourseRepository();
+            UserRepository ur = new UserRepository();
+            var course = await cr.Get(vm.Course.Id);
+            var user = await ur.Get(vm.User.Id);
             Logger logger = LogManager.GetCurrentClassLogger();
             try
             {
@@ -136,7 +143,6 @@ namespace Backend.Services
                 {
                     ids.Add(course.Id);
                     user.PassedCoursesId = JsonConvert.SerializeObject(ids);
-                    UserRepository ur = new UserRepository();
                     await ur.Update(user);
                 }
                 CertificateService cs = new CertificateService();
