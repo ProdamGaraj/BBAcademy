@@ -115,9 +115,7 @@ Console.WriteLine("Marking as deleted");
 await ur.MarkAsDeleted(User);
 User = await ur.Get(User.Id);
 List<long> ids = new List<long>();
-
 List<Question> questions = new List<Question>();
-
 Question = new Question("Goodbyes", QuestionType.Business, null);
 await qr.Add(Question);
 ids.Add(Question.Id);

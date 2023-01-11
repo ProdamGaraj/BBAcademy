@@ -12,7 +12,8 @@ namespace Backend.Services
     {
         public async Task<IBaseResponce<object>> GetCourses(CourseViewModel vm)
         {
-            var user = vm.User;
+            UserRepository ur = new UserRepository();
+            var user = await ur.Get(vm.User.Id);
             Logger logger = LogManager.GetCurrentClassLogger();
             try
             {
