@@ -36,7 +36,7 @@
 
   <ItemGroup>
     <None Include="Views\Home\Index.cshtml" />
-    <None Include="wwwroot\css\Bilmbank.css" />
+    <None Include="wwwroot\css\Bilimbank.css" />
     <None Include="wwwroot\css\Course.css" />
     <None Include="wwwroot\css\Course1.css" />
     <None Include="wwwroot\css\Course2.css" />
