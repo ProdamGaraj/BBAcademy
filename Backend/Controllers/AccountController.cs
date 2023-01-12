@@ -17,6 +17,9 @@ namespace Backend.Controllers
         }
 
         [HttpGet]
+        public IActionResult Index() => View();
+
+        [HttpGet]
         public IActionResult Register() => View();
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel vm)

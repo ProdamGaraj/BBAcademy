@@ -1,0 +1,237 @@
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Main page";
+}
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Bilimbank</title>
+	<link rel="stylesheet" type="text/css" href="Bilmbank.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+	<div id="mypopup" class="mypopup1">
+		<div class="reg-block">
+			<div class="reg-log">
+				<button type="button" id="reg-block-reg" class="reg-block-reg">Регистрация</button>
+				<button type="button" id="reg-block-log" class="reg-block-log">Вход</button>
+			</div>
+			<form id="log-form" class="log-block-form">
+				<div class="log-container">
+					<label for="email">Логин</label>
+					<input class="reg-log-input" type="text" placeholder="Enter Email" name="email" required>
+
+					<label for="psw">Пароль</label>
+					<input class="reg-log-input" type="password" placeholder="Enter Password" name="psw" required>
+
+					<button type="submit" class="registerbtn">Login</button>
+				</div>
+			</form>
+			<form id="reg-form" class="reg-block-form">
+				<div class="reg-container">
+					<label for="last_name">Фамилия</label>
+					<input class="reg-log-input" type="text" placeholder="Введите фамилию" name="email" required>
+
+					<label for="Name">Имя</label>
+					<input class="reg-log-input" type="text" placeholder="Введите имя" name="psw" required>
+
+					<label for="third_name">Отчество</label>
+					<input class="reg-log-input" type="text" placeholder="Введите отчество" name="psw" required>
+
+					<div class="for-check-box">
+						<label for="third_name">Если вы являетесь сотрудником банка, укажите банк <br> (необязательное поле)</label>
+						<input class="bank-empl" type="checkbox">
+					</div>
+					<select id="standard-select">
+						<option value="Option 1">Option 1</option>
+						<option value="Option 2">Option 2</option>
+						<option value="Option 3">Option 3</option>
+						<option value="Option 4">Option 4</option>
+						<option value="Option 5">Option 5</option>
+						<option value="Option length">Option that has too long of a value to fit</option>
+					</select>
+
+					<button type="submit" class="registerbtn">Register</button>
+				</div>
+			</form>
+		</div>
+
+
+	</div>
+	<div class="block-learn-in">
+		<img class="block-learn-in_left-section" src="pict\guy3.png">
+		<div class="block-learn-in_right-section">
+			<div class="block-learn-in_right-section-top">
+				<div class="block-learn-in_right-section-top-top">Учись <br> в BilimBank</div>
+				<div class="block-learn-in_right-section-top-bot">Увеличивай свой профессиональный капитал</div>
+			</div>
+			<div class="block-learn-in_right-section-bot"></div>
+		</div>
+	</div>
+	<div class="adv-learn">
+		<div class="adv-top">
+			Инвестируй в себя
+		</div>
+		<div class="adv-learn-right">
+			<div class="adv-learn-right-block">
+				<div class="adv-card-book">
+					<img class="book-svg" src="pict\book.svg">
+				</div>
+				<div class="card-text">Широкий выбор <br>курсов</div>
+			</div>
+			<div class="adv-learn-right-block">
+				<div class="adv-card-book">
+					<img class="book-svg" src="pict\book.svg">
+				</div>
+				<div class="card-text">Система <br>рейтинга</div>
+			</div>
+			<div class="adv-learn-right-block">
+				<div class="adv-card-book">
+					<img class="book-svg" src="pict\book.svg">
+				</div>
+				<div class="card-text">Автоматическая проверка работы</div>
+			</div>
+			<div class="adv-learn-right-block">
+				<div class="adv-card-book">
+					<img class="book-svg" src="pict\book.svg">
+				</div>
+				<div class="card-text">Комуникация <br>с преподавателем</div>
+			</div>
+		</div>
+	</div>
+	<div class="video-block"></div>
+	<div class="category_and_popular">
+		<div class="category">
+			<div class="category-top">
+				<div class="category-top-left">Категории</div>
+				<div class="category-top-right">Показать больше</div>
+			</div>
+			<div class="category-bot">
+				<div class="category-bot-block">
+					<div class="category-bot-block-text">
+						<div class="category-bot-block-text-1">
+							Банкинг
+						</div>
+						<div class="category-bot-block-text-2">
+							14 курсов
+						</div>
+					</div>
+					<img class="category-percent" src="pict\percent.svg">
+					<div class="cat-circle-1"></div>
+				</div>
+				<div class="category-bot-block">
+					<div class="category-bot-block-text">
+						<div class="category-bot-block-text-1">
+							Банкинг
+						</div>
+						<div class="category-bot-block-text-2">
+							14 курсов
+						</div>
+					</div>
+					<img class="category-percent" src="pict\percent.svg">
+					<div class="cat-circle-2"></div>
+				</div>
+				<div class="category-bot-block">
+					<div class="category-bot-block-text">
+						<div class="category-bot-block-text-1">
+							Банкинг
+						</div>
+						<div class="category-bot-block-text-2">
+							14 курсов
+						</div>
+					</div>
+					<img class="category-percent" src="pict\percent.svg">
+					<div class="cat-circle-3"></div>
+				</div>
+				<div class="category-bot-block">
+					<div class="category-bot-block-text">
+						<div class="category-bot-block-text-1">
+							Банкинг
+						</div>
+						<div class="category-bot-block-text-2">
+							14 курсов
+						</div>
+					</div>
+					<img class="category-percent" src="pict\percent.svg">
+					<div class="cat-circle-4"></div>
+				</div>
+			</div>
+		</div>
+		<div class="popular">
+			<div class="popular-top">
+				<div class="popular-top-left">Популярные курсы</div>
+			</div>
+			<div class="popular-bot">
+				<div class="popular-bot-block">
+					<img class="popular-bot-block" src="pict\photo.png">
+					<div class="popular-bot-block-deco-1">
+						<div class="popular-bot-block-deco-title">Курс: инвестиции<br> для начинающих</div>
+					</div>
+				</div>
+				<div class="popular-bot-block">
+					<img class="popular-bot-block" src="pict\photo.png">
+					<div class="popular-bot-block-deco-2">
+						<div class="popular-bot-block-deco-title">Курс: инвестиции<br> для начинающих</div>
+					</div>
+				</div>
+				<div class="popular-bot-block">
+					<img class="popular-bot-block" src="pict\photo.png">
+					<div class="popular-bot-block-deco-3">
+						<div class="popular-bot-block-deco-title">Курс: инвестиции<br> для начинающих</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<button class="show_more">
+			Показать больше
+		</button>
+	</div>
+	<div class="mobility">
+		<div class="mobility-left">
+			<div class="mobility-left-top">
+				<div class="mobility-left-top-1">Ещё больше стабильности, ещё больше комфорта</div>
+				<div class="mobility-left-top-2">Наше мобильное приложение скоро в гугл плэй и эппл стор</div>
+			</div>
+			<button class="mobility-left-download">Скачать</button>
+		</div>
+		<div class="mobility-right">
+			<img src="pict\Mask group.png">
+		</div>
+	</div>
+	<div class="partners">
+		<div class="partners-top">Наши партнёры</div>
+		<div class="partners-photo-block">
+			<img class="partners-photo" src="pict\partn.png">
+			<img class="partners-photo" src="pict\partn.png">
+			<img class="partners-photo" src="pict\partn.png">
+			<img class="partners-photo" src="pict\partn.png">
+			<img class="partners-photo" src="pict\partn.png">
+			<img class="partners-photo" src="pict\partn.png">
+		</div>
+	</div>
+	<script type="text/javascript">
+		let popup = document.getElementById('mypopup'),
+			popopTooggle = document.getElementById('myBtn');
+
+
+		popopTooggle.onclick = function () {
+			popup.style.display = "block";
+		}
+		window.onclick = function (e) {
+			if (e.target == popup) {
+				popup.style.display = "none"
+			}
+		}
+
+		let logbut = document.getElementById("reg-block-log"),
+			log = document.getElementById("log-form")
+		if (logbut.clicked == true) {
+			log.style.display = "block"
+		}
+	</script>
+</body>
+</html>

@@ -3,7 +3,8 @@
     Layout = "_Layout";
     ViewBag.Title = "Регистрация";
 }
-
+<link rel="stylesheet" type="text/css" href="My account.css">
+<link rel="stylesheet" type="text/css" href="Bilmbank.css">
 <div style="padding: 20px;"></div>
 
 <div class="container py-5">
@@ -18,6 +19,15 @@
                         </div>
                         <div class="card-body">
                             <form asp-controller="Account" asp-action="Register">
+                                <div asp-validation-summary="All" style="font-size:23px; font-family:Impact" class="text-danger text-center"></div>
+                                <div class="form-group">
+                                    <input asp-for="Name" placeholder="Логин" class="form-control textbox-dg font-weight-bold text-center" type="text">
+                                    <div class="form-text">Длина логина должна быть от 3 до 20 символов.</div>
+                                </div>
+                                <div class="form-group">
+                                    <input autocomplete="new-password" asp-for="Password" placeholder="Пароль" class="form-control textbox-dg font-weight-bold text-center" type="password">
+                                </div>
+                                <div class="d-grid gap-2 d-md-block float-right">
                                 <div asp-validation-summary="All" style="font-size:23px; font-family:Impact" class="text-danger text-center"></div>
                                 <div class="form-group">
                                     <input asp-for="Name" class="form-control textbox-dg font-weight-bold text-center" placeholder="Имя" type="text">
