@@ -57,14 +57,11 @@ internal class Program
 
 		app.MapControllerRoute(
 			name: "default",
-			pattern: "{controller=AccountController}/{action=Index}/{id?}");
+			pattern: "{controller=Home}/{action=Index}/{id?}");
 
 
 		using var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
 		using var dc = serviceScope.ServiceProvider.GetRequiredService<BBAcademyDb>();
-
-
-
 		app.Run();
 	}
 	public static IWebHost BuildWebHost(string[] args)=>

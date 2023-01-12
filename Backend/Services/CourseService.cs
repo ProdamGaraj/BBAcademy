@@ -39,5 +39,32 @@ namespace Backend.Services
                 return new BaseResponse<object>() { Data = null, Description = ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace, StatusCode = Models.Enum.StatusCode.InternalServerError };
             }
         }
+        public async Task<IBaseResponce<Course>> GetCourse(BuyViewModel vm)
+        {
+            Logger logger = LogManager.GetCurrentClassLogger();
+            try
+            {
+                CourseRepository cr = new CourseRepository();
+                UserRepository ur = new UserRepository();
+                var course = await cr.Get(vm.Course.Id);
+                var user = await ur.Get(vm.User.Id);
+                List<long> ids = JsonConvert.DeserializeObject<List<long>>(user.PassedCoursesId);
+                if (ids.Contains(course.Id))
+                    throw new Exception("This course was already passed");
+                if (!user.BoughtCourses.Contains(course))
+                    throw new Exception("This course was not bought");
+                return new BaseResponse<Course>() { Data = await cr.Get(vm.Course.Id), Description = "Get course for a user", StatusCode = Models.Enum.StatusCode.OK };
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                return new BaseResponse<Course>()
+                {
+                    Data = null,
+                    Description = ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace,
+                    StatusCode = Models.Enum.StatusCode.InternalServerError
+                };
+            }
+        }
     }
 }
