@@ -9,7 +9,7 @@ namespace Backend.Controllers
     public class CourseController : Controller
     {
 		[HttpGet]
-		public IActionResult Index()
+		public IActionResult Course()
         {
             return View();
         }
@@ -23,6 +23,15 @@ namespace Backend.Controllers
             {
                 CourseService cs = new CourseService();
                 vm.Course = (await cs.GetCourse(vm)).Data;
+            }
+            return View(vm);
+        }
+        [HttpPost]
+        public async Task<IActionResult> NextLesson(CourseViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                vm.CurrentLesson = vm.AllLessons.ElementAt(vm.AllLessons.IndexOf(vm.CurrentLesson)+1);
             }
             return View(vm);
         }
