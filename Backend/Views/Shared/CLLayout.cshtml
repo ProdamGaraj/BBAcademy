@@ -38,10 +38,33 @@
 			</div>
 		</div>
 	</header>
-	<div class="container">
-		<main role="main" class="pb-3">
-			@RenderBody()
-		</main>
+	<div class="main-container">
+		<div class="main-container-cont">
+			<div class="main-container-list">
+				<div class="main-container-list-p-flex">
+					<p class="main-container-list-p">Введение в банковскую деятельность</p>
+					<img src="pict\half-left-arrow.svg">
+				</div>
+
+				<ul class="main-ul">
+					<li>Введение</li>
+					<li>Ссылки и материалы</li>
+					<li>Блок 1</li>
+					<ul>
+						<li class="not-main-li">Урок 1</li>
+						<li>Урок 2</li>
+						<li>Урок 3</li>
+					</ul>
+					<li>Тест</li>
+					<li>Заключение и сертификат</li>
+				</ul>
+			</div>
+			<div class="container">
+				<main role="main" class="pb-3">
+					@RenderBody()
+				</main>
+			</div>
+		</div>
 	</div>
 	<footer>
 		<div class="footer-container">
@@ -61,11 +84,11 @@
 			<div class="footer-right">
 				<div class="footer-element">
 					<img class="footer-icon" src="pict\foot_teleg.png">
-					@bilimbank
+					bilimbank
 				</div>
 				<div class="footer-element">
 					<img class="footer-icon" src="pict\foot_inst.png">
-					@bilimbank
+					bilimbank
 				</div>
 			</div>
 		</div>

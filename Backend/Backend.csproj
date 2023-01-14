@@ -31,7 +31,6 @@
 
   <ItemGroup>
     <Folder Include="Views\Exam\" />
-    <Folder Include="Views\Certificate\" />
   </ItemGroup>
 
   <ItemGroup>

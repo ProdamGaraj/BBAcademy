@@ -8,7 +8,8 @@ namespace Backend.Controllers
 {
     public class CourseController : Controller
     {
-        public IActionResult Index()
+		[HttpGet]
+		public IActionResult Index()
         {
             return View();
         }
