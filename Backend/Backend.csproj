@@ -30,10 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Exam\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="Views\Home\Index.cshtml" />
     <None Include="wwwroot\css\Bilimbank.css" />
     <None Include="wwwroot\css\Course.css" />
