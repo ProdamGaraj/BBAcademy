@@ -16,7 +16,6 @@ namespace Backend.Controllers
         public CourseController(IAccountService _accountService)
         {
             accountService = _accountService;
-            return View();
         }
         [HttpGet]
 		public async Task<IActionResult> Index(CourseViewModel vm)

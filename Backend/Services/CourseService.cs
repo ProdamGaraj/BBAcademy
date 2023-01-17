@@ -70,9 +70,6 @@ namespace Backend.Services
 				if (!user.BoughtCourses.Contains(course))
 						return new BaseResponse<CourseViewModel>() { Description = "You haven`t buy this course yet", StatusCode = Models.Enum.StatusCode.InternalServerError };
 				return new BaseResponse<CourseViewModel>() { Data = vm, Description = "Get course for a user", StatusCode = Models.Enum.StatusCode.OK };
-                if (!user.BoughtCourses.Contains(course))
-                    return new BaseResponse<Course>() { Description = "You haven`t buy this course yet", StatusCode = Models.Enum.StatusCode.InternalServerError };
-                return new BaseResponse<Course>() { Data = await cr.Get(vm.Course.Id), Description = "Get course for a user", StatusCode = Models.Enum.StatusCode.OK };
             }
             catch (Exception ex)
             {

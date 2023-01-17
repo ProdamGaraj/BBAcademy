@@ -144,7 +144,7 @@ namespace Backend.Services
                     await ur.Update(user);
                 }
                 CertificateService cs = new CertificateService();
-                await cs.CreateCertificate(user, vm.Course, passed);
+                await cs.CreateCertificate(vm);
 
                 return new BaseResponse<object>() { Description = "Result of exam check", Data = ecr, StatusCode = StatusCode.OK };
             }
