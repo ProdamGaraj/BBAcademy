@@ -8,14 +8,15 @@
     Layout = "LKLayout";
     ViewBag.Title = "Вход в аккаунт";
 }
-@if (!User.Identity.IsAuthenticated)
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@if (User.Identity.IsAuthenticated)
 {
     <link rel="stylesheet" type="text/css" href="~css/MyAccount.css">
 <div class="main-container">
     <div class="account-data">
         <div class="user_data">
                 <img class="user_data-photo" src="~/pict/ur_photo.png">
-            <div class="user_data-username">kuznetsov_an</div>
+            <div class="user_data-username">@User.Identity.Name</div>
         </div>
         <div class="user_info">
             <div class="user_info-block">
@@ -97,7 +98,7 @@
                     <input class="lb_inpt_acc-inpt" type="text" name="email" required>
                 </div>
 
-                <button type="submit" class="registerbtn">Сохранить изменения</button>
+                <button type="submit" class="registerbtn">Выйти</button>
             </form>
         </div>
 

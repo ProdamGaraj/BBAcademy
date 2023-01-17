@@ -7,6 +7,9 @@ namespace Backend
 {
     public class BBAcademyDb : DbContext
     {
+        public BBAcademyDb()
+        : base("BBAcademyDb")
+        { }
         //public BBAcademyDb()
         //{
         //

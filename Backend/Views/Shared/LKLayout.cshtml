@@ -34,9 +34,15 @@
                 <a class="header-container-rightside-icon" href="#">
                     <img src="~/pict/bell.svg">
                 </a>
-                <a class="ur_photo" href="#">
+                @{if (User.Identity.IsAuthenticated){
+                <a class="ur_photo" asp-controller="Account" asp-action="Logout">
                     <img src="~/pict/ur_photo.png">
                 </a>
+                }else{
+                <a class="ur_photo" asp-asp-controller="Account" asp-action="Login" >
+                    <img src="~/pict/ur_photo.png">
+                </a>
+                }}
             </div>
         </div>
     </header>

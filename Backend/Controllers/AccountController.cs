@@ -49,13 +49,14 @@ namespace Backend.Controllers
                 {
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                         new ClaimsPrincipal(responce.Data));
-                    return RedirectToAction("Index", "Course");
+                    return RedirectToAction("Index", "Account");
                 }
                 ModelState.AddModelError("", responce.Description);
             }
             return View(vm);
         }
-        [ValidateAntiForgeryToken]
+
+        [HttpGet]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

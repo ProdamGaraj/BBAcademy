@@ -87,7 +87,7 @@ namespace Backend.Services.Repository
             {
                 using (BBAcademyDb db = new BBAcademyDb())
                 {
-                    IList<User> myUser = await db.Users.Include("Certificates").Include("Courses").Include("SolvedLessons").ToListAsync();
+                    IList<User> myUser = await db.Users.Include("Certificates").Include("BoughtCourses").Include("SolvedLessons").ToListAsync();
                     return myUser;
                 }
             }

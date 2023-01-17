@@ -20,7 +20,7 @@ builder.Logging.ClearProviders();
 builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
 
 builder.Services.AddControllersWithViews();
-var connection = builder.Configuration.GetConnectionString("DefaultConnection");
+//var connection = builder.Configuration.GetConnectionString("DefaultConnection");
 //builder.Services.AddDbContext<BBAcademyDb>(options=>
 //					options.UseSqlServer(connection));
 builder.Services.AddScoped<IAccountService, AccountService>();
@@ -32,7 +32,6 @@ builder.Services.AddScoped<IExamRepository, ExamRepository>();
 builder.Services.AddScoped<ILessonRepository, LessonRepository>();
 builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
 builder.Services.AddScoped<BBAcademyDb>();
-
 builder.Services.AddRazorPages();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
