@@ -1,4 +1,5 @@
-﻿using Backend.Models.Responce;
+﻿using Backend.Models;
+using Backend.Models.Responce;
 using Backend.ViewModels;
 using System.Security.Claims;
 
@@ -11,5 +12,7 @@ namespace Backend.Services.AccountService.Interfaces
         Task<BaseResponse<ClaimsIdentity>> Login(LoginViewModel vm);
 
         Task<BaseResponse<bool>> ChangePassword(ChangePasswordViewModel vm);
+
+        Task<BaseResponse<User>> GetUserByLogin(string login);
     }
 }

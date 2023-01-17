@@ -4,7 +4,8 @@
     ViewBag.Title = "Вход в аккаунт";
 }
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-<link rel="stylesheet" type="text/css" href="Bilmbank.css">
+<link rel="stylesheet" type="text/css" href="~/css/Bilmbank.css">
+<link rel="stylesheet" type="text/css" href="~/css/log_form.css">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,10 +27,12 @@
 
             <div class="d-grid gap-2 d-md-block float-right">
 
-                <button type="submit" class="registerbtn"  @*{asp-controller="Account" asp-action="Login"}*@>
-                     <div class="log-in-btn">Войти</div>
+                <button type="submit" class="registerbtn" @*{asp-controller="Account" asp-action="Login"}*@>
+                    <div class="log-in-btn">Войти</div>
                 </button>
+                <a class="registerbtn" asp-controller="Account" asp-action="Register">Зарегистрироваться</a>
             </div>
+
         </div>
     </form>
 </div>

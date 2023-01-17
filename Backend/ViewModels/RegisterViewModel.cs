@@ -16,6 +16,10 @@ namespace Backend.ViewModels
         [RegularExpression(@"^[a-zA-Zа-яА-Я]+$", ErrorMessage = "This field must contain only Russian and English letters.")]
         public string LastName { get; set; }
 
+        [Required(ErrorMessage = "Email required")]
+        [RegularExpression(@"^\\S+@\\S+\\.\\S+$", ErrorMessage = "Frong Email format.")]
+        public string Email { get; set; }
+
         [Required(ErrorMessage = "Login required")]
         [RegularExpression(@"^[a-zA-Z0-9]+$", ErrorMessage = "This field must contain only English letters and numbers.")]
         public string Login { get; set; }

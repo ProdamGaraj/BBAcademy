@@ -18,6 +18,25 @@ namespace Backend.Services.AccountService
             userRepository = _userRepository;
         }
 
+        public async Task<BaseResponse<User>> GetUserByLogin(string login)
+        {
+            var users = await userRepository.GetAll();
+            var user = users.FirstOrDefault(x => x.Login == login);
+            if (user is null)
+            {
+                return new BaseResponse<User>()
+                {
+                    Description = "User not found",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+            return new BaseResponse<User>() {
+                Data = user,
+                Description = "User has been found",
+                StatusCode = StatusCode.OK
+            };
+        }
+
         public async Task<BaseResponse<ClaimsIdentity>> Register(RegisterViewModel vm)
         {
             try

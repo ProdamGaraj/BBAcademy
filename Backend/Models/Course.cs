@@ -6,6 +6,7 @@ namespace Backend.Models
 {
     public class Course : Entity
     {
+        public string MediaPath { get; set; }
         public string Duration { get; set; }
         public string Description { get; set; }
         public CourseType CourseType { get; set; }
@@ -15,8 +16,9 @@ namespace Backend.Models
         {
 
         }
-        public Course(string duration, string description, CourseType courseType, ICollection<Lesson> lessons, Exam exam,bool deleted= false)
+        public Course(string mediaPath, string duration, string description, CourseType courseType, ICollection<Lesson> lessons, Exam exam,bool deleted= false)
         {
+            MediaPath= mediaPath;
             Duration = duration;
             Description = description;
             CourseType = courseType;

@@ -7,5 +7,6 @@ namespace Backend.ViewModels
         public List<Course> AllCourses { get; set; }
         public List<Course> BoughtCourses { get; set; }
         public List<Course> EndedCourses { get; set; }
+        public string filter { get; set; }
     }
 }
