@@ -95,7 +95,7 @@ footer{
 	width: 550px;
 	display: flex;
 	flex-direction: column;
-	margin-top: 50px;
+	margin-top: 0px;
 }
 .reg-log-input{
 	width: 548px;
