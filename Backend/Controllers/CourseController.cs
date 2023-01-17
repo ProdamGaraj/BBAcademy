@@ -1,5 +1,6 @@
 ﻿using Backend.Models;
 using Backend.Services;
+using Backend.Services.AccountService;
 using Backend.Services.Repository;
 using Backend.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -9,8 +10,11 @@ namespace Backend.Controllers
     public class CourseController : Controller
     {
 		[HttpGet]
-		public IActionResult Course()
+		public async Task<IActionResult> Index()
         {
+            CourseService courseService = new CourseService();
+            AccountViewModel model = new ViewModels.AccountViewModel();
+            CourseViewModel courseViewModel = new CourseViewModel();
             return View();
         }
 
@@ -23,15 +27,6 @@ namespace Backend.Controllers
             {
                 CourseService cs = new CourseService();
                 vm.Course = (await cs.GetCourse(vm)).Data;
-            }
-            return View(vm);
-        }
-        [HttpPost]
-        public async Task<IActionResult> NextLesson(CourseViewModel vm)
-        {
-            if (ModelState.IsValid)
-            {
-                vm.CurrentLesson = vm.AllLessons.ElementAt(vm.AllLessons.IndexOf(vm.CurrentLesson)+1);
             }
             return View(vm);
         }
