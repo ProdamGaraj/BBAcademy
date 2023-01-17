@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Backend.Services.AccountService.Interfaces;
 using System.Security.Claims;
+using Backend.Services;
+using Backend.Services.AccountService;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 
 namespace Backend.Controllers
 {
@@ -16,8 +19,26 @@ namespace Backend.Controllers
             accountService = _accountService;
         }
 
+
+
+
         [HttpGet]
-        public IActionResult Index() => View();
+        public async Task<IActionResult> Index(AccountViewModel accountViewModel)
+        {
+            if (TempData["filter"] is not null)
+            {
+                accountViewModel.filter = TempData["filter"].ToString();
+            }
+            accountViewModel.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
+            var responce = (await new CourseService().GetCourses(new CourseViewModel() { User = accountViewModel.User }));
+            if (responce.StatusCode == Models.Enum.StatusCode.OK)
+            {
+                accountViewModel.AllCourses = responce.Data.AllCourses;
+                return View(accountViewModel);
+            }
+            accountViewModel.AllCourses.Add(new Models.Course());
+            return View(accountViewModel);
+        }
 
         [HttpGet]
         public IActionResult Register() => View();
@@ -62,5 +83,31 @@ namespace Backend.Controllers
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> ChangeFilterToAll(AccountViewModel accountViewModel)
+        {
+            accountViewModel.filter = "AllCourses";
+            TempData["filter"] = accountViewModel.filter;
+            return Redirect("/Account");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ChangeFilterToBought(AccountViewModel accountViewModel)
+        {
+            accountViewModel.filter = "BoughtCourses";
+            TempData["filter"] = accountViewModel.filter;
+            return Redirect("/Account");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ChangeFilterToPassed(AccountViewModel accountViewModel)
+        {
+            accountViewModel.filter = "PassedCourses";
+            TempData["filter"] = accountViewModel.filter;
+            return Redirect("/Account");
+        }
+
+
     }
 }

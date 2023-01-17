@@ -13,6 +13,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NLog;
+using Backend.Models;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = Microsoft.AspNetCore.Builder.WebApplication.CreateBuilder(args);
 
@@ -67,6 +69,19 @@ app.MapControllerRoute(
 
 using var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
 using var dc = serviceScope.ServiceProvider.GetRequiredService<BBAcademyDb>();
+
+app.Use(async (context, next) =>
+{
+	if (!context.User.Identity.IsAuthenticated)
+	{
+		if (context.Request.Path != "/Account/Login" && context.Request.Path != "/")
+		{
+            context.Response.Redirect("/Account/Login");
+        }
+	}
+    await next.Invoke();
+});
+
 app.Run();
 
 //public static IWebHost BuildWebHost(string[] args)=>

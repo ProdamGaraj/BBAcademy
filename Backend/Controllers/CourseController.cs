@@ -12,9 +12,6 @@ namespace Backend.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Index()
         {
-            CourseService courseService = new CourseService();
-            AccountViewModel model = new ViewModels.AccountViewModel();
-            CourseViewModel courseViewModel = new CourseViewModel();
             return View();
         }
 
