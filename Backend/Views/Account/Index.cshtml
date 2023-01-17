@@ -1,193 +1,169 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Backend.ViewModels.AccountViewModel
 @{
-}
-
-@{
+    var menuSwitcher = "";
+    var collection = Model.BoughtCourses;
     Layout = "LKLayout";
     ViewBag.Title = "Вход в аккаунт";
 }
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @if (User.Identity.IsAuthenticated)
 {
+    @switch (menuSwitcher)
+    {
+        case "AllCourses":
+            {
+                collection = Model.AllCourses;
+            }
+            break;
+        case "BoughtCourses":
+            {
+                collection = Model.BoughtCourses;
+            }
+            break;
+        case "EndedCourses":
+            {
+                collection = Model.EndedCourses;
+            }
+            break;
+        default:
+            {
+                collection = Model.AllCourses;
+            }
+            break;
+    }
     <link rel="stylesheet" type="text/css" href="~css/MyAccount.css">
-<div class="main-container">
-    <div class="account-data">
-        <div class="user_data">
+    <div class="main-container">
+        <div class="account-data">
+            <div class="user_data">
                 <img class="user_data-photo" src="~/pict/ur_photo.png">
-            <div class="user_data-username">@User.Identity.Name</div>
-        </div>
-        <div class="user_info">
-            <div class="user_info-block">
+                <div class="user_data-username">@User.Identity.Name</div>
+            </div>
+            <div class="user_info">
+                <div class="user_info-block">
                     <img src="~/pict/people.svg">
-                <div class="user_info-block-name">Андрей Андреевич Кузнецов</div>
-            </div>
-            <div class="user_info-block">
+                    <div class="user_info-block-name">@Model.User.Name+" "+@Model.User.LastName+" "+@Model.User.SurName </div>
+                </div>
+                <div class="user_info-block">
                     <img src="~/pict/bag.svg">
-                <div class="user_info-block-name">Банкир в BankName</div>
-            </div>
-            <div class="user_info-block">
+                    <div class="user_info-block-name">@Model.User.JobTitle+" in "@Model.User.Organisation</div>
+                </div>
+                <div class="user_info-block">
                     <img src="~/pict/rait.svg">
-                <div class="user_info-block-name">Рейтинг: 200</div>
-            </div>
-            <div class="user_info-block-1">
-                <div class="user_info-block-1-1">
+                    <div class="user_info-block-name">Рейтинг</div>
+                </div>
+                <div class="user_info-block-1">
+                    <div class="user_info-block-1-1">
                         <img src="~/pict/peoples.svg">
-                    <div class="user_info-block-name">Мои рекомендации</div>
+                        <div class="user_info-block-name">Мои рекомендации</div>
+                    </div>
+                    <div class="user_info-block-name-recomend">
+                        <div class="user_info-block-name-recomend-elem">
+                            <img src="~/pict/ur_photo.png">
+                            <div class="user_info-block-name-recomend-elem-name">Кирилл Кириллов</div>
+                        </div>
+                        <div class="user_info-block-name-recomend-elem">
+                            <img src="~/pict/ur_photo.png">
+                            <div class="user_info-block-name-recomend-elem-name">Кирилл Кириллов</div>
+                        </div>
+                        <div class="user_info-block-name-recomend-elem">
+                            <img src="~/pict/ur_photo.png">
+                            <div class="user_info-block-name-recomend-elem-name">Кирилл Кириллов</div>
+                        </div>
+                        <div class="user_info-block-name-recomend-elem">
+                            <img src="~/pict/ur_photo.png">
+                            <div class="user_info-block-name-recomend-elem-name">Кирилл Кириллов</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="user_info-block-name-recomend">
-                    <div class="user_info-block-name-recomend-elem">
-                            <img src="~/pict/ur_photo.png">
-                        <div class="user_info-block-name-recomend-elem-name">Кирилл Кириллов</div>
-                    </div>
-                    <div class="user_info-block-name-recomend-elem">
-                            <img src="~/pict/ur_photo.png">
-                        <div class="user_info-block-name-recomend-elem-name">Кирилл Кириллов</div>
-                    </div>
-                    <div class="user_info-block-name-recomend-elem">
-                            <img src="~/pict/ur_photo.png">
-                        <div class="user_info-block-name-recomend-elem-name">Кирилл Кириллов</div>
-                    </div>
-                    <div class="user_info-block-name-recomend-elem">
-                            <img src="~/pict/ur_photo.png">
-                        <div class="user_info-block-name-recomend-elem-name">Кирилл Кириллов</div>
-                    </div>
-                </div>
-            </div>
-            <div class="user_info-block">
+                <div class="user_info-block">
                     <img src="~/pict/sertif.svg">
-                <div class="user_info-block-name">Мои сертификаты</div>
+                    <div class="user_info-block-name"><a asp-controller="Certificate" asp-action="Index">Мои сертификаты</a></div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="Demarcation-line"></div>
+        <div class="Demarcation-line"></div>
 
-    <div class="my_acc-tab_menu">
-        <div class="media-block">
-            <div class="media-name-1">
+        <div class="my_acc-tab_menu">
+            <div class="media-block">
+                <div class="media-name-1">
                     <img class="media-name-svg" src="~/pict/people.png">
-                <div class="media-name-name">Личный кабинет</div>
-            </div>
-            <div class="media-name">
+                    <div class="media-name-name"><a asp-controller="Account" asp-action="Index">Личный кабинет</a></div>
+                </div>
+                <div class="media-name">
                     <img class="media-name-svg" src="~/pict/course.svg">
-                <div class="media-name-name">Мои курсы</div>
+                    <div class="media-name-name"><a asp-controller="Account" asp-action="Index">Мои курсы</a></div>
+                </div>
             </div>
-        </div>
 
-        <div class="media_data">
-            <form class="ur_account_data-form">
-                <div class="lb_inpt_acc">
-                    <label class="lb_inpt_acc-lbl" for="email">Логин</label>
-                    <input class="lb_inpt_acc-inpt" type="text" name="email" required>
-                </div>
+            <div class="media_data">
+                <form class="ur_account_data-form">
+                    <div class="lb_inpt_acc">
+                        <label class="lb_inpt_acc-lbl" for="email">Логин</label>
+                        <input class="lb_inpt_acc-inpt" type="text" name="email" required>
+                    </div>
 
-                <div class="lb_inpt_acc">
-                    <label class="lb_inpt_acc-lbl" for="email">Пароль</label>
-                    <input class="lb_inpt_acc-inpt" type="text" name="email" required>
-                </div>
+                    <div class="lb_inpt_acc">
+                        <label class="lb_inpt_acc-lbl" for="email">Пароль</label>
+                        <input class="lb_inpt_acc-inpt" type="text" name="email" required>
+                    </div>
 
-                <div class="lb_inpt_acc">
-                    <label class="lb_inpt_acc-lbl" for="email">Повторите пароль</label>
-                    <input class="lb_inpt_acc-inpt" type="text" name="email" required>
-                </div>
+                    <div class="lb_inpt_acc">
+                        <label class="lb_inpt_acc-lbl" for="email">Повторите пароль</label>
+                        <input class="lb_inpt_acc-inpt" type="text" name="email" required>
+                    </div>
 
-                <div class="lb_inpt_acc">
-                    <label class="lb_inpt_acc-lbl" for="email">Банк</label>
-                    <input class="lb_inpt_acc-inpt" type="text" name="email" required>
-                </div>
+                    <div class="lb_inpt_acc">
+                        <label class="lb_inpt_acc-lbl" for="email">Банк</label>
+                        <input class="lb_inpt_acc-inpt" type="text" name="email" required>
+                    </div>
 
-                <button type="submit" class="registerbtn">Выйти</button>
-            </form>
-        </div>
+                    <button type="submit" class="registerbtn">Выйти</button>
+                </form>
+            </div>
 
-        <div class="mine_course">
-            <div class="mine_course-sort">
-                <div class="mine_course-sort-element-1">Все</div>
-                <div class="mine_course-sort-element-2">
+            <div class="mine_course">
+                <div class="mine_course-sort">
+                    <div class="mine_course-sort-element-1">
+                        <a id="AllSortHref" >Все</a>
+                        </div>
+                    <div class="mine_course-sort-element-2">
                         <img class="mine_course-sort-svg-icon" src="~/pict/book-open.svg">
-                    <div>В процессе</div>
-                </div>
-                <div class="mine_course-sort-element-3">
+                        <div>
+                            <a id="AllSortHref">В процессе</a>
+                        </div>
+                    </div>
+                    <div class="mine_course-sort-element-3">
                         <img class="mine_course-sort-svg-icon" src="~/pict/sber.svg">
-                    <div>Завершённые</div>
-                </div>
-                <div class="mine_course-sort-element-4">
+                        <div>
+                            <a id="AllSortHref">Завершённые</a>
+                            </div>
+                    </div>
+                    <div class="mine_course-sort-element-4">
                         <img src="~/pict/sort.svg">
+                    </div>
                 </div>
-            </div>
-            <div>
-                <scroll-container>
-                    <scroll-page>
+                <div>
+                    <scroll-container>
+                        @foreach (var item in collection)
+                        {
+                        <scroll-page>
                             <img class="cours-scroll" src="~/pict/cours-scroll.png">
-                        <div class="cours-text">
-                            <div class="cours-text-top">Инвестиции для начинающих</div>
-                            <div class="cours-text-bot">Lorem ipsum dolor sit amet lorem ipsum dolor sit amet Lorem ipsum dolor sit amet. Lorem ipsum dolor sit ametLorem ipsum dolor sit amet</div>
-                        </div>
-                        <div class="cours-info-block">
+                            <div class="cours-text">
+                                <div class="cours-text-top">@item.Name</div>
+                                <div class="cours-text-bot">@item.Description</div>
+                            </div>
+                            <div class="cours-info-block">
                                 <img class="cours-info-block-src" src="~/pict/bell.svg">
-                            <div class="cours-info-block-hours-1">12 уроков</div>
-                            <div class="cours-info-block-hours-2">3.5 часов</div>
-                            <button class="cours-info-block-button">Начать</button>
-                        </div>
-                    </scroll-page>
-                    <scroll-page>
-                            <img class="cours-scroll" src="~/pict/cours-scroll.png">
-                        <div class="cours-text">
-                            <div class="cours-text-top">Инвестиции для начинающих</div>
-                            <div class="cours-text-bot">Lorem ipsum dolor sit amet lorem ipsum dolor sit amet Lorem ipsum dolor sit amet. Lorem ipsum dolor sit ametLorem ipsum dolor sit amet</div>
-                        </div>
-                        <div class="cours-info-block">
-                                <img class="cours-info-block-src" src="~/pict/bell.svg">
-                            <div class="cours-info-block-hours-1">12 уроков</div>
-                            <div class="cours-info-block-hours-2">3.5 часов</div>
-                            <button class="cours-info-block-button">Начать</button>
-                        </div>
-                    </scroll-page>
-                    <scroll-page>
-                            <img class="cours-scroll" src="~/pict/cours-scroll.png">
-                        <div class="cours-text">
-                            <div class="cours-text-top">Инвестиции для начинающих</div>
-                            <div class="cours-text-bot">Lorem ipsum dolor sit amet lorem ipsum dolor sit amet Lorem ipsum dolor sit amet. Lorem ipsum dolor sit ametLorem ipsum dolor sit amet</div>
-                        </div>
-                        <div class="cours-info-block">
-                                <img class="cours-info-block-src" src="~/pict/bell.svg">
-                            <div class="cours-info-block-hours-1">12 уроков</div>
-                            <div class="cours-info-block-hours-2">3.5 часов</div>
-                            <button class="cours-info-block-button">Начать</button>
-                        </div>
-                    </scroll-page>
-                    <scroll-page>
-                            <img class="cours-scroll" src="~/pict/cours-scroll.png">
-                        <div class="cours-text">
-                            <div class="cours-text-top">Инвестиции для начинающих</div>
-                            <div class="cours-text-bot">Lorem ipsum dolor sit amet lorem ipsum dolor sit amet Lorem ipsum dolor sit amet. Lorem ipsum dolor sit ametLorem ipsum dolor sit amet</div>
-                        </div>
-                        <div class="cours-info-block">
-                                <img class="cours-info-block-src" src="~/pict/bell.svg">
-                            <div class="cours-info-block-hours-1">12 уроков</div>
-                            <div class="cours-info-block-hours-2">3.5 часов</div>
-                            <button class="cours-info-block-button">Начать</button>
-                        </div>
-                    </scroll-page>
-                    <scroll-page>
-                            <img class="cours-scroll" src="~/pict/cours-scroll.png">
-                        <div class="cours-text">
-                            <div class="cours-text-top">Инвестиции для начинающих</div>
-                            <div class="cours-text-bot">Lorem ipsum dolor sit amet lorem ipsum dolor sit amet Lorem ipsum dolor sit amet. Lorem ipsum dolor sit ametLorem ipsum dolor sit amet</div>
-                        </div>
-                        <div class="cours-info-block">
-                                <img class="cours-info-block-src" src="~/pict/bell.svg">
-                            <div class="cours-info-block-hours-1">12 уроков</div>
-                            <div class="cours-info-block-hours-2">3.5 часов</div>
-                            <button class="cours-info-block-button">Начать</button>
-                        </div>
-                    </scroll-page>
-                </scroll-container>
+                                <div class="cours-info-block-hours-1">@item.Lessons.Count()</div>
+                                <div class="cours-info-block-hours-2">@item.Duration</div>
+                                <button class="cours-info-block-button" asp-controller="Course" asp-action="Buy">Начать</button>
+                            </div>
+                        </scroll-page>
+                        }
+                    </scroll-container>
+                </div>
             </div>
         </div>
-
     </div>
-</div>
 }
