@@ -1,11 +1,12 @@
 ﻿@{
-	
+	var bilimbank = "@bilimbank";
 }
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<title>Course intro</title>
-	<link rel="stylesheet" type="text/css" href="Course.css">
+	<link rel="stylesheet" type="text/css" href="~/css/Bilmbank.css">
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,23 +18,23 @@
 		<div class="header-container">
 			<div class="header-container-leftside">
 				<a>
-					<img class="main-logo" src="pict\logo-icon 1.svg">
+					<img class="main-logo" src="~/pict/logo-icon 1.svg">
 				</a>
 				<div class="main-logo-text">BilimBank</div>
 			</div>
 			<div class="header-container-rightside">
 				<a class="header-container-rightside-icon" href="#">
-					<img class="arrow" src="pict\arrow.svg">
+					<img class="arrow" src="~/pict/arrow.svg">
 					<div class="header-container-rightside-icon-text">Все курсы</div>
 				</a>
 				<a class="header-container-rightside-icon" href="#">
-					<img src="pict\shop.svg">
+					<img src="~/pict/shop.svg">
 				</a>
 				<a class="header-container-rightside-icon" href="#">
-					<img src="pict\bell.svg">
+					<img src="~/pict/bell.svg">
 				</a>
 				<a class="ur_photo" href="#">
-					<img src="pict\ur_photo.png">
+					<img src="~/pict/ur_photo.png">
 				</a>
 			</div>
 		</div>
@@ -43,7 +44,7 @@
 			<div class="main-container-list">
 				<div class="main-container-list-p-flex">
 					<p class="main-container-list-p">Введение в банковскую деятельность</p>
-					<img src="pict\half-left-arrow.svg">
+					<img src="~/pict/half-left-arrow.svg">
 				</div>
 
 				<ul class="main-ul">
@@ -69,7 +70,7 @@
 	<footer>
 		<div class="footer-container">
 			<div class="footer-element">
-				<img class="footer-logo" src="pict\logo-icon 1.svg">
+				<img class="footer-logo" src="~/pict/logo-icon 1.svg">
 				© 2023 Все права защищены, bilimbank
 			</div>
 			<div class="footer-element">
@@ -83,12 +84,12 @@
 			</div>
 			<div class="footer-right">
 				<div class="footer-element">
-					<img class="footer-icon" src="pict\foot_teleg.png">
-					bilimbank
+					<img class="footer-icon" src="~/pict/foot_teleg.png">
+					@bilimbank
 				</div>
 				<div class="footer-element">
-					<img class="footer-icon" src="pict\foot_inst.png">
-					bilimbank
+					<img class="footer-icon" src="~/pict/foot_inst.png">
+					@bilimbank
 				</div>
 			</div>
 		</div>

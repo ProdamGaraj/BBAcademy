@@ -5,7 +5,7 @@ namespace Backend.ViewModels
     public class LoginViewModel
     {
         [Required(ErrorMessage = "Login required")]
-        [RegularExpression(@"^[a-zA-Z0-9]+$", ErrorMessage = "No special symbols allowed")]
+        [RegularExpression("[a-zA-Z0-9]", ErrorMessage = "No special symbols, or Russian letters allowed")]
         public string Login { get; set; }
 
         [DataType(DataType.Password)]

@@ -31,7 +31,7 @@ namespace Backend.Controllers
                 {
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                         new ClaimsPrincipal(responce.Data));
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Login", "Account");
                 }
                 ModelState.AddModelError("", responce.Description);
             }
@@ -49,7 +49,7 @@ namespace Backend.Controllers
                 {
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                         new ClaimsPrincipal(responce.Data));
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Course");
                 }
                 ModelState.AddModelError("", responce.Description);
             }

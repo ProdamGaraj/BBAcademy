@@ -10,17 +10,20 @@
 
   <ItemGroup>
     <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="7.0.2" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.12">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.12">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Features" Version="7.0.2" />
     <PackageReference Include="Microsoft.Extensions.Options.DataAnnotations" Version="7.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.1" />
@@ -31,7 +34,7 @@
 
   <ItemGroup>
     <None Include="Views\Home\Index.cshtml" />
-    <None Include="wwwroot\css\Bilimbank.css" />
+    <None Include="wwwroot\css\Bilmbank.css" />
     <None Include="wwwroot\css\Course.css" />
     <None Include="wwwroot\css\Course1.css" />
     <None Include="wwwroot\css\Course2.css" />
@@ -39,7 +42,7 @@
     <None Include="wwwroot\css\Course4.css" />
     <None Include="wwwroot\css\Course5.css" />
     <None Include="wwwroot\css\Course6.css" />
-    <None Include="wwwroot\css\MyAccount.css" />
+    <None Include="wwwroot\css\My Account.css" />
     <None Include="wwwroot\pict\arrow.svg" />
     <None Include="wwwroot\pict\bag.svg" />
     <None Include="wwwroot\pict\bell.svg" />

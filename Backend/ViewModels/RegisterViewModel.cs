@@ -4,10 +4,20 @@ namespace Backend.ViewModels
 {
     public class RegisterViewModel
     {
+        [Required(ErrorMessage = "Name required")]
+        [RegularExpression(@"^[a-zA-Zа-яА-Я]+$", ErrorMessage = "This field must contain only Russian and English letters.")]
+        public string Name { get; set; }
+
+        [Required(ErrorMessage = "Surname required")]
+        [RegularExpression(@"^[a-zA-Zа-яА-Я]+$", ErrorMessage = "This field must contain only Russian and English letters.")]
+        public string Surname { get; set; }
+
+        [Required(ErrorMessage = "Last name required")]
+        [RegularExpression(@"^[a-zA-Zа-яА-Я]+$", ErrorMessage = "This field must contain only Russian and English letters.")]
+        public string LastName { get; set; }
+
         [Required(ErrorMessage = "Login required")]
-        [MaxLength(30, ErrorMessage = "Login is too big")]
-        [MinLength(5, ErrorMessage = "Login is too short")]
-        [RegularExpression(@"^[a-zA-Z0-9]+$")]
+        [RegularExpression(@"^[a-zA-Z0-9]+$", ErrorMessage = "This field must contain only English letters and numbers.")]
         public string Login { get; set; }
 
         [DataType(DataType.Password)]

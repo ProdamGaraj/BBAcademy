@@ -1,0 +1,154 @@
+body{
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+header{
+	width: 1920px;
+    height: 64px;
+
+    display: flex;
+    flex-direction: row;
+    background: #FAFAFA;
+    margin: 0px;
+}
+.header-cont{
+	width: 1320px;
+	display: flex;
+	flex-direction: row;
+	margin-left: auto;
+	margin-right: auto;
+	align-items: center;
+}
+.header-comp-logo{
+	width: 24px;
+	height: 20px;
+}
+.header-comp-name{
+	width: 91px;
+	height: 20px;
+
+	font-family: 'Prompt';
+	font-style: normal;
+	font-weight: 300;
+	margin-left: 12px;
+}
+footer{
+	margin:0px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 875px;
+
+	height: 64px;
+	background: #FAFAFA;
+
+	margin-top: auto;
+	width: 100%;
+
+	font-family: 'Raleway';
+	font-style: normal;
+	font-weight: 400;
+}
+.footer-container{
+	width: 1320px;
+	margin-left: auto;
+	margin-right: auto;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+.footer-element{
+	display: flex;
+	align-items: center;
+	margin-right: auto;
+}
+.footer-logo{
+	padding-right: 8px;
+}
+.footer-icon{
+	height: 25px;
+	margin-right: 10px;
+}
+.footer-right{
+	display: flex;
+	flex-direction: row;
+	width: 270px;
+}
+.main-container{
+	height: 840px;
+	width: 1320px;
+	display: flex;
+	flex-direction: column;
+	margin-left: auto;
+	margin-right: auto;
+}
+.log-block-form{
+	display: block;
+}
+.log-container{
+	margin-right: auto;
+	margin-left: auto;
+	width: 550px;
+	display: flex;
+	flex-direction: column;
+	margin-top: 110px;
+}
+.reg-log-input{
+	width: 548px;
+	height: 40px;
+
+	/* white_sh */
+
+	background: #FDFDFD;
+	box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.25);
+	border-radius: 10px;
+	border:none;
+}
+.registerbtn{
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 68px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: flex-end;
+	padding: 8px 47px;
+	gap: 10px;
+
+	width: 394px;
+	height: 39px;
+
+	/* primary_ver_1 */
+
+	background: #0093DC;
+	box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
+	border-radius: 55px;
+	border-width: 0;
+	color: white;
+}
+.log-in-btn{
+	font-family: 'Raleway';
+	font-style: normal;
+	font-weight: 300;
+	font-size: 20px;
+	line-height: 23px;
+	display: flex;
+	align-items: center;
+	text-align: center;
+}
+.log-label{
+	width: 47px;
+	height: 18px;
+
+	/* raleway_16_shortline */
+
+	font-family: 'Raleway';
+	font-style: normal;
+	font-weight: 400;
+	margin-bottom: 10px;
+	margin-top: 20px;
+}

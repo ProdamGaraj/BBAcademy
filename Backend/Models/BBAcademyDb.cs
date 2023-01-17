@@ -1,4 +1,5 @@
 ﻿using Backend.Models;
+//using Microsoft.EntityFrameworkCore;
 using System.Data.Entity;
 
 
@@ -6,6 +7,15 @@ namespace Backend
 {
     public class BBAcademyDb : DbContext
     {
+        //public BBAcademyDb()
+        //{
+        //
+        //}
+        //
+        //public BBAcademyDb(DbContextOptions<BBAcademyDb> options):base(options) {
+        //    Database.EnsureCreated();
+        //}
+
         public DbSet<Answer> Answers { get; set; }
         public DbSet<Certificate> Certificates { get; set; }
         public DbSet<Course> Courses { get; set; }

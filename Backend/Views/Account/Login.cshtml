@@ -1,39 +1,35 @@
 ﻿@model Backend.ViewModels.LoginViewModel
 @{
-    Layout = "_Layout";
+    Layout = "LoginLayout";
     ViewBag.Title = "Вход в аккаунт";
 }
-
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <link rel="stylesheet" type="text/css" href="Bilmbank.css">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bilimbank</title>
+    <link rel="stylesheet" type="text/css" href="~/css/log_form.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<div class="main-container">
+    <form id="log-form" class="log-block-form" method="post" asp-controller="Account" asp-action="Login">
+        <div class="log-container">
+            <label class="log-label" for="email">Логин</label>
+            <input asp-for="Login" placeholder="" class="form-control textbox-dg font-weight-bold text-center" type="text">
 
-<div class="container py-5">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="row justify-content-center">
-                <div class="col-md-10">
-                    <span class="anchor"></span>
-                    <div class="card card-account card-outline-secondary border border-white">
-                        <div class="card-header">
-                            <h3 class="mb-0 text-center ParagraphHome">Вход в аккаунт</h3>
-                        </div>
-                        <div class="card-body">
-                            <form autocomplete="on" method="post" asp-controller="Account" asp-action="Login">
-                                <div asp-validation-summary="All" style="font-size:23px; font-family:Impact" class="text-danger text-center"></div>
-                                <div class="form-group">
-                                    <input asp-for="Name" placeholder="" class="form-control textbox-dg font-weight-bold text-center" type="text">
-                                </div>
-                                <div class="form-group">
-                                    <input autocomplete="new-password" asp-for="Password" placeholder="" class="form-control textbox-dg font-weight-bold text-center" type="password">
-                                </div>
-                                <div class="d-grid gap-2 d-md-block float-right">
-                                    <a asp-controller="Account" asp-action="Register" class="btn btn-primary" type="button">Регистрация</a>
-                                    <button class="btn btn-success">Отправить</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+            <label class="log-label" for="psw">Пароль</label>
+            <input autocomplete="new-password" asp-for="Password" placeholder="" class="form-control textbox-dg font-weight-bold text-center" type="password">
+
+            <div class="d-grid gap-2 d-md-block float-right">
+
+                <button type="submit" class="registerbtn" asp-controller="Account" asp-action="Login">
+                     <div class="log-in-btn">Войти</div>
+                </button>
             </div>
         </div>
-    </div>
+    </form>
 </div>

@@ -3,6 +3,7 @@
     Layout = "_Layout";
     ViewBag.Title = "Регистрация";
 }
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <link rel="stylesheet" type="text/css" href="My account.css">
 <link rel="stylesheet" type="text/css" href="Bilmbank.css">
 <div style="padding: 20px;"></div>
@@ -21,23 +22,24 @@
                             <form asp-controller="Account" asp-action="Register">
                                 <div asp-validation-summary="All" style="font-size:23px; font-family:Impact" class="text-danger text-center"></div>
                                 <div class="form-group">
-                                    <input asp-for="Name" placeholder="Логин" class="form-control textbox-dg font-weight-bold text-center" type="text">
-                                    <div class="form-text">Длина логина должна быть от 3 до 20 символов.</div>
+                                    <input asp-for="Name" placeholder="Name" class="form-control textbox-dg font-weight-bold text-center" type="text">
                                 </div>
                                 <div class="form-group">
-                                    <input autocomplete="new-password" asp-for="Password" placeholder="Пароль" class="form-control textbox-dg font-weight-bold text-center" type="password">
+                                    <input autocomplete="off" asp-for="LastName" placeholder="Last name" class="form-control textbox-dg font-weight-bold text-center" type="text">
                                 </div>
-                                <div class="d-grid gap-2 d-md-block float-right">
+                                <div class="d-grid gap-2 d-md-block float-right" />
                                 <div asp-validation-summary="All" style="font-size:23px; font-family:Impact" class="text-danger text-center"></div>
                                 <div class="form-group">
-                                    <input asp-for="Name" class="form-control textbox-dg font-weight-bold text-center" placeholder="Имя" type="text">
+                                    <input asp-for="Surname" class="form-control textbox-dg font-weight-bold text-center" placeholder="Surname" type="text">
                                 </div>
                                 <div class="form-group">
-                                    <input autocomplete="new-password" asp-for="Password" placeholder="Пароль" class="form-control textbox-dg font-weight-bold text-center" type="password">
+                                    <input autocomplete="off" asp-for="Login" placeholder="Login" class="form-control textbox-dg font-weight-bold text-center" type="text">
                                 </div>
-                                <span class="text-black" style="font-size: small; font-family:'Comic Sans MS'">Пароль должен быть длиной больше 6 символов и иметь только латинские символы</span>
                                 <div class="form-group">
-                                    <input autocomplete="new-password" asp-for="PasswordConfirm" placeholder="Подтвердите пароль" class="form-control textbox-dg font-weight-bold text-center" type="password">
+                                    <input autocomplete="off" asp-for="Password" placeholder="Password" class="form-control textbox-dg font-weight-bold text-center" type="password">
+                                </div>
+                                <div class="form-group">
+                                    <input autocomplete="off" asp-for="ConfirmPassword" placeholder="Password" class="form-control textbox-dg font-weight-bold text-center" type="password">
                                 </div>
                                 <div>
                                     <h2 class="paragraphHome text-center"><a asp-controller="Account" target="_blank" asp-action="Login" style="color:deepskyblue;">Вход</a></h2>

@@ -30,6 +30,9 @@ namespace Backend.Services.AccountService
                 }
                 user = new User
                 {
+                    Name= vm.Name,
+                    LastName= vm.LastName,
+                    SurName=vm.Surname,
                     Login = vm.Login,
                     Role = UserRole.User,
                     PasswordHash = PasswordHasher.GetPasswordHash(vm.Password)
