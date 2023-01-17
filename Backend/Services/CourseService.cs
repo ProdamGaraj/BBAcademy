@@ -39,24 +39,64 @@ namespace Backend.Services
                 return new BaseResponse<object>() { Data = null, Description = ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace, StatusCode = Models.Enum.StatusCode.InternalServerError };
             }
         }
-        public async Task<IBaseResponce<Course>> GetCourse(BuyViewModel vm)
+        public async Task<IBaseResponce<CourseViewModel>> GetCourse(CourseViewModel vm)
         {
             Logger logger = LogManager.GetCurrentClassLogger();
             try
             {
                 CourseRepository cr = new CourseRepository();
                 UserRepository ur = new UserRepository();
-                var course = await cr.Get(vm.Course.Id);
+                var course = await cr.Get(vm.IdCourse);
                 var user = await ur.Get(vm.User.Id);
+                vm.AllLessons = course.Lessons.ToList();
+                vm.CurrentLesson = vm.AllLessons.ElementAt(0);
                 List<long> ids = JsonConvert.DeserializeObject<List<long>>(user.PassedCoursesId);
 				if (!user.BoughtCourses.Contains(course))
-						return new BaseResponse<Course>() { Description = "You haven`t buy this course yet", StatusCode = Models.Enum.StatusCode.InternalServerError };
-				return new BaseResponse<Course>() { Data = await cr.Get(vm.Course.Id), Description = "Get course for a user", StatusCode = Models.Enum.StatusCode.OK };
+						return new BaseResponse<CourseViewModel>() { Description = "You haven`t buy this course yet", StatusCode = Models.Enum.StatusCode.InternalServerError };
+				return new BaseResponse<CourseViewModel>() { Data = vm, Description = "Get course for a user", StatusCode = Models.Enum.StatusCode.OK };
             }
             catch (Exception ex)
             {
                 logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
-                return new BaseResponse<Course>()
+                return new BaseResponse<CourseViewModel>()
+                {
+                    Data = null,
+                    Description = ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace,
+                    StatusCode = Models.Enum.StatusCode.InternalServerError
+                };
+            }
+        }
+        public async Task<IBaseResponce<CourseViewModel>> BuyCourse(CourseViewModel vm)
+        {
+            Logger logger = LogManager.GetCurrentClassLogger();
+            try
+            {
+                CourseRepository cr = new CourseRepository();
+                UserRepository ur = new UserRepository();
+                var course = await cr.Get(vm.IdCourse);
+                var user = await ur.Get(vm.User.Id);
+                vm.AllLessons = course.Lessons.ToList();
+                vm.CurrentLesson = vm.AllLessons.ElementAt(0);
+                List<long> ids = JsonConvert.DeserializeObject<List<long>>(user.PassedCoursesId);
+				if (user.BoughtCourses.Contains(course))
+						return new BaseResponse<CourseViewModel>() { Description = "You have already bought this course", StatusCode = Models.Enum.StatusCode.InternalServerError };
+                user.BoughtCourses.Add(course);
+                if(await ur.Update(user))
+				    return new BaseResponse<CourseViewModel>() { Data = vm, Description = "Buy course for a user", StatusCode = Models.Enum.StatusCode.OK };
+                else
+                {
+                    return new BaseResponse<CourseViewModel>()
+                    {
+                        Data = null,
+                        Description = "Something went wrong while trying to add course to your account please contact our hotline",
+                        StatusCode = Models.Enum.StatusCode.InternalServerError
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                return new BaseResponse<CourseViewModel>()
                 {
                     Data = null,
                     Description = ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace,

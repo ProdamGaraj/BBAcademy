@@ -20,15 +20,8 @@ namespace Backend.Controllers
             var values = JObject.FromObject((await es.Check(vm)).Data).ToObject<Dictionary<string, object>>();
             if (values["passed"].Equals("true"))
             {
-
-                UserRepository ur = new UserRepository();
-                CourseRepository cor = new CourseRepository();
-                User user = await ur.Get(vm.User.Id);
-                Course course = await cor.Get(vm.Course.Id);
                 CertificateService cs = new CertificateService();
-                Certificate certificate = (await cs.CreateCertificate(user, course, true)).Data;
-                CertificateRepository cr = new CertificateRepository();
-                cr.Add(certificate);
+                Certificate certificate = (await cs.CreateCertificate(vm)).Data;
                 return Redirect("~/Ending");
             }
             else

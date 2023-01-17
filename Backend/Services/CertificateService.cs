@@ -4,6 +4,7 @@ using Backend.Models.Interfaces;
 using Backend.Models.Responce;
 using Backend.Services.Repository;
 using Backend.Services.Repository.Interfaces;
+using Backend.ViewModels;
 using NLog;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -16,10 +17,14 @@ namespace Backend.Services
         {
             logger = LogManager.GetCurrentClassLogger();
         }
-        public async Task<IBaseResponce<Certificate>> CreateCertificate(User user, Course course, bool examPassed)
+        public async Task<IBaseResponce<Certificate>> CreateCertificate(ExamViewModel vm)
         {
+            UserRepository ur = new UserRepository();
+            CourseRepository cor = new CourseRepository();
+            User user = await ur.Get(vm.User.Id);
+            Course course = await cor.Get(vm.Course.Id);
             ICertificateRepository cr = new CertificateRepository();
-            if (user != null && examPassed && course != null)
+            if (user != null && course != null)
             {
                 try
                 {

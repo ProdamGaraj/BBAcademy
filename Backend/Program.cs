@@ -67,6 +67,12 @@ app.MapControllerRoute(
 
 using var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
 using var dc = serviceScope.ServiceProvider.GetRequiredService<BBAcademyDb>();
+app.Use(async (context, next) =>
+{
+	if (!context.User.Identity.IsAuthenticated)
+		context.Request.Path = "/Account/Login";
+    await next.Invoke();
+});
 app.Run();
 
 //public static IWebHost BuildWebHost(string[] args)=>
