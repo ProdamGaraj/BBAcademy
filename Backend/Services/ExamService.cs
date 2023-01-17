@@ -113,40 +113,38 @@ namespace Backend.Services
         }
         public async Task<IBaseResponce<object>> Check(ExamViewModel vm)
         {
-            CourseRepository cr = new CourseRepository();
             UserRepository ur = new UserRepository();
-            var course = await cr.Get(vm.Course.Id);
             var user = await ur.Get(vm.User.Id);
             Logger logger = LogManager.GetCurrentClassLogger();
             try
             {
                 int currentGrade = 0;
-                foreach (Question question in course.Exam.Questions)
+                foreach (Question question in vm.Course.Exam.Questions)
                 {
                     currentGrade += question.Answers.FirstOrDefault(x => x.IsChosen == true && x.IsCorrect == true).Cost;
                 }
                 int roundingUp = 0;
                 double convertingToDecimal = currentGrade;
-                convertingToDecimal /= course.Exam.PassingGrade;
+                convertingToDecimal /= vm.Course.Exam.PassingGrade;
                 if (convertingToDecimal > 0)
                 {
                     roundingUp++;
                 }
                 currentGrade *= 100;
-                int percent = currentGrade / course.Exam.PassingGrade + roundingUp;
-                bool passed = currentGrade > course.Exam.PassingGrade;
+                int percent = currentGrade / vm.Course.Exam.PassingGrade + roundingUp;
+                bool passed = currentGrade > vm.Course.Exam.PassingGrade;
                 object ecr = new { percent = percent, passed = passed };
                 if (user.PassedCoursesId is null)
                     user.PassedCoursesId = "";
                 List<long> ids = JsonConvert.DeserializeObject<List<long>>(user.PassedCoursesId);
                 if (passed)
                 {
-                    ids.Add(course.Id);
+                    ids.Add(vm.Course.Id);
                     user.PassedCoursesId = JsonConvert.SerializeObject(ids);
                     await ur.Update(user);
                 }
                 CertificateService cs = new CertificateService();
-                await cs.CreateCertificate(user, course, passed);
+                await cs.CreateCertificate(user, vm.Course, passed);
 
                 return new BaseResponse<object>() { Description = "Result of exam check", Data = ecr, StatusCode = StatusCode.OK };
             }
