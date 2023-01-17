@@ -82,4 +82,8 @@
     <None Include="wwwroot\pict\Vector.svg" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Lesson\" />
+  </ItemGroup>
+
 </Project>

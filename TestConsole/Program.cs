@@ -73,7 +73,7 @@ Certificate = await cr.Get(Certificate.Id);
 Console.WriteLine(JsonConvert.SerializeObject(Certificate));
 await ur.MarkAsDeleted(User);
 Console.WriteLine("creating the Course");
-Course Course = new Course("20 minutes", "course for banking",CourseType.Passed,null,await er.Get(2));
+Course Course = new Course(null,"20 minutes", "course for banking",CourseType.Passed,null,await er.Get(2));
 await cor.Add(Course);
 Course = await cor.Get(Course.Id);
 Console.WriteLine(JsonConvert.SerializeObject(Course));

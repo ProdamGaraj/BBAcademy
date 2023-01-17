@@ -1,55 +1,49 @@
 ﻿@model Backend.ViewModels.RegisterViewModel
 @{
-    Layout = "_Layout";
+    Layout = "RegisterLayout";
     ViewBag.Title = "Регистрация";
 }
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-<link rel="stylesheet" type="text/css" href="My account.css">
-<link rel="stylesheet" type="text/css" href="Bilmbank.css">
-<div style="padding: 20px;"></div>
+<link rel="stylesheet" type="text/css" href="~/css/reg_form.css">
+<link rel="stylesheet" type="text/css" href="~/css/Bilmbank.css">
 
-<div class="container py-5">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="row justify-content-center">
-                <div class="col-md-10">
-                    <span class="anchor"></span>
-                    <div class="card card-account card-outline-secondary border border-white">
-                        <div class="card-header">
-                            <h3 class="mb-0 text-center paragraphHome text-black">Регистрация</h3>
-                        </div>
-                        <div class="card-body">
-                            <form asp-controller="Account" asp-action="Register">
-                                <div asp-validation-summary="All" style="font-size:23px; font-family:Impact" class="text-danger text-center"></div>
-                                <div class="form-group">
-                                    <input asp-for="Name" placeholder="Name" class="form-control textbox-dg font-weight-bold text-center" type="text">
-                                </div>
-                                <div class="form-group">
-                                    <input autocomplete="off" asp-for="LastName" placeholder="Last name" class="form-control textbox-dg font-weight-bold text-center" type="text">
-                                </div>
-                                <div class="d-grid gap-2 d-md-block float-right" />
-                                <div asp-validation-summary="All" style="font-size:23px; font-family:Impact" class="text-danger text-center"></div>
-                                <div class="form-group">
-                                    <input asp-for="Surname" class="form-control textbox-dg font-weight-bold text-center" placeholder="Surname" type="text">
-                                </div>
-                                <div class="form-group">
-                                    <input autocomplete="off" asp-for="Login" placeholder="Login" class="form-control textbox-dg font-weight-bold text-center" type="text">
-                                </div>
-                                <div class="form-group">
-                                    <input autocomplete="off" asp-for="Password" placeholder="Password" class="form-control textbox-dg font-weight-bold text-center" type="password">
-                                </div>
-                                <div class="form-group">
-                                    <input autocomplete="off" asp-for="ConfirmPassword" placeholder="Password" class="form-control textbox-dg font-weight-bold text-center" type="password">
-                                </div>
-                                <div>
-                                    <h2 class="paragraphHome text-center"><a asp-controller="Account" target="_blank" asp-action="Login" style="color:deepskyblue;">Вход</a></h2>
-                                </div>
-                                <button class="btn btn-success btn-lg float-right" type="submit">Отправить</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<div class="main-container">
+    <form id="log-form" class="log-block-form" asp-controller="Account" asp-action="Register">
+        <div class="log-container">
+            <label class="log-label" for="email">Имя</label>
+            <input asp-for="Name" class="reg-log-input" type="text"  required>
+
+            <label class="log-label" for="email">Фамилия</label>
+            <input asp-for="LastName" class="reg-log-input" type="text"  required>
+
+            <label class="log-label" for="psw">Отчество</label>
+            <input asp-for="Surname" class="reg-log-input" type="text" required>
+
+            <label class="log-label" for="psw">Почта</label>
+            <input asp-for="Email" class="reg-log-input" type="text"  required>
+
+            <label class="log-label" for="email">Логин</label>
+            <input asp-for="Login" class="reg-log-input" type="text" required>
+
+            <label class="log-label" for="psw">Пароль</label>
+            <input asp-for="Password" class="reg-log-input" type="password" required>
+
+            <label class="log-label" for="psw">Подтвердите пароль</label>
+            <input asp-for="ConfirmPassword" class="reg-log-input" type="password" required>
+
+            <label class="log-label-l" for="psw">
+                Если вы являетесь сотрудником банка, укажите банк*<br>
+                <div class="log-label-l-sr">(Необязательное поле)</div>
+            </label>
+            <input type="text" list="banks" />
+            <datalist id="banks">
+                <option value="bank0">bank0</option>
+                <option value="bank1">bank1</option>
+                <option value="bank2">bank2</option>
+            </datalist>
+            <button type="submit" class="registerbtn">
+                <div class="log-in-btn">Завершить регистрацию</div>
+            </button>
         </div>
-    </div>
+    </form>
 </div>

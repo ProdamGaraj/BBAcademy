@@ -163,17 +163,16 @@
                                     <div class="cours-text-bot">@item.Description</div>
                                 </div>
                                 <div class="cours-info-block">
-                                    <img class="cours-info-block-src" src="~/pict/bell.svg">
+                                    <img class="cours-info-block-src" src="~/pict/@item.MediaPath">
                                     <div class="cours-info-block-hours-1">@item.Lessons.Count()</div>
                                     <div class="cours-info-block-hours-2">@item.Duration</div>
-                                    <button class="cours-info-block-button" asp-controller="Course" asp-action="Buy">Начать</button>
+                                    <a class="cours-info-block-button" asp-controller="Course" asp-action="Buy">Начать</a>
                                 </div>
                             </scroll-page>
                         }
                     }
                 </scroll-container>
             </div>
-
         </div>
     </div>
 </div>

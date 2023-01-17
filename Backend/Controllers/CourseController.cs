@@ -27,5 +27,14 @@ namespace Backend.Controllers
             }
             return View(vm);
         }
+        [HttpPost]
+        public async Task<IActionResult> NextLesson(CourseViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                vm.CurrentLesson = vm.AllLessons.ElementAt(vm.AllLessons.IndexOf(vm.CurrentLesson) + 1);
+            }
+            return View(vm);
+        }
     }
 }
