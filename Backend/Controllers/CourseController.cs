@@ -21,6 +21,7 @@ namespace Backend.Controllers
 		public async Task<IActionResult> Index(CourseViewModel vm)
         {
             vm.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
+
             return View(vm);
         }
 
