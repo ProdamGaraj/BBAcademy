@@ -23,8 +23,8 @@ namespace Backend.Services
                 List<long> ids = JsonConvert.DeserializeObject<List<long>>(user.PassedCoursesId);
                 if (ids.Contains(course.Id))
                     throw new Exception("This course was already passed");
-                if (!user.BoughtCourses.Contains(course))
-                    throw new Exception("This course was not bought");
+                //if (!user.BoughtCourses.Contains(course))
+                //    throw new Exception("This course was not bought");
 
                 return new BaseResponse<ICollection<Lesson>>() { Data = course.Lessons, Description = "Get all courses for a user", StatusCode = Models.Enum.StatusCode.OK };
             }

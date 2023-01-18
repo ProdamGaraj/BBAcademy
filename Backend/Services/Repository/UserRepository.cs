@@ -33,17 +33,6 @@ namespace Backend.Services.Repository
                                 db.Entry(certificate).State = EntityState.Unchanged;
                             }
                         }
-
-                    CourseRepository cor = new CourseRepository();
-                    if (entity.BoughtCourses is not null)
-                        foreach (Course course in entity.BoughtCourses)
-                        {
-                            if (cor.Get(course.Id) is not null)
-                            {
-                                db.Entry(course).State = EntityState.Unchanged;
-                            }
-                        }
-
                     LessonRepository lr = new LessonRepository();
                     if (entity.SolvedLessons is not null)
                         foreach (Lesson lesson in entity.SolvedLessons)
@@ -70,7 +59,7 @@ namespace Backend.Services.Repository
             {
                 using (BBAcademyDb db = new BBAcademyDb())
                 {
-                    User User = await db.Users.Include("Certificates").Include("BoughtCourses").Include("SolvedLessons").FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
+                    User User = await db.Users.Include("Certificates").Include("SolvedLessons").FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
                     return User;
                 }
             }
@@ -87,7 +76,7 @@ namespace Backend.Services.Repository
             {
                 using (BBAcademyDb db = new BBAcademyDb())
                 {
-                    IList<User> myUser = await db.Users.Include("Certificates").Include("BoughtCourses").Include("SolvedLessons").ToListAsync();
+                    IList<User> myUser = await db.Users.Include("Certificates").Include("SolvedLessons").ToListAsync();
                     return myUser;
                 }
             }
@@ -144,13 +133,6 @@ namespace Backend.Services.Repository
                                 await cr.Update(certificate);
                             }
 
-                        CourseRepository cor = new CourseRepository();
-
-                        if (entity.BoughtCourses is not null)
-                            foreach (Course course in entity.BoughtCourses)
-                            {
-                                await cor.Update(course);
-                            }
 
                         LessonRepository lr = new LessonRepository();
                         if (entity.SolvedLessons is not null)

@@ -31,11 +31,15 @@ namespace Backend.Services
                 CourseRepository cr = new CourseRepository();
                 List<Course> allCourses = new List<Course>();
                 List<Course> passedCourses = new List<Course>();
+                List<Course> boughtCourses = new List<Course>();
                 allCourses.AddRange(await cr.GetAll());
 
-                foreach (Course course in user.BoughtCourses)
+                List<long> boughtIds = JsonConvert.DeserializeObject<List<long>>(user.BoughtCourses);
+
+                foreach (long course in user.BoughtCourses)
                 {
-                    allCourses.Remove(course);
+                    boughtCourses.Add(allCourses.First(x => x.Id == course));
+                    allCourses.Remove(boughtCourses.Last());
                 }
                 if (!user.PassedCoursesId.IsNullOrEmpty())
                 {
@@ -47,7 +51,7 @@ namespace Backend.Services
                         allCourses.Remove(passedCourses.Last());
                     }
                 }
-                return new BaseResponse<AccountViewModel>() { Data = new AccountViewModel { AllCourses = allCourses, EndedCourses = passedCourses, BoughtCourses = user.BoughtCourses.ToList() }, Description = "Get all courses for a user", StatusCode = Models.Enum.StatusCode.OK };
+                return new BaseResponse<AccountViewModel>() { Data = new AccountViewModel { AllCourses = allCourses, EndedCourses = passedCourses, BoughtCourses = boughtCourses }, Description = "Get all courses for a user", StatusCode = Models.Enum.StatusCode.OK };
             }
             catch (Exception ex)
             {
@@ -72,7 +76,10 @@ namespace Backend.Services
                 {
                     List<long> ids = JsonConvert.DeserializeObject<List<long>>(user.PassedCoursesId);
                 }
-                if (!user.BoughtCourses.Contains(course))
+
+                List<long> boughtIds = JsonConvert.DeserializeObject<List<long>>(user.BoughtCourses);
+
+                if (!boughtIds.Contains(course.Id))
                 {
                     vm.IsBought = false;
                     return new BaseResponse<CourseViewModel>() { Data = vm, Description = "You haven`t buy this course yet", StatusCode = Models.Enum.StatusCode.OK };
@@ -106,9 +113,13 @@ namespace Backend.Services
                 {
                     List<long> ids = JsonConvert.DeserializeObject<List<long>>(user.PassedCoursesId);
                 }
-				if (user.BoughtCourses.Contains(course))
+
+                List<long> boughtIds = JsonConvert.DeserializeObject<List<long>>(user.BoughtCourses);
+
+                if (boughtIds.Contains(course.Id))
 						return new BaseResponse<CourseViewModel>() { Description = "You have already bought this course", StatusCode = Models.Enum.StatusCode.InternalServerError };
-                user.BoughtCourses.Add(course);
+                boughtIds.Add(course.Id);
+                user.BoughtCourses = JsonConvert.SerializeObject(boughtIds);
                 if(await ur.Update(user))
 				    return new BaseResponse<CourseViewModel>() { Data = vm, Description = "Buy course for a user", StatusCode = Models.Enum.StatusCode.OK };
                 else
