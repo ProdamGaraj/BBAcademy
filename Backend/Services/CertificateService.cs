@@ -2,6 +2,7 @@
 using Backend.Models.Enum;
 using Backend.Models.Interfaces;
 using Backend.Models.Responce;
+using Backend.Services.AccountService.Interfaces;
 using Backend.Services.Repository;
 using Backend.Services.Repository.Interfaces;
 using Backend.ViewModels;
@@ -12,7 +13,8 @@ namespace Backend.Services
 {
     public class CertificateService
     {
-         Logger logger;
+        Logger logger;
+        IAccountService accountService;
         public CertificateService()
         {
             logger = LogManager.GetCurrentClassLogger();
@@ -58,6 +60,16 @@ namespace Backend.Services
                         Description = "Conditions are not passed. Either uaer or course is null, or exam is not passed",
                         StatusCode = StatusCode.InternalServerError
                     }; 
+        }
+
+        public async Task<IBaseResponce<Certificate>> GetCertificate(Certificate vm)
+        {
+
+            return new BaseResponse<Certificate>()
+            {
+                Description = "Can`t reach certificate.",
+                StatusCode = StatusCode.InternalServerError
+            };
         }
     }
 }
