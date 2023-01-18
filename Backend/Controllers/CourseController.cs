@@ -21,7 +21,13 @@ namespace Backend.Controllers
 		public async Task<IActionResult> Index(CourseViewModel vm)
         {
             vm.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
+            if(TempData["idCourse"] is not null)
+                vm.IdCourse = long.Parse(TempData["idCourse"].ToString());
+            if(TempData["currentLesson"] is not null)
+                vm.CurrentLesson = int.Parse(TempData["currentLesson"].ToString());
 
+            CourseService cs = new CourseService();
+            vm = (await cs.GetCourse(vm)).Data;
             return View(vm);
         }
 
@@ -42,9 +48,23 @@ namespace Backend.Controllers
         {
             if (ModelState.IsValid)
             {
-                vm.CurrentLesson = vm.AllLessons.ElementAt(vm.AllLessons.IndexOf(vm.CurrentLesson) + 1);
+                if(vm.CurrentLesson + 1 != vm.AllLessons.Count)
+                    vm.CurrentLesson = vm.CurrentLesson + 1;
             }
-            return View(vm);
+            return RedirectToAction("Index", vm);
+        }
+        [HttpPost]
+        public async Task<IActionResult> PrevLesson(CourseViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                if (vm.CurrentLesson != 0)
+                {
+                    vm.CurrentLesson = vm.CurrentLesson - 1;
+                    TempData["currentLesson"] = vm.CurrentLesson;
+                }
+            }
+            return RedirectToAction("Index");
         }
     }
 }
