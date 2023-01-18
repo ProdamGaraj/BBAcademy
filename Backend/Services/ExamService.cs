@@ -19,8 +19,19 @@ namespace Backend.Services
 
                 CourseRepository cr = new CourseRepository();
                 UserRepository ur = new UserRepository();
-                var course = await cr.Get(vm.Course.Id);
-                var user = await ur.Get(vm.User.Id);
+
+                var course = new Course();
+                var user = new User();
+                if (vm.User is null || vm.Course is null)
+                {
+                    return new BaseResponse<Exam>()
+                    {
+                        Description = "User is null or Course is null",
+                        StatusCode = StatusCode.InternalServerError
+                    };
+                }
+                course = await cr.Get(vm.Course.Id);
+                user = await ur.Get(vm.User.Id);
 
                 if (user == null||long.Parse(user.PassedCoursesId) == vm.Course.Id)
                 {

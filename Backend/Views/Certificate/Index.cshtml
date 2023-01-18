@@ -1,8 +1,71 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@model Backend.ViewModels.CertificateViewModel
+﻿@model Backend.ViewModels.CertificateViewModel
 @{
     ViewBag.Title = "Certificates";
-    Layout = "CLLayout";
+    Layout = "LKLayout";
 }
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<link rel="stylesheet" type="text/css" href="~/css/Sertif_dwnl.css">
+<div class="main-container">
+    <div class="account-data">
+        <div class="user_data">
+            <img class="user_data-photo" src="~/pict/ur_photo.png">
+            <div class="user_data-username">@User.Identity.Name</div>
+        </div>
+        <div class="user_info">
+            <div class="user_info-block">
+                <img src="~/pict/people.svg">
+                <div class="user_info-block-name">@Model.User.Name @Model.User.LastName @Model.User.SurName </div>
+            </div>
+            <div class="user_info-block">
+                <img src="~/pict/bag.svg">
+                <div class="user_info-block-name">@Model.User.JobTitle in @Model.User.Organisation</div>
+            </div>
+            <div class="user_info-block">
+                <img src="~/pict/rait.svg">
+                <div class="user_info-block-name">Рейтинг</div>
+            </div>
+            <div class="user_info-block-1">
+                <div class="user_info-block-1-1">
+                    <img src="~/pict/peoples.svg">
+                    <div class="user_info-block-name">Мои рекомендации</div>
+                </div>
+            </div>
+            <div class="user_info-block">
+                <img src="~/pict/sertif.svg">
+                <div class="user_info-block-name"><a asp-controller="Certificate" asp-action="Index">Мои сертификаты</a></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="Demarcation-line"></div>
+
+    <div class="sertif_dwnl-block">
+        <div class="my_acc-tab_menu">
+            <div class="media-block">
+                <div class="media-name-1">
+                    <img class="media-name-svg" src="pict\people.png">
+                    <div class="media-name-name">Личный кабинет</div>
+                </div>
+                <div class="media-name">
+                    <img class="media-name-svg" src="pict\course.svg">
+                    <div class="media-name-name">Мои курсы</div>
+                </div>
+            </div>
+        </div>
+        <div class="sertif_dwnl">
+            @if (Model.Certificates is not null)
+            {
+                @foreach (var item in Model.Certificates)
+                {
+                    <div class="sertif_blank">
+                        <div class="sertif_name">Инвестиции для начинающих</div>
+                        <img class="sertif_dwnl_img" src="pict\sertif.png">
+                        <div class="sertif-dwnl-btn">
+                            <a class="header-container-right_section-login" asp-controller="Certificate" asp-action="DownloadCertificate">Скачать PDF</a>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

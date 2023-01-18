@@ -1,5 +1,7 @@
 ﻿using Backend.Models;
+using Backend.Models.Interfaces;
 using Backend.Services;
+using Backend.Services.AccountService.Interfaces;
 using Backend.Services.Repository;
 using Backend.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -10,9 +12,19 @@ namespace Backend.Controllers
 {
     public class ExamController : Controller
     {
-        public IActionResult Index(ExamViewModel vm)
+        private readonly IAccountService accountService;
+
+        public ExamController(IAccountService _accountService)
         {
-            return View();
+            accountService = _accountService;
+        }
+        public async Task<IActionResult> Index(ExamViewModel vm)
+        {
+            ExamService es = new ExamService();
+            vm.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
+            vm.Questions = (await new CourseService().GetCourse(new CourseViewModel() { User = vm.User })).Data.Exam.Questions.ToList();
+            vm.Course = (await new CourseService().GetCourses(new CourseViewModel() { User = vm.User })).Data.BoughtCourses.Find(x=>x.Exam.Questions==vm.Questions);
+            return View(vm);
         }
         public async Task<IActionResult> SendAllAsync(ExamViewModel vm)
         {

@@ -36,12 +36,6 @@
     <None Include="Views\Home\Index.cshtml" />
     <None Include="wwwroot\css\Bilmbank.css" />
     <None Include="wwwroot\css\Course.css" />
-    <None Include="wwwroot\css\Course1.css" />
-    <None Include="wwwroot\css\Course2.css" />
-    <None Include="wwwroot\css\Course3.css" />
-    <None Include="wwwroot\css\Course4.css" />
-    <None Include="wwwroot\css\Course5.css" />
-    <None Include="wwwroot\css\Course6.css" />
     <None Include="wwwroot\css\My Account.css" />
     <None Include="wwwroot\pict\arrow.svg" />
     <None Include="wwwroot\pict\bag.svg" />
