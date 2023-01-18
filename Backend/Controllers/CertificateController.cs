@@ -13,7 +13,10 @@ namespace Backend.Controllers
     {
 
         private readonly IAccountService accountService;
-
+        public CertificateController(IAccountService _accountService)
+        {
+            accountService = _accountService;
+        }
         [HttpGet]
         public async Task<IActionResult> Index(CertificateViewModel certificateViewModel)
         {
@@ -26,6 +29,8 @@ namespace Backend.Controllers
             }
             return View(certificateViewModel);
         }
-
-    }
+        public async Task<IActionResult> DownloadCertificate(CertificateViewModel certificateViewModel)
+        {
+            return View(certificateViewModel);
+        }
 }
