@@ -22,7 +22,7 @@ namespace Backend.Controllers
         {
             ExamService es = new ExamService();
             vm.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
-            vm.Course = (await new CourseService().GetCourses(new CourseViewModel() { User = vm.User, IdCourse= })).Data.BoughtCourses.Find(x => x.Exam.Questions == vm.Questions);
+            vm.Course = (await new CourseService().GetCourses(new CourseViewModel() { User = vm.User, IdCourse= 0})).Data.BoughtCourses.Find(x => x.Exam.Questions == vm.Questions);
             vm.Questions = (await new CourseService().GetCourse(new CourseViewModel() { User = vm.User,  })).Data.Exam.Questions.ToList();
             
             return View(vm);
