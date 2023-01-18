@@ -24,7 +24,7 @@ namespace Backend.Controllers
             var responce = await new CertificateService().GetCertificates(new CertificateViewModel() { User = certificateViewModel.User });
             if (responce.StatusCode == Models.Enum.StatusCode.OK)
             {
-                certificateViewModel.Certificates= responce.Data;
+                certificateViewModel.Certificates = responce.Data;
                 return View(certificateViewModel);
             }
             return View(certificateViewModel);
@@ -33,4 +33,5 @@ namespace Backend.Controllers
         {
             return View(certificateViewModel);
         }
+    }
 }
