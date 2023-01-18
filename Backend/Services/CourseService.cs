@@ -6,6 +6,7 @@ using Backend.ViewModels;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using NLog;
+using System.Collections.Generic;
 
 namespace Backend.Services
 {
@@ -75,7 +76,18 @@ namespace Backend.Services
                 vm.AllLessons = course.Lessons.ToList();
                 if(vm.CurrentLesson == null)
                     vm.CurrentLesson = 0;
-                vm.Exam = course.Exam;
+                ExamRepository er = new ExamRepository();
+                vm.Exam = await er.Get(course.Exam.Id);
+                List <Question> questions = new List<Question>();
+                if (vm.Exam.Questions is not null)
+                {
+                    QuestionRepository qr = new QuestionRepository();
+                    foreach (Question question in vm.Exam.Questions)
+                    {
+                        questions.Add(await qr.Get(question.Id));
+                    }
+                }
+                vm.Exam.Questions = questions;
                 if (user.PassedCoursesId is not null)
                 {
                     List<long> ids = JsonConvert.DeserializeObject<List<long>>(user.PassedCoursesId);

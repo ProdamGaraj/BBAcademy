@@ -7,6 +7,10 @@
     ViewBag.Title = "Courses";
     Layout = "CLLayout";
     string header = "";
+    object CheckChanged(Answer answer)
+    {
+        return answer.IsChosen=!answer.IsChosen;
+    }
     if (Model.CurrentLesson < Model.AllLessons.Count)
     {
         if (Model.CurrentLesson == 0)
@@ -57,38 +61,39 @@
         <div class="main-container-list-result-5" style="display:block">
             <div class="main-container-list-result-cont-test">
                 <div class="main-container-list-result-cont-1">Тест</div>
-                @if (Model.Exam is not null)
+                @if (Model.Exam is not null&& Model.Exam.Questions is not null)
                 {
-                    <form>
+                    <form >
                         @foreach (var question in Model.Exam.Questions)
                         {
-                            @if (question.QuestionType.Equals(Backend.Models.Enum.QuestionType.TextManyAnswers))
+                            @if (question.QuestionType.Equals(Backend.Models.Enum.QuestionType.TextManyAnswers) && question.Answers is not null)
                             {
 
                                 <p class="course-test-que-text">@question.Content</p>
                                 @foreach (var answer in question.Answers)
                                 {
                                     <div class="test-que">
-                                        <input class="test-que-checkbox" type="checkbox" name="test-que" id="test-1">
+
+                                        <input class="test-que-checkbox" type="checkbox" onchange="@CheckChanged(answer)" name="test-que" id="test-1">
                                         <label class="course-test-que-text-text">@answer.Content</label>
                                     </div>
                                 }
 
                             }
-                            else if (question.QuestionType.Equals(Backend.Models.Enum.QuestionType.TextOneAnswer))
+                            else if (question.QuestionType.Equals(Backend.Models.Enum.QuestionType.TextOneAnswer) && question.Answers is not null)
                             {
 
                                 <p class="course-test-que-text">@question.Content</p>
                                 @foreach (var answer in question.Answers)
                                 {
                                     <div class="test-que">
-                                        <input class="test-que-checkbox" type="radio" name="test-que" id="test-1">
+                                        <input class="test-que-checkbox" type="radio" checked="@answer.IsChosen" name="test-que" id="test-1">
                                         <label class="course-test-que-text-text">@answer.Content</label>
                                     </div>
                                 }
 
                             }
-                            else if (question.QuestionType.Equals(Backend.Models.Enum.QuestionType.MediaOneAnswer))
+                            else if (question.QuestionType.Equals(Backend.Models.Enum.QuestionType.MediaOneAnswer) && question.Answers is not null)
                             {
 
 
@@ -103,7 +108,7 @@
                                 }
 
                             }
-                            else if (question.QuestionType.Equals(Backend.Models.Enum.QuestionType.MediaManyAnswers))
+                            else if (question.QuestionType.Equals(Backend.Models.Enum.QuestionType.MediaManyAnswers)&&question.Answers is not null)
                             {
 
                                 <p class="course-test-que-text">@question.Content</p>

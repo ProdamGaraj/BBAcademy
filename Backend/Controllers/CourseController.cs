@@ -13,7 +13,6 @@ namespace Backend.Controllers
     [Route("[controller]")]
     public class CourseController : Controller
     {
-
         private readonly IAccountService accountService;
 
         public CourseController(IAccountService _accountService)
@@ -32,6 +31,11 @@ namespace Backend.Controllers
             {
                 vm.CurrentLesson = int.Parse(TempData["currentLesson"].ToString());
             }
+            if (vm.CurrentLesson < 0)
+            {
+                TempData["currentLesson"] = "0";
+                vm.CurrentLesson = 0;
+            }
             CourseService cs = new CourseService();
             vm = (await cs.GetCourse(vm)).Data;
             return View(vm);
@@ -44,11 +48,15 @@ namespace Backend.Controllers
             var cvm = new CourseViewModel();
             cvm.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
             cvm.IdCourse = long.Parse(id);
-            List<long> boughtCourses = JsonConvert.DeserializeObject<List<long>>(cvm.User.BoughtCourses);
             TempData["idCourse"] = cvm.IdCourse.ToString();
-            if (boughtCourses.Contains(cvm.IdCourse))
+            if (cvm.User.BoughtCourses is not null)
             {
-                return RedirectToAction("Index", "Course");
+                List<long> boughtCourses = JsonConvert.DeserializeObject<List<long>>(cvm.User.BoughtCourses);
+                
+                if (boughtCourses.Contains(cvm.IdCourse))
+                {
+                    return RedirectToAction("Index", "Course");
+                }
             }
             CourseService cs = new CourseService();//TODO:Payment
             await cs.BuyCourse(cvm);
@@ -82,7 +90,11 @@ namespace Backend.Controllers
             var cvm = new CourseViewModel();
             cvm.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
             TempData["idCourse"] = courseId.ToString();
-            TempData["currentLesson"] = (--id).ToString();
+            if (--id < 0)
+            {
+                id++;
+            }
+            TempData["currentLesson"] = (id).ToString();
 
             return RedirectToAction("Index");
         }
