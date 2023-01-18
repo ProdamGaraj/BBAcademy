@@ -74,7 +74,7 @@ app.Use(async (context, next) =>
 {
 	if (!context.User.Identity.IsAuthenticated)
 	{
-		if (context.Request.Path != "/Account/Login" && context.Request.Path != "/")
+		if (context.Request.Path != "/Account/Login" && context.Request.Path != "/" && context.Request.Path != "/Account/Register")
 		{
             context.Response.Redirect("/Account/Login");
         }

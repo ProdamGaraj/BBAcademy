@@ -18,10 +18,6 @@ namespace Backend.Controllers
         {
             accountService = _accountService;
         }
-
-
-
-
         [HttpGet]
         public async Task<IActionResult> Index(AccountViewModel accountViewModel)
         {

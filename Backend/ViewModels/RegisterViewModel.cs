@@ -17,7 +17,6 @@ namespace Backend.ViewModels
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "Email required")]
-        [RegularExpression(@"^\\S+@\\S+\\.\\S+$", ErrorMessage = "Frong Email format.")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Login required")]

@@ -65,11 +65,17 @@ namespace Backend.Services
                 var course = await cr.Get(vm.IdCourse);
                 var user = await ur.Get(vm.User.Id);
                 vm.AllLessons = course.Lessons.ToList();
-                vm.CurrentLesson = vm.AllLessons.ElementAt(0);
+                if(vm.CurrentLesson!= null)
+                    vm.CurrentLesson = 0;
+                vm.Exam = course.Exam;
                 List<long> ids = JsonConvert.DeserializeObject<List<long>>(user.PassedCoursesId);
-				if (!user.BoughtCourses.Contains(course))
-						return new BaseResponse<CourseViewModel>() { Description = "You haven`t buy this course yet", StatusCode = Models.Enum.StatusCode.InternalServerError };
-				return new BaseResponse<CourseViewModel>() { Data = vm, Description = "Get course for a user", StatusCode = Models.Enum.StatusCode.OK };
+                if (!user.BoughtCourses.Contains(course))
+                {
+                    vm.IsBought = false;
+                    return new BaseResponse<CourseViewModel>() { Data = vm, Description = "You haven`t buy this course yet", StatusCode = Models.Enum.StatusCode.OK };
+                }
+                vm.IsBought = true;
+                return new BaseResponse<CourseViewModel>() { Data = vm, Description = "Get course for a user", StatusCode = Models.Enum.StatusCode.OK };
             }
             catch (Exception ex)
             {
@@ -92,7 +98,7 @@ namespace Backend.Services
                 var course = await cr.Get(vm.IdCourse);
                 var user = await ur.Get(vm.User.Id);
                 vm.AllLessons = course.Lessons.ToList();
-                vm.CurrentLesson = vm.AllLessons.ElementAt(0);
+                vm.CurrentLesson = 0;
                 List<long> ids = JsonConvert.DeserializeObject<List<long>>(user.PassedCoursesId);
 				if (user.BoughtCourses.Contains(course))
 						return new BaseResponse<CourseViewModel>() { Description = "You have already bought this course", StatusCode = Models.Enum.StatusCode.InternalServerError };
