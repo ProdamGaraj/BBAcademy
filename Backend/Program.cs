@@ -22,8 +22,6 @@ builder.Logging.ClearProviders();
 builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
 
 builder.Services.AddControllersWithViews();
-var connection = builder.Configuration.GetConnectionString("DefaultConnection");
-
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAnswerRepository, AnswerRepository>();

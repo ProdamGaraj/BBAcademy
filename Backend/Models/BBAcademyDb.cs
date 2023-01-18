@@ -7,8 +7,8 @@ namespace Backend
 {
     public class BBAcademyDb : DbContext
     {
-        public BBAcademyDb( string connection)
-        : base(connection)
+        public BBAcademyDb()
+        : base("BBAcademyDb")
         { }
         //public BBAcademyDb()
         //{

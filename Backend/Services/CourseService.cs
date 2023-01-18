@@ -65,10 +65,13 @@ namespace Backend.Services
                 var course = await cr.Get(vm.IdCourse);
                 var user = await ur.Get(vm.User.Id);
                 vm.AllLessons = course.Lessons.ToList();
-                if(vm.CurrentLesson!= null)
+                if(vm.CurrentLesson == null)
                     vm.CurrentLesson = 0;
                 vm.Exam = course.Exam;
-                List<long> ids = JsonConvert.DeserializeObject<List<long>>(user.PassedCoursesId);
+                if (user.PassedCoursesId is not null)
+                {
+                    List<long> ids = JsonConvert.DeserializeObject<List<long>>(user.PassedCoursesId);
+                }
                 if (!user.BoughtCourses.Contains(course))
                 {
                     vm.IsBought = false;
@@ -99,7 +102,10 @@ namespace Backend.Services
                 var user = await ur.Get(vm.User.Id);
                 vm.AllLessons = course.Lessons.ToList();
                 vm.CurrentLesson = 0;
-                List<long> ids = JsonConvert.DeserializeObject<List<long>>(user.PassedCoursesId);
+                if (user.PassedCoursesId is not null)
+                {
+                    List<long> ids = JsonConvert.DeserializeObject<List<long>>(user.PassedCoursesId);
+                }
 				if (user.BoughtCourses.Contains(course))
 						return new BaseResponse<CourseViewModel>() { Description = "You have already bought this course", StatusCode = Models.Enum.StatusCode.InternalServerError };
                 user.BoughtCourses.Add(course);

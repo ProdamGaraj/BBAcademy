@@ -9,6 +9,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Backend.Controllers
 {
+    [Route("[controller]")]
     public class CourseController : Controller
     {
 
@@ -19,12 +20,12 @@ namespace Backend.Controllers
             accountService = _accountService;
         }
         [HttpGet]
-		public async Task<IActionResult> Index(CourseViewModel vm)
+        public async Task<IActionResult> Index(CourseViewModel vm)
         {
             vm.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
-            if(TempData["idCourse"] is not null)
+            if (TempData["idCourse"] is not null)
                 vm.IdCourse = long.Parse(TempData["idCourse"].ToString());
-            if(TempData["currentLesson"] is not null)
+            if (TempData["currentLesson"] is not null)
                 vm.CurrentLesson = int.Parse(TempData["currentLesson"].ToString());
 
             CourseService cs = new CourseService();
@@ -32,16 +33,18 @@ namespace Backend.Controllers
             return View(vm);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Buy(CourseViewModel vm)
+        [HttpGet("Buy/{id}")]
+        public async Task<IActionResult> Buy(string id)
         {
-            if (ModelState.IsValid)
-            {
-                CourseService cs = new CourseService();//TODO:Payment
-                vm = (await cs.BuyCourse(vm)).Data;
-                return RedirectToAction("Index", "Course");
 
-            }
+            var cvm = new CourseViewModel();
+            cvm.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
+
+            cvm.IdCourse = long.Parse(id);
+
+            CourseService cs = new CourseService();//TODO:Payment
+            cvm = (await cs.BuyCourse(cvm)).Data;
+            TempData["idCourse"] = cvm.IdCourse.ToString();
             return RedirectToAction("Index", "Course");
         }
         //[HttpPost]
@@ -62,7 +65,7 @@ namespace Backend.Controllers
         {
             if (ModelState.IsValid)
             {
-                if(vm.CurrentLesson + 1 != vm.AllLessons.Count)
+                if (vm.CurrentLesson + 1 != vm.AllLessons.Count)
                     vm.CurrentLesson = vm.CurrentLesson + 1;
             }
             return RedirectToAction("Index", vm);

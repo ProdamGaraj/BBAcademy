@@ -7,7 +7,12 @@
     ViewBag.Title = "Вход в аккаунт";
 }
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-
+@functions {
+    public long GetCourseId(long id)
+    {
+        return Model.ClickedCourseId = id;
+    }
+}
 
 <link rel="stylesheet" type="text/css" href="~css/MyAccount.css">
 <div class="main-container">
@@ -140,6 +145,7 @@
                     {
                         @foreach (var item in collection)
                         {
+                            var hreff = "/Course/Buy/" + item.Id;
                             <scroll-page>
                                 <img class="cours-scroll" src="~/pict/cours-scroll.png">
                                 <div class="cours-text">
@@ -150,7 +156,9 @@
                                     <img class="cours-info-block-src" src="~/pict/@item.MediaPath">
                                     <div class="cours-info-block-hours-1">@item.Lessons.Count()</div>
                                     <div class="cours-info-block-hours-2">@item.Duration</div>
-                                    <a class="cours-info-block-button" asp-controller="Course" asp-action="Buy">Начать</a>
+                                    <form method="get" asp-controller="Course" asp-action="Buy">
+                                            <a class="cours-info-block-button" href=@hreff>Начать</a>
+                                    </form>
                                 </div>
                             </scroll-page>
                         }
