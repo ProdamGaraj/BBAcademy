@@ -33,13 +33,16 @@ namespace Backend.Services
                 List<Course> passedCourses = new List<Course>();
                 List<Course> boughtCourses = new List<Course>();
                 allCourses.AddRange(await cr.GetAll());
-
-                List<long> boughtIds = JsonConvert.DeserializeObject<List<long>>(user.BoughtCourses);
-
-                foreach (long course in user.BoughtCourses)
+                if (user.BoughtCourses is not null)
                 {
-                    boughtCourses.Add(allCourses.First(x => x.Id == course));
-                    allCourses.Remove(boughtCourses.Last());
+                    List<long> boughtIds = JsonConvert.DeserializeObject<List<long>>(user.BoughtCourses);
+
+                    foreach (long course in boughtIds)
+                    {
+
+                        boughtCourses.Add(allCourses.First(x => x.Id == course));
+                        allCourses.Remove(boughtCourses.Last());
+                    }
                 }
                 if (!user.PassedCoursesId.IsNullOrEmpty())
                 {
@@ -59,6 +62,7 @@ namespace Backend.Services
                 return new BaseResponse<AccountViewModel>() { Data = null, Description = ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace, StatusCode = Models.Enum.StatusCode.InternalServerError };
             }
         }
+
         public async Task<IBaseResponce<CourseViewModel>> GetCourse(CourseViewModel vm)
         {
             Logger logger = LogManager.GetCurrentClassLogger();
@@ -103,6 +107,7 @@ namespace Backend.Services
             Logger logger = LogManager.GetCurrentClassLogger();
             try
             {
+                List<long> boughtIds = new List<long>();
                 CourseRepository cr = new CourseRepository();
                 UserRepository ur = new UserRepository();
                 var course = await cr.Get(vm.IdCourse);
@@ -113,11 +118,14 @@ namespace Backend.Services
                 {
                     List<long> ids = JsonConvert.DeserializeObject<List<long>>(user.PassedCoursesId);
                 }
+                if (user.BoughtCourses is not null)
+                {
+                    boughtIds = JsonConvert.DeserializeObject<List<long>>(user.BoughtCourses);
 
-                List<long> boughtIds = JsonConvert.DeserializeObject<List<long>>(user.BoughtCourses);
+                    if (boughtIds.Contains(course.Id))
+                        return new BaseResponse<CourseViewModel>() { Description = "You have already bought this course", StatusCode = Models.Enum.StatusCode.InternalServerError };
 
-                if (boughtIds.Contains(course.Id))
-						return new BaseResponse<CourseViewModel>() { Description = "You have already bought this course", StatusCode = Models.Enum.StatusCode.InternalServerError };
+                }
                 boughtIds.Add(course.Id);
                 user.BoughtCourses = JsonConvert.SerializeObject(boughtIds);
                 if(await ur.Update(user))

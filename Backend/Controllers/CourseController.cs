@@ -5,6 +5,7 @@ using Backend.Services.AccountService.Interfaces;
 using Backend.Services.Repository;
 using Backend.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Backend.Controllers
@@ -24,10 +25,13 @@ namespace Backend.Controllers
         {
             vm.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
             if (TempData["idCourse"] is not null)
+            {
                 vm.IdCourse = long.Parse(TempData["idCourse"].ToString());
+            }
             if (TempData["currentLesson"] is not null)
+            {
                 vm.CurrentLesson = int.Parse(TempData["currentLesson"].ToString());
-
+            }
             CourseService cs = new CourseService();
             vm = (await cs.GetCourse(vm)).Data;
             return View(vm);
@@ -39,12 +43,15 @@ namespace Backend.Controllers
 
             var cvm = new CourseViewModel();
             cvm.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
-
             cvm.IdCourse = long.Parse(id);
-
-            CourseService cs = new CourseService();//TODO:Payment
-            cvm = (await cs.BuyCourse(cvm)).Data;
+            List<long> boughtCourses = JsonConvert.DeserializeObject<List<long>>(cvm.User.BoughtCourses);
             TempData["idCourse"] = cvm.IdCourse.ToString();
+            if (boughtCourses.Contains(cvm.IdCourse))
+            {
+                return RedirectToAction("Index", "Course");
+            }
+            CourseService cs = new CourseService();//TODO:Payment
+            await cs.BuyCourse(cvm);
             return RedirectToAction("Index", "Course");
         }
         //[HttpPost]
@@ -60,27 +67,23 @@ namespace Backend.Controllers
         //    return RedirectToAction("Course", "Index");
         //    return View(vm);
         //}
-        [HttpPost]
-        public async Task<IActionResult> NextLesson(CourseViewModel vm)
+        [HttpGet("NextLesson/{courseId}/{id}/{count}")]
+        public async Task<IActionResult> NextLesson(long courseId,long id, long count)
         {
-            if (ModelState.IsValid)
-            {
-                if (vm.CurrentLesson + 1 != vm.AllLessons.Count)
-                    vm.CurrentLesson = vm.CurrentLesson + 1;
-            }
-            return RedirectToAction("Index", vm);
+            var cvm = new CourseViewModel();
+            cvm.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
+            TempData["idCourse"] = courseId.ToString();
+            TempData["currentLesson"] = (++id).ToString();
+            return RedirectToAction("Index");
         }
-        [HttpPost]
-        public async Task<IActionResult> PrevLesson(CourseViewModel vm)
+        [HttpGet("PrevLesson/{courseId}/{id}/{count}")]
+        public async Task<IActionResult> PrevLesson(long courseId, long id, long count)
         {
-            if (ModelState.IsValid)
-            {
-                if (vm.CurrentLesson != 0)
-                {
-                    vm.CurrentLesson = vm.CurrentLesson - 1;
-                    TempData["currentLesson"] = vm.CurrentLesson;
-                }
-            }
+            var cvm = new CourseViewModel();
+            cvm.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
+            TempData["idCourse"] = courseId.ToString();
+            TempData["currentLesson"] = (--id).ToString();
+
             return RedirectToAction("Index");
         }
         [HttpGet("Course/Exam")]

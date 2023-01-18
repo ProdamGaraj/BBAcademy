@@ -1,9 +1,10 @@
-﻿namespace Backend.Models
+﻿namespace Backend.Models.Enum
 {
     public enum QuestionType
     {
-        OneAnswer,
-        ManyAnswers,
-        TextAnswer
+        TextOneAnswer,
+        TextManyAnswers,
+        MediaOneAnswer,
+        MediaManyAnswers
     }
 }

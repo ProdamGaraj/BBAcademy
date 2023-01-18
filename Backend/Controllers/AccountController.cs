@@ -30,9 +30,11 @@ namespace Backend.Controllers
             if (responce.StatusCode == Models.Enum.StatusCode.OK)
             {
                 accountViewModel.AllCourses = responce.Data.AllCourses;
+                accountViewModel.BoughtCourses = responce.Data.BoughtCourses;
+                accountViewModel.EndedCourses = responce.Data.EndedCourses;
                 return View(accountViewModel);
             }
-            accountViewModel.AllCourses.Add(new Models.Course());
+            //accountViewModel.AllCourses.Add(new Models.Course());
             return View(accountViewModel);
         }
 
