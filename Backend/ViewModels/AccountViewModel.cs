@@ -8,5 +8,6 @@ namespace Backend.ViewModels
         public List<Course> BoughtCourses { get; set; }
         public List<Course> EndedCourses { get; set; }
         public string filter { get; set; }
+        public long ClickedCourseId { get; set; }
     }
 }

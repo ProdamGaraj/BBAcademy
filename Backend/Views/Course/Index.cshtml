@@ -1,117 +1,120 @@
 ﻿@using Backend.Models;
 @model Backend.ViewModels.CourseViewModel
+<link rel="stylesheet" type="text/css" href="~/css/Course.css">
 @{
     ViewBag.Title = "Courses";
     Layout = "CLLayout";
     string header = "";
-    if(Model.CurrentLesson< Model.AllLessons.Count){
-    if (Model.CurrentLesson==0)
+    if (Model.CurrentLesson < Model.AllLessons.Count)
     {
-        header = "Введение";
+        if (Model.CurrentLesson == 0)
+        {
+            header = "Введение";
+        }
+        else
+        {
+            header = "1." + Model.CurrentLesson;
+        }
+        <div class="main-container">
+            <div class="main-container-cont">
+                <div class="Demarcation-line"></div>
+                <div class="main-container-list-result">
+                    <div class="main-container-list-result-cont">
+                        <div class="main-container-list-result-cont-1">@header</div>
+                        <div class="main-container-list-result-cont-2">@Model.AllLessons.ElementAt( Model.CurrentLesson).TextContent </div>
+                        @if (Model.AllLessons.ElementAt(Model.CurrentLesson).MediaContentPath is not null)
+                        {
+                            <div class="video-block" href=@Model.AllLessons.ElementAt( Model.CurrentLesson).MediaContentPath></div>
+                        }
+                        <div class="back-next-btns">
+                            <form method="get" asp-controller="Course" asp-action="PrevLesson">
+                                <button class="course-back-button">
+                                    <img class="back-button-icon" src="~/pict/left.svg">
+                                    <div class="left">Назад</div>
+                                </button>
+                            </form>
+
+                            <form method="get" asp-controller="Course" asp-action="PreviousLesson">
+                                <button class="course-next-button" asp-controller="Course" asp-action="NextLesson">
+                                    <div class="next">Дальше</div>
+                                    <img class="next-button-icon" src="~/pict/next.svg">
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    else if (Model.CurrentLesson == Model.AllLessons.Count)
+    {
+        <!--test-->
+        <div class="main-container-list-result-5">
+            <div class="main-container-list-result-cont-test">
+                <div class="main-container-list-result-cont-1">Тест</div>
+                <form class="course-test-que">
+                    <p class="course-test-que-text">После того как тема сформулирована, скрытый смысл неустойчив. Кульминация точно просветляет дискурс, но не рифмами?</p>
+                    <div class="test-que">
+                        <input class="test-que-checkbox" type="checkbox" name="test-que" id="test-1">
+                        <label class="course-test-que-text-text">Контрапункт иллюстрирует холодный цинизм. Олицетворение, несмотря на внешние воздействия, постоянно</label>
+                    </div>
+                    <div class="test-que">
+                        <input class="test-que-checkbox" type="checkbox" name="test-que" id="test-2">
+                        <label class="course-test-que-text-text">Гекзаметр представляет собой урбанистический реформаторский пафос, тем не менее узус никак не предполагал здесь родительного падежа</label>
+                    </div>
+                    <div class="test-que">
+                        <input class="test-que-checkbox" type="checkbox" name="test-que" id="test-4">
+                        <label class="course-test-que-text-text">Аллитерация неумеренно выбирает поэтический стиль </label>
+                    </div>
+                    <div class="test-que">
+                        <input class="test-que-checkbox" type="checkbox" name="test-que" id="test-4">
+                        <label class="course-test-que-text-text">Впечатление выбирает конструктивный механизм сочленений. Ударение нивелирует поток сознания</label>
+                    </div>
+                </form>
+                <form class="course-test-que">
+                    <p class="course-test-que-text">После того как тема сформулирована?</p>
+                    <div class="test-que">
+                        <input class="test-que-checkbox" type="radio" name="test-que" id="test-1">
+                        <label class="course-test-que-text-text">Впечатление</label>
+                    </div>
+                    <div class="test-que">
+                        <input class="test-que-checkbox" type="radio" name="test-que" id="test-2">
+                        <label class="course-test-que-text-text">Впечатление</label>
+                    </div>
+                    <div class="test-que">
+                        <input class="test-que-checkbox" type="radio" name="test-que" id="test-4">
+                        <label class="course-test-que-text-text">Впечатление</label>
+                    </div>
+                    <div class="test-que">
+                        <input class="test-que-checkbox" type="radio" name="test-que" id="test-4">
+                        <label class="course-test-que-text-text" for="test-4">Впечатление</label>
+                    </div>
+                </form>
+                <form class="course-test-que">
+                    <p class="course-test-que-text">После того как тема сформулирована, скрытый смысл неустойчив. Кульминация точно просветляет дискурс, но не рифмами. Слово, согласно традиционным представлениям, начинает метафоричный?</p>
+                    <img class="png-que" src="~/pict/excel.png">
+                    <div class="test-que">
+                        <input class="test-que-checkbox" type="checkbox" name="test-que" id="test-1">
+                        <label class="course-test-que-text-text">Контрапункт иллюстрирует холодный цинизм. Олицетворение, несмотря на внешние воздействия, постоянно</label>
+                    </div>
+                    <div class="test-que">
+                        <input class="test-que-checkbox" type="checkbox" name="test-que" id="test-2">
+                        <label class="course-test-que-text-text">Гекзаметр представляет собой урбанистический реформаторский пафос, тем не менее узус никак не предполагал здесь родительного падежа</label>
+                    </div>
+                </form>
+            </div>
+        </div>
     }
     else
     {
-        header = "1." + Model.CurrentLesson;
-    }
-<div class="Demarcation-line"></div>
-<div class="main-container-list-result">
-    <div class="main-container-list-result-cont">
-        <div class="main-container-list-result-cont-1">@header</div>
-        <div class="main-container-list-result-cont-2">@Model.AllLessons.ElementAt( Model.CurrentLesson).TextContent </div>
-        @if (Model.AllLessons.ElementAt( Model.CurrentLesson).MediaContentPath is not null)
-        {
-            <div class="video-block" href=@Model.AllLessons.ElementAt( Model.CurrentLesson).MediaContentPath></div>
-        }
-        <div class="back-next-btns">
-            <form method="get" asp-controller="Course" asp-action="PrevLesson">
-            <button class="course-back-button" >
-                <img class="back-button-icon" src="~/pict/left.svg">
-                <div class="left">Назад</div>
-            </button>
-            </form>
-
-            <form method="get" asp-controller="Course" asp-action="PreviousLesson">
-            <button class="course-next-button" asp-controller="Course" asp-action="NextLesson">
-                <div class="next">Дальше</div>
-                <img class="next-button-icon" src="~/pict/next.svg">
-            </button>
-            </form>
+        <!--ending-->
+        <div class="main-container-list-result-6">
+            <div class="main-container-list-result-cont">
+                <p class="sertif-conc">Заключение</p>
+                <p class="sertig-gratz">Поздравляем! Вы завершили курс Инвестиции для начинающих</p>
+                <img class="sertif-set" src="~/pict/sertif.png">
+            </div>
         </div>
-    </div>
-</div>
     }
-}
-else if(Model.CurrentLesson== Model.AllLessons.Count)
-{
-<!--test-->
-
-@foreach(var question in Model.Exam.Questions)
-{
-    
-}
-<div class="main-container-list-result-5">
-    <div class="main-container-list-result-cont-test">
-        <div class="main-container-list-result-cont-1">Тест</div>
-        <form class="course-test-que">
-            <p class="course-test-que-text">После того как тема сформулирована, скрытый смысл неустойчив. Кульминация точно просветляет дискурс, но не рифмами?</p>
-            <div class="test-que">
-                <input class="test-que-checkbox" type="checkbox" name="test-que" id="test-1">
-                <label class="course-test-que-text-text">Контрапункт иллюстрирует холодный цинизм. Олицетворение, несмотря на внешние воздействия, постоянно</label>
-            </div>
-            <div class="test-que">
-                <input class="test-que-checkbox" type="checkbox" name="test-que" id="test-2">
-                <label class="course-test-que-text-text">Гекзаметр представляет собой урбанистический реформаторский пафос, тем не менее узус никак не предполагал здесь родительного падежа</label>
-            </div>
-            <div class="test-que">
-                <input class="test-que-checkbox" type="checkbox" name="test-que" id="test-4">
-                <label class="course-test-que-text-text">Аллитерация неумеренно выбирает поэтический стиль </label>
-            </div>
-            <div class="test-que">
-                <input class="test-que-checkbox" type="checkbox" name="test-que" id="test-4">
-                <label class="course-test-que-text-text">Впечатление выбирает конструктивный механизм сочленений. Ударение нивелирует поток сознания</label>
-            </div>
-        </form>
-        <form class="course-test-que">
-            <p class="course-test-que-text">После того как тема сформулирована?</p>
-            <div class="test-que">
-                <input class="test-que-checkbox" type="radio" name="test-que" id="test-1">
-                <label class="course-test-que-text-text">Впечатление</label>
-            </div>
-            <div class="test-que">
-                <input class="test-que-checkbox" type="radio" name="test-que" id="test-2">
-                <label class="course-test-que-text-text">Впечатление</label>
-            </div>
-            <div class="test-que">
-                <input class="test-que-checkbox" type="radio" name="test-que" id="test-4">
-                <label class="course-test-que-text-text">Впечатление</label>
-            </div>
-            <div class="test-que">
-                <input class="test-que-checkbox" type="radio" name="test-que" id="test-4">
-                <label class="course-test-que-text-text" for="test-4">Впечатление</label>
-            </div>
-        </form>
-        <form class="course-test-que">
-            <p class="course-test-que-text">После того как тема сформулирована, скрытый смысл неустойчив. Кульминация точно просветляет дискурс, но не рифмами. Слово, согласно традиционным представлениям, начинает метафоричный?</p>
-            <img class="png-que" src="~/pict/excel.png">
-            <div class="test-que">
-                <input class="test-que-checkbox" type="checkbox" name="test-que" id="test-1">
-                <label class="course-test-que-text-text">Контрапункт иллюстрирует холодный цинизм. Олицетворение, несмотря на внешние воздействия, постоянно</label>
-            </div>
-            <div class="test-que">
-                <input class="test-que-checkbox" type="checkbox" name="test-que" id="test-2">
-                <label class="course-test-que-text-text">Гекзаметр представляет собой урбанистический реформаторский пафос, тем не менее узус никак не предполагал здесь родительного падежа</label>
-            </div>
-        </form>
-    </div>
-</div>
-}
-else{
-<!--ending-->
-<div class="main-container-list-result-6">
-    <div class="main-container-list-result-cont">
-        <p class="sertif-conc">Заключение</p>
-        <p class="sertig-gratz">Поздравляем! Вы завершили курс Инвестиции для начинающих</p>
-        <img class="sertif-set" src="~/pict/sertif.png">
-    </div>
-</div>
 }

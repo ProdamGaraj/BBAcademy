@@ -80,6 +80,8 @@ namespace Backend.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+
+
         [HttpGet]
         public async Task<IActionResult> ChangeFilterToAll(AccountViewModel accountViewModel)
         {
