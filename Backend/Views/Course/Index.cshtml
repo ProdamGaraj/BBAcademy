@@ -4,6 +4,7 @@
     ViewBag.Title = "Courses";
     Layout = "CLLayout";
     string header = "";
+    if(Model.CurrentLesson< Model.AllLessons.Count){
     if (Model.CurrentLesson==0)
     {
         header = "Введение";
@@ -12,7 +13,6 @@
     {
         header = "1." + Model.CurrentLesson;
     }
-}
 <div class="Demarcation-line"></div>
 <div class="main-container-list-result">
     <div class="main-container-list-result-cont">
@@ -39,6 +39,10 @@
         </div>
     </div>
 </div>
+    }
+}
+else if(Model.CurrentLesson== Model.AllLessons.Count)
+{
 <!--test-->
 <div class="main-container-list-result-5">
     <div class="main-container-list-result-cont-test">
@@ -95,6 +99,8 @@
         </form>
     </div>
 </div>
+}
+else{
 <!--ending-->
 <div class="main-container-list-result-6">
     <div class="main-container-list-result-cont">
@@ -103,3 +109,4 @@
         <img class="sertif-set" src="~/pict/sertif.png">
     </div>
 </div>
+}
