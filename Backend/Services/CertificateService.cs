@@ -57,15 +57,27 @@ namespace Backend.Services
             }
             return new BaseResponse<Certificate>()
             {
-                        Description = "Conditions are not passed. Either uaer or course is null, or exam is not passed",
-                        StatusCode = StatusCode.InternalServerError
-                    }; 
+                Description = "Conditions are not passed. Either uaer or course is null, or exam is not passed",
+                StatusCode = StatusCode.InternalServerError
+            };
         }
 
-        public async Task<IBaseResponce<Certificate>> GetCertificate(Certificate vm)
+        public async Task<IBaseResponce<List<Certificate>>> GetCertificates(CertificateViewModel vm)
         {
-
-            return new BaseResponse<Certificate>()
+            UserRepository ur = new UserRepository();
+            CertificateRepository cr = new CertificateRepository();
+            User user = await ur.Get(vm.User.Id);
+            List<Certificate> certificates = (await cr.GetAll()).Where(x=>x.UserId==user.Id).ToList();
+            if (user is not null&&certificates is not null)
+            {
+                return new BaseResponse<List<Certificate>>()
+                {
+                    Data = certificates,
+                    Description = "Can`t reach certificate.",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+            return new BaseResponse<List<Certificate>>()
             {
                 Description = "Can`t reach certificate.",
                 StatusCode = StatusCode.InternalServerError

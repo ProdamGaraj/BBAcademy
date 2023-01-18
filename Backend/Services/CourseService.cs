@@ -25,7 +25,7 @@ namespace Backend.Services
             UserRepository ur = new UserRepository();
             var user = await ur.Get(vm.User.Id);
             Logger logger = LogManager.GetCurrentClassLogger();
-
+            
             try
             {
                 CourseRepository cr = new CourseRepository();
