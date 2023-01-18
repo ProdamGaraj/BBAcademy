@@ -5,6 +5,7 @@ using Backend.Services.AccountService.Interfaces;
 using Backend.Services.Repository;
 using Backend.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace Backend.Controllers
 {
@@ -32,17 +33,30 @@ namespace Backend.Controllers
         }
 
         [HttpGet]
-        public IActionResult Buy() => View();
-        [HttpPost]
         public async Task<IActionResult> Buy(CourseViewModel vm)
         {
             if (ModelState.IsValid)
             {
                 CourseService cs = new CourseService();//TODO:Payment
                 vm = (await cs.BuyCourse(vm)).Data;
+                return RedirectToAction("Index", "Course");
+
             }
-            return View(vm);
+            return RedirectToAction("Index", "Course");
         }
+        //[HttpPost]
+        //public async Task<IActionResult> Buy(CourseViewModel vm)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        CourseService cs = new CourseService();//TODO:Payment
+        //        vm = (await cs.BuyCourse(vm)).Data;
+        //        return RedirectToAction("Course", "Index");
+        //
+        //    }
+        //    return RedirectToAction("Course", "Index");
+        //    return View(vm);
+        //}
         [HttpPost]
         public async Task<IActionResult> NextLesson(CourseViewModel vm)
         {
@@ -65,6 +79,27 @@ namespace Backend.Controllers
                 }
             }
             return RedirectToAction("Index");
+        }
+        [HttpGet("Course/Exam")]
+        public async Task<IActionResult> GetExam(CourseViewModel vm)
+        {
+            ExamService es = new ExamService();
+            vm.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
+            return View(vm);
+        }
+        [HttpPost]
+        public async Task<IActionResult> SendAllAsync(ExamViewModel vm)
+        {
+            ExamService es = new ExamService();
+            var values = JObject.FromObject((await es.Check(vm)).Data).ToObject<Dictionary<string, object>>();
+            if (values["passed"].Equals("true"))
+            {
+                CertificateService cs = new CertificateService();
+                Certificate certificate = (await cs.CreateCertificate(vm)).Data;
+                return Redirect("~/Ending");
+            }
+            else
+                return View();
         }
     }
 }

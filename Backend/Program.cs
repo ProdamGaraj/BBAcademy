@@ -22,9 +22,8 @@ builder.Logging.ClearProviders();
 builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
 
 builder.Services.AddControllersWithViews();
-//var connection = builder.Configuration.GetConnectionString("DefaultConnection");
-//builder.Services.AddDbContext<BBAcademyDb>(options=>
-//					options.UseSqlServer(connection));
+var connection = builder.Configuration.GetConnectionString("DefaultConnection");
+
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAnswerRepository, AnswerRepository>();
@@ -42,6 +41,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 		options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
 		options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
 	});
+
 var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
@@ -79,6 +79,10 @@ app.Use(async (context, next) =>
             context.Response.Redirect("/Account/Login");
         }
 	}
+	else
+	{
+        //context.Response.Redirect("/Account");
+    }
     await next.Invoke();
 });
 

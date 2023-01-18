@@ -2,8 +2,8 @@
 {
     public enum QuestionType
     {
-        Business,
-        SoftSkills,
-        TimeManagement
+        OneAnswer,
+        ManyAnswers,
+        TextAnswer
     }
 }
