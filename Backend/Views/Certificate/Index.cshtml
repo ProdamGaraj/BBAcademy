@@ -61,7 +61,7 @@
                         <div class="sertif_name">Инвестиции для начинающих</div>
                         <img class="sertif_dwnl_img" src="pict\sertif.png">
                         <div class="sertif-dwnl-btn">
-                            <a class="header-container-right_section-login" asp-controller="Certificate" asp-action="DownloadCertificate">Скачать PDF</a>
+                            <a class="header-container-right_section-login" asp-controller="Certificate" asp-action="DownloadCertificate" asp-route-id ="@item.Id">Скачать PDF</a>
                         </div>
                     </div>
                 }

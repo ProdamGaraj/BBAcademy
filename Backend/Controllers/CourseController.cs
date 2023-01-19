@@ -39,14 +39,17 @@ namespace Backend.Controllers
             {
                 vm.CurrentLesson = int.Parse(TempData["currentLesson"].ToString());
             }
+            List<long> ids = new List<long>();
             CourseService cs = new CourseService();
             vm = (await cs.GetCourse(vm)).Data;
-
-            List<long> ids = JsonConvert.DeserializeObject<List<long>>(vm.User.PassedCoursesId);
-            if (ids.Contains(vm.IdCourse) && vm.CurrentLesson >= vm.AllLessons.Count)
+            if (vm.User.PassedCoursesId is not null)
             {
-                vm.CurrentLesson--;
-                TempData["currentLesson"] = vm.CurrentLesson.ToString();
+                ids = JsonConvert.DeserializeObject<List<long>>(vm.User.PassedCoursesId);
+                if (ids.Contains(vm.IdCourse) && vm.CurrentLesson >= vm.AllLessons.Count)
+                {
+                    vm.CurrentLesson--;
+                    TempData["currentLesson"] = vm.CurrentLesson.ToString();
+                }
             }
             if (vm.CurrentLesson < 0)
             {

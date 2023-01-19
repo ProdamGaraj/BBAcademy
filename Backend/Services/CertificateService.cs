@@ -73,8 +73,8 @@ namespace Backend.Services
                 return new BaseResponse<List<Certificate>>()
                 {
                     Data = certificates,
-                    Description = "Can`t reach certificate.",
-                    StatusCode = StatusCode.InternalServerError
+                    Description = "Can reach certificate.",
+                    StatusCode = StatusCode.OK
                 };
             }
             return new BaseResponse<List<Certificate>>()
