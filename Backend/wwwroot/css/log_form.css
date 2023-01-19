@@ -103,16 +103,16 @@ footer{
 	flex-direction: column;
 	margin-top: 110px;
 }
-.reg-log-input{
+.reg-log-input {
 	width: 548px;
 	height: 40px;
-
 	/* white_sh */
 
 	background: #FDFDFD;
 	box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.25);
 	border-radius: 10px;
-	border:none;
+	border: none;
+	color: black;
 }
 .registerbtn{
 	margin-left: auto;
