@@ -14,19 +14,22 @@ namespace Backend.Controllers
         {
             accountService = _accountService;
         }
-        [HttpGet]
 		public IActionResult Index() 
 		{  
 			return View();
 		}
-        [HttpGet("/ChangeLang/{id}")]
+        [HttpGet("Home/ChangeLang/{id}")]
         public async Task<IActionResult> ChangeLang(int id)
 		{
-            User user = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
-            user.Lang = id;
-            UserRepository ur = new UserRepository();
-            await ur.Update(user);
-            return RedirectToAction("Index");
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                User user = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
+                user.Lang = id;
+                UserRepository ur = new UserRepository();
+                await ur.Update(user);
+            }
+            TempData["lang"] = id;
+            return RedirectToAction("");
 		}
 	}
 

@@ -7,6 +7,8 @@ using System.Security.Claims;
 using Backend.Services;
 using Backend.Services.AccountService;
 using Microsoft.AspNetCore.Cors.Infrastructure;
+using Backend.Models;
+using Backend.Services.Repository;
 
 namespace Backend.Controllers
 {

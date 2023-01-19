@@ -1,0 +1,18 @@
+﻿namespace Backend.Migrations
+{
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class _new : DbMigration
+    {
+        public override void Up()
+        {
+            AddColumn("dbo.Users", "Lang", c => c.Int(nullable: false));
+        }
+        
+        public override void Down()
+        {
+            DropColumn("dbo.Users", "Lang");
+        }
+    }
+}

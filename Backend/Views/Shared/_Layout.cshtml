@@ -1,5 +1,6 @@
 ﻿@{
     var bilimbank = "@bilimbank";
+    string controller = ViewContext.RouteData.Values["controller"].ToString();
 }
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <!DOCTYPE html>
@@ -25,8 +26,8 @@
             </div>
             <div class="header-container-right_section">
                 <div class="header-container-right_section-lang">
-                    <div class="header-container-right_section-lang-element"><a class="a-lang" href="#">uz</a></div>
-                    <div class="header-container-right_section-lang-element"><a class="a-lang" href="	">ru</a></div>
+                    <div class="header-container-right_section-lang-element"><a class="a-lang" href="@controller/ChangeLang/0">uz</a></div>
+                    <div class="header-container-right_section-lang-element"><a class="a-lang" href="@controller/ChangeLang/1">ru</a></div>
                 </div>
                 <!--<button type="button" id="myBtn" class="header-container-right_section-login"></button>-->
                 <a class="header-container-right_section-login" asp-controller="Account" asp-action="Login">Войти</a>
