@@ -41,7 +41,6 @@ namespace Backend.Controllers
             {
                 vm.CurrentLesson = int.Parse(TempData["currentLesson"].ToString());
             }
-            List<long> ids = new List<long>();
             CourseService cs = new CourseService();
             vm = (await cs.GetCourse(vm)).Data;
             if (vm.User.PassedCoursesId is not null)

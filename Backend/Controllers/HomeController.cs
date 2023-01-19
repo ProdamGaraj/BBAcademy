@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace Backend.Controllers
 {
 
-    [Route("Home")]
     public class HomeController : Controller
     {
         private readonly IAccountService accountService;
