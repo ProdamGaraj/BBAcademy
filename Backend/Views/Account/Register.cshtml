@@ -4,8 +4,8 @@
     ViewBag.Title = "Регистрация";
 }
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-<link rel="stylesheet" type="text/css" href="~/css/reg_form.css">
 <link rel="stylesheet" type="text/css" href="~/css/Bilmbank.css">
+<link rel="stylesheet" type="text/css" href="~/css/reg_form.css">
 
 <div class="main-container">
     <form id="log-form" class="log-block-form" asp-controller="Account" asp-action="Register">
@@ -35,7 +35,7 @@
                 Если вы являетесь сотрудником банка, укажите банк*<br>
                 <div class="log-label-l-sr">(Необязательное поле)</div>
             </label>
-            <input type="text" list="banks" />
+            <input type="text" list="banks" class="reg-log-input"/>
             <datalist id="banks">
                 <option value="bank0">bank0</option>
                 <option value="bank1">bank1</option>

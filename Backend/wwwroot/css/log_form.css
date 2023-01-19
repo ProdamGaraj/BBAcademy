@@ -13,6 +13,9 @@ header{
     flex-direction: row;
     background: #FAFAFA;
     margin: 0px;
+
+	box-shadow: none;
+
 }
 .header-cont{
 	width: 1320px;
@@ -27,13 +30,16 @@ header{
 	height: 20px;
 }
 .header-comp-name{
+	display: flex;
+	align-items: center;
+
 	width: 91px;
-	height: 20px;
 
 	font-family: 'Prompt';
 	font-style: normal;
 	font-weight: 300;
-	margin-left: 12px;
+	margin-left: 20px;
+	font-size:20px;
 }
 footer{
 	margin:0px;

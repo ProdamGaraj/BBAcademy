@@ -65,6 +65,7 @@ a{
 }
 .header-container-right_section-lang{
 	display: flex;
+	align-items: center;
 	margin-right: 70px;
 }
 .header-container-right_section-lang-element{
@@ -862,4 +863,10 @@ footer{
 	text-align: center;
 
     text-decoration: none;
+}
+.pb-3{
+	display: flex;
+	flex-direction: column;
+	align-items:center;
+	width: 100%;
 }
