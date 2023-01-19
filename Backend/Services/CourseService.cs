@@ -34,25 +34,32 @@ namespace Backend.Services
                 List<Course> passedCourses = new List<Course>();
                 List<Course> boughtCourses = new List<Course>();
                 allCourses.AddRange(await cr.GetAll());
-                if (user.BoughtCourses is not null)
-                {
-                    List<long> boughtIds = JsonConvert.DeserializeObject<List<long>>(user.BoughtCourses);
-
-                    foreach (long course in boughtIds)
-                    {
-
-                        boughtCourses.Add(allCourses.First(x => x.Id == course));
-                        allCourses.Remove(boughtCourses.Last());
-                    }
-                }
                 if (!user.PassedCoursesId.IsNullOrEmpty())
                 {
                     List<long> ids = JsonConvert.DeserializeObject<List<long>>(user.PassedCoursesId);
 
                     foreach (long id in ids)
                     {
-                        passedCourses.Add(allCourses.First(x => x.Id == id));
-                        allCourses.Remove(passedCourses.Last());
+                        try
+                        {
+                            passedCourses.Add(allCourses.First(x => x.Id == id));
+                            allCourses.Remove(passedCourses.Last());
+                        }
+                        catch { }
+                    }
+                }
+                if (user.BoughtCourses is not null)
+                {
+                    List<long> boughtIds = JsonConvert.DeserializeObject<List<long>>(user.BoughtCourses);
+
+                    foreach (long course in boughtIds)
+                    {
+                        try
+                        {
+                            boughtCourses.Add(allCourses.First(x => x.Id == course));
+                            allCourses.Remove(boughtCourses.Last());
+                        }
+                        catch { }
                     }
                 }
                 return new BaseResponse<AccountViewModel>() { Data = new AccountViewModel { AllCourses = allCourses, EndedCourses = passedCourses, BoughtCourses = boughtCourses }, Description = "Get all courses for a user", StatusCode = Models.Enum.StatusCode.OK };
@@ -77,9 +84,12 @@ namespace Backend.Services
                 if(vm.CurrentLesson == null)
                     vm.CurrentLesson = 0;
                 ExamRepository er = new ExamRepository();
-                vm.Exam = await er.Get(course.Exam.Id);
+                if (course.Exam is not null)
+                {
+                    vm.Exam = await er.Get(course.Exam.Id);
+                }
                 List <Question> questions = new List<Question>();
-                if (vm.Exam.Questions is not null)
+                if (vm.Exam is not null&& vm.Exam.Questions is not null)
                 {
                     QuestionRepository qr = new QuestionRepository();
                     foreach (Question question in vm.Exam.Questions)
@@ -91,6 +101,11 @@ namespace Backend.Services
                 if (user.PassedCoursesId is not null)
                 {
                     List<long> ids = JsonConvert.DeserializeObject<List<long>>(user.PassedCoursesId);
+                    if (ids.Contains(vm.IdCourse))
+                    {
+                        vm.CurrentLesson = vm.AllLessons.Count+1;
+                        return new BaseResponse<CourseViewModel>() { Data = vm, Description = "Get course for a user", StatusCode = Models.Enum.StatusCode.OK };
+                    }
                 }
 
                 List<long> boughtIds = JsonConvert.DeserializeObject<List<long>>(user.BoughtCourses);

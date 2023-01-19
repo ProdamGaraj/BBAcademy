@@ -122,7 +122,7 @@ namespace Backend.Services
             }
 
         }
-        public async Task<IBaseResponce<object>> Check(ExamViewModel vm)
+        public async Task<IBaseResponce<bool>> Check(CourseViewModel vm)
         {
             UserRepository ur = new UserRepository();
             var user = await ur.Get(vm.User.Id);
@@ -130,39 +130,56 @@ namespace Backend.Services
             try
             {
                 int currentGrade = 0;
-                foreach (Question question in vm.Course.Exam.Questions)
+                if (vm.Exam is not null && vm.Exam.Questions is not null)
                 {
-                    currentGrade += question.Answers.FirstOrDefault(x => x.IsChosen == true && x.IsCorrect == true).Cost;
+                    foreach (Question question in vm.Exam.Questions)
+                    {
+                        try
+                        {
+                            currentGrade += question.Answers.FirstOrDefault(x => x.IsChosen == true && x.IsCorrect == true).Cost;
+                        }
+                        catch { }
+                    }
                 }
                 int roundingUp = 0;
+                
+                if (vm.Exam.PassingGrade == 0)
+                {
+                    vm.Exam.PassingGrade = 1;
+                }
+                
+                currentGrade *= 100; 
                 double convertingToDecimal = currentGrade;
-                convertingToDecimal /= vm.Course.Exam.PassingGrade;
+                convertingToDecimal /= vm.Exam.PassingGrade;
+                convertingToDecimal %= 1;
                 if (convertingToDecimal > 0)
                 {
                     roundingUp++;
                 }
-                currentGrade *= 100;
-                int percent = currentGrade / vm.Course.Exam.PassingGrade + roundingUp;
-                bool passed = currentGrade > vm.Course.Exam.PassingGrade;
-                object ecr = new { percent = percent, passed = passed };
+                int percent = (currentGrade / vm.Exam.PassingGrade) + roundingUp;
+                bool passed = currentGrade > vm.Exam.PassingGrade*100;
                 if (user.PassedCoursesId is null)
                     user.PassedCoursesId = "";
                 List<long> ids = JsonConvert.DeserializeObject<List<long>>(user.PassedCoursesId);
+                if(ids is null)
+                {
+                    ids = new List<long>();
+                }
                 if (passed)
                 {
-                    ids.Add(vm.Course.Id);
+                    ids.Add(vm.IdCourse);
                     user.PassedCoursesId = JsonConvert.SerializeObject(ids);
                     await ur.Update(user);
                 }
                 CertificateService cs = new CertificateService();
                 await cs.CreateCertificate(vm);
 
-                return new BaseResponse<object>() { Description = "Result of exam check", Data = ecr, StatusCode = StatusCode.OK };
+                return new BaseResponse<bool>() { Description = "Result of exam check", Data = passed, StatusCode = StatusCode.OK };
             }
             catch (Exception ex)
             {
                 logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
-                return new BaseResponse<object>() { 
+                return new BaseResponse<bool>() { 
                     Description = ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace, 
                     StatusCode = StatusCode.InternalServerError };
             }

@@ -19,12 +19,12 @@ namespace Backend.Services
         {
             logger = LogManager.GetCurrentClassLogger();
         }
-        public async Task<IBaseResponce<Certificate>> CreateCertificate(ExamViewModel vm)
+        public async Task<IBaseResponce<Certificate>> CreateCertificate(CourseViewModel vm)
         {
             UserRepository ur = new UserRepository();
             CourseRepository cor = new CourseRepository();
             User user = await ur.Get(vm.User.Id);
-            Course course = await cor.Get(vm.Course.Id);
+            Course course = await cor.Get(vm.IdCourse);
             ICertificateRepository cr = new CertificateRepository();
             if (user != null && course != null)
             {

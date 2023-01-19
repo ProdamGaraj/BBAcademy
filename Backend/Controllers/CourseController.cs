@@ -1,4 +1,5 @@
 ﻿using Backend.Models;
+using Backend.Models.Enum;
 using Backend.Services;
 using Backend.Services.AccountService;
 using Backend.Services.AccountService.Interfaces;
@@ -14,6 +15,13 @@ namespace Backend.Controllers
     public class CourseController : Controller
     {
         private readonly IAccountService accountService;
+
+        [BindProperty]
+        public long CourseId { get; set; }
+        [BindProperty]
+        public List<long> SelectedCheckBoxId { get; set; }
+        [BindProperty]
+        public List<long> SelectedRadioId { get; set; }
 
         public CourseController(IAccountService _accountService)
         {
@@ -40,7 +48,60 @@ namespace Backend.Controllers
             vm = (await cs.GetCourse(vm)).Data;
             return View(vm);
         }
+        public async Task<IActionResult> OnPostAsync()
+        {
+            CourseService cs = new CourseService();
+            CourseViewModel cvm = new CourseViewModel()
+            {
+                User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data,
+                IdCourse = CourseId
+            };
+            cvm = (await cs.GetCourse(cvm)).Data;
+            TempData["idCourse"] = CourseId.ToString();
 
+            foreach(Question question in cvm.Exam.Questions)
+            {
+                if(question.QuestionType.Equals(QuestionType.TextOneAnswer)|| question.QuestionType.Equals(QuestionType.MediaOneAnswer))
+                {
+                    if (question.Answers is not null) 
+                    {
+                        foreach (Answer answer in question.Answers)
+                        {
+                            if (SelectedRadioId.Contains(answer.Id))
+                            {
+                                answer.IsChosen = true;
+                            }
+                        }
+                    }
+                }
+                else if (question.QuestionType.Equals(QuestionType.TextManyAnswers) || question.QuestionType.Equals(QuestionType.MediaManyAnswers))
+                {
+                    if (question.Answers is not null)
+                    {
+                        foreach (Answer answer in question.Answers)
+                        {
+                            if (SelectedCheckBoxId.Contains(answer.Id))
+                            {
+                                answer.IsChosen = true;
+                            }
+                        }
+                    }
+                }
+            }
+            ExamService es = new ExamService();
+            if ((await es.Check(cvm)).Data)
+            {
+                CertificateService cers = new CertificateService();
+                return Redirect($"/Course/NextLesson/{CourseId}/{cvm.AllLessons.Count + 1}/{cvm.AllLessons.Count}");
+            }
+            else
+            {
+                //TODO:Добавить переход на страницу провала
+                return Redirect($"/Course/NextLesson/{CourseId}/{cvm.AllLessons.Count}/{cvm.AllLessons.Count}");
+                
+            }
+            
+        }
         [HttpGet("Buy/{id}")]
         public async Task<IActionResult> Buy(string id)
         {
@@ -106,34 +167,5 @@ namespace Backend.Controllers
             return View(vm);
         }
 
-        [HttpGet("Course/{id}/SendAllAsync")]
-        public async Task<IActionResult> SendAllAsync(long id)
-        {
-            TempData["idCourse"] = id.ToString();
-            CourseViewModel cvm = new CourseViewModel()
-            {
-                User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data,
-                IdCourse= id
-            };
-
-            var cos = new CourseService();
-            var vm = new ExamViewModel()
-            {
-                User = cvm.User,
-                Course = (await cos.GetCourses(cvm)).Data.BoughtCourses.First(x => x.Id == cvm.IdCourse),
-                Questions = cvm.Exam.Questions.ToList()
-            };
-
-            ExamService es = new ExamService();
-            var values = JObject.FromObject((await es.Check(vm)).Data).ToObject<Dictionary<string, object>>();
-            if (values["passed"].Equals("true"))
-            {
-                CertificateService cs = new CertificateService();
-                Certificate certificate = (await cs.CreateCertificate(vm)).Data;
-                return Redirect("~/Ending");
-            }
-            else
-                return View();
-        }
     }
 }

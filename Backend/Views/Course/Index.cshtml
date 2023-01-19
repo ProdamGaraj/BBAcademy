@@ -65,7 +65,8 @@
                 <div class="main-container-list-result-cont-1">Тест</div>
                 @if (Model.Exam is not null && Model.Exam.Questions is not null)
                 {
-                    <form method="get" asp-controller="Course" action="SendAllAsync">
+                    <form method="post">
+                        <input type="hidden" value="@Model.IdCourse" name="CourseId" />
                         @foreach (var question in Model.Exam.Questions)
                         {
                             @if (question.QuestionType.Equals(Backend.Models.Enum.QuestionType.TextManyAnswers) && question.Answers is not null)
@@ -76,7 +77,7 @@
                                 {
                                     <div class="test-que">
 
-                                        <input class="test-que-checkbox" type="checkbox" onchange="@CheckChanged(answer)" name="test-que" id="test-1">
+                                        <input class="test-que-checkbox" type="checkbox" name="SelectedCheckBoxId" value="@answer.Id" id="test-1">
                                         <label class="course-test-que-text-text">@answer.Content</label>
                                     </div>
                                 }
@@ -89,7 +90,7 @@
                                 @foreach (var answer in question.Answers)
                                 {
                                     <div class="test-que">
-                                        <input class="test-que-checkbox" type="radio" checked="@answer.IsChosen" name="test-que" id="test-1">
+                                        <input class="test-que-checkbox" type="radio" name="SelectedRadioId" value="@answer.Id" id="test-1">
                                         <label class="course-test-que-text-text">@answer.Content</label>
                                     </div>
                                 }
@@ -97,18 +98,15 @@
                             }
                             else if (question.QuestionType.Equals(Backend.Models.Enum.QuestionType.MediaOneAnswer) && question.Answers is not null)
                             {
-
-
                                 <p class="course-test-que-text">@question.Content</p>
                                 <img class="png-que" src=@question.MediaPath>
                                 @foreach (var answer in question.Answers)
                                 {
                                     <div class="test-que">
-                                        <input class="test-que-checkbox" type="checkbox" name="test-que" id="test-1">
+                                        <input class="test-que-checkbox" type="checkbox" name="SelectedCheckBoxId" value="@answer.Id" id="test-1">
                                         <label class="course-test-que-text-text">@answer.Content</label>
                                     </div>
                                 }
-
                             }
                             else if (question.QuestionType.Equals(Backend.Models.Enum.QuestionType.MediaManyAnswers) && question.Answers is not null)
                             {
@@ -118,7 +116,7 @@
                                 @foreach (var answer in question.Answers)
                                 {
                                     <div class="test-que">
-                                        <input class="test-que-checkbox" type="radio" name="test-que" id="test-1">
+                                        <input class="test-que-checkbox" type="radio" name="SelectedRadioId" value="@answer.Id" id="test-1">
                                         <label class="course-test-que-text-text">@answer.Content</label>
                                     </div>
                                 }
