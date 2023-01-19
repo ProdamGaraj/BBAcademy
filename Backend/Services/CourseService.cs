@@ -87,18 +87,19 @@ namespace Backend.Services
                 if (course.Exam is not null)
                 {
                     vm.Exam = await er.Get(course.Exam.Id);
-                }
-                List <Question> questions = new List<Question>();
-                if (vm.Exam is not null&& vm.Exam.Questions is not null)
-                {
-                    QuestionRepository qr = new QuestionRepository();
-                    foreach (Question question in vm.Exam.Questions)
-                    {
-                        questions.Add(await qr.Get(question.Id));
-                    }
-                }
-                vm.Exam.Questions = questions;
 
+                    List<Question> questions = new List<Question>();
+                    if (vm.Exam is not null && vm.Exam.Questions is not null)
+                    {
+                        QuestionRepository qr = new QuestionRepository();
+                        foreach (Question question in vm.Exam.Questions)
+                        {
+                            questions.Add(await qr.Get(question.Id));
+                        }
+                    }
+                    vm.Exam.Questions = questions;
+
+                }
                 List<long> boughtIds = JsonConvert.DeserializeObject<List<long>>(user.BoughtCourses);
 
                 if (!boughtIds.Contains(course.Id))

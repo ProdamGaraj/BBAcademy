@@ -6,12 +6,15 @@ using Backend.Services.Repository;
 using Backend.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic.FileIO;
+using System.Reflection;
 
 namespace Backend.Controllers
 {
+    [Route("Certificate")]
     public class CertificateController : Controller
     {
-
+        
         private readonly IAccountService accountService;
         public CertificateController(IAccountService _accountService)
         {
@@ -29,9 +32,11 @@ namespace Backend.Controllers
             }
             return View(certificateViewModel);
         }
-        public async Task<IActionResult> DownloadCertificate(CertificateViewModel certificateViewModel)
+        [HttpGet("/DownloadCertificate/{id}")]
+        public async Task<IActionResult> DownloadCertificate(CertificateViewModel certificateViewModel,long id)
         {
-            return View(certificateViewModel);
+            string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "Files\\Certificates\\"+id;
+            return File(System.IO.File.OpenRead(path), "application/octet-stream", Path.GetFileName(path));
         }
     }
 }
