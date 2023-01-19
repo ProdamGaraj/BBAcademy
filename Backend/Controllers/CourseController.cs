@@ -52,7 +52,7 @@ namespace Backend.Controllers
             if (cvm.User.BoughtCourses is not null)
             {
                 List<long> boughtCourses = JsonConvert.DeserializeObject<List<long>>(cvm.User.BoughtCourses);
-                
+
                 if (boughtCourses.Contains(cvm.IdCourse))
                 {
                     return RedirectToAction("Index", "Course");
@@ -76,7 +76,7 @@ namespace Backend.Controllers
         //    return View(vm);
         //}
         [HttpGet("NextLesson/{courseId}/{id}/{count}")]
-        public async Task<IActionResult> NextLesson(long courseId,long id, long count)
+        public async Task<IActionResult> NextLesson(long courseId, long id, long count)
         {
             var cvm = new CourseViewModel();
             cvm.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
@@ -105,9 +105,25 @@ namespace Backend.Controllers
             vm.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
             return View(vm);
         }
-        [HttpPost]
-        public async Task<IActionResult> SendAllAsync(ExamViewModel vm)
+
+        [HttpGet("Course/{id}/SendAllAsync")]
+        public async Task<IActionResult> SendAllAsync(long id)
         {
+            TempData["idCourse"] = id.ToString();
+            CourseViewModel cvm = new CourseViewModel()
+            {
+                User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data,
+                IdCourse= id
+            };
+
+            var cos = new CourseService();
+            var vm = new ExamViewModel()
+            {
+                User = cvm.User,
+                Course = (await cos.GetCourses(cvm)).Data.BoughtCourses.First(x => x.Id == cvm.IdCourse),
+                Questions = cvm.Exam.Questions.ToList()
+            };
+
             ExamService es = new ExamService();
             var values = JObject.FromObject((await es.Check(vm)).Data).ToObject<Dictionary<string, object>>();
             if (values["passed"].Equals("true"))

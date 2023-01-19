@@ -1,6 +1,7 @@
 ﻿@using Backend.Models;
 @model Backend.ViewModels.CourseViewModel
 <link rel="stylesheet" type="text/css" href="~/css/Course.css">
+
 @{
     var prevLesHref = $"Course/PrevLesson/{Model.IdCourse}/{Model.CurrentLesson}/{Model.AllLessons.Count}";
     var nextLesHref = $"Course/NextLesson/{Model.IdCourse}/{Model.CurrentLesson}/{Model.AllLessons.Count}";
@@ -9,7 +10,7 @@
     string header = "";
     object CheckChanged(Answer answer)
     {
-        return answer.IsChosen=!answer.IsChosen;
+        return answer.IsChosen = !answer.IsChosen;
     }
     if (Model.CurrentLesson < Model.AllLessons.Count)
     {
@@ -55,15 +56,16 @@
 
     else if (Model.CurrentLesson == Model.AllLessons.Count)
     {
+        var hrefcontroller = $"Course/{Model.IdCourse}/SendAllAsync";
         <link rel="stylesheet" type="text/css" href="~/css/Course.css">
 
         <!--test-->
         <div class="main-container-list-result-5" style="display:block">
             <div class="main-container-list-result-cont-test">
                 <div class="main-container-list-result-cont-1">Тест</div>
-                @if (Model.Exam is not null&& Model.Exam.Questions is not null)
+                @if (Model.Exam is not null && Model.Exam.Questions is not null)
                 {
-                    <form >
+                    <form method="get" asp-controller="Course" action="SendAllAsync">
                         @foreach (var question in Model.Exam.Questions)
                         {
                             @if (question.QuestionType.Equals(Backend.Models.Enum.QuestionType.TextManyAnswers) && question.Answers is not null)
@@ -108,7 +110,7 @@
                                 }
 
                             }
-                            else if (question.QuestionType.Equals(Backend.Models.Enum.QuestionType.MediaManyAnswers)&&question.Answers is not null)
+                            else if (question.QuestionType.Equals(Backend.Models.Enum.QuestionType.MediaManyAnswers) && question.Answers is not null)
                             {
 
                                 <p class="course-test-que-text">@question.Content</p>
@@ -124,10 +126,10 @@
                             }
 
                         }
+                        <button type="submit" class="course-next-button">
+                            <div class="log-in-btn">Отправить</div>
+                        </button>
                     </form>
-                    <button type="submit" class="course-next-button" class="registerbtn">
-                        <div class="log-in-btn">Отправить</div>
-                    </button>
                 }
 
             </div>
