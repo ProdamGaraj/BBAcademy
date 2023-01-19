@@ -8,6 +8,7 @@ using Backend.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using NuGet.Packaging.Signing;
 
 namespace Backend.Controllers
 {
@@ -30,6 +31,7 @@ namespace Backend.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(CourseViewModel vm)
         {
+            List<long> ids = new List<long>();
             vm.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
             if (TempData["idCourse"] is not null)
             {
@@ -41,12 +43,14 @@ namespace Backend.Controllers
             }
             CourseService cs = new CourseService();
             vm = (await cs.GetCourse(vm)).Data;
-
-            List<long> ids = JsonConvert.DeserializeObject<List<long>>(vm.User.PassedCoursesId);
-            if (ids.Contains(vm.IdCourse) && vm.CurrentLesson >= vm.AllLessons.Count)
+            if (vm.User.PassedCoursesId is not null)
             {
-                vm.CurrentLesson--;
-                TempData["currentLesson"] = vm.CurrentLesson.ToString();
+                ids = JsonConvert.DeserializeObject<List<long>>(vm.User.PassedCoursesId);
+                if (ids.Contains(vm.IdCourse) && vm.CurrentLesson >= vm.AllLessons.Count)
+                {
+                    vm.CurrentLesson--;
+                    TempData["currentLesson"] = vm.CurrentLesson.ToString();
+                }
             }
             if (vm.CurrentLesson < 0)
             {
@@ -66,11 +70,11 @@ namespace Backend.Controllers
             cvm = (await cs.GetCourse(cvm)).Data;
             TempData["idCourse"] = CourseId.ToString();
 
-            foreach(Question question in cvm.Exam.Questions)
+            foreach (Question question in cvm.Exam.Questions)
             {
-                if(question.QuestionType.Equals(QuestionType.TextOneAnswer)|| question.QuestionType.Equals(QuestionType.MediaOneAnswer))
+                if (question.QuestionType.Equals(QuestionType.TextOneAnswer) || question.QuestionType.Equals(QuestionType.MediaOneAnswer))
                 {
-                    if (question.Answers is not null) 
+                    if (question.Answers is not null)
                     {
                         foreach (Answer answer in question.Answers)
                         {
@@ -104,10 +108,10 @@ namespace Backend.Controllers
             else
             {
                 //TODO:Добавить переход на страницу провала
-                return Redirect($"/Course/NextLesson/{CourseId}/{cvm.AllLessons.Count-1}/{cvm.AllLessons.Count}");
-                
+                return Redirect($"/Course/NextLesson/{CourseId}/{cvm.AllLessons.Count - 1}/{cvm.AllLessons.Count}");
+
             }
-            
+
         }
         [HttpGet("Buy/{id}")]
         public async Task<IActionResult> Buy(string id)
