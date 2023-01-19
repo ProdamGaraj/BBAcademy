@@ -38,5 +38,15 @@ namespace Backend.Controllers
             string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "Files\\Certificates\\"+id;
             return File(System.IO.File.OpenRead(path), "application/octet-stream", Path.GetFileName(path));
         }
+
+        [HttpGet("/ChangeLang/{id}")]
+        public async Task<IActionResult> ChangeLang(int id)
+        {
+            User user = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
+            user.Lang = id;
+            UserRepository ur = new UserRepository();
+            await ur.Update(user);
+            return RedirectToAction("Index");
+        }
     }
 }
