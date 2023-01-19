@@ -39,13 +39,20 @@ namespace Backend.Controllers
             {
                 vm.CurrentLesson = int.Parse(TempData["currentLesson"].ToString());
             }
+            CourseService cs = new CourseService();
+            vm = (await cs.GetCourse(vm)).Data;
+
+            List<long> ids = JsonConvert.DeserializeObject<List<long>>(vm.User.PassedCoursesId);
+            if (ids.Contains(vm.IdCourse) && vm.CurrentLesson >= vm.AllLessons.Count)
+            {
+                vm.CurrentLesson--;
+                TempData["currentLesson"] = vm.CurrentLesson.ToString();
+            }
             if (vm.CurrentLesson < 0)
             {
                 TempData["currentLesson"] = "0";
                 vm.CurrentLesson = 0;
             }
-            CourseService cs = new CourseService();
-            vm = (await cs.GetCourse(vm)).Data;
             return View(vm);
         }
         public async Task<IActionResult> OnPostAsync()
@@ -92,12 +99,12 @@ namespace Backend.Controllers
             if ((await es.Check(cvm)).Data)
             {
                 CertificateService cers = new CertificateService();
-                return Redirect($"/Course/NextLesson/{CourseId}/{cvm.AllLessons.Count + 1}/{cvm.AllLessons.Count}");
+                return Redirect($"/Course/NextLesson/{CourseId}/{cvm.AllLessons.Count}/{cvm.AllLessons.Count}");
             }
             else
             {
                 //TODO:Добавить переход на страницу провала
-                return Redirect($"/Course/NextLesson/{CourseId}/{cvm.AllLessons.Count}/{cvm.AllLessons.Count}");
+                return Redirect($"/Course/NextLesson/{CourseId}/{cvm.AllLessons.Count-1}/{cvm.AllLessons.Count}");
                 
             }
             

@@ -98,15 +98,6 @@ namespace Backend.Services
                     }
                 }
                 vm.Exam.Questions = questions;
-                if (user.PassedCoursesId is not null)
-                {
-                    List<long> ids = JsonConvert.DeserializeObject<List<long>>(user.PassedCoursesId);
-                    if (ids.Contains(vm.IdCourse))
-                    {
-                        vm.CurrentLesson = vm.AllLessons.Count+1;
-                        return new BaseResponse<CourseViewModel>() { Data = vm, Description = "Get course for a user", StatusCode = Models.Enum.StatusCode.OK };
-                    }
-                }
 
                 List<long> boughtIds = JsonConvert.DeserializeObject<List<long>>(user.BoughtCourses);
 
