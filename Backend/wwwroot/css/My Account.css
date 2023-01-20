@@ -301,7 +301,7 @@ scroll-container{
 scroll-page{
 	display: flex;
 	flex-direction: row;
-	width: 877px;
+	
    height: 150px;
    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
    margin-bottom: 20px;
@@ -340,6 +340,7 @@ scroll-page{
 	display: flex;
 	flex-direction: column;
 	align-items: flex-end;
+	margin-right: 10px;
 }
 .cours-info-block-hours-1{
 	font-family: 'Raleway';

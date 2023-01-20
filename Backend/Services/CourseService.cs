@@ -24,7 +24,11 @@ namespace Backend.Services
         {
             AccountViewModel accountViewModel = new AccountViewModel();
             UserRepository ur = new UserRepository();
-            var user = await ur.Get(vm.User.Id);
+            var user = new User();
+            if (vm.User is not null)
+            {
+                user = await ur.Get(vm.User.Id);
+            }
             Logger logger = LogManager.GetCurrentClassLogger();
             
             try
