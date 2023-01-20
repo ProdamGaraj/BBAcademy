@@ -36,8 +36,9 @@ namespace Backend.Controllers
                 accountViewModel.EndedCourses = responce.Data.EndedCourses;
                 return View(accountViewModel);
             }
-            //accountViewModel.AllCourses.Add(new Models.Course());
-            return View(accountViewModel);
+			TempData["currentLesson"] = 0;
+			//accountViewModel.AllCourses.Add(new Models.Course());
+			return View(accountViewModel);
         }
 
         [HttpGet]
