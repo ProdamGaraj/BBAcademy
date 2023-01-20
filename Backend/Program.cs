@@ -17,7 +17,7 @@ using Backend.Models;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = Microsoft.AspNetCore.Builder.WebApplication.CreateBuilder(args);
-
+int lang;
 builder.Logging.ClearProviders();
 builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
 
@@ -72,6 +72,9 @@ app.Use(async (context, next) =>
 {
 	if (!context.User.Identity.IsAuthenticated)
 	{
+		UserRepository ur = new UserRepository();
+		AccountService ac = new AccountService(ur);
+		lang = ac.GetUserByLogin(context.User.Identity.Name).Result.Data.Lang;
 		if (!context.Request.Path.Equals("/Account/Register") && !context.Request.Path.Equals("/Account/Login") && !context.Request.Path.Equals("/"))
 		{
             context.Response.Redirect("/Account/Login");
