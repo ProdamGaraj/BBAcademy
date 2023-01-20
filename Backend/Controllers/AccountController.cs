@@ -29,6 +29,7 @@ namespace Backend.Controllers
             }
             accountViewModel.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
             var responce = (await new CourseService().GetCourses(new CourseViewModel() { User = accountViewModel.User }));
+            TempData["currentLesson"] = 0;
             if (responce.StatusCode == Models.Enum.StatusCode.OK)
             {
                 accountViewModel.AllCourses = responce.Data.AllCourses;
@@ -36,7 +37,6 @@ namespace Backend.Controllers
                 accountViewModel.EndedCourses = responce.Data.EndedCourses;
                 return View(accountViewModel);
             }
-			TempData["currentLesson"] = 0;
 			//accountViewModel.AllCourses.Add(new Models.Course());
 			return View(accountViewModel);
         }

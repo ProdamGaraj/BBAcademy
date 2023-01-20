@@ -1,4 +1,5 @@
 ﻿@using Backend.Models;
+@using Newtonsoft.Json;
 @model Backend.ViewModels.CourseViewModel
 <link rel="stylesheet" type="text/css" href="~/css/Course.css">
 
@@ -33,28 +34,51 @@
                         {
                             <div class="video-block" src=@Model.AllLessons.ElementAt( Model.CurrentLesson).MediaContentPath></div>
                         }
-                        @if (Model.CurrentLesson != 0)
+                        @if (Model.CurrentLesson == 0)
                         {
                             <div class="back-next-btns">
-                                <form method="get" asp-controller="Course" asp-action="PrevLesson">
-                                    <a class="course-back-button" style="background: #0093DC; href=@prevLesHref>
+                                <form>
+                                    <a class="course-back-button">
                                         <img class="back-button-icon" src="~/pict/left.svg">
                                         <div class="left">Назад</div>
                                     </a>
                                 </form>
 
-                                <form  method="get" asp-controller="Course" asp-action="NextLesson">
+                                <form method="get" asp-controller="Course" asp-action="NextLesson">
                                     <a class="course-back-button" style="background: #0093DC; font-family: 'Raleway';" href=@nextLesHref>
                                         <div class="next">Дальше</div>
                                         <img class="next-button-icon" src="~/pict/next.svg">
                                     </a>
-                                </form>  
+                                </form>
                             </div>
-                        } else{
+                        }
+                        else if (Model.User.PassedCoursesId is not null)
+                        {
+                            if (Model.CurrentLesson == Model.AllLessons.Count - 1 && (JsonConvert.DeserializeObject<List<long>>(Model.User.PassedCoursesId).Contains(Model.IdCourse)))
+                            {
+                                <div class="back-next-btns">
+                                    <form method="get" asp-controller="Course" asp-action="PrevLesson">
+                                        <a class="course-back-button" style="background: #0093DC;" href=@prevLesHref>
+                                            <img class="back-button-icon" src="~/pict/left.svg">
+                                            <div class="left">Назад</div>
+                                        </a>
+                                    </form>
+
+                                    <form>
+                                        <a class="course-back-button" style=" font-family: 'Raleway';">
+                                            <div class="next">Дальше</div>
+                                            <img class="next-button-icon" src="~/pict/next.svg">
+                                        </a>
+                                    </form>
+                                </div>
+                            }
+                        }
+                        else
+                        {
                             <div class="back-next-btns">
                                 <form method="get" asp-controller="Course" asp-action="PrevLesson">
-                                    <a class="course-back-button" href=@prevLesHref>
-                                <img class="back-button-icon" src="~/pict/left.svg">
+                                    <a class="course-back-button" style="background: #0093DC;" href=@prevLesHref>
+                                        <img class="back-button-icon" src="~/pict/left.svg">
                                         <div class="left">Назад</div>
                                     </a>
                                 </form>
@@ -96,7 +120,7 @@
                                 {
                                     <div class="test-que">
 
-                                        <input class="test-que-checkbox" type="checkbox" name="SelectedCheckBoxId" value="@answer.Id" id="test-1">
+                                        <input class="test-que-checkbox" type="checkbox" name="SelectedCheckBoxId" value="@answer.Id" id="test-1"@answer.Id>
                                         <label class="course-test-que-text-text">@answer.Content</label>
                                     </div>
                                 }
@@ -109,7 +133,7 @@
                                 @foreach (var answer in question.Answers)
                                 {
                                     <div class="test-que">
-                                        <input class="test-que-checkbox" type="radio" name="SelectedRadioId" value="@answer.Id" id="test-1">
+                                        <input class="test-que-checkbox" type="radio" name="SelectedRadioId" value="@answer.Id" id="test-1" @answer.Id>
                                         <label class="course-test-que-text-text">@answer.Content</label>
                                     </div>
                                 }
@@ -122,7 +146,7 @@
                                 @foreach (var answer in question.Answers)
                                 {
                                     <div class="test-que">
-                                        <input class="test-que-checkbox" type="checkbox" name="SelectedCheckBoxId" value="@answer.Id" id="test-1">
+                                        <input class="test-que-checkbox" type="checkbox" name="SelectedCheckBoxId" value="@answer.Id" id="test-1" @answer.Id>
                                         <label class="course-test-que-text-text">@answer.Content</label>
                                     </div>
                                 }
@@ -135,7 +159,7 @@
                                 @foreach (var answer in question.Answers)
                                 {
                                     <div class="test-que">
-                                        <input class="test-que-checkbox" type="radio" name="SelectedRadioId" value="@answer.Id" id="test-1">
+                                        <input class="test-que-checkbox" type="radio" name="SelectedRadioId" value="@answer.Id" id="test-1" @answer.Id>
                                         <label class="course-test-que-text-text">@answer.Content</label>
                                     </div>
                                 }
