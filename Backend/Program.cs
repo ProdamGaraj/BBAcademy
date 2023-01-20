@@ -72,9 +72,6 @@ app.Use(async (context, next) =>
 {
 	if (!context.User.Identity.IsAuthenticated)
 	{
-		UserRepository ur = new UserRepository();
-		AccountService ac = new AccountService(ur);
-		lang = ac.GetUserByLogin(context.User.Identity.Name).Result.Data.Lang;
 		if (!context.Request.Path.Equals("/Account/Register") && !context.Request.Path.Equals("/Account/Login") && !context.Request.Path.Equals("/"))
 		{
             context.Response.Redirect("/Account/Login");
