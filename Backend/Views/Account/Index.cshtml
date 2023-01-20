@@ -52,43 +52,11 @@
 
         <div class="my_acc-tab_menu">
             <div class="media-block">
-                <!--<div class="media-name-1">
-                <img class="media-name-svg" src="~/pict/people.png">
-
-                <div class="media-name-name"><a asp-controller="Account" asp-action="Index">Личный кабинет</a></div>
-                    </div>-->
                 <div class="media-name">
                     <img class="media-name-svg" src="~/pict/course.svg">
                     <div class="media-name-name"><a asp-controller="Account" asp-action="Index">Мои курсы</a></div>
                 </div>
             </div>
-            <!--
-            <div class="media_data">
-                <form class="ur_account_data-form">
-                    <div class="lb_inpt_acc">
-                        <label class="lb_inpt_acc-lbl" for="email">Логин</label>
-                        <input class="lb_inpt_acc-inpt" type="text" name="email" required>
-                    </div>
-            
-                    <div class="lb_inpt_acc">
-                        <label class="lb_inpt_acc-lbl" for="email">Пароль</label>
-                        <input class="lb_inpt_acc-inpt" type="text" name="email" required>
-                    </div>
-            
-                    <div class="lb_inpt_acc">
-                        <label class="lb_inpt_acc-lbl" for="email">Повторите пароль</label>
-                        <input class="lb_inpt_acc-inpt" type="text" name="email" required>
-                    </div>
-            
-                    <div class="lb_inpt_acc">
-                        <label class="lb_inpt_acc-lbl" for="email">Банк</label>
-                        <input class="lb_inpt_acc-inpt" type="text" name="email" required>
-                    </div>
-            
-                    <button type="submit" class="registerbtn">Выйти</button>
-                </form>
-            </div>
-            -->
             <div class="mine_course">
                 <div class="mine_course-sort">
                     <div class="mine_course-sort-element-1">
@@ -149,7 +117,7 @@
                             {
                                 var hreff = "/Course/Buy/" + item.Id;
                                 <scroll-page style="margin-right: 20px">
-                                    <img class="cours-scroll" src="~/pict/cours-scroll.png">
+                                    <img class="cours-scroll" src="~/pict/course_guy.jpg">
                                     <div class="cours-text">
                                         <div class="cours-text-top">@item.Name</div>
                                         <div class="cours-text-bot">@item.Description</div>
