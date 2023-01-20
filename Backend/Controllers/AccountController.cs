@@ -110,6 +110,18 @@ namespace Backend.Controllers
             return Redirect("/Account");
         }
 
-
+        [HttpGet("Account/ChangeLang/{id}")]
+        public async Task<IActionResult> ChangeLang(int id)
+        {
+            if (HttpContext.User.Identity.IsAuthenticated)
+            {
+                User user = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
+                user.Lang = id;
+                UserRepository ur = new UserRepository();
+                await ur.Update(user);
+            }
+            TempData["lang"] = id;
+            return RedirectToAction("");
+        }
     }
 }
