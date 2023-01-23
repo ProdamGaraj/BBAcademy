@@ -49,7 +49,7 @@ namespace Backend.Services
                             passedCourses.Add(allCourses.First(x => x.Id == id));
                             allCourses.Remove(passedCourses.Last());
                         }
-                        catch { }
+                        catch (Exception ex ){ logger.Error(ex.Message); }
                     }
                 }
                 if (user.BoughtCourses is not null)

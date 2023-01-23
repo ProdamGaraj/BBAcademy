@@ -37,8 +37,8 @@ namespace Backend.Controllers
                 accountViewModel.EndedCourses = responce.Data.EndedCourses;
                 return View(accountViewModel);
             }
-			//accountViewModel.AllCourses.Add(new Models.Course());
-			return View(accountViewModel);
+            //accountViewModel.AllCourses.Add(new Models.Course());
+            return View(accountViewModel);
         }
 
         [HttpGet]
@@ -60,7 +60,14 @@ namespace Backend.Controllers
             return View(vm);
         }
         [HttpGet]
-        public IActionResult Login() => View();
+        public IActionResult Login()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel vm)
         {
@@ -124,5 +131,7 @@ namespace Backend.Controllers
             TempData["lang"] = id;
             return RedirectToAction("");
         }
+        [HttpGet("NotFound")]
+        public async Task<IActionResult> NotFound() => View();
     }
 }

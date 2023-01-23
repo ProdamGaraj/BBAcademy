@@ -85,6 +85,10 @@ app.Use(async (context, next) =>
 });
 
 app.Run();
+foreach (var item in app.Urls)
+{
+    Console.WriteLine(item);
+}
 
 //public static IWebHost BuildWebHost(string[] args)=>
 //	WebHost.CreateDefaultBuilder(args)

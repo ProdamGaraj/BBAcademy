@@ -32,8 +32,38 @@
                         <div class="main-container-list-result-cont-2">@Model.AllLessons.ElementAt( Model.CurrentLesson).TextContent </div>
                         @if (Model.AllLessons.ElementAt(Model.CurrentLesson).MediaContentPath is not null)
                         {
-                            <div class="video-block" src=@Model.AllLessons.ElementAt( Model.CurrentLesson).MediaContentPath></div>
+                            <div class="video-block">
+                                @if (Model.CurrentLesson == 1)
+                                {
+
+                                    <video id="testVideo" width="800" controls>
+                                        <source src="~/videos/1.mp4" type="video/mp4">
+                                    </video>
+
+                                }
+                                else @if (Model.CurrentLesson == 2)
+                                {
+
+                                    <video id="testVideo" width="800" controls>
+                                        <source src="~/videos/2.mp4" type="video/mp4">
+                                    </video>
+
+                                }
+                                else @if (Model.CurrentLesson == 3)
+                                {
+
+                                    <video id="testVideo" width="800" controls>
+                                        <source src="~/videos/3.mp4" type="video/mp4">
+                                    </video>
+
+                                }
+                                else
+                                {
+                                    <div class="video-block" src=@Model.AllLessons.ElementAt( Model.CurrentLesson).MediaContentPath></div>
+                                }
+                            </div>
                         }
+
                         @if (Model.CurrentLesson == 0)
                         {
                             <div class="back-next-btns">
@@ -51,27 +81,6 @@
                                     </a>
                                 </form>
                             </div>
-                        }
-                        else if (Model.User.PassedCoursesId is not null)
-                        {
-                            if (Model.CurrentLesson == Model.AllLessons.Count - 1 && (JsonConvert.DeserializeObject<List<long>>(Model.User.PassedCoursesId).Contains(Model.IdCourse)))
-                            {
-                                <div class="back-next-btns">
-                                    <form method="get" asp-controller="Course" asp-action="PrevLesson">
-                                        <a class="course-back-button" style="background: #0093DC;" href=@prevLesHref>
-                                            <img class="back-button-icon" src="~/pict/left.svg">
-                                            <div class="left">Назад</div>
-                                        </a>
-                                    </form>
-
-                                    <form>
-                                        <a class="course-back-button" style=" font-family: 'Raleway';">
-                                            <div class="next">Дальше</div>
-                                            <img class="next-button-icon" src="~/pict/next.svg">
-                                        </a>
-                                    </form>
-                                </div>
-                            }
                         }
                         else
                         {

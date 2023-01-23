@@ -35,7 +35,7 @@ namespace Backend.Controllers
         [HttpGet("/DownloadCertificate/{id}")]
         public async Task<IActionResult> DownloadCertificate(CertificateViewModel certificateViewModel,long id)
         {
-            string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "Files\\Certificates\\"+id;
+            string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Files\\Certificates\\"+id+".pdf";
             return File(System.IO.File.OpenRead(path), "application/octet-stream", Path.GetFileName(path));
         }
 
