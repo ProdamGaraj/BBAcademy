@@ -1,22 +1,13 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
-WORKDIR /app
-EXPOSE 80
-EXPOSE 443
-
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["Backend/Backend.csproj", "Backend/"]
-RUN dotnet restore "Backend/Backend.csproj"
-COPY . .
-WORKDIR "/src/Backend"
-RUN dotnet build "Backend.csproj" -c Release -o /app/build
-
-FROM build AS publish
-RUN dotnet publish "Backend.csproj" -c Release -o /app/publish /p:UseAppHost=false
-
-FROM base AS final
+EXPOSE 80
+COPY *.csproj ./
+RUN dotnet restore "Backend.csproj"
+COPY . ./
+RUN dotnet publish Backend.csproj -c Release -o /app/run
+FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS runtime
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY --from=build /app/run .
 ENTRYPOINT ["dotnet", "Backend.dll"]
