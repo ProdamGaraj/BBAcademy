@@ -3,7 +3,11 @@
     using System;
     using System.Data.Entity.Migrations;
     
+<<<<<<<< HEAD:Backend/Migrations/202301251730279_ini.cs
     public partial class ini : DbMigration
+========
+    public partial class init : DbMigration
+>>>>>>>> e0f805acd58dce76d2f87b81eac140e2c1bc1d9a:Backend/Migrations/202301200814133_init.cs
     {
         public override void Up()
         {

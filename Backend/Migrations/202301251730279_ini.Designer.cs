@@ -7,6 +7,7 @@ namespace Backend.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
+<<<<<<<< HEAD:Backend/Migrations/202301251730279_ini.Designer.cs
     public sealed partial class ini : IMigrationMetadata
     {
         private readonly ResourceManager Resources = new ResourceManager(typeof(ini));
@@ -14,6 +15,15 @@ namespace Backend.Migrations
         string IMigrationMetadata.Id
         {
             get { return "202301251730279_ini"; }
+========
+    public sealed partial class init : IMigrationMetadata
+    {
+        private readonly ResourceManager Resources = new ResourceManager(typeof(init));
+        
+        string IMigrationMetadata.Id
+        {
+            get { return "202301200814133_init"; }
+>>>>>>>> e0f805acd58dce76d2f87b81eac140e2c1bc1d9a:Backend/Migrations/202301200814133_init.Designer.cs
         }
         
         string IMigrationMetadata.Source

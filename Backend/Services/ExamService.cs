@@ -172,9 +172,9 @@ namespace Backend.Services
                     ids.Add(vm.IdCourse);
                     user.PassedCoursesId = JsonConvert.SerializeObject(ids);
                     await ur.Update(user);
+                    CertificateService cs = new CertificateService();
+                    await cs.CreateCertificate(vm);
                 }
-                CertificateService cs = new CertificateService();
-                await cs.CreateCertificate(vm);
 
                 return new BaseResponse<bool>() { Description = "Result of exam check", Data = passed, StatusCode = StatusCode.OK };
             }

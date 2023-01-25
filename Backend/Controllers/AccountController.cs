@@ -39,6 +39,7 @@ namespace Backend.Controllers
             }
             //accountViewModel.AllCourses.Add(new Models.Course());
             return View(accountViewModel);
+			return View(accountViewModel);
         }
 
         [HttpGet]
