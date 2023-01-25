@@ -4,8 +4,6 @@ using Backend.Models.Enum;
 using Backend.Services;
 using Backend.Services.Repository;
 using Newtonsoft.Json;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-
 Console.WriteLine("creating the Exam");
 ExamRepository er = new ExamRepository();
 Exam Exam = new Exam("20 minutes", "Exam for banking", new List<Question>());

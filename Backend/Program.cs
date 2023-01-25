@@ -39,6 +39,12 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 		options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
 		options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
 	});
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options=>{
+	options.IdleTimeout = TimeSpan.FromSeconds(10);
+	options.Cookie.HttpOnly = true;
+	options.Cookie.IsEssential= true;
+});
 
 var app = builder.Build();
 if (!app.Environment.IsDevelopment())
@@ -54,6 +60,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseSession();
 
 app.UseCors(builder =>
 {
