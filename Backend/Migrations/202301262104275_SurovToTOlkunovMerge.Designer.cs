@@ -7,13 +7,13 @@ namespace Backend.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class addPriceToCourse : IMigrationMetadata
+    public sealed partial class SurovToTOlkunovMerge : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(addPriceToCourse));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(SurovToTOlkunovMerge));
         
         string IMigrationMetadata.Id
         {
-            get { return "202301262028435_addPriceToCourse"; }
+            get { return "202301262104275_SurovToTOlkunovMerge"; }
         }
         
         string IMigrationMetadata.Source
