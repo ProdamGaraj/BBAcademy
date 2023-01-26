@@ -1,0 +1,479 @@
+body{
+	font-family: 'Raleway';
+	font-style: normal;
+	font-weight: 300;
+	font-size: 16px;
+	line-height: 19px;
+	margin: 0;
+}
+header{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding: 0px 300px;
+	gap: 875px;
+
+	height: 64px;
+	background: #FAFAFA;
+}
+.header-container{
+	width: 1320px;
+	margin-left: auto;
+	margin-right: auto;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+.header-container-leftside{
+   display: flex;
+   flex-direction: row;
+}
+.header-container-rightside{
+	margin-left: auto;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.main-logo{
+	width: 24px;
+    height: 19px;
+}
+.main-logo-text{
+	width: 91px;
+	height: 20px;
+
+	font-family: 'Prompt';
+	font-style: normal;
+	font-weight: 300;
+	font-size: 20px;
+	line-height: 100%;
+
+	margin-left: 10px;
+
+	color: #3A3B3F;
+}
+.ur_photo{
+    width: 44px;
+    height: 44px;
+}
+.header-container-rightside-icon{
+	margin-right: 43px;
+}
+footer{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding: 0px 300px;
+	gap: 875px;
+
+	height: 64px;
+	background: #FAFAFA;
+}
+.footer-container{
+	width: 1320px;
+	margin-left: auto;
+	margin-right: auto;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+.footer-element{
+	display: flex;
+	align-items: center;
+	margin-right: auto;
+}
+.footer-logo{
+	padding-right: 8px;
+}
+.footer-icon{
+	height: 25px;
+	margin-right: 10px;
+}
+.footer-right{
+	display: flex;
+	flex-direction: row;
+	width: 270px;
+}
+.main-container{
+	margin-top: 50px;
+    width: 1320px;
+    margin-left: auto;
+    margin-right: auto;
+	display: flex;
+	flex-direction: row;
+
+	font-family: 'Raleway';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 19px;
+}
+.account-data{
+	display: flex;
+	flex-direction: column;
+	width: 325px;
+	margin-right: 55px;
+}
+.user_data-photo{
+	width: 76px;
+	height: 76px;
+	margin-right: 10px;
+}
+.user_data-username{
+	font-family: 'Raleway';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 24px;
+	line-height: 28px;
+}
+.user_data{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-bottom: 40px;
+}
+.user_info-block{
+	margin-top: 20px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.user_info-block-1{
+	margin-top: 20px;
+	display: flex;
+	flex-direction: column;
+}
+.user_info-block-1-1{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.user_info-block-name{
+	margin-left: 20px;
+}
+.user_info-block-name-recomend{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-top: 20px;
+	width: 324px;
+    height: 72px;
+}
+.user_info-block-name-recomend-elem{
+	display: flex;
+	flex-direction: column;
+}
+.user_info-block-name-recomend-elem{
+	width: 69px;
+	height: 9px;
+
+	font-family: 'Raleway';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 8px;
+	line-height: 9px;
+	display: flex;
+	align-items: center;
+}
+.Demarcation-line{
+	height: 472px;
+	width: 0px;
+	border: 4px solid #F5F5F5;
+}
+.media-name{
+	display: flex;
+	flex-direction: row;
+	margin-left: 40px;
+}
+.media-name-1{
+	display: flex;
+	flex-direction: row;
+}
+.media-name-svg{
+
+
+}
+.media-block{
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 20px;
+}
+.media-name-name{
+	margin-left: 8px;
+	font-family: 'Raleway';
+	font-style: normal;
+	font-weight: 300;
+	font-size: 16px;
+	line-height: 19px;
+	}
+.my_acc-tab_menu{
+	margin-left: 24px;
+}
+.media-data{
+	width: 876px;
+	height: 622px;
+}
+.media_data{
+	display: none;
+}
+.ur_account_data-form{
+	display: flex;
+	flex-direction: column;
+}
+.lb_inpt_acc{
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 25px;
+}
+
+.lb_inpt_acc-lbl{
+	width: 222px;
+	height: 36px;
+
+	font-family: 'Raleway';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 23px;
+	display: flex;
+	align-items: center;
+}
+
+.lb_inpt_acc-inpt{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding: 0px 14px;
+	gap: 10px;
+
+	width: 654px;
+	height: 36px;
+
+	background: #E2E2E2;
+	border-radius: 8px;
+	border-width: 0;
+}
+.registerbtn{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	padding: 0px 36px;
+	gap: 10px;
+
+	width: 424px;
+	height: 32px;
+
+	/* primary_ver_1 */
+
+	background: #0093DC;
+	box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
+	border-radius: 55px;
+	border-width: 0;
+	margin: 0 auto;
+	color: white;
+
+	font-family: 'Raleway';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 108.5%;
+	/* or 17px */
+
+	display: flex;
+	align-items: center;
+	text-align: center;
+
+	margin-top: 300px;
+}
+.main-container{
+	height: 850px;
+}
+
+scroll-container{
+	display: flex;
+	flex-direction: column;
+   overflow-y: scroll;
+   scroll-behavior: smooth;
+   height: 750px;
+}
+scroll-page{
+	display: flex;
+	flex-direction: row;
+	width: 877px;
+   height: 150px;
+   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+   margin-bottom: 20px;
+   border-radius: 10px 0px 0px 10px;
+}
+.cours-scroll{
+	border-radius: 10px 35px 35px 10px / 10px 117px 117px 10px;
+}
+.cours-text{
+	display: flex;
+	flex-direction: column;
+	margin-left: 18px;
+	margin-top: 20px;
+}
+.cours-text-top{
+   width: 420px;
+
+   font-family: 'Raleway';
+	font-style: normal;
+	font-weight: 600;
+	font-size: 28px;
+	line-height: 108.5%;
+}
+.cours-text-bot{
+   width: 364px;
+
+	font-family: 'Raleway';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 19px;
+
+	margin-top: 10px;
+}
+.cours-info-block{
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+}
+.cours-info-block-hours-1{
+	font-family: 'Raleway';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 19px;
+	margin-top: 15px;
+}
+.cours-info-block-hours-2{
+	font-family: 'Raleway';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 19px;
+	margin-top: 5px;
+}
+.cours-info-block-button{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	padding: 8px 50px;
+	gap: 10px;
+
+	background: #0093DC;
+	box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
+	border-radius: 9px;
+
+	border: none;
+	color: white;
+	width: 226px;
+	height: 38px;
+
+	font-family: 'Raleway';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 19px;
+
+	margin-top: auto;
+	margin-bottom: 10px;
+}
+.cours-info-block-src{
+	margin-top: 10px;
+}
+.mine_course{
+	margin-left: 64px;
+}
+.ShoppingCart{
+	margin-bottom: 70px;
+}
+.mine_course-sort{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	background: #F9F9F9;
+	width: 876px;
+	height: 36px;
+
+	font-family: 'Raleway';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 19px;
+	margin-bottom: 27px;
+}
+.mine_course-sort-element-1{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-left: 12px;
+	color: #666666;
+}
+.mine_course-sort-element-2{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-left: 40px;
+	color: #666666;
+}
+.mine_course-sort-element-3{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-left: 40px;
+	color: #666666;
+}
+.mine_course-sort-element-4{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-left: auto;
+	margin-right: 10px;
+	color: #666666;
+}
+.mine_course-sort-svg-icon{
+	margin-right: 18px;
+}
+.ShoppingCart{
+	width: 96px;
+	height: 28px;
+	left: 743px;
+	top: 118px;
+
+	font-family: 'Raleway';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 24px;
+	line-height: 28px;
+}
+scroll-container{
+	height: 100%;
+}
+.Buy_Button{
+	text-decoration: none;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	padding: 0px 36px;
+	gap: 10px;
+
+	width: 424px;
+	height: 32px;
+
+	/* primary_ver_1 */
+
+	background: #0093DC;
+	box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
+	border-radius: 55px;
+   color: white;
+   margin-left: auto;
+   margin-right: auto;
+   margin-top: 120px;
+}
