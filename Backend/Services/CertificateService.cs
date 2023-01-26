@@ -7,6 +7,7 @@ using Backend.Services.Repository;
 using Backend.Services.Repository.Interfaces;
 using Backend.ViewModels;
 using NLog;
+using System.Reflection;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Backend.Services
@@ -38,7 +39,7 @@ namespace Backend.Services
                     };
                     user.Certificates.Add(certificate);
                     await cr.Add(certificate);
-
+                    File.Copy(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Files\\Certificates\\certificate.pdf", Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + $"\\Files\\Certificates\\{certificate.Id}.pdf");
                     return new BaseResponse<Certificate>() {
                         Data = certificate,
                         Description = certificate.Name + "Got at" + DateTime.Now.ToString(),

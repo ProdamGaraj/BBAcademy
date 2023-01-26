@@ -108,7 +108,7 @@ namespace Backend.Controllers
             else
             {
                 //TODO:Добавить переход на страницу провала
-                return Redirect($"/Course/NextLesson/{CourseId}/{cvm.AllLessons.Count}/{cvm.AllLessons.Count}");
+                return Redirect($"/Course/NextLesson/{CourseId}/{cvm.AllLessons.Count-1}/{cvm.AllLessons.Count}");
 
             }
 

@@ -12,19 +12,21 @@ namespace Backend.Models
         public CourseType CourseType { get; set; }
         public ICollection<Lesson> Lessons { get; set; }
         public Exam Exam{ get; set; }
+        public decimal Price { get; set; }
         public Course()
         {
 
         }
-        public Course(string mediaPath, string duration, string description, CourseType courseType, ICollection<Lesson> lessons, Exam exam,bool deleted= false)
+        public Course(string mediaPath, string duration, string description, CourseType courseType, ICollection<Lesson> lessons, Exam exam,bool deleted = false, decimal price = 0)
         {
-            MediaPath= mediaPath;
+            MediaPath = mediaPath;
             Duration = duration;
             Description = description;
             CourseType = courseType;
             Lessons = lessons;
             Exam = exam;
             Deleted = deleted;
+            Price = price;
         }
     }
 }

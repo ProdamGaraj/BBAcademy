@@ -1,98 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
-    <div class="main-container">
-        <div>
-            <form id="log-form" class="log-block-form">
-              <div class="log-container">
+@model Backend.ViewModels.CartViewModel
+@{
+    Layout = "PaymentLayout";
+    ViewBag.Title = "Payment";
+}
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<div class="main-container">
+    <div>
+        <form id="log-form" class="log-block-form">
+            <div class="log-container">
                 <label for="email">Электронная почта для получения чека</label>
                 <input class="reg-log-input" type="text" name="email" required>
 
                 <label for="psw">Получатель</label>
                 <input class="reg-log-input" type="password" name="psw" required>
-              </div>
-            </form>
-            <div class="mine_course">
-                <div>
-                    <div class="ShoppingCart">Заказ</div>
-                    <scroll-container>
-                        <scroll-page>
-                            <img class="cours-scroll" src="pict\cours-scroll.png">
-                            <div class="cours-text">
-                                <div class="cours-text-top">Инвестиции для начинающих</div>
-                                <div class="cours-text-bot">Lorem ipsum dolor sit amet lorem ipsum dolor sit amet Lorem ipsum dolor sit amet. Lorem ipsum dolor sit ametLorem ipsum dolor sit amet</div>
-                            </div>
-                            <div class="cours-info-block">
-                                <div class="cours-info-block-hours-1">12 уроков</div>
-                                <div class="cours-info-block-hours-2">3.5 часов</div>
-                                <button class="cours-info-block-button">Начать</button>
-                            </div>
-                        </scroll-page>
-                        <scroll-page>
-                            <img class="cours-scroll" src="pict\cours-scroll.png">
-                            <div class="cours-text">
-                                <div class="cours-text-top">Инвестиции для начинающих</div>
-                                <div class="cours-text-bot">Lorem ipsum dolor sit amet lorem ipsum dolor sit amet Lorem ipsum dolor sit amet. Lorem ipsum dolor sit ametLorem ipsum dolor sit amet</div>
-                            </div>
-                            <div class="cours-info-block">
-                                <div class="cours-info-block-hours-1">12 уроков</div>
-                                <div class="cours-info-block-hours-2">3.5 часов</div>
-                                <button class="cours-info-block-button">Начать</button>
-                            </div>
-                        </scroll-page>
-                        <scroll-page>
-                            <img class="cours-scroll" src="pict\cours-scroll.png">
-                            <div class="cours-text">
-                                <div class="cours-text-top">Инвестиции для начинающих</div>
-                                <div class="cours-text-bot">Lorem ipsum dolor sit amet lorem ipsum dolor sit amet Lorem ipsum dolor sit amet. Lorem ipsum dolor sit ametLorem ipsum dolor sit amet</div>
-                            </div>
-                            <div class="cours-info-block">
-                                <div class="cours-info-block-hours-1">12 уроков</div>
-                                <div class="cours-info-block-hours-2">3.5 часов</div>
-                                <button class="cours-info-block-button">Начать</button>
-                            </div>
-                        </scroll-page>
-                                                <scroll-page>
-                            <img class="cours-scroll" src="pict\cours-scroll.png">
-                            <div class="cours-text">
-                                <div class="cours-text-top">Инвестиции для начинающих</div>
-                                <div class="cours-text-bot">Lorem ipsum dolor sit amet lorem ipsum dolor sit amet Lorem ipsum dolor sit amet. Lorem ipsum dolor sit ametLorem ipsum dolor sit amet</div>
-                            </div>
-                            <div class="cours-info-block">
-                                <div class="cours-info-block-hours-1">12 уроков</div>
-                                <div class="cours-info-block-hours-2">3.5 часов</div>
-                                <button class="cours-info-block-button">Начать</button>
-                            </div>
-                        </scroll-page>
-                                                <scroll-page>
-                            <img class="cours-scroll" src="pict\cours-scroll.png">
-                            <div class="cours-text">
-                                <div class="cours-text-top">Инвестиции для начинающих</div>
-                                <div class="cours-text-bot">Lorem ipsum dolor sit amet lorem ipsum dolor sit amet Lorem ipsum dolor sit amet. Lorem ipsum dolor sit ametLorem ipsum dolor sit amet</div>
-                            </div>
-                            <div class="cours-info-block">
-                                <div class="cours-info-block-hours-1">12 уроков</div>
-                                <div class="cours-info-block-hours-2">3.5 часов</div>
-                                <button class="cours-info-block-button">Начать</button>
-                            </div>
-                        </scroll-page>
-                    </scroll-container>
-                </div>
             </div>
-        </div>
-        <div class="payment-info">
-            <div class="all-sum-cours">
-                <div class="count-cours">Всего: 2 курса</div>
-                <div class="sum-cours">10 000</div>
+        </form>
+        <div class="mine_course">
+            <div>
+                <div class="ShoppingCart">Заказ</div>
+                <scroll-container>
+                    @if (Model.Courses is not null)
+                    {
+                        @foreach (var item in Model.Courses)
+                        {
+                            <scroll-page>
+                                <img class="cours-scroll" src="pict\cours-scroll.png">
+                                <div class="cours-text">
+                                    <div class="cours-text-top">@item.Name</div>
+                                    <div class="cours-text-bot">@item.Description</div>
+                                </div>
+                                <div class="cours-info-block">
+                                    <div class="cours-info-block-hours-1">@item.Lessons.Count</div>
+                                    <div class="cours-info-block-hours-2">@item.Duration</div>
+                                </div>
+                            </scroll-page>
+                        }
+                    }
+                </scroll-container>
             </div>
-            <div class="count-sum-cours">
-                <div class="name-cours">Введение в банковскую деятельность</div>
-                <div class="cost-cours">5 000</div>                
-            </div>
-            <div class="count-sum-cours">
-                <div class="name-cours">Инвестиции для начинающих </div>
-                <div class="cost-cours">5 000</div>                
-            </div>
-            <a href="#" class="payment-info_paymment">Перейти к оплате</a>
         </div>
     </div>
-</html>
+    <div class="payment-info">
+        <div class="all-sum-cours">
+            @if (Model.Courses is not null)
+            {
+                <div class="count-cours">Всего: @Model.Courses.Count курса</div>
+                <div class="sum-cours">@Model.Courses.Sum(x=>x.Price)</div>
+            }
+            else
+            {
+                <div class="count-cours">Всего: 0 курсов</div>
+                <div class="sum-cours">0</div>
+            }
+        </div>
+        @if (Model.Courses is not null)
+        {
+            @foreach (var item in Model.Courses)
+            {
+                <div class="count-sum-cours">
+                    <div class="name-cours">@item.Name</div>
+                    <div class="cost-cours">@item.Price</div>
+                </div>
+            }
+        }
+        <a href="#" class="payment-info_paymment">Перейти к оплате</a>
+    </div>
+</div>
