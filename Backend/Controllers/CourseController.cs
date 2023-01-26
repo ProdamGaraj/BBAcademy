@@ -103,12 +103,12 @@ namespace Backend.Controllers
             if ((await es.Check(cvm)).Data)
             {
                 CertificateService cers = new CertificateService();
-                return Redirect($"/Course/NextLesson/{CourseId}/{cvm.AllLessons.Count}/{cvm.AllLessons.Count}");
+                return Redirect($"/Course/NextLesson/{CourseId}/{cvm.AllLessons.Count + 1}/{cvm.AllLessons.Count}");
             }
             else
             {
                 //TODO:Добавить переход на страницу провала
-                return Redirect($"/Course/NextLesson/{CourseId}/{cvm.AllLessons.Count - 1}/{cvm.AllLessons.Count}");
+                return Redirect($"/Course/NextLesson/{CourseId}/{cvm.AllLessons.Count}/{cvm.AllLessons.Count}");
 
             }
 

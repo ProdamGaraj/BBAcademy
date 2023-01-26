@@ -66,6 +66,7 @@ namespace Backend.Models
             SolvedLessons = solvedLessons;
             AboutMe = aboutMe;
             Deleted = deleted;
+            
         }
     }
 }

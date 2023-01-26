@@ -1,0 +1,18 @@
+version: "3.4"
+
+networks:
+  services-network:
+    driver: bridge
+
+services:
+
+  backend:
+    container_name: backend
+    image: backend:latest
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    ports:
+      - "5051:80"
+    networks:
+      - services-network

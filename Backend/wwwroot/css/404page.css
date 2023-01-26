@@ -1,0 +1,156 @@
+body{
+	font-family: 'Raleway';
+	font-style: normal;
+	font-weight: 300;
+	font-size: 16px;
+	line-height: 19px;
+	margin: 0;
+
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+header{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+
+	height: 64px;
+	background: #FAFAFA;
+}
+.header-container{
+	width: 1320px;
+	margin-left: auto;
+	margin-right: auto;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+.header-container-leftside{
+   display: flex;
+   flex-direction: row;
+}
+.header-container-rightside{
+	margin-left: auto;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.main-logo{
+	width: 24px;
+    height: 19px;
+}
+.main-logo-text{
+	width: 91px;
+	height: 20px;
+
+	font-family: 'Prompt';
+	font-style: normal;
+	font-weight: 300;
+	font-size: 20px;
+	line-height: 100%;
+
+	margin-left: 10px;
+
+	color: #3A3B3F;
+}
+.ur_photo{
+    width: 44px;
+    height: 44px;
+}
+.header-container-rightside-icon{
+	margin-right: 43px;
+}
+footer{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	height: 64px;
+	background: #FAFAFA;
+
+	margin-top: auto;
+}
+.footer-container{
+	width: 1320px;
+	margin-left: auto;
+	margin-right: auto;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+.footer-element{
+	display: flex;
+	align-items: center;
+	margin-right: auto;
+}
+.footer-logo{
+	padding-right: 8px;
+}
+.footer-icon{
+	height: 25px;
+	margin-right: 10px;
+}
+.footer-right{
+	display: flex;
+	flex-direction: row;
+	width: 270px;
+}
+main{
+	display: flex;
+	flex-direction: column;
+}
+.error-text{
+	margin-left: auto;
+	margin-right: auto;
+
+		font-family: 'Raleway';
+	font-style: normal;
+	font-weight: 300;
+	font-size: 160px;
+
+	display: flex;
+	width: 300px;
+	height: 160px;
+	align-items: center;
+	margin-top: 100px;
+}
+.err-desc{
+		margin-left: auto;
+	margin-right: auto;
+
+		font-family: 'Raleway';
+	font-style: normal;
+	font-weight: 300;
+	font-size: 70px;
+
+	display: flex;
+	height: 70px;
+	align-items: center;
+	margin-top: 20px;
+}
+.rtrn-btn{
+   text-decoration: none;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	padding: 8px 50px;
+	gap: 10px;
+
+	width: 323px;
+	height: 44px;
+
+	/* primary_ver_1 */
+
+	background: #3A3B3F;
+	box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
+	border-radius: 55px;
+	color: white;
+
+   margin-left: auto;
+   margin-right: auto;
+   margin-top: 200px;
+}

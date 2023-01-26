@@ -124,8 +124,8 @@
                                         <div class="cours-text-bot">@item.Description</div>
                                     </div>
                                     <div class="cours-info-block">
-                                        <img class="cours-info-block-src" src="~/pict/@item.MediaPath">
-                                        <div class="cours-info-block-hours-1">@item.Lessons.Count()</div>
+                                        <img class="cours-info-block-src" src="~/pict/bell.svg">
+                                        <div class="cours-info-block-hours-1">@item.Lessons.Count() lessons</div>
                                         <div class="cours-info-block-hours-2">@item.Duration</div>
                                         <form method="get" asp-controller="Course" asp-action="Buy">
                                             <a class="cours-info-block-button" href=@hreff>Начать</a>

@@ -42,13 +42,14 @@
     <div class="sertif_dwnl-block">
         <div class="my_acc-tab_menu">
             <div class="media-block">
+                <!--
                 <div class="media-name-1">
                     <img class="media-name-svg" src="pict\people.png">
                     <div class="media-name-name">Личный кабинет</div>
-                </div>
+                                </div>-->
                 <div class="media-name">
                     <img class="media-name-svg" src="pict\course.svg">
-                    <div class="media-name-name">Мои курсы</div>
+                    <div class="media-name-name"><div class="media-name-name"><a asp-controller="Account" asp-action="Index">Мои курсы</a></div></div>
                 </div>
             </div>
         </div>
@@ -61,7 +62,7 @@
                         <div class="sertif_name">Инвестиции для начинающих</div>
                         <img class="sertif_dwnl_img" src="pict\sertif.png">
                         <div class="sertif-dwnl-btn">
-                            <a class="header-container-right_section-login" asp-controller="Certificate" asp-action="DownloadCertificate" asp-route-id ="@item.Id">Скачать PDF</a>
+                            <a class="header-container-right_section-login" asp-controller="Certificate" asp-action="DownloadCertificate" asp-route-id="@item.Id">Скачать PDF</a>
                         </div>
                     </div>
                 }

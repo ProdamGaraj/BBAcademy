@@ -29,6 +29,7 @@ namespace Backend.Controllers
             }
             accountViewModel.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
             var responce = (await new CourseService().GetCourses(new CourseViewModel() { User = accountViewModel.User }));
+            TempData["currentLesson"] = 0;
             if (responce.StatusCode == Models.Enum.StatusCode.OK)
             {
                 accountViewModel.AllCourses = responce.Data.AllCourses;
@@ -59,7 +60,14 @@ namespace Backend.Controllers
             return View(vm);
         }
         [HttpGet]
-        public IActionResult Login() => View();
+        public IActionResult Login()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel vm)
         {
@@ -123,5 +131,7 @@ namespace Backend.Controllers
             TempData["lang"] = id;
             return RedirectToAction("");
         }
+        [HttpGet("NotFound")]
+        public async Task<IActionResult> NotFound() => View();
     }
 }

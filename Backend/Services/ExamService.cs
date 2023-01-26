@@ -6,6 +6,7 @@ using Backend.Services.Repository;
 using Backend.ViewModels;
 using Newtonsoft.Json;
 using NLog;
+using System.Linq;
 
 namespace Backend.Services
 {
@@ -132,13 +133,14 @@ namespace Backend.Services
                 int currentGrade = 0;
                 if (vm.Exam is not null && vm.Exam.Questions is not null)
                 {
-                    foreach (Question question in vm.Exam.Questions)
+                    var questions = vm.Exam.Questions.Where(x => x.Answers.FirstOrDefault(x => x.IsChosen == true && x.IsCorrect == true) is not null);
+                    foreach (var question in questions)
                     {
                         try
                         {
-                            currentGrade += question.Answers.FirstOrDefault(x => x.IsChosen == true && x.IsCorrect == true).Cost;
+                            currentGrade = question.Answers.Sum(x=>x.Cost);
                         }
-                        catch { }
+                        catch (Exception ex) { logger.Error(ex.Message); }
                     }
                 }
                 int roundingUp = 0;

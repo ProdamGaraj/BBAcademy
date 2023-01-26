@@ -15,12 +15,14 @@ using Microsoft.Extensions.Logging;
 using NLog;
 using Backend.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Data.Entity;
+
 
 var builder = Microsoft.AspNetCore.Builder.WebApplication.CreateBuilder(args);
 int lang;
+
 builder.Logging.ClearProviders();
 builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
-
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -72,9 +74,6 @@ app.Use(async (context, next) =>
 {
 	if (!context.User.Identity.IsAuthenticated)
 	{
-		UserRepository ur = new UserRepository();
-		AccountService ac = new AccountService(ur);
-		lang = ac.GetUserByLogin(context.User.Identity.Name).Result.Data.Lang;
 		if (!context.Request.Path.Equals("/Account/Register") && !context.Request.Path.Equals("/Account/Login") && !context.Request.Path.Equals("/"))
 		{
             context.Response.Redirect("/Account/Login");
@@ -88,6 +87,10 @@ app.Use(async (context, next) =>
 });
 
 app.Run();
+foreach (var item in app.Urls)
+{
+    Console.WriteLine(item);
+}
 
 //public static IWebHost BuildWebHost(string[] args)=>
 //	WebHost.CreateDefaultBuilder(args)
