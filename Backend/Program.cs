@@ -15,12 +15,14 @@ using Microsoft.Extensions.Logging;
 using NLog;
 using Backend.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Data.Entity;
+
 
 var builder = Microsoft.AspNetCore.Builder.WebApplication.CreateBuilder(args);
 int lang;
+
 builder.Logging.ClearProviders();
 builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
-
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();

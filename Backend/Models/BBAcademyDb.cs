@@ -10,14 +10,6 @@ namespace Backend
         public BBAcademyDb()
         : base("BBAcademyDb")
         { }
-        //public BBAcademyDb()
-        //{
-        //
-        //}
-        //
-        //public BBAcademyDb(DbContextOptions<BBAcademyDb> options):base(options) {
-        //    Database.EnsureCreated();
-        //}
 
         public DbSet<Answer> Answers { get; set; }
         public DbSet<Certificate> Certificates { get; set; }
