@@ -28,6 +28,14 @@ namespace Backend.Controllers
                 accountViewModel.filter = TempData["filter"].ToString();
             }
             accountViewModel.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
+            accountViewModel.User.Lang = HttpContext.Session.GetInt32("language");
+            if (accountViewModel.User.Lang is null)
+            {
+                accountViewModel.User.Lang = 1;
+                HttpContext.Session.SetInt32("language", 1);
+            };
+            UserRepository ur = new UserRepository();
+            await ur.Update(accountViewModel.User);
             var responce = (await new CourseService().GetCourses(new CourseViewModel() { User = accountViewModel.User }));
             TempData["currentLesson"] = 0;
             if (responce.StatusCode == Models.Enum.StatusCode.OK)
@@ -39,7 +47,6 @@ namespace Backend.Controllers
             }
             //accountViewModel.AllCourses.Add(new Models.Course());
             return View(accountViewModel);
-			return View(accountViewModel);
         }
 
         [HttpGet]
@@ -119,7 +126,6 @@ namespace Backend.Controllers
             return Redirect("/Account");
         }
 
-        [HttpGet("Account/ChangeLang/{id}")]
         public async Task<IActionResult> ChangeLang(int id)
         {
             if (HttpContext.User.Identity.IsAuthenticated)

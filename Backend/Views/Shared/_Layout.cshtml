@@ -14,6 +14,7 @@
     string webs;
     string fests;
     string carrier;
+    string enter;
     if (Context.Session.GetInt32("language") == 0)
     {
         rights = "© 2023 Barcha huquqlar himoyalangan, bilimbank";
@@ -29,6 +30,7 @@
         webs = "Vebinarlar";
         fests = "Festivallar";
         carrier = "Karyera";
+        enter = "Tizimga kirish";
     }
     else
     {
@@ -45,6 +47,7 @@
         webs = "Вебинары";
         fests = "Фестивали";
         carrier = "Карьера";
+        enter = "Войти";
     }
 }
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -75,7 +78,7 @@
                     <div class="header-container-right_section-lang-element"><a class="a-lang" href="@controller/ChangeLang/1">ru</a></div>
                 </div>
                 <!--<button type="button" id="myBtn" class="header-container-right_section-login"></button>-->
-                <a class="header-container-right_section-login" asp-controller="Account" asp-action="Login">Войти</a>
+                <a class="header-container-right_section-login" asp-controller="Account" asp-action="Login">@enter</a>
             </div>
         </div>
     </header>

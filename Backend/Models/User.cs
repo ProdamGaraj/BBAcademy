@@ -8,7 +8,7 @@ namespace Backend.Models
     public class User : Entity
     {
         [MaybeNull]
-        public int Lang { get; set; }
+        public int? Lang { get; set; }
         public UserRole Role { get; set; }
         [MaybeNull]
         public string LastName { get; set; }
