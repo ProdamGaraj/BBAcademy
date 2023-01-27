@@ -28,12 +28,17 @@ namespace Backend.Controllers
                 accountViewModel.filter = TempData["filter"].ToString();
             }
             accountViewModel.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
-            accountViewModel.User.Lang = HttpContext.Session.GetInt32("language");
+            if(HttpContext.Session.TryGetValue("language", out byte[] value))
+                accountViewModel.User.Lang = HttpContext.Session.GetInt32("language");
             if (accountViewModel.User.Lang is null)
             {
                 accountViewModel.User.Lang = 1;
                 HttpContext.Session.SetInt32("language", 1);
-            };
+            }
+            else
+            {
+                HttpContext.Session.SetInt32("language", (int)accountViewModel.User.Lang);
+            }
             UserRepository ur = new UserRepository();
             await ur.Update(accountViewModel.User);
             var responce = (await new CourseService().GetCourses(new CourseViewModel() { User = accountViewModel.User }));

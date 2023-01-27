@@ -24,6 +24,19 @@ namespace Backend.Controllers
         public async Task<IActionResult> Index(CertificateViewModel certificateViewModel)
         {
             certificateViewModel.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
+            if (HttpContext.Session.TryGetValue("language", out byte[] value))
+                certificateViewModel.User.Lang = HttpContext.Session.GetInt32("language");
+            if (certificateViewModel.User.Lang is null)
+            {
+                certificateViewModel.User.Lang = 1;
+                HttpContext.Session.SetInt32("language", 1);
+            }
+            else
+            {
+                HttpContext.Session.SetInt32("language", (int)certificateViewModel.User.Lang);
+            }
+            UserRepository ur = new UserRepository();
+            await ur.Update(certificateViewModel.User);
             var responce = await new CertificateService().GetCertificates(new CertificateViewModel() { User = certificateViewModel.User });
             if (responce.StatusCode == Models.Enum.StatusCode.OK)
             {

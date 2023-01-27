@@ -33,6 +33,19 @@ namespace Backend.Controllers
         {
             List<long> ids = new List<long>();
             vm.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
+            if (HttpContext.Session.TryGetValue("language", out byte[] value))
+                vm.User.Lang = HttpContext.Session.GetInt32("language");
+            if (vm.User.Lang is null)
+            {
+                vm.User.Lang = 1;
+                HttpContext.Session.SetInt32("language", 1);
+            }
+            else
+            {
+                HttpContext.Session.SetInt32("language", (int)vm.User.Lang);
+            }
+            UserRepository ur = new UserRepository();
+            await ur.Update(vm.User);
             if (TempData["idCourse"] is not null)
             {
                 vm.IdCourse = long.Parse(TempData["idCourse"].ToString());
