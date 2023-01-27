@@ -1,5 +1,43 @@
 ﻿@{
 	var bilimbank = "@bilimbank";
+
+	string rights;
+	string learningproc;
+	string usagepol;
+	string privpol;
+	string lesson;
+	string block;
+	string intro;
+	string test;
+	string links;
+	string ending;
+	if (Context.Session.GetInt32("language") == 0)
+	{
+		rights = "© 2023 Barcha huquqlar himoyalangan, bilimbank";
+		learningproc = "O’quv jarayoni";
+		usagepol = "Ishlatish shartlari";
+		privpol = "Maxfiylik siyosati";
+		lesson = "Dars";
+		block = "Bloklash";
+		intro = "Kirish";
+		test = "Test";
+		links = "Havolalar va materiallar";
+		ending = "Xulosa va sertifikat";
+
+	}
+	else
+	{
+		rights = "© 2023 Все права защищены, bilimbank";
+		learningproc = "Процесс обучения";
+		usagepol = "Условия использования";
+		privpol = "Политика конфиденциальности";
+		lesson = "Урок";
+		block = "Блок";
+		intro = "Введение";
+		test = "Тест";
+		links = "Ссылки и материалы";
+		ending = "Заключение и сертификат";
+	}
 }
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <html lang="en">
@@ -48,16 +86,16 @@
 				</div>
 
 				<ul class="main-ul">
-					<li>Введение</li>
-					<li>Ссылки и материалы</li>
-					<li>Блок 1</li>
+					<li>@intro</li>
+					<li>@links</li>
+					<li>@block 1</li>
 					<ul>
-						<li class="not-main-li">Урок 1</li>
-						<li>Урок 2</li>
-						<li>Урок 3</li>
+						<li class="not-main-li">@lesson 1</li>
+						<li>@lesson 2</li>
+						<li>@lesson 3</li>
 					</ul>
-					<li>Тест</li>
-					<li>Заключение и сертификат</li>
+					<li>@test</li>
+					<li>@ending</li>
 				</ul>
 			</div>
 			<div class="container">
@@ -71,16 +109,16 @@
 		<div class="footer-container">
 			<div class="footer-element">
 				<img class="footer-logo" src="~/pict/logo-icon 1.svg">
-				© 2023 Все права защищены, bilimbank
+				@rights
 			</div>
 			<div class="footer-element">
-				Процесс обучения
+				@learningproc
 			</div>
 			<div class="footer-element">
-				Условия использования
+				@usagepol
 			</div>
 			<div class="footer-element">
-				Политика конфиденциальности
+				@privpol
 			</div>
 			<div class="footer-right">
 				<div class="footer-element">

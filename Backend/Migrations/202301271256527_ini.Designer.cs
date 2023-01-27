@@ -7,13 +7,13 @@ namespace Backend.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class SurovToTOlkunovMerge : IMigrationMetadata
+    public sealed partial class ini : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(SurovToTOlkunovMerge));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ini));
         
         string IMigrationMetadata.Id
         {
-            get { return "202301262104275_SurovToTOlkunovMerge"; }
+            get { return "202301271256527_ini"; }
         }
         
         string IMigrationMetadata.Source

@@ -3,6 +3,24 @@
 *@
 @{
     var bilimbank = "@bilimbank";
+    string rights;
+    string learningproc;
+    string usagepol;
+    string privpol;
+    if (Context.Session.GetInt32("language") == 0)
+    {
+        rights = "© 2023 Barcha huquqlar himoyalangan, bilimbank";
+        learningproc = "O’quv jarayoni";
+        usagepol = "Ishlatish shartlari";
+        privpol = "Maxfiylik siyosati";
+    }
+    else
+    {
+        rights = "© 2023 Все права защищены, bilimbank";
+        learningproc = "Процесс обучения";
+        usagepol = "Условия использования";
+        privpol = "Политика конфиденциальности";
+    }
 }
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <html>
@@ -60,16 +78,16 @@
         <div class="footer-container">
             <div class="footer-element">
                 <img class="footer-logo" src="~/pict/logo-icon 1.svg">
-                © 2023 Все права защищены, bilimbank
+                @rights
             </div>
             <div class="footer-element">
-                Процесс обучения
+                @learningproc
             </div>
             <div class="footer-element">
-                Условия использования
+                @usagepol
             </div>
             <div class="footer-element">
-                Политика конфиденциальности
+                @privpol
             </div>
             <div class="footer-right">
                 <div class="footer-element">

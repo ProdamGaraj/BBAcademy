@@ -30,6 +30,10 @@ namespace Backend.Models
         public string PassedCoursesId { get; set; }
         [MaybeNull]
         public ICollection<Certificate> Certificates { get; set; }
+        
+        [MaybeNull]
+        public string InKartCourses { get; set; }
+        
         [MaybeNull]
         public string BoughtCourses { get; set; }
         [MaybeNull]

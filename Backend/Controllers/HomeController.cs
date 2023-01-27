@@ -2,6 +2,7 @@
 using Backend.Services.AccountService;
 using Backend.Services.AccountService.Interfaces;
 using Backend.Services.Repository;
+using Backend.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
 
@@ -15,10 +16,15 @@ namespace Backend.Controllers
         {
             accountService = _accountService;
         }
-		public IActionResult Index() 
+		public IActionResult Index(HomeViewModel hvm) 
 		{
-
-            return View();
+            hvm.lang = HttpContext.Session.GetInt32("language");
+            if(hvm.lang is null)
+            {
+                hvm.lang = 1;
+                HttpContext.Session.SetInt32("language", 1); 
+            }
+            return View(hvm);
 		}
         [HttpGet("Home/ChangeLang/{id}")]
         public async Task<IActionResult> ChangeLang(int id)
@@ -30,7 +36,7 @@ namespace Backend.Controllers
                 UserRepository ur = new UserRepository();
                 await ur.Update(user);
             }
-            HttpContext.Session.SetString("language", "ru");//Setting language for entire session 
+            HttpContext.Session.SetInt32("language", id);//Setting language for entire session 
             return RedirectToAction("");
 		}
 	}

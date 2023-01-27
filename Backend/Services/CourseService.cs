@@ -66,7 +66,20 @@ namespace Backend.Services
                         catch { }
                     }
                 }
-                return new BaseResponse<AccountViewModel>() { Data = new AccountViewModel { AllCourses = allCourses, EndedCourses = passedCourses, BoughtCourses = boughtCourses }, Description = "Get all courses for a user", StatusCode = Models.Enum.StatusCode.OK };
+
+                if (user.InKartCourses is not null)
+                {
+                    List<long> kartIds = JsonConvert.DeserializeObject<List<long>>(user.InKartCourses);
+                    foreach (long course in kartIds)
+                    {
+                        try
+                        {
+                            allCourses.RemoveAll(x=>x.Id == course);
+                        }
+                        catch { }
+                    }
+                }
+                    return new BaseResponse<AccountViewModel>() { Data = new AccountViewModel { AllCourses = allCourses, EndedCourses = passedCourses, BoughtCourses = boughtCourses }, Description = "Get all courses for a user", StatusCode = Models.Enum.StatusCode.OK };
             }
             catch (Exception ex)
             {

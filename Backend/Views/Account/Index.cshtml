@@ -5,6 +5,40 @@
 
     Layout = "LKLayout";
     ViewBag.Title = "Home";
+    string mycert;
+    string mycourse;
+    string myrecom;
+    string rating;
+    string allcourses;
+    string passedcourses;
+    string start;
+    string startedcourses;
+    string login;
+    if (Model.User.Lang==0)
+    {
+        mycert = "Mening sertifikatlarim";
+        mycourse = "Mening kurslaring";
+        myrecom = "Mening tavsiyalarim";
+        rating = "Reyting";
+        allcourses = "Barchasi kurslar";
+        passedcourses = "Tugallanganlari";
+        start = "Sotib olish";
+        startedcourses = "Started courses";
+        login = "Login";
+    }
+    else
+    {
+        mycert = "Мои сертификаты";
+        mycourse = "Мои курсы";
+        myrecom = "Мои рекомендации";
+        rating = "Рейтинг";
+        allcourses = "Все курсы";
+        passedcourses = "Завершённые курсы";
+        start = "Начать";
+        startedcourses = "Начатые курсы";
+        login = "Войти";
+    }
+
 }
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @functions {
@@ -38,12 +72,12 @@
                 <div class="user_info-block-1">
                     <div class="user_info-block-1-1">
                         <img src="~/pict/peoples.svg">
-                        <div class="user_info-block-name">Мои рекомендации</div>
+                        <div class="user_info-block-name">@myrecom</div>
                     </div>
                 </div>
                 <div class="user_info-block">
                     <img src="~/pict/sertif.svg">
-                    <div class="user_info-block-name"><a asp-controller="Certificate" asp-action="Index">Мои сертификаты</a></div>
+                    <div class="user_info-block-name"><a asp-controller="Certificate" asp-action="Index">@mycert</a></div>
                 </div>
             </div>
         </div>
@@ -54,7 +88,7 @@
             <div class="media-block">
                 <div class="media-name">
                     <img class="media-name-svg" src="~/pict/course.svg">
-                    <div class="media-name-name"><a asp-controller="Account" asp-action="Index">Мои курсы</a></div>
+                    <div class="media-name-name"><a asp-controller="Account" asp-action="Index">@mycourse</a></div>
                 </div>
             </div>
             <div class="mine_course">
@@ -62,7 +96,7 @@
                     <div class="mine_course-sort-element-1">
                         <form style="display:flex; margin-bottom: 0;" method=" get" asp-controller="Account" asp-action="ChangeFilterToAll">
                             <button type="submit" style="display:flex; border: none; align-items: center;">
-                                Все курсы
+                                @allcourses
                             </button>
                         </form>
                     </div>
@@ -70,14 +104,14 @@
                         <img class="mine_course-sort-svg-icon" src="~/pict/book-open.svg">
                         <form style="display:flex; margin-bottom: 0;" method="get" asp-controller="Account" asp-action="ChangeFilterToBought">
                             <button type="submit" style="display:flex; border: none; align-items: center;">
-                                Начатые курсы
+                                @startedcourses
                             </button>
                         </form>
                         <div class="mine_course-sort-element-3">
                             <img class="mine_course-sort-svg-icon" src="~/pict/sber.svg">
                             <form style="display:flex; margin-bottom: 0;" method="get" asp-controller="Account" asp-action="ChangeFilterToPassed">
                                 <button type="submit" style="display:flex;border: none; align-items: center;">
-                                    Завершённые курсы
+                                    @passedcourses
                                 </button>
                             </form>
                         </div>
@@ -127,7 +161,7 @@
                                         <div class="cours-info-block-hours-1">@item.Lessons.Count() lessons</div>
                                         <div class="cours-info-block-hours-2">@item.Duration</div>
                                         <form method="get" asp-controller="Course" asp-action="Buy">
-                                            <a class="cours-info-block-button" href=@hreff>Начать</a>
+                                            <a class="cours-info-block-button" href=@hreff>@start</a>
                                         </form>
                                     </div>
                                 </scroll-page>
@@ -144,6 +178,6 @@ else
     <link rel="stylesheet" href="~/css/reg_form.css" asp-append-version="true" />
     <div style="align-items: center">Login please</div>
     <div style="margin-left: auto">
-        <a class="header-container-right_section-login" asp-controller="Account" asp-action="Login">Войти</a>
+        <a class="header-container-right_section-login" asp-controller="Account" asp-action="Login">@login</a>
     </div>
 }

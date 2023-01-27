@@ -3,6 +3,28 @@
 *@
 @{
     var bilimbank = "@bilimbank";
+
+    string rights;
+    string learningproc;
+    string usagepol;
+    string privpol;
+    string reg;
+    if (Context.Session.GetInt32("language") == 0)
+    {
+        rights = "© 2023 Barcha huquqlar himoyalangan, bilimbank";
+        learningproc = "O’quv jarayoni";
+        usagepol = "Ishlatish shartlari";
+        privpol = "Maxfiylik siyosati";
+        reg = "Ro’yxatdan o’tish";
+    }
+    else
+    {
+        rights = "© 2023 Все права защищены, bilimbank";
+        learningproc = "Процесс обучения";
+        usagepol = "Условия использования";
+        privpol = "Политика конфиденциальности";
+        reg = "Регистрация";
+    }
 }
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <!DOCTYPE html>
@@ -30,7 +52,7 @@
                     <div class="header-container-right_section-lang-element"><a class="a-lang" href="	">ru</a></div>
                 </div>
                 <div style="margin-left: auto">
-                    <a class="header-container-right_section-login" asp-controller="Account" asp-action="Register">Регистрация</a>
+                    <a class="header-container-right_section-login" asp-controller="Account" asp-action="Register">@reg</a>
                 </div>
             </div>
         </div>
@@ -42,16 +64,16 @@
         <div class="footer-container">
             <div class="footer-element">
                 <img class="footer-logo" src="~/pict/logo-icon 1.svg">
-                © 2023 Все права защищены, bilimbank
+                @rights
             </div>
             <div class="footer-element">
-                Процесс обучения
+                @learningproc
             </div>
             <div class="footer-element">
-                Условия использования
+                @usagepol
             </div>
             <div class="footer-element">
-                Политика конфиденциальности
+                @privpol
             </div>
             <div class="footer-right">
                 <div class="footer-element">

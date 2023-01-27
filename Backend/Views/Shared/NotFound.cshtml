@@ -1,5 +1,30 @@
 ﻿@{
     var bilimbank = "@bilimbank";
+
+    string rights;
+    string learningproc;
+    string usagepol;
+    string privpol;
+    string devpage;
+    string mycourse;
+    if (Context.Session.GetInt32("language") == 0)
+    {
+        rights = "© 2023 Barcha huquqlar himoyalangan, bilimbank";
+        learningproc = "O’quv jarayoni";
+        usagepol = "Ishlatish shartlari";
+        privpol = "Maxfiylik siyosati";
+        devpage = "Sahifa ishlab chiqilmoqda";
+        mycourse = "Mening kurslar";
+    }
+    else
+    {
+        rights = "© 2023 Все права защищены, bilimbank";
+        learningproc = "Процесс обучения";
+        usagepol = "Условия использования";
+        privpol = "Политика конфиденциальности";
+        devpage = "Страница находится в разработтке";
+        mycourse = "Мои курсы";
+    }
 }
 <html lang="en">
 <head>
@@ -31,23 +56,23 @@
     </header>
     <main>
         <div class="error-text">404</div>
-        <div class="err-desc">Sahifa ishlab chiqilmoqda</div>
-        <a class="rtrn-btn" href="/Account">Mening kurslar</a>
+        <div class="err-desc">@devpage</div>
+        <a class="rtrn-btn" href="/Account">@mycourse</a>
     </main>
     <footer>
         <div class="footer-container">
             <div class="footer-element">
                 <img class="footer-logo" src="~/pict/logo-icon 1.svg">
-                © 2023 Barcha huquqlar himoyalangan, bilimbank
+                @rights
             </div>
             <div class="footer-element">
-                O’quv jarayoni
+                @learningproc
             </div>
             <div class="footer-element">
-                Ishlatish shartlari
+                @usagepol
             </div>
             <div class="footer-element">
-                Maxfiylik siyosati
+                @privpol
             </div>
             <div class="footer-right">
                 <div class="footer-element">

@@ -129,7 +129,7 @@ namespace Backend.Controllers
                 UserRepository ur = new UserRepository();
                 await ur.Update(user);
             }
-            TempData["lang"] = id;
+            HttpContext.Session.SetInt32("language", id);//Setting language for entire session 
             return RedirectToAction("");
         }
         [HttpGet("NotFound")]

@@ -9,15 +9,45 @@
     ViewBag.Title = "Courses";
     Layout = "CLLayout";
     string header = "";
+    bool lang = Model.User.Lang == 0;
+    string next;
+    string prev;
+    string send;
+    string end;
+    string congratz;
     object CheckChanged(Answer answer)
     {
         return answer.IsChosen = !answer.IsChosen;
+    }
+
+    if (lang)
+    {
+        next = "Keyingisi";
+        prev = "Orqaga";
+        send = "Tugatish";
+        end = "Xulosa";
+        congratz = "Tabriklaymiz! Siz “Yangilar uchun Investitsiya” kursini tamomladingiz";
+    }
+    else
+    {
+        next = "Дальше";
+        prev = "Назад";
+        send = "Отправить";
+        end = "Заключение";
+        congratz = "Поздравляем! Вы завершили курс Инвестиции для начинающих";
     }
     if (Model.CurrentLesson < Model.AllLessons.Count)
     {
         if (Model.CurrentLesson == 0)
         {
-            header = "Введение";
+            if (lang)
+            {
+                header = "Kirish";
+            }
+            else
+            {
+                header = "Введение";
+            }
         }
         else
         {
@@ -70,13 +100,13 @@
                                 <form>
                                     <a class="course-back-button">
                                         <img class="back-button-icon" src="~/pict/left.svg">
-                                        <div class="left">Назад</div>
+                                        <div class="left">@prev</div>
                                     </a>
                                 </form>
 
                                 <form method="get" asp-controller="Course" asp-action="NextLesson">
                                     <a class="course-back-button" style="background: #0093DC; font-family: 'Raleway';" href=@nextLesHref>
-                                        <div class="next">Дальше</div>
+                                        <div class="next">@next</div>
                                         <img class="next-button-icon" src="~/pict/next.svg">
                                     </a>
                                 </form>
@@ -88,13 +118,13 @@
                                 <form method="get" asp-controller="Course" asp-action="PrevLesson">
                                     <a class="course-back-button" style="background: #0093DC;" href=@prevLesHref>
                                         <img class="back-button-icon" src="~/pict/left.svg">
-                                        <div class="left">Назад</div>
+                                        <div class="left">@prev</div>
                                     </a>
                                 </form>
 
                                 <form method="get" asp-controller="Course" asp-action="NextLesson">
                                     <a class="course-back-button" style="background: #0093DC; font-family: 'Raleway';" href=@nextLesHref>
-                                        <div class="next">Дальше</div>
+                                        <div class="next">@next</div>
                                         <img class="next-button-icon" src="~/pict/next.svg">
                                     </a>
                                 </form>
@@ -177,7 +207,7 @@
 
                         }
                         <button type="submit" class="course-next-button">
-                            <div class="log-in-btn">Отправить</div>
+                            <div class="log-in-btn">@send</div>
                         </button>
                     </form>
                 }
@@ -190,8 +220,8 @@
         <!--ending-->
         <div class="main-container-list-result-6">
             <div class="main-container-list-result-cont">
-                <p class="sertif-conc">Заключение</p>
-                <p class="sertig-gratz">Поздравляем! Вы завершили курс Инвестиции для начинающих</p>
+                <p class="sertif-conc">@end</p>
+                <p class="sertig-gratz">@congratz</p>
                 <img class="sertif-set" src="~/pict/sertif.png">
             </div>
         </div>

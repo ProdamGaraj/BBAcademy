@@ -2,6 +2,22 @@
 @{
     Layout = "LoginLayout";
     ViewBag.Title = "Login";
+
+    string login;
+    string password;
+    string enter;
+    if (Context.Session.GetInt32("language") == 0)
+    {
+        login = "Login";
+        password = "Parol";
+        enter = "Tizimga kirish";
+    }
+    else
+    {
+        login = "Логин";
+        password = "Пароль";
+        enter = "Войти";
+    }
 }
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <link rel="stylesheet" type="text/css" href="~/css/Bilmbank.css">
@@ -19,16 +35,16 @@
 <div class="main-container">
     <form id="log-form" class="log-block-form" method="post" asp-controller="Account" asp-action="Login">
         <div class="log-container">
-            <label class="log-label" for="email">Логин</label>
+            <label class="log-label" for="email">@login</label>
             <input asp-for="Login" placeholder="" class="form-control textbox-dg font-weight-bold text-center reg-log-input" type="text">
 
-            <label class="log-label" for="psw">Пароль</label>
+            <label class="log-label" for="psw">@password</label>
             <input autocomplete="new-password" asp-for="Password" placeholder="" class="form-control textbox-dg font-weight-bold text-center reg-log-input" type="password">
 
             <div class="d-grid gap-2 d-md-block float-right">
 
                 <button type="submit" class="registerbtn" @*{asp-controller="Account" asp-action="Login"}*@>
-                    <div class="log-in-btn">Войти</div>
+                    <div class="log-in-btn">@enter</div>
                 </button>
             </div>
         </div>
