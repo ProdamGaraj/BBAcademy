@@ -46,19 +46,16 @@ header{
 	width: 24px;
     height: 19px;
 }
-.main-logo-text{
+.main-logo-text {
 	width: 91px;
 	height: 20px;
-
 	font-family: 'Prompt';
 	font-style: normal;
 	font-weight: 300;
 	font-size: 20px;
 	line-height: 100%;
-
 	margin-left: 10px;
-
-	color: #3A3B3F;
+	color: #2900FF;
 }
 .ur_photo{
     width: 44px;
@@ -337,7 +334,7 @@ li{
 .Demarcation-line{
 	height: 472px;
 	width: 0px;
-	border: 4px solid #F5F5F5;
+	border: 2px solid #F5F5F5;
 	margin-top: 55px;
 }
 .main-container-list-p-flex{

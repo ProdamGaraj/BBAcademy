@@ -94,6 +94,7 @@
                     <div class="media-name-name"><a asp-controller="Account" asp-action="Index">@mycourse</a></div>
                 </div>
             </div>
+
             <div class="mine_course">
                 <div class="mine_course-sort">
                     <div class="mine_course-sort-element-1">
@@ -124,9 +125,7 @@
                     </div>
                 </div>
                 <div>
-                    <scroll-container style="margin-right: 20px; min-width: 1000px;">
-                        
-
+                    <scroll-container style="min-width: 1000px;">
                         @switch (Model.filter)
                         {
                             case "AllCourses":

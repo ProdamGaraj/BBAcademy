@@ -42,20 +42,17 @@ a{
 	flex-direction: row;
 	margin-right: auto;
 }
-.header-container-left_section-text{
+.header-container-left_section-text {
 	width: 146px;
 	height: 32px;
-
 	margin-top: auto;
 	margin-bottom: auto;
-
 	font-family: 'Prompt';
 	font-style: normal;
 	font-weight: 300;
 	font-size: 32px;
 	line-height: 100%;
-
-	color: #3A3B3F;
+	color: #2900FF;
 }
 .header-container-right_section{
 	margin-left: auto;
@@ -77,7 +74,7 @@ a{
 	font-family: 'Raleway';
 	font-style: normal;
 	font-weight: 500;
-	font-size: 28px;
+	font-size: 23px;
 	line-height: 33px;
 	/* identical to box height */
 
@@ -272,7 +269,8 @@ label{
 	position: relative;
 	width: 689px;
 	height: 606px;
-	left: 6%	;
+	left: 6%;
+	object-fit: contain;
 }
 .block-learn-in_left-section::before{
 	width: 578.09px;
@@ -337,6 +335,7 @@ label{
 
 	color: #000000;
 	margin-bottom: 40px;
+	display: flex;
 }
 .adv-learn-left{
 	width: 347px;

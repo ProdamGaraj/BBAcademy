@@ -55,6 +55,7 @@ footer{
 	font-family: 'Raleway';
 	font-style: normal;
 	font-weight: 400;
+	margin-top:30px;
 }
 .footer-container{
 	width: 1320px;
@@ -180,6 +181,7 @@ footer{
 
 	display: flex;
 	flex-direction: column;
+	align-items: flex-start;
 }
 .log-label-l-sr{
 	font-family: Raleway;
