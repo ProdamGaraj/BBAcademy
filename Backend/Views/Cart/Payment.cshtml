@@ -5,7 +5,8 @@
 }
 
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-if(@Model.User.Lang)
+@{
+    if(Model.User.Lang==1){
 <div class="main-container">
     <div>
         <form id="log-form" class="log-block-form">
@@ -68,3 +69,5 @@ if(@Model.User.Lang)
         <a href="#" class="payment-info_paymment">Перейти к оплате</a>
     </div>
 </div>
+}
+}

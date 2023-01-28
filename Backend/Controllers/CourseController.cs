@@ -147,6 +147,28 @@ namespace Backend.Controllers
             await cs.BuyCourse(cvm);
             return RedirectToAction("Index", "Course");
         }
+        [HttpGet("GoToCourse/{id}")]
+        public async Task<IActionResult> GoToCourse(string id)
+        {
+
+            var cvm = new CourseViewModel();
+            cvm.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
+            cvm.IdCourse = long.Parse(id);
+            TempData["idCourse"] = cvm.IdCourse.ToString();
+            return RedirectToAction("Index", "Course");
+        }
+        [HttpGet("InCart/{id}")]
+        public async Task<IActionResult> InCart(string id)
+        {
+
+            var cvm = new CourseViewModel();
+            cvm.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
+            cvm.IdCourse = long.Parse(id);
+            TempData["idCourse"] = cvm.IdCourse.ToString();
+            CourseService cs = new CourseService();
+            await cs.PutInCartCourse(cvm);
+            return RedirectToAction("Index", "Cart");
+        }
         //[HttpPost]
         //public async Task<IActionResult> Buy(CourseViewModel vm)
         //{

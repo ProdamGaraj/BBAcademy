@@ -14,6 +14,7 @@
     string start;
     string startedcourses;
     string login;
+    string inkart;
     if (Model.User.Lang==0)
     {
         mycert = "Mening sertifikatlarim";
@@ -25,6 +26,7 @@
         start = "Sotib olish";
         startedcourses = "Started courses";
         login = "Login";
+        inkart = "Savatdan olib tashlang";
     }
     else
     {
@@ -37,6 +39,7 @@
         start = "Начать";
         startedcourses = "Начатые курсы";
         login = "Войти";
+        inkart = "Удалить из корзины";
     }
 
 }
@@ -122,10 +125,33 @@
                 </div>
                 <div>
                     <scroll-container style="margin-right: 20px; min-width: 1000px;">
+                        
+
                         @switch (Model.filter)
                         {
                             case "AllCourses":
                                 {
+                                    if (Model.InKartCourses is not null)
+                                    {
+                                        collection = Model.InKartCourses;
+                                        @foreach (var item in collection)
+                                        {
+                                            var hreff = "/DeleteFromCart/"+item.Id;
+                                            <scroll-page style="margin-right: 20px">
+                                                <img class="cours-scroll" src="~/pict/course_guy.jpg">
+                                                <div class="cours-text">
+                                                    <div class="cours-text-top">@item.Name</div>
+                                                    <div class="cours-text-bot">@item.Description</div>
+                                                </div>
+                                                <div class="cours-info-block">
+                                                    <img class="cours-info-block-src" src="~/pict/bell.svg">
+                                                    <div class="cours-info-block-hours-1">@item.Lessons.Count() lessons</div>
+                                                    <div class="cours-info-block-hours-2">@item.Duration</div>
+                                                    <a class="cours-info-block-button" href=@hreff>@inkart</a>
+                                                </div>
+                                            </scroll-page>
+                                        }
+                                    }
                                     collection = Model.AllCourses;
                                 }
                                 break;
@@ -149,7 +175,7 @@
                         {
                             @foreach (var item in collection)
                             {
-                                var hreff = "/Course/Buy/" + item.Id;
+                                var hreff = "/Course/GoToCourse/" + item.Id;
                                 <scroll-page style="margin-right: 20px">
                                     <img class="cours-scroll" src="~/pict/course_guy.jpg">
                                     <div class="cours-text">

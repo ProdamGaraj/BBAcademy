@@ -37,12 +37,14 @@ namespace Backend.Services
                 List<Course> allCourses = new List<Course>();
                 List<Course> passedCourses = new List<Course>();
                 List<Course> boughtCourses = new List<Course>();
+                List<Course> inKartCourses = new List<Course>();
                 allCourses.AddRange(await cr.GetAll());
                 if (!user.PassedCoursesId.IsNullOrEmpty())
                 {
                     List<long> ids = JsonConvert.DeserializeObject<List<long>>(user.PassedCoursesId);
 
-                    foreach (long id in ids)
+                    if (ids is not null)
+                        foreach (long id in ids)
                     {
                         try
                         {
@@ -56,7 +58,8 @@ namespace Backend.Services
                 {
                     List<long> boughtIds = JsonConvert.DeserializeObject<List<long>>(user.BoughtCourses);
 
-                    foreach (long course in boughtIds)
+                    if (boughtIds is not null)
+                        foreach (long course in boughtIds)
                     {
                         try
                         {
@@ -70,16 +73,18 @@ namespace Backend.Services
                 if (user.InKartCourses is not null)
                 {
                     List<long> kartIds = JsonConvert.DeserializeObject<List<long>>(user.InKartCourses);
+                    if(kartIds is not null)
                     foreach (long course in kartIds)
                     {
                         try
                         {
-                            allCourses.RemoveAll(x=>x.Id == course);
+                            inKartCourses.Add(allCourses.First(x => x.Id == course));
+                            allCourses.Remove(inKartCourses.Last());
                         }
                         catch { }
                     }
                 }
-                    return new BaseResponse<AccountViewModel>() { Data = new AccountViewModel { AllCourses = allCourses, EndedCourses = passedCourses, BoughtCourses = boughtCourses }, Description = "Get all courses for a user", StatusCode = Models.Enum.StatusCode.OK };
+                    return new BaseResponse<AccountViewModel>() { Data = new AccountViewModel { AllCourses = allCourses,InKartCourses = inKartCourses, EndedCourses = passedCourses, BoughtCourses = boughtCourses }, Description = "Get all courses for a user", StatusCode = Models.Enum.StatusCode.OK };
             }
             catch (Exception ex)
             {
@@ -98,7 +103,7 @@ namespace Backend.Services
                 var course = await cr.Get(vm.IdCourse);
                 var user = await ur.Get(vm.User.Id);
                 vm.AllLessons = course.Lessons.ToList();
-                if(vm.CurrentLesson == null)
+                if (vm.CurrentLesson == null)
                     vm.CurrentLesson = 0;
                 ExamRepository er = new ExamRepository();
                 if (course.Exam is not null)
@@ -117,15 +122,18 @@ namespace Backend.Services
                     vm.Exam.Questions = questions;
 
                 }
-                List<long> boughtIds = JsonConvert.DeserializeObject<List<long>>(user.BoughtCourses);
-
-                if (!boughtIds.Contains(course.Id))
+                if (user.BoughtCourses is not null)
                 {
-                    vm.IsBought = false;
-                    return new BaseResponse<CourseViewModel>() { Data = vm, Description = "You haven`t buy this course yet", StatusCode = Models.Enum.StatusCode.OK };
+                    List<long> boughtIds = JsonConvert.DeserializeObject<List<long>>(user.BoughtCourses);
+                    if (boughtIds is not null)
+                        if (boughtIds.Contains(course.Id))
+                        {
+                            vm.IsBought = true;
+                            return new BaseResponse<CourseViewModel>() { Data = vm, Description = "Get course for a user", StatusCode = Models.Enum.StatusCode.OK };
+                        }
                 }
-                vm.IsBought = true;
-                return new BaseResponse<CourseViewModel>() { Data = vm, Description = "Get course for a user", StatusCode = Models.Enum.StatusCode.OK };
+                vm.IsBought = false;
+                return new BaseResponse<CourseViewModel>() { Data = vm, Description = "You haven`t buy this course yet", StatusCode = Models.Enum.StatusCode.OK };
             }
             catch (Exception ex)
             {
@@ -138,7 +146,61 @@ namespace Backend.Services
                 };
             }
         }
-        public async Task<IBaseResponce<CourseViewModel>> BuyCourse(CourseViewModel vm)
+        public async Task<IBaseResponce<bool>> PutInCartCourse(CourseViewModel vm)
+        {
+            try
+            {
+                List<long> ids = new List<long>();
+                if(vm.User.InKartCourses is not null)
+                ids.AddRange(JsonConvert.DeserializeObject<List<long>>(vm.User.InKartCourses));
+                if (ids is null)
+                {
+                    ids = new List<long>();
+                }
+                ids.Add(vm.IdCourse);
+                vm.User.InKartCourses = JsonConvert.SerializeObject(ids);
+                UserRepository ur = new UserRepository();
+                await ur.Update(vm.User);
+                return new BaseResponse<bool>() { Data = true, Description = "Put in cart", StatusCode = Models.Enum.StatusCode.OK };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<bool>()
+                {
+                    Data = false,
+                    Description = ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace,
+                    StatusCode = Models.Enum.StatusCode.InternalServerError
+                };
+            }
+        }
+        public async Task<IBaseResponce<bool>> RemoveCartCourse(CourseViewModel vm)
+        {
+            try
+            {
+                List<long> ids = new List<long>();
+                if(vm.User.InKartCourses is not null)
+                ids.AddRange(JsonConvert.DeserializeObject<List<long>>(vm.User.InKartCourses));
+                if (ids is null)
+                {
+                    ids = new List<long>();
+                }
+                ids.Remove(vm.IdCourse);
+                vm.User.InKartCourses = JsonConvert.SerializeObject(ids);
+                UserRepository ur = new UserRepository();
+                await ur.Update(vm.User);
+                return new BaseResponse<bool>() { Data = true, Description = "Put in cart", StatusCode = Models.Enum.StatusCode.OK };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<bool>()
+                {
+                    Data = false,
+                    Description = ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace,
+                    StatusCode = Models.Enum.StatusCode.InternalServerError
+                };
+            }
+        }
+            public async Task<IBaseResponce<CourseViewModel>> BuyCourse(CourseViewModel vm)
         {
             Logger logger = LogManager.GetCurrentClassLogger();
             try

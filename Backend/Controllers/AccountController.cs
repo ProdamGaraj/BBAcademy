@@ -27,6 +27,10 @@ namespace Backend.Controllers
             {
                 accountViewModel.filter = TempData["filter"].ToString();
             }
+            else
+            {
+                accountViewModel.filter = "AllCourses";
+            }
             accountViewModel.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
             if(HttpContext.Session.TryGetValue("language", out byte[] value))
                 accountViewModel.User.Lang = HttpContext.Session.GetInt32("language");
@@ -48,6 +52,7 @@ namespace Backend.Controllers
                 accountViewModel.AllCourses = responce.Data.AllCourses;
                 accountViewModel.BoughtCourses = responce.Data.BoughtCourses;
                 accountViewModel.EndedCourses = responce.Data.EndedCourses;
+                accountViewModel.InKartCourses = responce.Data.InKartCourses;
                 return View(accountViewModel);
             }
             //accountViewModel.AllCourses.Add(new Models.Course());
@@ -97,7 +102,17 @@ namespace Backend.Controllers
             }
             return View(vm);
         }
-
+        [HttpGet("DeleteFromCart/{id}")]
+        public async Task<IActionResult> DeleteFromCart(string id)
+        {
+            var cvm = new CourseViewModel();
+            cvm.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
+            cvm.IdCourse = long.Parse(id);
+            TempData["idCourse"] = cvm.IdCourse.ToString();
+            CourseService cs = new CourseService();
+            await cs.RemoveCartCourse(cvm);
+            return RedirectToAction("");
+        }
         [HttpGet]
         public async Task<IActionResult> Logout()
         {

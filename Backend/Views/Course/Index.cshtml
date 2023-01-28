@@ -15,10 +15,7 @@
     string send;
     string end;
     string congratz;
-    object CheckChanged(Answer answer)
-    {
-        return answer.IsChosen = !answer.IsChosen;
-    }
+    string incart;
 
     if (lang)
     {
@@ -27,6 +24,7 @@
         send = "Tugatish";
         end = "Xulosa";
         congratz = "Tabriklaymiz! Siz “Yangilar uchun Investitsiya” kursini tamomladingiz";
+        incart = "Savatchaga qo'shish";
     }
     else
     {
@@ -35,6 +33,7 @@
         send = "Отправить";
         end = "Заключение";
         congratz = "Поздравляем! Вы завершили курс Инвестиции для начинающих";
+        incart = "В корзину";
     }
     if (Model.CurrentLesson < Model.AllLessons.Count)
     {
@@ -93,8 +92,21 @@
                                 }
                             </div>
                         }
+                        @if (!Model.IsBought)
+                        {
 
-                        @if (Model.CurrentLesson == 0)
+                            <div class="back-next-btns">
+
+                                <form method="get" asp-controller="Course" asp-action="NextLesson">
+                                    <a class="course-back-button" style="background: #0093DC; font-family: 'Raleway';" href="/Course/InCart/@Model.IdCourse">
+                                        <div class="next">@incart</div>
+                                        <img class="next-button-icon" src="~/pict/next.svg">
+                                    </a>
+                                </form>
+                            </div>
+                        }
+                        else{
+                        if (Model.CurrentLesson == 0)
                         {
                             <div class="back-next-btns">
                                 <form>
@@ -112,7 +124,7 @@
                                 </form>
                             </div>
                         }
-                        else
+                        else if (Model.CurrentLesson == 0)
                         {
                             <div class="back-next-btns">
                                 <form method="get" asp-controller="Course" asp-action="PrevLesson">
@@ -129,6 +141,7 @@
                                     </a>
                                 </form>
                             </div>
+                        }
                         }
                     </div>
                 </div>
