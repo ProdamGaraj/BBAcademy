@@ -1,11 +1,24 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using Backend;
 using Backend.Models;
 using Backend.Models.Enum;
 using Backend.Services;
 using Backend.Services.Repository;
 using Newtonsoft.Json;
-Console.WriteLine("creating the Exam");
+using Microsoft.EntityFrameworkCore;
+
+LessonRepository lr = new LessonRepository();
+CourseRepository cor = new CourseRepository();
 ExamRepository er = new ExamRepository();
+AnswerRepository ar = new AnswerRepository();
+UserRepository ur = new UserRepository();
+CertificateRepository cr = new CertificateRepository();
+QuestionRepository qr = new QuestionRepository();
+ExamService ec = new ExamService();
+
+
+Console.WriteLine("creating the Exam");
+
 Exam Exam = new Exam("20 minutes", "Exam for banking", new List<Question>());
 await er.Add(Exam);
 Exam = await er.Get(Exam.Id);
@@ -20,8 +33,7 @@ Console.WriteLine("Marking as deleted");
 Exam = await er.Get(Exam.Id);
 Console.WriteLine(JsonConvert.SerializeObject(Exam));
 Console.WriteLine("Creating the lesson");
-LessonRepository lr = new LessonRepository();
-CourseRepository cor = new CourseRepository();
+
 
 Lesson lesson = new Lesson(LessonType.Photo, "Photo", "Photo of a dog", "C://");
 await lr.Add(lesson);
@@ -37,7 +49,7 @@ Console.WriteLine("Marking as deleted");
 lesson = await lr.Get(lesson.Id);
 Console.WriteLine(JsonConvert.SerializeObject(lesson));
 Console.WriteLine("Creating the answer");
-AnswerRepository ar = new AnswerRepository();
+
 Answer Answer = new Answer("Sun is yellow", false, 110);
 await ar.Add(Answer);
 Answer = new Answer("Sun is yellow", false, 110);
@@ -56,7 +68,7 @@ Console.WriteLine("Marking as deleted");
 Answer = await ar.Get(Answer.Id);
 Console.WriteLine(JsonConvert.SerializeObject(Answer));
 Console.WriteLine("Creating the certificate");
-UserRepository ur = new UserRepository();
+
 User User = new User("Maximus", DateTime.Now, DateTime.Now, "Powery", "Poiwer", "password", "login", "C://", true, "power@pow.ru", "Telme", "junior manager", "", null, null, null, "not much to say");
 await ur.Add(User);
 await ur.MarkAsDeleted(User);
@@ -75,7 +87,7 @@ Console.WriteLine("Marking as deleted");
 Course = await cor.Get(Course.Id);
 Console.WriteLine(JsonConvert.SerializeObject(Course));
 Console.WriteLine("creating the Question");
-CertificateRepository cr = new CertificateRepository();
+
 Certificate Certificate = new Certificate(User.Id, "Some media templatepath", 2, new List<Course>());
 bool flag = await cr.Add(Certificate);
 Certificate = await cr.Get(Certificate.Id);
@@ -89,7 +101,7 @@ Console.WriteLine("Marking as deleted");
 //await cr.MarkAsDeleted(Certificate);
 Certificate = await cr.Get(Certificate.Id);
 Console.WriteLine(JsonConvert.SerializeObject(Certificate));
-QuestionRepository qr = new QuestionRepository();
+
 Question Question = new Question("", "Goodbyes", 0, null);
 await qr.Add(Question);
 
@@ -149,7 +161,7 @@ ids.Add(Question.Id);
 questions.Add(Question);
 Console.WriteLine(JsonConvert.SerializeObject(User));
 Console.WriteLine("Create exam with questions by ids");
-ExamService ec = new ExamService();
+
 Exam = (await ec.CreateExamWithId("20 minutes", "Exam for banking", ids)).Data;
 await er.Add(Exam);
 Exam = await er.Get(Exam.Id);

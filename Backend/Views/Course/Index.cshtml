@@ -62,34 +62,9 @@
                         @if (Model.AllLessons.ElementAt(Model.CurrentLesson).MediaContentPath is not null)
                         {
                             <div class="video-block">
-                                @if (Model.CurrentLesson == 1)
-                                {
-
-                                    <video id="testVideo" width="800" controls>
-                                        <source src="~/videos/1.mp4" type="video/mp4">
-                                    </video>
-
-                                }
-                                else @if (Model.CurrentLesson == 2)
-                                {
-
-                                    <video id="testVideo" width="800" controls>
-                                        <source src="~/videos/2.mp4" type="video/mp4">
-                                    </video>
-
-                                }
-                                else @if (Model.CurrentLesson == 3)
-                                {
-
-                                    <video id="testVideo" width="800" controls>
-                                        <source src="~/videos/3.mp4" type="video/mp4">
-                                    </video>
-
-                                }
-                                else
-                                {
-                                    <div class="video-block" src=@Model.AllLessons.ElementAt( Model.CurrentLesson).MediaContentPath></div>
-                                }
+                                <video id="testVideo" width="800" controls>
+                                    <source src=@Model.AllLessons.ElementAt(Model.CurrentLesson).MediaContentPath type="video/mp4">
+                                </video>
                             </div>
                         }
                         @if (!Model.IsBought)
@@ -105,43 +80,44 @@
                                 </form>
                             </div>
                         }
-                        else{
-                        if (Model.CurrentLesson == 0)
+                        else
                         {
-                            <div class="back-next-btns">
-                                <form>
-                                    <a class="course-back-button">
-                                        <img class="back-button-icon" src="~/pict/left.svg">
-                                        <div class="left">@prev</div>
-                                    </a>
-                                </form>
+                            if (Model.CurrentLesson == 0)
+                            {
+                                <div class="back-next-btns">
+                                    <form>
+                                        <a class="course-back-button">
+                                            <img class="back-button-icon" src="~/pict/left.svg">
+                                            <div class="left">@prev</div>
+                                        </a>
+                                    </form>
 
-                                <form method="get" asp-controller="Course" asp-action="NextLesson">
-                                    <a class="course-back-button" style="background: #0093DC; font-family: 'Raleway';" href=@nextLesHref>
-                                        <div class="next">@next</div>
-                                        <img class="next-button-icon" src="~/pict/next.svg">
-                                    </a>
-                                </form>
-                            </div>
-                        }
-                        else if (Model.CurrentLesson == 0)
-                        {
-                            <div class="back-next-btns">
-                                <form method="get" asp-controller="Course" asp-action="PrevLesson">
-                                    <a class="course-back-button" style="background: #0093DC;" href=@prevLesHref>
-                                        <img class="back-button-icon" src="~/pict/left.svg">
-                                        <div class="left">@prev</div>
-                                    </a>
-                                </form>
+                                    <form method="get" asp-controller="Course" asp-action="NextLesson">
+                                        <a class="course-back-button" style="background: #0093DC; font-family: 'Raleway';" href=@nextLesHref>
+                                            <div class="next">@next</div>
+                                            <img class="next-button-icon" src="~/pict/next.svg">
+                                        </a>
+                                    </form>
+                                </div>
+                            }
+                            else if (Model.CurrentLesson == 0)
+                            {
+                                <div class="back-next-btns">
+                                    <form method="get" asp-controller="Course" asp-action="PrevLesson">
+                                        <a class="course-back-button" style="background: #0093DC;" href=@prevLesHref>
+                                            <img class="back-button-icon" src="~/pict/left.svg">
+                                            <div class="left">@prev</div>
+                                        </a>
+                                    </form>
 
-                                <form method="get" asp-controller="Course" asp-action="NextLesson">
-                                    <a class="course-back-button" style="background: #0093DC; font-family: 'Raleway';" href=@nextLesHref>
-                                        <div class="next">@next</div>
-                                        <img class="next-button-icon" src="~/pict/next.svg">
-                                    </a>
-                                </form>
-                            </div>
-                        }
+                                    <form method="get" asp-controller="Course" asp-action="NextLesson">
+                                        <a class="course-back-button" style="background: #0093DC; font-family: 'Raleway';" href=@nextLesHref>
+                                            <div class="next">@next</div>
+                                            <img class="next-button-icon" src="~/pict/next.svg">
+                                        </a>
+                                    </form>
+                                </div>
+                            }
                         }
                     </div>
                 </div>
