@@ -9,7 +9,7 @@ namespace Backend.Services
 {
     public class CartService
     {
-        public async Task<IBaseResponce<List<Course>>> GetInKartCourses(User user)
+        public async Task<IBaseResponce<List<Course>>> GetInCartCourses(User user)
         {
             List<Course> inKartCourses = new List<Course>();
             List<Course> allCourses= new List<Course>();

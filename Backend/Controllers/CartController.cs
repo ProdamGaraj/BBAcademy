@@ -33,7 +33,7 @@ namespace Backend.Controllers
             UserRepository ur = new UserRepository();
             await ur.Update(cvm.User);
             CartService cs = new CartService();
-            cvm.Courses =(await cs.GetInKartCourses(cvm.User)).Data;
+            cvm.Courses =(await cs.GetInCartCourses(cvm.User)).Data;
             return View(cvm);
         }
         [HttpGet("/Payment")]
@@ -54,7 +54,7 @@ namespace Backend.Controllers
             UserRepository ur = new UserRepository();
             await ur.Update(cvm.User);
             CartService cs = new CartService();
-            cvm.Courses = (await cs.GetInKartCourses(cvm.User)).Data;
+            cvm.Courses = (await cs.GetInCartCourses(cvm.User)).Data;
             return View(cvm);
         }
     }
