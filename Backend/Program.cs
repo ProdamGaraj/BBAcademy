@@ -16,15 +16,26 @@ using NLog;
 using Backend.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Data.Entity;
-
+using Microsoft.EntityFrameworkCore;
+using Backend.Services.Interfaces;
+using Backend.Services;
 
 var builder = Microsoft.AspNetCore.Builder.WebApplication.CreateBuilder(args);
 int lang;
-
+var connection=builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Logging.ClearProviders();
 builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<BBAcademyDb>(options=>options.UseSqlServer(connection));
+
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<ICertificateService, CertificateService>();
+builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<ILessonService, LessonService>();
+builder.Services.AddScoped<IExamService, ExamService>();
+builder.Services.AddScoped<ICourseService, CourseService>();
+
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAnswerRepository, AnswerRepository>();
 builder.Services.AddScoped<ICertificateRepository, CertificateRepository>();
@@ -32,7 +43,6 @@ builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<IExamRepository, ExamRepository>();
 builder.Services.AddScoped<ILessonRepository, LessonRepository>();
 builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
-builder.Services.AddScoped<BBAcademyDb>();
 builder.Services.AddRazorPages();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

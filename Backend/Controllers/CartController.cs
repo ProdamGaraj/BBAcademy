@@ -1,7 +1,9 @@
 ﻿using Backend.Services;
 using Backend.Services.AccountService;
 using Backend.Services.AccountService.Interfaces;
+using Backend.Services.Interfaces;
 using Backend.Services.Repository;
+using Backend.Services.Repository.Interfaces;
 using Backend.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,11 +13,17 @@ namespace Backend.Controllers
     public class CartController : Controller
     {
         private readonly IAccountService accountService;
+        private IUserRepository ur;
+        private ICartService cs;
 
-        public CartController(IAccountService _accountService)
+
+        public CartController(IAccountService accountService, IUserRepository ur, ICartService cs)
         {
-            accountService = _accountService;
+            this.accountService = accountService;
+            this.ur = ur;
+            this.cs = cs;
         }
+
         public async Task<IActionResult> IndexAsync(CartViewModel cvm)
         {
             cvm.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
@@ -30,9 +38,9 @@ namespace Backend.Controllers
             {
                 HttpContext.Session.SetInt32("language", (int)cvm.User.Lang);
             }
-            UserRepository ur = new UserRepository();
+
             await ur.Update(cvm.User);
-            CartService cs = new CartService();
+
             cvm.Courses =(await cs.GetInCartCourses(cvm.User)).Data;
             return View(cvm);
         }
@@ -51,9 +59,7 @@ namespace Backend.Controllers
             {
                 HttpContext.Session.SetInt32("language", (int)cvm.User.Lang);
             }
-            UserRepository ur = new UserRepository();
             await ur.Update(cvm.User);
-            CartService cs = new CartService();
             cvm.Courses = (await cs.GetInCartCourses(cvm.User)).Data;
             return View(cvm);
         }

@@ -9,17 +9,26 @@ using Backend.Services.AccountService;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Backend.Models;
 using Backend.Services.Repository;
+using Backend.Services.Interfaces;
+using Backend.Services.Repository.Interfaces;
 
 namespace Backend.Controllers
 {
     public class AccountController : Controller
     {
         private readonly IAccountService accountService;
+        private IUserRepository ur;
+        private ICourseService cs;
+        private IExamService es;
 
-        public AccountController(IAccountService _accountService)
+        public AccountController(IAccountService accountService, IUserRepository ur, ICourseService cs, IExamService es)
         {
-            accountService = _accountService;
+            this.accountService = accountService;
+            this.ur = ur;
+            this.cs = cs;
+            this.es = es;
         }
+
         [HttpGet]
         public async Task<IActionResult> Index(AccountViewModel accountViewModel)
         {
@@ -32,8 +41,10 @@ namespace Backend.Controllers
                 accountViewModel.filter = "AllCourses";
             }
             accountViewModel.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
-            if(HttpContext.Session.TryGetValue("language", out byte[] value))
+            if (HttpContext.Session.TryGetValue("language", out byte[] value))
+            {
                 accountViewModel.User.Lang = HttpContext.Session.GetInt32("language");
+            }
             if (accountViewModel.User.Lang is null)
             {
                 accountViewModel.User.Lang = 1;
@@ -43,9 +54,9 @@ namespace Backend.Controllers
             {
                 HttpContext.Session.SetInt32("language", (int)accountViewModel.User.Lang);
             }
-            UserRepository ur = new UserRepository();
+
             await ur.Update(accountViewModel.User);
-            var responce = (await new CourseService().GetCourses(new CourseViewModel() { User = accountViewModel.User }));
+            var responce = (await cs.GetCourses(new CourseViewModel() { User = accountViewModel.User }));
             TempData["currentLesson"] = 0;
             if (responce.StatusCode == Models.Enum.StatusCode.OK)
             {
@@ -109,7 +120,6 @@ namespace Backend.Controllers
             cvm.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
             cvm.IdCourse = long.Parse(id);
             TempData["idCourse"] = cvm.IdCourse.ToString();
-            CourseService cs = new CourseService();
             await cs.RemoveCartCourse(cvm);
             return RedirectToAction("");
         }
@@ -152,7 +162,7 @@ namespace Backend.Controllers
             {
                 User user = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
                 user.Lang = id;
-                UserRepository ur = new UserRepository();
+
                 await ur.Update(user);
             }
             HttpContext.Session.SetInt32("language", id);//Setting language for entire session 

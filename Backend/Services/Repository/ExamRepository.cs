@@ -1,39 +1,39 @@
 ﻿using Backend.Models;
 using Backend.Services.Repository.Interfaces;
 using NLog;
-using System.Data.Entity;
-using System.Data.Entity.Migrations;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Backend.Services.Repository
 {
     public class ExamRepository : IExamRepository
     {
-
+        private readonly BBAcademyDb db;
         Logger logger;
-        public ExamRepository()
+        public ExamRepository(BBAcademyDb db)
         {
             logger = LogManager.GetCurrentClassLogger();
+            this.db = db;
         }
         public async Task<bool> Add(Exam entity)
         {
             try
             {
-                using (BBAcademyDb db = new BBAcademyDb())
-                {
-                    entity.CreatedAt = DateTime.Now;
-                    entity.ModifiedAt = DateTime.Now;
-                    db.Exams.Add(entity);
-                    QuestionRepository qr = new QuestionRepository();
-                    if (entity.Questions is not null)
-                        foreach (Question question in entity.Questions)
+
+                entity.CreatedAt = DateTime.Now;
+                entity.ModifiedAt = DateTime.Now;
+                db.Exams.Add(entity);
+                QuestionRepository qr = new QuestionRepository(db);
+                if (entity.Questions is not null)
+                    foreach (Question question in entity.Questions)
+                    {
+                        if (await qr.Get(question.Id) is not null)
                         {
-                            if (await qr.Get(question.Id) is not null)
-                            {
-                                db.Entry(question).State = EntityState.Unchanged;
-                            }
+                            db.Entry(question).State = EntityState.Unchanged;
                         }
-                    await db.SaveChangesAsync();
-                }
+                    }
+                await db.SaveChangesAsync();
+
                 return true;
             }
             catch (Exception ex)
@@ -47,11 +47,10 @@ namespace Backend.Services.Repository
         {
             try
             {
-                using (BBAcademyDb db = new BBAcademyDb())
-                {
-                    Exam Exam = await db.Exams.Include("Questions").FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
-                    return Exam;
-                }
+
+                Exam Exam = await db.Exams.Include("Questions").FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
+                return Exam;
+
             }
             catch (Exception ex)
             {
@@ -64,11 +63,10 @@ namespace Backend.Services.Repository
         {
             try
             {
-                using (BBAcademyDb db = new BBAcademyDb())
-                {
-                    IList<Exam> myExam = await db.Exams.Include("Questions").ToListAsync();
-                    return myExam;
-                }
+
+                IList<Exam> myExam = await db.Exams.Include("Questions").ToListAsync();
+                return myExam;
+
             }
             catch (Exception ex)
             {
@@ -81,22 +79,21 @@ namespace Backend.Services.Repository
         {
             try
             {
-                using (BBAcademyDb db = new BBAcademyDb())
+
+                var result = await db.Exams.FirstOrDefaultAsync(b => b.Id.Equals(entity.Id));
+                if (result != null)
                 {
-                    var result = await db.Exams.FirstOrDefaultAsync(b => b.Id.Equals(entity.Id));
-                    if (result != null)
-                    {
-                        result.Deleted = true;
-                        result.ModifiedAt = DateTime.Now;
-                        await db.SaveChangesAsync();
-                        return true;
-                    }
-                    else
-                    {
-                        logger.Error("No such entity to mark");
-                        return false;
-                    }
+                    result.Deleted = true;
+                    result.ModifiedAt = DateTime.Now;
+                    await db.SaveChangesAsync();
+                    return true;
                 }
+                else
+                {
+                    logger.Error("No such entity to mark");
+                    return false;
+                }
+
             }
             catch (Exception ex)
             {
@@ -109,29 +106,28 @@ namespace Backend.Services.Repository
         {
             try
             {
-                using (BBAcademyDb db = new BBAcademyDb())
-                {
-                    var result = await db.Exams.FirstOrDefaultAsync(b => b.Id.Equals(entity.Id));
-                    if (result != null)
-                    {
-                        entity.ModifiedAt = DateTime.Now;
-                        db.Exams.AddOrUpdate(entity);
 
-                        QuestionRepository qr = new QuestionRepository();
-                        if (entity.Questions is not null)
-                            foreach (Question question in entity.Questions)
-                            {
-                                await qr.Update(question);
-                            }
-                        await db.SaveChangesAsync();
-                        return true;
-                    }
-                    else
-                    {
-                        logger.Error("No such entity to update");
-                        return false;
-                    }
+                var result = await db.Exams.FirstOrDefaultAsync(b => b.Id.Equals(entity.Id));
+                if (result != null)
+                {
+                    entity.ModifiedAt = DateTime.Now;
+                    db.Exams.Update(entity);
+
+                    QuestionRepository qr = new QuestionRepository(db);
+                    if (entity.Questions is not null)
+                        foreach (Question question in entity.Questions)
+                        {
+                            await qr.Update(question);
+                        }
+                    await db.SaveChangesAsync();
+                    return true;
                 }
+                else
+                {
+                    logger.Error("No such entity to update");
+                    return false;
+                }
+
             }
             catch (Exception ex)
             {

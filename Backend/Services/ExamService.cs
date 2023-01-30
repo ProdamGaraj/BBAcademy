@@ -2,7 +2,9 @@
 using Backend.Models.Enum;
 using Backend.Models.Interfaces;
 using Backend.Models.Responce;
+using Backend.Services.Interfaces;
 using Backend.Services.Repository;
+using Backend.Services.Repository.Interfaces;
 using Backend.ViewModels;
 using Newtonsoft.Json;
 using NLog;
@@ -10,17 +12,26 @@ using System.Linq;
 
 namespace Backend.Services
 {
-    public class ExamService
+    public class ExamService:IExamService
     {
+        private ICertificateService cs;
+        private ICourseRepository cr;
+        private IUserRepository ur;
+        private IQuestionRepository qr;
+
+        public ExamService(ICertificateService cs, ICourseRepository cr, IUserRepository ur, IQuestionRepository qr)
+        {
+            this.cs = cs;
+            this.cr = cr;
+            this.ur = ur;
+            this.qr = qr;
+        }
+
         public async Task<IBaseResponce<Exam>> GetExamForUser(ExamViewModel vm)
         {
             Logger logger = LogManager.GetCurrentClassLogger();
             try
             {
-
-                CourseRepository cr = new CourseRepository();
-                UserRepository ur = new UserRepository();
-
                 var course = new Course();
                 var user = new User();
                 if (vm.User is null || vm.Course is null)
@@ -42,7 +53,6 @@ namespace Backend.Services
                         StatusCode = StatusCode.InternalServerError
                     };
                 }
-                ExamRepository er = new ExamRepository();
                 List<long> passedExam = JsonConvert.DeserializeObject<List<long>>(user.PassedCoursesId);
                 if (passedExam.Contains(course.Id))
                 {
@@ -75,7 +85,6 @@ namespace Backend.Services
                 Exam exam = new Exam(description, examType, new List<Question>());
                 foreach (long id in ids)
                 {
-                    QuestionRepository qr = new QuestionRepository();
                     exam.Questions.Add(await qr.Get(id));
                 }
                 return new BaseResponse<Exam>()
@@ -102,7 +111,6 @@ namespace Backend.Services
             try
             {
                 Exam exam = new Exam(description, examType, new List<Question>());
-                QuestionRepository qr = new QuestionRepository();
                 IList<Question> list = await qr.GetConditionalType(keyValues);
                 exam.Questions = list;
                 return new BaseResponse<Exam>()
@@ -125,7 +133,6 @@ namespace Backend.Services
         }
         public async Task<IBaseResponce<bool>> Check(CourseViewModel vm)
         {
-            UserRepository ur = new UserRepository();
             var user = await ur.Get(vm.User.Id);
             Logger logger = LogManager.GetCurrentClassLogger();
             try
@@ -172,7 +179,6 @@ namespace Backend.Services
                     ids.Add(vm.IdCourse);
                     user.PassedCoursesId = JsonConvert.SerializeObject(ids);
                     await ur.Update(user);
-                    CertificateService cs = new CertificateService();
                     await cs.CreateCertificate(vm);
                 }
 

@@ -1,7 +1,9 @@
 ﻿using Backend.Models;
 using Backend.Services.AccountService;
 using Backend.Services.AccountService.Interfaces;
+using Backend.Services.Interfaces;
 using Backend.Services.Repository;
+using Backend.Services.Repository.Interfaces;
 using Backend.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
@@ -11,10 +13,13 @@ namespace Backend.Controllers
 
     public class HomeController : Controller
     {
+        private IUserRepository ur;
+
         private readonly IAccountService accountService;
-        public HomeController(IAccountService _accountService)
+        public HomeController(IUserRepository _ur, IAccountService _accountService)
         {
-            accountService = _accountService;
+            this.ur = _ur;
+            this.accountService = _accountService;
         }
 		public IActionResult Index(HomeViewModel hvm) 
 		{
@@ -33,7 +38,6 @@ namespace Backend.Controllers
             {
                 User user = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
                 user.Lang = id;
-                UserRepository ur = new UserRepository();
                 await ur.Update(user);
             }
             HttpContext.Session.SetInt32("language", id);//Setting language for entire session 

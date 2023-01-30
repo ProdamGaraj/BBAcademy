@@ -6,18 +6,27 @@ using Newtonsoft.Json;
 using Backend.Models.Enum;
 using NLog;
 using Backend.Services.Repository;
+using Backend.Services.Repository.Interfaces;
+using Backend.Services.Interfaces;
 
 namespace Backend.Services
 {
-    public class LessonService
+    public class LessonService:ILessonService
     {
+        private ICourseRepository cr;
+        private IUserRepository ur;
+
+        public LessonService(ICourseRepository cr, IUserRepository ur)
+        {
+            this.cr = cr;
+            this.ur = ur;
+        }
+
         public async Task<IBaseResponce<ICollection<Lesson>>> GetLessons(LessonViewModel vm)
         {
             Logger logger = LogManager.GetCurrentClassLogger();
             try
             {
-                CourseRepository cr = new CourseRepository();
-                UserRepository ur = new UserRepository();
                 var course = await cr.Get(vm.Course.Id);
                 var user = await ur.Get(vm.User.Id);
                 List<long> ids = JsonConvert.DeserializeObject<List<long>>(user.PassedCoursesId);
@@ -36,7 +45,7 @@ namespace Backend.Services
                     Description = ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace,
                     StatusCode = StatusCode.InternalServerError
                 };
-        }
+            }
         }
     }
 }

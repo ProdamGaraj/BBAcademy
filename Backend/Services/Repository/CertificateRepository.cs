@@ -1,38 +1,38 @@
 ﻿using Backend.Models;
 using Backend.Services.Repository.Interfaces;
 using NLog;
-using System.Data.Entity;
-using System.Data.Entity.Migrations;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Services.Repository
 {
-    public class CertificateRepository:ICertificateRepository
+    public class CertificateRepository : ICertificateRepository
     {
+        private readonly BBAcademyDb db;
         Logger logger;
-        public CertificateRepository()
+        public CertificateRepository(BBAcademyDb db)
         {
             logger = LogManager.GetCurrentClassLogger();
+            this.db = db;
         }
         public async Task<bool> Add(Certificate entity)
         {
             try
             {
-                using (BBAcademyDb db = new BBAcademyDb())
-                {
-                    entity.CreatedAt = DateTime.Now;
-                    entity.ModifiedAt = DateTime.Now;
-                    db.Certificates.Add(entity);
-                    CourseRepository cr = new CourseRepository();
-                    if(entity.Courses is not null) 
+
+                entity.CreatedAt = DateTime.Now;
+                entity.ModifiedAt = DateTime.Now;
+                db.Certificates.Add(entity);
+                CourseRepository cr = new CourseRepository(db);
+                if (entity.Courses is not null)
                     foreach (Course course in entity.Courses)
                     {
-                        if(await cr.Get(course.Id) is not null)
+                        if (await cr.Get(course.Id) is not null)
                         {
                             db.Entry(course).State = EntityState.Unchanged;
                         }
                     }
-                    await db.SaveChangesAsync();
-                }
+                await db.SaveChangesAsync();
+
                 return true;
             }
             catch (Exception ex)
@@ -46,11 +46,10 @@ namespace Backend.Services.Repository
         {
             try
             {
-                using (BBAcademyDb db = new BBAcademyDb())
-                {
-                    Certificate Certificate = await db.Certificates.Include("Courses").FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
-                    return Certificate;
-                }
+
+                Certificate Certificate = await db.Certificates.Include("Courses").FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
+                return Certificate;
+
             }
             catch (Exception ex)
             {
@@ -63,11 +62,10 @@ namespace Backend.Services.Repository
         {
             try
             {
-                using (BBAcademyDb db = new BBAcademyDb())
-                {
-                    IList<Certificate> myCertificate = await db.Certificates.Include("Courses").ToListAsync();
-                    return myCertificate;
-                }
+
+                IList<Certificate> myCertificate = await db.Certificates.Include("Courses").ToListAsync();
+                return myCertificate;
+
             }
             catch (Exception ex)
             {
@@ -79,22 +77,21 @@ namespace Backend.Services.Repository
         {
             try
             {
-                using (BBAcademyDb db = new BBAcademyDb())
+
+                var result = await db.Certificates.FirstOrDefaultAsync(b => b.Id.Equals(entity.Id));
+                if (result != null)
                 {
-                    var result = await db.Certificates.FirstOrDefaultAsync(b => b.Id.Equals(entity.Id));
-                    if (result != null)
-                    {
-                        result.Deleted = true;
-                        result.ModifiedAt = DateTime.Now;
-                        await db.SaveChangesAsync();
-                        return true;
-                    }
-                    else
-                    {
-                        logger.Error("No such entity to mark");
-                        return false;
-                    }
+                    result.Deleted = true;
+                    result.ModifiedAt = DateTime.Now;
+                    await db.SaveChangesAsync();
+                    return true;
                 }
+                else
+                {
+                    logger.Error("No such entity to mark");
+                    return false;
+                }
+
             }
             catch (Exception ex)
             {
@@ -107,28 +104,27 @@ namespace Backend.Services.Repository
         {
             try
             {
-                using (BBAcademyDb db = new BBAcademyDb())
+
+                var result = await db.Certificates.FirstOrDefaultAsync(b => b.Id.Equals(entity.Id));
+                if (result != null)
                 {
-                    var result = await db.Certificates.FirstOrDefaultAsync(b => b.Id.Equals(entity.Id));
-                    if (result != null)
-                    {
-                        entity.ModifiedAt = DateTime.Now;
-                        db.Certificates.AddOrUpdate(entity);
-                        CourseRepository cr = new CourseRepository();
-                        if (entity.Courses is not null)
+                    entity.ModifiedAt = DateTime.Now;
+                    db.Certificates.Update(entity);
+                    CourseRepository cr = new CourseRepository(db);
+                    if (entity.Courses is not null)
                         foreach (Course course in entity.Courses)
                         {
                             await cr.Update(course);
                         }
-                        await db.SaveChangesAsync();
-                        return true;
-                    }
-                    else
-                    {
-                        logger.Error("No such entity to update");
-                        return false;
-                    }
+                    await db.SaveChangesAsync();
+                    return true;
                 }
+                else
+                {
+                    logger.Error("No such entity to update");
+                    return false;
+                }
+
             }
             catch (Exception ex)
             {

@@ -3,7 +3,9 @@ using Backend.Models.Enum;
 using Backend.Services;
 using Backend.Services.AccountService;
 using Backend.Services.AccountService.Interfaces;
+using Backend.Services.Interfaces;
 using Backend.Services.Repository;
+using Backend.Services.Repository.Interfaces;
 using Backend.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -16,6 +18,9 @@ namespace Backend.Controllers
     public class CourseController : Controller
     {
         private readonly IAccountService accountService;
+        private IUserRepository ur;
+        private ICourseService cs;
+        private IExamService es;
 
         [BindProperty]
         public long CourseId { get; set; }
@@ -24,10 +29,17 @@ namespace Backend.Controllers
         [BindProperty]
         public List<long> SelectedRadioId { get; set; }
 
-        public CourseController(IAccountService _accountService)
+        public CourseController(IAccountService accountService, IUserRepository ur, ICourseService cs, IExamService es, long courseId, List<long> selectedCheckBoxId, List<long> selectedRadioId)
         {
-            accountService = _accountService;
+            this.accountService = accountService;
+            this.ur = ur;
+            this.cs = cs;
+            this.es = es;
+            CourseId = courseId;
+            SelectedCheckBoxId = selectedCheckBoxId;
+            SelectedRadioId = selectedRadioId;
         }
+
         [HttpGet]
         public async Task<IActionResult> Index(CourseViewModel vm)
         {
@@ -44,7 +56,6 @@ namespace Backend.Controllers
             {
                 HttpContext.Session.SetInt32("language", (int)vm.User.Lang);
             }
-            UserRepository ur = new UserRepository();
             await ur.Update(vm.User);
             if (TempData["idCourse"] is not null)
             {
@@ -54,7 +65,7 @@ namespace Backend.Controllers
             {
                 vm.CurrentLesson = int.Parse(TempData["currentLesson"].ToString());
             }
-            CourseService cs = new CourseService();
+             
             vm = (await cs.GetCourse(vm)).Data;
             if (vm.User.PassedCoursesId is not null)
             {
@@ -74,7 +85,6 @@ namespace Backend.Controllers
         }
         public async Task<IActionResult> OnPostAsync()
         {
-            CourseService cs = new CourseService();
             CourseViewModel cvm = new CourseViewModel()
             {
                 User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data,
@@ -112,10 +122,9 @@ namespace Backend.Controllers
                     }
                 }
             }
-            ExamService es = new ExamService();
+
             if ((await es.Check(cvm)).Data)
             {
-                CertificateService cers = new CertificateService();
                 return Redirect($"/Course/NextLesson/{CourseId}/{cvm.AllLessons.Count + 1}/{cvm.AllLessons.Count}");
             }
             else
@@ -143,7 +152,7 @@ namespace Backend.Controllers
                     return RedirectToAction("Index", "Course");
                 }
             }
-            CourseService cs = new CourseService();//TODO:Payment
+            //TODO:Payment
             await cs.BuyCourse(cvm);
             return RedirectToAction("Index", "Course");
         }
@@ -165,7 +174,6 @@ namespace Backend.Controllers
             cvm.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
             cvm.IdCourse = long.Parse(id);
             TempData["idCourse"] = cvm.IdCourse.ToString();
-            CourseService cs = new CourseService();
             await cs.PutInCartCourse(cvm);
             return RedirectToAction("Index", "Cart");
         }
@@ -208,7 +216,6 @@ namespace Backend.Controllers
         [HttpGet("Course/Exam")]
         public async Task<IActionResult> GetExam(CourseViewModel vm)
         {
-            ExamService es = new ExamService();
             vm.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
             return View(vm);
         }
@@ -221,7 +228,6 @@ namespace Backend.Controllers
             {
                 User user = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
                 user.Lang = id;
-                UserRepository ur = new UserRepository();
                 await ur.Update(user);
             }
             TempData["lang"] = id;

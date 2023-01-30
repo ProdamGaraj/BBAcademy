@@ -2,7 +2,9 @@
 using Backend.Services;
 using Backend.Services.AccountService;
 using Backend.Services.AccountService.Interfaces;
+using Backend.Services.Interfaces;
 using Backend.Services.Repository;
+using Backend.Services.Repository.Interfaces;
 using Backend.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,12 +16,16 @@ namespace Backend.Controllers
     [Route("Certificate")]
     public class CertificateController : Controller
     {
-        
+        private IUserRepository ur;
         private readonly IAccountService accountService;
-        public CertificateController(IAccountService _accountService)
+        private ICertificateService cr;
+        public CertificateController(IUserRepository ur, IAccountService accountService, ICertificateService cr)
         {
-            accountService = _accountService;
+            this.ur = ur;
+            this.accountService = accountService;
+            this.cr = cr;
         }
+
         [HttpGet]
         public async Task<IActionResult> Index(CertificateViewModel certificateViewModel)
         {
@@ -35,9 +41,9 @@ namespace Backend.Controllers
             {
                 HttpContext.Session.SetInt32("language", (int)certificateViewModel.User.Lang);
             }
-            UserRepository ur = new UserRepository();
+
             await ur.Update(certificateViewModel.User);
-            var responce = await new CertificateService().GetCertificates(new CertificateViewModel() { User = certificateViewModel.User });
+            var responce = await cr.GetCertificates(new CertificateViewModel() { User = certificateViewModel.User });
             if (responce.StatusCode == Models.Enum.StatusCode.OK)
             {
                 certificateViewModel.Certificates = responce.Data;
@@ -57,7 +63,6 @@ namespace Backend.Controllers
         {
             User user = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
             user.Lang = id;
-            UserRepository ur = new UserRepository();
             await ur.Update(user);
             return RedirectToAction("Index");
         }

@@ -3,6 +3,7 @@ using Backend.Models.Enum;
 using Backend.Models.Interfaces;
 using Backend.Models.Responce;
 using Backend.Services.AccountService.Interfaces;
+using Backend.Services.Interfaces;
 using Backend.Services.Repository;
 using Backend.Services.Repository.Interfaces;
 using Backend.ViewModels;
@@ -12,21 +13,26 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Backend.Services
 {
-    public class CertificateService
+    public class CertificateService:ICertificateService
     {
-        Logger logger;
-        IAccountService accountService;
-        public CertificateService()
+        Logger logger = LogManager.GetCurrentClassLogger();
+        private IAccountService accountService;
+        private ICertificateRepository cr;
+        private IUserRepository ur;
+        private ICourseRepository cor;
+
+        public CertificateService(IAccountService _accountService, ICertificateRepository _cr, IUserRepository _ur, ICourseRepository _cor)
         {
-            logger = LogManager.GetCurrentClassLogger();
+            accountService = _accountService;
+            cr = _cr;
+            ur = _ur;
+            cor = _cor;
         }
         public async Task<IBaseResponce<Certificate>> CreateCertificate(CourseViewModel vm)
         {
-            UserRepository ur = new UserRepository();
-            CourseRepository cor = new CourseRepository();
+
             User user = await ur.Get(vm.User.Id);
             Course course = await cor.Get(vm.IdCourse);
-            ICertificateRepository cr = new CertificateRepository();
             if (user != null && course != null)
             {
                 try
@@ -65,8 +71,6 @@ namespace Backend.Services
 
         public async Task<IBaseResponce<List<Certificate>>> GetCertificates(CertificateViewModel vm)
         {
-            UserRepository ur = new UserRepository();
-            CertificateRepository cr = new CertificateRepository();
             User user = await ur.Get(vm.User.Id);
             List<Certificate> certificates = (await cr.GetAll()).Where(x=>x.UserId==user.Id).ToList();
             if (user is not null&&certificates is not null)
