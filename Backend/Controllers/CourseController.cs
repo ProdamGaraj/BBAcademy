@@ -29,15 +29,12 @@ namespace Backend.Controllers
         [BindProperty]
         public List<long> SelectedRadioId { get; set; }
 
-        public CourseController(IAccountService accountService, IUserRepository ur, ICourseService cs, IExamService es, long courseId, List<long> selectedCheckBoxId, List<long> selectedRadioId)
+        public CourseController(IAccountService accountService, IUserRepository ur, ICourseService cs, IExamService es)
         {
             this.accountService = accountService;
             this.ur = ur;
             this.cs = cs;
             this.es = es;
-            CourseId = courseId;
-            SelectedCheckBoxId = selectedCheckBoxId;
-            SelectedRadioId = selectedRadioId;
         }
 
         [HttpGet]

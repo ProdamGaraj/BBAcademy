@@ -36,9 +36,17 @@ namespace Backend.Controllers
 		{
             if (HttpContext.User.Identity.IsAuthenticated)
             {
-                User user = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
-                user.Lang = id;
-                await ur.Update(user);
+                try
+                {
+                    User user = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
+                    user.Lang = id;
+                    await ur.Update(user);
+                }
+                catch (Exception)
+                {
+                    Redirect("Account/Register");
+                }
+                
             }
             HttpContext.Session.SetInt32("language", id);//Setting language for entire session 
             return RedirectToAction("");

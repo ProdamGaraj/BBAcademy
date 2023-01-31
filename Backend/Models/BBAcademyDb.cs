@@ -10,7 +10,7 @@ namespace Backend
         public BBAcademyDb(DbContextOptions<BBAcademyDb> options)
         : base(options)
         {
-            Database.EnsureCreated();
+           Database.EnsureCreated();
         }
 
         public DbSet<Answer> Answers { get; set; }

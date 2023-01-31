@@ -16,7 +16,6 @@ using NLog;
 using Backend.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Data.Entity;
-using Microsoft.EntityFrameworkCore;
 using Backend.Services.Interfaces;
 using Backend.Services;
 
