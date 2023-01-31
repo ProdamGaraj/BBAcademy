@@ -65,13 +65,29 @@ namespace Backend.Controllers
             cvm.Courses = (await cs.GetInCartCourses(cvm.User)).Data;
             CourseViewModel courseViewModel = new CourseViewModel();
             courseViewModel.User = cvm.User;
-            cvm = cos.BuyCourses(cvm).Result.Data;
             return View(cvm);
         }
-        [HttpGet("/GoToPayView")]
-        public async Task<IActionResult> GoToPayView()
+        [HttpGet("/Acquiring")]
+        public async Task<IActionResult> Acquiring(CartViewModel cvm)
         {
-            return View("Payment");
+            cvm.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
+            if (HttpContext.Session.TryGetValue("language", out byte[] value))
+                cvm.User.Lang = HttpContext.Session.GetInt32("language");
+            if (cvm.User.Lang is null)
+            {
+                cvm.User.Lang = 1;
+                HttpContext.Session.SetInt32("language", 1);
+            }
+            else
+            {
+                HttpContext.Session.SetInt32("language", (int)cvm.User.Lang);
+            }
+            await ur.Update(cvm.User);
+            cvm.Courses = (await cs.GetInCartCourses(cvm.User)).Data;
+            CourseViewModel courseViewModel = new CourseViewModel();
+            courseViewModel.User = cvm.User;
+            cvm = cos.BuyCourses(cvm).Result.Data;
+            return RedirectToAction("Index", "Account");
         }
     }
 }
