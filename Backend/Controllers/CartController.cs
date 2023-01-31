@@ -15,13 +15,15 @@ namespace Backend.Controllers
         private readonly IAccountService accountService;
         private IUserRepository ur;
         private ICartService cs;
+        private ICourseService cos;
 
 
-        public CartController(IAccountService accountService, IUserRepository ur, ICartService cs)
+        public CartController(IAccountService accountService, IUserRepository ur, ICartService cs, ICourseService cos)
         {
             this.accountService = accountService;
             this.ur = ur;
             this.cs = cs;
+            this.cos = cos;
         }
 
         public async Task<IActionResult> IndexAsync(CartViewModel cvm)
@@ -61,6 +63,13 @@ namespace Backend.Controllers
             }
             await ur.Update(cvm.User);
             cvm.Courses = (await cs.GetInCartCourses(cvm.User)).Data;
+            CourseViewModel courseViewModel= new CourseViewModel();
+            courseViewModel.User = cvm.User;
+            foreach (var item in cvm.Courses)
+            {
+                courseViewModel.IdCourse= item.Id;
+                cos.BuyCourse(courseViewModel);
+            }
             return View(cvm);
         }
     }

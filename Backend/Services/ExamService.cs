@@ -12,7 +12,7 @@ using System.Linq;
 
 namespace Backend.Services
 {
-    public class ExamService:IExamService
+    public class ExamService : IExamService
     {
         private ICertificateService cs;
         private ICourseRepository cr;
@@ -45,7 +45,7 @@ namespace Backend.Services
                 course = await cr.Get(vm.Course.Id);
                 user = await ur.Get(vm.User.Id);
 
-                if (user == null||long.Parse(user.PassedCoursesId) == vm.Course.Id)
+                if (user == null || long.Parse(user.PassedCoursesId) == vm.Course.Id)
                 {
                     return new BaseResponse<Exam>()
                     {
@@ -103,7 +103,7 @@ namespace Backend.Services
                     StatusCode = StatusCode.InternalServerError
                 };
             }
-            
+
         }
         public async Task<IBaseResponce<Exam>> CreateExamWithType(string description, string examType, Dictionary<QuestionType, int> keyValues)
         {
@@ -138,26 +138,41 @@ namespace Backend.Services
             try
             {
                 int currentGrade = 0;
+                int currentQuestionGrade=0;
                 if (vm.Exam is not null && vm.Exam.Questions is not null)
                 {
-                    var questions = vm.Exam.Questions.Where(x => x.Answers.FirstOrDefault(x => x.IsChosen == true && x.IsCorrect == true) is not null);
+                    var questions = vm.Exam.Questions;
                     foreach (var question in questions)
                     {
-                        try
+                        currentQuestionGrade = 0;
+                        foreach (var answer in question.Answers)
                         {
-                            currentGrade = question.Answers.Sum(x=>x.Cost);
+                            if (answer.IsChosen && answer.IsCorrect)
+                            {
+                                currentQuestionGrade += answer.Cost;
+                            }
+                            else if (answer.IsChosen && !answer.IsCorrect)
+                            {
+                                currentQuestionGrade = 0;
+                                break;
+                            }
+                            else if (!answer.IsChosen && answer.IsCorrect)
+                            {
+                                currentQuestionGrade = 0;
+                                break;
+                            }
                         }
-                        catch (Exception ex) { logger.Error(ex.Message); }
+                        currentGrade += currentQuestionGrade;
                     }
                 }
                 int roundingUp = 0;
-                
+
                 if (vm.Exam.PassingGrade == 0)
                 {
                     vm.Exam.PassingGrade = 1;
                 }
-                
-                currentGrade *= 100; 
+
+                currentGrade *= 100;
                 double convertingToDecimal = currentGrade;
                 convertingToDecimal /= vm.Exam.PassingGrade;
                 convertingToDecimal %= 1;
@@ -166,11 +181,11 @@ namespace Backend.Services
                     roundingUp++;
                 }
                 int percent = (currentGrade / vm.Exam.PassingGrade) + roundingUp;
-                bool passed = currentGrade > vm.Exam.PassingGrade*100;
+                bool passed = currentGrade > vm.Exam.PassingGrade * 100;
                 if (user.PassedCoursesId is null)
                     user.PassedCoursesId = "";
                 List<long> ids = JsonConvert.DeserializeObject<List<long>>(user.PassedCoursesId);
-                if(ids is null)
+                if (ids is null)
                 {
                     ids = new List<long>();
                 }
@@ -187,9 +202,11 @@ namespace Backend.Services
             catch (Exception ex)
             {
                 logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
-                return new BaseResponse<bool>() { 
-                    Description = ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace, 
-                    StatusCode = StatusCode.InternalServerError };
+                return new BaseResponse<bool>()
+                {
+                    Description = ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace,
+                    StatusCode = StatusCode.InternalServerError
+                };
             }
         }
     }

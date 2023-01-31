@@ -82,6 +82,16 @@ namespace Backend.Controllers
         }
         public async Task<IActionResult> OnPostAsync()
         {
+            List<string> answeredQuestionIds = new List<string>();
+            foreach (var item in Request.Form.Keys.Skip(1))
+            {
+                answeredQuestionIds.Add(Request.Form[item]);
+            }
+            List<string> answerIds = new List<string>();
+            foreach (var item in answeredQuestionIds)
+            {
+                answerIds.AddRange(item.Split(","));
+            }
             CourseViewModel cvm = new CourseViewModel()
             {
                 User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data,
@@ -92,32 +102,35 @@ namespace Backend.Controllers
 
             foreach (Question question in cvm.Exam.Questions)
             {
-                if (question.QuestionType.Equals(QuestionType.TextOneAnswer) || question.QuestionType.Equals(QuestionType.MediaOneAnswer))
-                {
+                //if (question.QuestionType.Equals(QuestionType.TextOneAnswer) || question.QuestionType.Equals(QuestionType.MediaOneAnswer))
+                //{
                     if (question.Answers is not null)
                     {
+                        var i = 0;
                         foreach (Answer answer in question.Answers)
                         {
-                            if (SelectedRadioId.Contains(answer.Id))
+                            
+                            if (answerIds.Contains(answer.Id.ToString()))
                             {
                                 answer.IsChosen = true;
                             }
+                            i++;
                         }
                     }
-                }
-                else if (question.QuestionType.Equals(QuestionType.TextManyAnswers) || question.QuestionType.Equals(QuestionType.MediaManyAnswers))
-                {
-                    if (question.Answers is not null)
-                    {
-                        foreach (Answer answer in question.Answers)
-                        {
-                            if (SelectedCheckBoxId.Contains(answer.Id))
-                            {
-                                answer.IsChosen = true;
-                            }
-                        }
-                    }
-                }
+                //}
+                //else if (question.QuestionType.Equals(QuestionType.TextManyAnswers) || question.QuestionType.Equals(QuestionType.MediaManyAnswers))
+                //{
+                //    if (question.Answers is not null)
+                //    {
+                //        foreach (Answer answer in question.Answers)
+                //        {
+                //            if (SelectedAnswers.Contains(answer.Id.ToString()))
+                //            {
+                //                answer.IsChosen = true;
+                //            }
+                //        }
+                //    }
+                //}
             }
 
             if ((await es.Check(cvm)).Data)

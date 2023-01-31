@@ -100,7 +100,7 @@
                                     </form>
                                 </div>
                             }
-                            else if (Model.CurrentLesson == 0)
+                            else
                             {
                                 <div class="back-next-btns">
                                     <form method="get" asp-controller="Course" asp-action="PrevLesson">
@@ -136,62 +136,74 @@
                 <div class="main-container-list-result-cont-1">Тест</div>
                 @if (Model.Exam is not null && Model.Exam.Questions is not null)
                 {
-                    <form method="post">
-                        <input type="hidden" value="@Model.IdCourse" name="CourseId" />
+                    <form method="post" name="Exam">
+                            <input type="hidden" value="@Model.IdCourse" name="CourseId" />
                         @foreach (var question in Model.Exam.Questions)
                         {
                             @if (question.QuestionType.Equals(Backend.Models.Enum.QuestionType.TextManyAnswers) && question.Answers is not null)
                             {
+                                <fieldset @question.Id style="border: none">
+                                    <p class="course-test-que-text">@question.Content</p>
+                                    @foreach (var answer in question.Answers)
+                                    {
 
-                                <p class="course-test-que-text">@question.Content</p>
-                                @foreach (var answer in question.Answers)
-                                {
-                                    <div class="test-que">
+                                        <div class="test-que">
+                                            <input class="test-que-checkbox" type="checkbox" name="@question.Id" value="@answer.Id" id=@answer.Id>
+                                            <label class="course-test-que-text-text">@answer.Content</label>
+                                        </div>
 
-                                        <input class="test-que-checkbox" type="checkbox" name="SelectedCheckBoxId" value="@answer.Id" id="test-1">
-                                        <label class="course-test-que-text-text">@answer.Content</label>
-                                    </div>
-                                }
-
+                                    }
+                                </fieldset>
                             }
                             else if (question.QuestionType.Equals(Backend.Models.Enum.QuestionType.TextOneAnswer) && question.Answers is not null)
                             {
 
                                 <p class="course-test-que-text">@question.Content</p>
-                                @foreach (var answer in question.Answers)
-                                {
-                                    <div class="test-que">
-                                        <input class="test-que-checkbox" type="radio" name="SelectedRadioId" value="@answer.Id" id="test-1">
-                                        <label class="course-test-que-text-text">@answer.Content</label>
-                                    </div>
-                                }
 
+                                <fieldset id=@question.Id style="border: none">
+                                    @foreach (var answer in question.Answers)
+                                    {
+
+                                        <div class="test-que">
+                                            <input class="test-que-checkbox" type="radio" name="@question.Id " value="@answer.Id" id=@answer.Id>
+                                            <label class="course-test-que-text-text">@answer.Content</label>
+                                        </div>
+
+                                    }
+                                </fieldset>
                             }
                             else if (question.QuestionType.Equals(Backend.Models.Enum.QuestionType.MediaOneAnswer) && question.Answers is not null)
                             {
                                 <p class="course-test-que-text">@question.Content</p>
                                 <img class="png-que" src=@question.MediaPath>
-                                @foreach (var answer in question.Answers)
-                                {
-                                    <div class="test-que">
-                                        <input class="test-que-checkbox" type="checkbox" name="SelectedCheckBoxId" value="@answer.Id" id="test-1">
-                                        <label class="course-test-que-text-text">@answer.Content</label>
-                                    </div>
-                                }
+                                <fieldset id=@question.Id style="border: none">
+                                    @foreach (var answer in question.Answers)
+                                    {
+
+                                        <div class="test-que">
+                                            <input class="test-que-checkbox" type="radio" name="@question.Id" value="@answer.Id" id=@answer.Id>
+                                            <label class="course-test-que-text-text">@answer.Content</label>
+                                        </div>
+
+                                    }
+                                </fieldset>
                             }
                             else if (question.QuestionType.Equals(Backend.Models.Enum.QuestionType.MediaManyAnswers) && question.Answers is not null)
                             {
 
                                 <p class="course-test-que-text">@question.Content</p>
                                 <img class="png-que" src=@question.MediaPath>
-                                @foreach (var answer in question.Answers)
-                                {
-                                    <div class="test-que">
-                                        <input class="test-que-checkbox" type="radio" name="SelectedRadioId" value="@answer.Id" id="test-1">
-                                        <label class="course-test-que-text-text">@answer.Content</label>
-                                    </div>
-                                }
+                                <fieldset style="border: none">
+                                    @foreach (var answer in question.Answers)
+                                    {
 
+                                        <div class="test-que">
+                                            <input class="test-que-checkbox" type="checkbox" name="@question.Id" value="@answer.Id" id=@answer.Id>
+                                            <label class="course-test-que-text-text">@answer.Content</label>
+                                        </div>
+
+                                    }
+                                </fieldset>
                             }
 
                         }

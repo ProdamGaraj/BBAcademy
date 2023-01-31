@@ -2,9 +2,9 @@
 {
     public enum QuestionType
     {
-        TextOneAnswer,
-        TextManyAnswers,
-        MediaOneAnswer,
-        MediaManyAnswers
+        TextOneAnswer = 0,
+        TextManyAnswers = 1,
+        MediaOneAnswer = 2,
+        MediaManyAnswers = 3,
     }
 }
