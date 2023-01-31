@@ -11,6 +11,7 @@ using Backend.Models;
 using Backend.Services.Repository;
 using Backend.Services.Interfaces;
 using Backend.Services.Repository.Interfaces;
+using Newtonsoft.Json;
 
 namespace Backend.Controllers
 {
@@ -55,15 +56,19 @@ namespace Backend.Controllers
                 HttpContext.Session.SetInt32("language", (int)accountViewModel.User.Lang);
             }
 
+            List<long> course = JsonConvert.DeserializeObject<List<long>>(accountViewModel.User.InCartCourses);
+            if (course is not null && course.Count > 0)
+                HttpContext.Session.SetInt32("inCart", 1);
+            else
+                HttpContext.Session.SetInt32("inCart", 0);
             await ur.Update(accountViewModel.User);
             var responce = (await cs.GetCourses(new CourseViewModel() { User = accountViewModel.User }));
-            TempData["currentLesson"] = 0;
             if (responce.StatusCode == Models.Enum.StatusCode.OK)
             {
                 accountViewModel.AllCourses = responce.Data.AllCourses;
                 accountViewModel.BoughtCourses = responce.Data.BoughtCourses;
                 accountViewModel.EndedCourses = responce.Data.EndedCourses;
-                accountViewModel.InKartCourses = responce.Data.InKartCourses;
+                accountViewModel.InCartCourses = responce.Data.InCartCourses;
                 return View(accountViewModel);
             }
             //accountViewModel.AllCourses.Add(new Models.Course());
@@ -119,7 +124,6 @@ namespace Backend.Controllers
             var cvm = new CourseViewModel();
             cvm.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
             cvm.IdCourse = long.Parse(id);
-            TempData["idCourse"] = cvm.IdCourse.ToString();
             await cs.RemoveCartCourse(cvm);
             return RedirectToAction("");
         }

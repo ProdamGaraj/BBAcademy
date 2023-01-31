@@ -32,7 +32,7 @@ namespace Backend.Models
         public ICollection<Certificate> Certificates { get; set; }
         
         [MaybeNull]
-        public string InKartCourses { get; set; }
+        public string InCartCourses { get; set; }
         
         [MaybeNull]
         public string BoughtCourses { get; set; }

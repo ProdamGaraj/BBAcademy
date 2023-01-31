@@ -131,12 +131,12 @@
                         {
                             case "AllCourses":
                                 {
-                                    if (Model.InKartCourses is not null)
+                                    if (Model.InCartCourses is not null)
                                     {
-                                        collection = Model.InKartCourses;
+                                        collection = Model.InCartCourses;
                                         @foreach (var item in collection)
                                         {
-                                            var hreff = "/DeleteFromCart/"+item.Id;
+                                            var href = "/DeleteFromCart/"+item.Id;
                                             <scroll-page style="margin-right: 20px">
                                                 <img class="cours-scroll" src="~/pict/course_guy.jpg">
                                                 <div class="cours-text">
@@ -147,7 +147,7 @@
                                                     <img class="cours-info-block-src" src="~/pict/bell.svg">
                                                     <div class="cours-info-block-hours-1">@item.Lessons.Count() lessons</div>
                                                     <div class="cours-info-block-hours-2">@item.Duration</div>
-                                                    <a class="cours-info-block-button" href=@hreff>@inkart</a>
+                                                    <a class="cours-info-block-button" style="background: #FF0000" href=@href>@inkart</a>
                                                 </div>
                                             </scroll-page>
                                         }
@@ -175,7 +175,7 @@
                         {
                             @foreach (var item in collection)
                             {
-                                var hreff = "/Course/GoToCourse/" + item.Id;
+                                var href = "/Course/GoToCourse/" + item.Id;
                                 <scroll-page style="margin-right: 20px">
                                     <img class="cours-scroll" src="~/pict/course_guy.jpg">
                                     <div class="cours-text">
@@ -184,10 +184,10 @@
                                     </div>
                                     <div class="cours-info-block">
                                         <img class="cours-info-block-src" src="~/pict/bell.svg">
-                                        <div class="cours-info-block-hours-1">@item.Lessons.Count() lessons</div>
-                                        <div class="cours-info-block-hours-2">@item.Duration</div>
+                                        <div class="cours-info-block-hours-1">Количество уроков:@item.Lessons.Count() lessons</div>
+                                        <div class="cours-info-block-hours-2">Продолжительность:@item.Duration</div>
                                         <form method="get" asp-controller="Course" asp-action="Buy">
-                                            <a class="cours-info-block-button" href=@hreff>@start</a>
+                                            <a class="cours-info-block-button" href=@href>@start</a>
                                         </form>
                                     </div>
                                 </scroll-page>

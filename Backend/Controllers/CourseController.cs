@@ -37,8 +37,8 @@ namespace Backend.Controllers
             this.es = es;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Index(CourseViewModel vm)
+        [HttpGet("Index/{courseId}")]
+        public async Task<IActionResult> Index(CourseViewModel vm, int courseId, int lessonId)
         {
             List<long> ids = new List<long>();
             vm.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
@@ -54,14 +54,8 @@ namespace Backend.Controllers
                 HttpContext.Session.SetInt32("language", (int)vm.User.Lang);
             }
             await ur.Update(vm.User);
-            if (TempData["idCourse"] is not null)
-            {
-                vm.IdCourse = long.Parse(TempData["idCourse"].ToString());
-            }
-            if (TempData["currentLesson"] is not null)
-            {
-                vm.CurrentLesson = int.Parse(TempData["currentLesson"].ToString());
-            }
+            vm.IdCourse = courseId;
+            vm.CurrentLesson = lessonId;
              
             vm = (await cs.GetCourse(vm)).Data;
             if (vm.User.PassedCoursesId is not null)
@@ -70,12 +64,10 @@ namespace Backend.Controllers
                 if (ids.Contains(vm.IdCourse) && vm.CurrentLesson >= vm.AllLessons.Count)
                 {
                     vm.CurrentLesson--;
-                    TempData["currentLesson"] = vm.CurrentLesson.ToString();
                 }
             }
             if (vm.CurrentLesson < 0)
             {
-                TempData["currentLesson"] = "0";
                 vm.CurrentLesson = 0;
             }
             return View(vm);
@@ -98,8 +90,6 @@ namespace Backend.Controllers
                 IdCourse = CourseId
             };
             cvm = (await cs.GetCourse(cvm)).Data;
-            TempData["idCourse"] = CourseId.ToString();
-
             foreach (Question question in cvm.Exam.Questions)
             {
                 //if (question.QuestionType.Equals(QuestionType.TextOneAnswer) || question.QuestionType.Equals(QuestionType.MediaOneAnswer))
@@ -169,12 +159,10 @@ namespace Backend.Controllers
         [HttpGet("GoToCourse/{id}")]
         public async Task<IActionResult> GoToCourse(string id)
         {
-
             var cvm = new CourseViewModel();
             cvm.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
             cvm.IdCourse = long.Parse(id);
-            TempData["idCourse"] = cvm.IdCourse.ToString();
-            return RedirectToAction("Index", "Course");
+            return RedirectToAction($"Index", new { courseId = id, lessonId = 0 }); ;
         }
         [HttpGet("InCart/{id}")]
         public async Task<IActionResult> InCart(string id)
@@ -205,23 +193,18 @@ namespace Backend.Controllers
         {
             var cvm = new CourseViewModel();
             cvm.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
-            TempData["idCourse"] = courseId.ToString();
-            TempData["currentLesson"] = (++id).ToString();
-            return RedirectToAction("Index");
+            return RedirectToAction($"Index", new { courseId = courseId, lessonId = ++id });
         }
         [HttpGet("PrevLesson/{courseId}/{id}/{count}")]
         public async Task<IActionResult> PrevLesson(long courseId, long id, long count)
         {
             var cvm = new CourseViewModel();
             cvm.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
-            TempData["idCourse"] = courseId.ToString();
             if (--id < 0)
             {
                 id++;
             }
-            TempData["currentLesson"] = (id).ToString();
-
-            return RedirectToAction("Index");
+            return RedirectToAction($"Index", new { courseId = courseId, lessonId = id });
         }
         [HttpGet("Course/Exam")]
         public async Task<IActionResult> GetExam(CourseViewModel vm)

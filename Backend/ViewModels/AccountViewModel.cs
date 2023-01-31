@@ -5,7 +5,7 @@ namespace Backend.ViewModels
     {
         public User User{ get; set; }
         public List<Course> AllCourses { get; set; }
-        public List<Course> InKartCourses { get; set; } 
+        public List<Course> InCartCourses { get; set; } 
         public List<Course> BoughtCourses { get; set; }
         public List<Course> EndedCourses { get; set; }
         public string filter { get; set; }
