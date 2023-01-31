@@ -145,27 +145,27 @@ namespace Backend.Controllers
             }
 
         }
-        [HttpGet("Buy/{id}")]
-        public async Task<IActionResult> Buy(string id)
-        {
-
-            var cvm = new CourseViewModel();
-            cvm.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
-            cvm.IdCourse = long.Parse(id);
-            TempData["idCourse"] = cvm.IdCourse.ToString();
-            if (cvm.User.BoughtCourses is not null)
-            {
-                List<long> boughtCourses = JsonConvert.DeserializeObject<List<long>>(cvm.User.BoughtCourses);
-
-                if (boughtCourses.Contains(cvm.IdCourse))
-                {
-                    return RedirectToAction("Index", "Course");
-                }
-            }
-            //TODO:Payment
-            await cs.BuyCourse(cvm);
-            return RedirectToAction("Index", "Course");
-        }
+        //[HttpGet("Buy/{id}")]
+        //public async Task<IActionResult> Buy(string id)
+        //{
+        //
+        //    var cvm = new CourseViewModel();
+        //    cvm.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
+        //    cvm.IdCourse = long.Parse(id);
+        //    TempData["idCourse"] = cvm.IdCourse.ToString();
+        //    if (cvm.User.BoughtCourses is not null)
+        //    {
+        //        List<long> boughtCourses = JsonConvert.DeserializeObject<List<long>>(cvm.User.BoughtCourses);
+        //
+        //        if (boughtCourses.Contains(cvm.IdCourse))
+        //        {
+        //            return RedirectToAction("Index", "Course");
+        //        }
+        //    }
+        //    //TODO:Payment
+        //    await cs.BuyCourses(cvm);
+        //    return RedirectToAction("Index", "Course");
+        //}
         [HttpGet("GoToCourse/{id}")]
         public async Task<IActionResult> GoToCourse(string id)
         {
@@ -185,7 +185,7 @@ namespace Backend.Controllers
             cvm.IdCourse = long.Parse(id);
             TempData["idCourse"] = cvm.IdCourse.ToString();
             await cs.PutInCartCourse(cvm);
-            return RedirectToAction("Index", "Cart");
+            return RedirectToAction("Index", "Account");
         }
         //[HttpPost]
         //public async Task<IActionResult> Buy(CourseViewModel vm)
@@ -193,7 +193,7 @@ namespace Backend.Controllers
         //    if (ModelState.IsValid)
         //    {
         //        CourseService cs = new CourseService();//TODO:Payment
-        //        vm = (await cs.BuyCourse(vm)).Data;
+        //        vm = (await cs.BuyCourses(vm)).Data;
         //        return RedirectToAction("Course", "Index");
         //
         //    }

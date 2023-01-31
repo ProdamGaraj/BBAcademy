@@ -9,6 +9,6 @@ namespace Backend.Services.Interfaces
         Task<IBaseResponce<CourseViewModel>> GetCourse(CourseViewModel vm);
         Task<IBaseResponce<bool>> PutInCartCourse(CourseViewModel vm);
         Task<IBaseResponce<bool>> RemoveCartCourse(CourseViewModel vm);
-        Task<IBaseResponce<CourseViewModel>> BuyCourse(CourseViewModel vm);
+        Task<IBaseResponce<CartViewModel>> BuyCourses(CartViewModel vm);
     }
 }

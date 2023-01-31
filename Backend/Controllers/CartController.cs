@@ -43,7 +43,7 @@ namespace Backend.Controllers
 
             await ur.Update(cvm.User);
 
-            cvm.Courses =(await cs.GetInCartCourses(cvm.User)).Data;
+            cvm.Courses = (await cs.GetInCartCourses(cvm.User)).Data;
             return View(cvm);
         }
         [HttpGet("/Payment")]
@@ -63,14 +63,15 @@ namespace Backend.Controllers
             }
             await ur.Update(cvm.User);
             cvm.Courses = (await cs.GetInCartCourses(cvm.User)).Data;
-            CourseViewModel courseViewModel= new CourseViewModel();
+            CourseViewModel courseViewModel = new CourseViewModel();
             courseViewModel.User = cvm.User;
-            foreach (var item in cvm.Courses)
-            {
-                courseViewModel.IdCourse= item.Id;
-                cos.BuyCourse(courseViewModel);
-            }
+            cvm = cos.BuyCourses(cvm).Result.Data;
             return View(cvm);
+        }
+        [HttpGet("/GoToPayView")]
+        public async Task<IActionResult> GoToPayView()
+        {
+            return View("Payment");
         }
     }
 }

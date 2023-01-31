@@ -12,7 +12,7 @@ using System.Collections.Generic;
 
 namespace Backend.Services
 {
-    public class CourseService:ICourseService
+    public class CourseService : ICourseService
     {
         //public async Task<IBaseResponce<AccountViewModel>> GetAllCourses(CourseViewModel vm)
         //{
@@ -220,47 +220,56 @@ namespace Backend.Services
                 };
             }
         }
-        public async Task<IBaseResponce<CourseViewModel>> BuyCourse(CourseViewModel vm)
+        public async Task<IBaseResponce<CartViewModel>> BuyCourses(CartViewModel cvm)
         {
             Logger logger = LogManager.GetCurrentClassLogger();
             try
             {
+                var user = await ur.Get(cvm.User.Id);
                 List<long> boughtIds = new List<long>();
-
-                var course = await cr.Get(vm.IdCourse);
-                var user = await ur.Get(vm.User.Id);
-                vm.AllLessons = course.Lessons.ToList();
-                vm.CurrentLesson = 0;
-                if (user.PassedCoursesId is not null)
+                var responce = new BaseResponse<CartViewModel>() { Data=cvm};
+                foreach (var item in cvm.Courses)
                 {
-                    List<long> ids = JsonConvert.DeserializeObject<List<long>>(user.PassedCoursesId);
-                }
-                if (user.BoughtCourses is not null)
-                {
-                    boughtIds = JsonConvert.DeserializeObject<List<long>>(user.BoughtCourses);
-
-                    if (boughtIds.Contains(course.Id))
-                        return new BaseResponse<CourseViewModel>() { Description = "You have already bought this course", StatusCode = Models.Enum.StatusCode.InternalServerError };
-
-                }
-                boughtIds.Add(course.Id);
-                user.BoughtCourses = JsonConvert.SerializeObject(boughtIds);
-                if (await ur.Update(user))
-                    return new BaseResponse<CourseViewModel>() { Data = vm, Description = "Buy course for a user", StatusCode = Models.Enum.StatusCode.OK };
-                else
-                {
-                    return new BaseResponse<CourseViewModel>()
+                    var vm = new CourseViewModel()
                     {
-                        Data = null,
-                        Description = "Something went wrong while trying to add course to your account please contact our hotline",
-                        StatusCode = Models.Enum.StatusCode.InternalServerError
+                        AllLessons = item.Lessons.ToList(),
+                        IdCourse = item.Id,
+                        User = user,
+                        CurrentLesson = 0,
                     };
+                    var course = await cr.Get(vm.IdCourse);
+                    if (user.PassedCoursesId is not null)
+                    {
+                        List<long> ids = JsonConvert.DeserializeObject<List<long>>(user.PassedCoursesId);
+                    }
+                    if (user.BoughtCourses is not null)
+                    {
+                        boughtIds = JsonConvert.DeserializeObject<List<long>>(user.BoughtCourses);
+
+                        if (boughtIds.Contains(course.Id)) {
+                            responce.Description += $"Course with id={item.Id} was already bought";
+                            break;
+                        }
+                    }
+                    boughtIds.Add(course.Id);
+                    user.BoughtCourses = JsonConvert.SerializeObject(boughtIds);
+                    if (await ur.Update(user)) {
+                        cvm.Courses.Add(course);
+                        responce.Description += $"\n Course with id = {item.Id} has been added successfuly!";
+                    }
+                    else
+                    {
+                        responce.Description += $"Something went wrong while attemting to update user courses";
+                        break;
+                    }
                 }
+                responce.StatusCode = Models.Enum.StatusCode.OK;
+                return responce;
             }
             catch (Exception ex)
             {
                 logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
-                return new BaseResponse<CourseViewModel>()
+                return new BaseResponse<CartViewModel>()
                 {
                     Data = null,
                     Description = ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace,
