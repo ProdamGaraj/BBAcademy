@@ -56,11 +56,18 @@ namespace Backend.Controllers
                 HttpContext.Session.SetInt32("language", (int)accountViewModel.User.Lang);
             }
 
-            List<long> course = JsonConvert.DeserializeObject<List<long>>(accountViewModel.User.InCartCourses);
-            if (course is not null && course.Count > 0)
-                HttpContext.Session.SetInt32("inCart", 1);
+            if (accountViewModel.User.InCartCourses is not null)
+            {
+                List<long> course = JsonConvert.DeserializeObject<List<long>>(accountViewModel.User.InCartCourses);
+                if (course is not null && course.Count > 0)
+                    HttpContext.Session.SetInt32("inCart", 1);
+                else
+                    HttpContext.Session.SetInt32("inCart", 0);
+            }
             else
+            {
                 HttpContext.Session.SetInt32("inCart", 0);
+            }
             await ur.Update(accountViewModel.User);
             var responce = (await cs.GetCourses(new CourseViewModel() { User = accountViewModel.User }));
             if (responce.StatusCode == Models.Enum.StatusCode.OK)

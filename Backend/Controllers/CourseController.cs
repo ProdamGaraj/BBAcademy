@@ -36,14 +36,21 @@ namespace Backend.Controllers
             this.cs = cs;
             this.es = es;
         }
-
-        [HttpGet("Index/{courseId}")]
+        [HttpGet]
         public async Task<IActionResult> Index(CourseViewModel vm, int courseId, int lessonId)
         {
             List<long> ids = new List<long>();
             vm.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
             if (HttpContext.Session.TryGetValue("language", out byte[] value))
                 vm.User.Lang = HttpContext.Session.GetInt32("language");
+            if (vm.User.BoughtCourses is not null)
+            {
+                ids = JsonConvert.DeserializeObject<List<long>>(vm.User.BoughtCourses);
+                if (!ids.Contains(courseId))
+                {
+                    return RedirectToAction("Index", "Account");
+                }
+            }
             if (vm.User.Lang is null)
             {
                 vm.User.Lang = 1;
@@ -72,6 +79,7 @@ namespace Backend.Controllers
             }
             return View(vm);
         }
+        [HttpPost]
         public async Task<IActionResult> OnPostAsync()
         {
             List<string> answeredQuestionIds = new List<string>();
