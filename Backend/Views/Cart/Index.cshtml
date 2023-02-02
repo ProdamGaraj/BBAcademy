@@ -48,7 +48,7 @@
                         @foreach (var item in Model.Courses)
                         {
                             <scroll-page>
-                                <img class="cours-scroll" src="pict\cours-scroll.png">
+                                <img class="cours-scroll" src=@item.MediaPath>
                                 <div class="cours-text">
                                     <div class="cours-text-top">@item.Name</div>
                                     <div class="cours-text-bot">@item.Description</div>

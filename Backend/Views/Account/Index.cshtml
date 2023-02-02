@@ -138,7 +138,7 @@
                                         {
                                             var href = "/DeleteFromCart/"+item.Id;
                                             <scroll-page style="margin-right: 20px">
-                                                <img class="cours-scroll" src="~/pict/course_guy.jpg">
+                                                <img class="cours-scroll" src=@item.MediaPath>
                                                 <div class="cours-text">
                                                     <div class="cours-text-top">@item.Name</div>
                                                     <div class="cours-text-bot">@item.Description</div>
@@ -177,7 +177,7 @@
                             {
                                 var href = "/Course/GoToCourse/" + item.Id;
                                 <scroll-page style="margin-right: 20px">
-                                    <img class="cours-scroll" src="~/pict/course_guy.jpg">
+                                    <img class="cours-scroll" src=@item.MediaPath>
                                     <div class="cours-text">
                                         <div class="cours-text-top">@item.Name</div>
                                         <div class="cours-text-bot">@item.Description</div>
