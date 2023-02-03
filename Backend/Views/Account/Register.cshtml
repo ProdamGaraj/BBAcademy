@@ -47,31 +47,52 @@
     <form id="log-form" class="log-block-form" asp-controller="Account" asp-action="Register">
         <div class="log-container">
             <label class="log-label" for="email">@name</label>
-            <input asp-for="Name" class="reg-log-input" type="text"  required>
+            <div class="RegFormValidation">
+                @Html.ValidationMessageFor(m => m.Name)
+            </div>
+            <input asp-for="Name" class="reg-log-input" type="text" required>
 
             <label class="log-label" for="email">@surname</label>
-            <input asp-for="LastName" class="reg-log-input" type="text"  required>
+            <div class="RegFormValidation">
+                @Html.ValidationMessageFor(m => m.Surname)
+            </div>
+            <input asp-for="LastName" class="reg-log-input" type="text" required>
 
             <label class="log-label" for="psw">@lastname</label>
+            <div class="RegFormValidation">
+                @Html.ValidationMessageFor(m => m.LastName)
+            </div>
             <input asp-for="Surname" class="reg-log-input" type="text" required>
 
             <label class="log-label" for="psw">@email</label>
-            <input asp-for="Email" class="reg-log-input" type="text"  required>
+            <div class="RegFormValidation">
+                @Html.ValidationMessageFor(m => m.Email)
+            </div>
+            <input asp-for="Email" class="reg-log-input" type="text" required>
 
             <label class="log-label" for="email">@login</label>
+            <div class="RegFormValidation">
+                @Html.ValidationMessageFor(m => m.Login)
+            </div>
             <input asp-for="Login" class="reg-log-input" type="text" required>
 
             <label class="log-label" for="psw">@password</label>
+            <div class="RegFormValidation">
+                @Html.ValidationMessageFor(m => m.Password)
+            </div>
             <input asp-for="Password" class="reg-log-input" type="password" required>
 
             <label class="log-label" for="psw">@confirmpassword</label>
+            <div class="RegFormValidation">
+                @Html.ValidationMessageFor(m => m.ConfirmPassword)
+            </div>
             <input asp-for="ConfirmPassword" class="reg-log-input" type="password" required>
 
             <label class="log-label-l" for="psw">
                 @condition<br>
                 <div class="log-label-l-sr">@unnesessaryfield</div>
             </label>
-            <input type="text" list="banks" class="reg-log-input"/>
+            <input type="text" list="banks" class="reg-log-input" />
             <datalist id="banks">
                 <option value="bank0">BilimBank</option>
                 <option value="bank1">BilimBank</option>
