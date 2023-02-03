@@ -8,6 +8,9 @@
     string learningproc;
     string usagepol;
     string privpol;
+    int? inCart = Context.Session.GetInt32("inCart");
+    if (inCart is null)
+        inCart = 0;
     if (Context.Session.GetInt32("language") == 0)
     {
         rights = "© 2023 Barcha huquqlar himoyalangan, bilimbank";
@@ -47,9 +50,18 @@
                 <div class="main-logo-text">BilimBank</div>
             </div>
             <div class="header-container-rightside">
-                <a class="header-container-rightside-icon" href="/NotFound">
+                @{
+                    if(inCart==0){
+                <a class="header-container-rightside-icon" href="/Cart">
                     <img src="~/pict/shop.svg">
                 </a>
+                }
+                else{
+                <a class="header-container-rightside-icon" style="background: #0093DC"; href="/Cart">
+                    <img src="~/pict/shop.svg">
+                </a>
+                }
+                }
                 <a class="header-container-rightside-icon" href="/NotFound">
                     <img src="~/pict/bell.svg">
                 </a>

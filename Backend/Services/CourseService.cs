@@ -87,9 +87,9 @@ namespace Backend.Services
                     }
                 }
 
-                if (user.InKartCourses is not null)
+                if (user.InCartCourses is not null)
                 {
-                    List<long> kartIds = JsonConvert.DeserializeObject<List<long>>(user.InKartCourses);
+                    List<long> kartIds = JsonConvert.DeserializeObject<List<long>>(user.InCartCourses);
                     if (kartIds is not null)
                     {
                         foreach (long course in kartIds)
@@ -103,7 +103,7 @@ namespace Backend.Services
                         }
                     }
                 }
-                return new BaseResponse<AccountViewModel>() { Data = new AccountViewModel { AllCourses = allCourses, InKartCourses = inKartCourses, EndedCourses = passedCourses, BoughtCourses = boughtCourses }, Description = "Get all courses for a user", StatusCode = Models.Enum.StatusCode.OK };
+                return new BaseResponse<AccountViewModel>() { Data = new AccountViewModel { AllCourses = allCourses, InCartCourses = inKartCourses, EndedCourses = passedCourses, BoughtCourses = boughtCourses }, Description = "Get all courses for a user", StatusCode = Models.Enum.StatusCode.OK };
             }
             catch (Exception ex)
             {
@@ -172,14 +172,14 @@ namespace Backend.Services
             try
             {
                 List<long> ids = new List<long>();
-                if (vm.User.InKartCourses is not null)
-                    ids.AddRange(JsonConvert.DeserializeObject<List<long>>(vm.User.InKartCourses));
+                if (vm.User.InCartCourses is not null)
+                    ids.AddRange(JsonConvert.DeserializeObject<List<long>>(vm.User.InCartCourses));
                 if (ids is null)
                 {
                     ids = new List<long>();
                 }
                 ids.Add(vm.IdCourse);
-                vm.User.InKartCourses = JsonConvert.SerializeObject(ids);
+                vm.User.InCartCourses = JsonConvert.SerializeObject(ids);
                 await ur.Update(vm.User);
                 return new BaseResponse<bool>() { Data = true, Description = "Put in cart", StatusCode = Models.Enum.StatusCode.OK };
             }
@@ -198,14 +198,14 @@ namespace Backend.Services
             try
             {
                 List<long> ids = new List<long>();
-                if (vm.User.InKartCourses is not null)
-                    ids.AddRange(JsonConvert.DeserializeObject<List<long>>(vm.User.InKartCourses));
+                if (vm.User.InCartCourses is not null)
+                    ids.AddRange(JsonConvert.DeserializeObject<List<long>>(vm.User.InCartCourses));
                 if (ids is null)
                 {
                     ids = new List<long>();
                 }
                 ids.Remove(vm.IdCourse);
-                vm.User.InKartCourses = JsonConvert.SerializeObject(ids);
+                vm.User.InCartCourses = JsonConvert.SerializeObject(ids);
 
                 await ur.Update(vm.User);
                 return new BaseResponse<bool>() { Data = true, Description = "Put in cart", StatusCode = Models.Enum.StatusCode.OK };
@@ -253,6 +253,12 @@ namespace Backend.Services
                     }
                     boughtIds.Add(course.Id);
                     user.BoughtCourses = JsonConvert.SerializeObject(boughtIds);
+                    if (!string.IsNullOrEmpty(user.InCartCourses))
+                    {
+                        List<long> passed = JsonConvert.DeserializeObject<List<long>>(user.InCartCourses);
+                        passed.Remove(course.Id);
+                        user.InCartCourses= JsonConvert.SerializeObject(passed);
+                    }
                     if (await ur.Update(user)) {
                         cvm.Courses.Add(course);
                         responce.Description += $"\n Course with id = {item.Id} has been added successfuly!";

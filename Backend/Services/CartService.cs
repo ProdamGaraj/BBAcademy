@@ -25,7 +25,7 @@ namespace Backend.Services
             allCourses.AddRange(await cr.GetAll());
             List<long> courseIds = new List<long>();
 
-            courseIds.AddRange(JsonConvert.DeserializeObject<List<long>>(user.InKartCourses));
+            courseIds.AddRange(JsonConvert.DeserializeObject<List<long>>(user.InCartCourses));
             foreach (long id in courseIds)
             {
                 inKartCourses.Add(allCourses.FirstOrDefault(x => x.Id == id));

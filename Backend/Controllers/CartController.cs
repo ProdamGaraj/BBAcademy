@@ -6,6 +6,7 @@ using Backend.Services.Repository;
 using Backend.Services.Repository.Interfaces;
 using Backend.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace Backend.Controllers
 {
@@ -44,6 +45,11 @@ namespace Backend.Controllers
             await ur.Update(cvm.User);
 
             cvm.Courses = (await cs.GetInCartCourses(cvm.User)).Data;
+            List<long> course = JsonConvert.DeserializeObject<List<long>>(cvm.User.InCartCourses);
+            if (course is not null && course.Count>0)
+                HttpContext.Session.SetInt32("inCart", 1);
+            else
+                HttpContext.Session.SetInt32("inCart", 0);
             return View(cvm);
         }
         [HttpGet("/Payment")]
