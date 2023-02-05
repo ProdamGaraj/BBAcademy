@@ -35,8 +35,9 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.1" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
-
-
+  <ItemGroup >
+    <None Include="wwwroot/css/**" />
+  </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\" />
     <Folder Include="Views\Creating\" />
