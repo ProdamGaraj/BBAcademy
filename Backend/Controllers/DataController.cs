@@ -42,31 +42,51 @@ namespace Backend.Controllers
             this.ar = ar;
         }
         // GET: DataController
-        public ActionResult Index()
+        public async Task<ActionResult> IndexAsync()
         {
+            if (Exam is not null && Exam.Name is not null)
+            {
+                await er.Add(Exam);
+            }
+            if (Course is not null&& Course.Name is not null)
+            {
+                await cr.Add(Course);
+            }
+            if (Lesson is not null && Lesson.Name is not null)
+            {
+                await lr.Add(Lesson);
+            }
+            if (Question is not null && Question.Name is not null)
+            {
+                await qr.Add(Question);
+            }
+            if (Answer is not null && Answer.Name is not null)
+            {
+                await ar.Add(Answer);
+            }
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> OnPostAsync()
         {
-            if(Exam is not null)
+            if (Exam is not null && Exam.Name is not null)
             {
                 await er.Add(Exam);
             }
-            if(Course is not null)
+            if (Course is not null && Course.Name is not null)
             {
                 await cr.Add(Course);
             }
-            if(Lesson is not null)
+            if (Lesson is not null && Lesson.Name is not null)
             {
                 await lr.Add(Lesson);
             }
-            if(Question is not null)
+            if (Question is not null && Question.Name is not null)
             {
                 await qr.Add(Question);
             }
-            if(Answer is not null)
+            if (Answer is not null && Answer.Name is not null)
             {
                 await ar.Add(Answer);
             }
