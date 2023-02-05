@@ -34,7 +34,7 @@
 <div class="main-container">
     <div class="account-data">
         <div class="user_data">
-            <img class="user_data-photo" src="~/pict/ur_photo.png">
+            <img class="user_data-photo" src="~/pict/Account/ur_photo.png">
             <div class="user_data-username">@User.Identity.Name</div>
         </div>
         <div class="user_info">
@@ -74,7 +74,7 @@
                     <div class="media-name-name">Личный кабинет</div>
                                 </div>-->
                 <div class="media-name">
-                    <img class="media-name-svg" src="pict\course.svg">
+                    <img class="media-name-svg" src="pict\Account\course.svg">
                     <div class="media-name-name"><div class="media-name-name"><a asp-controller="Account" asp-action="Index">@mycourse</a></div></div>
                 </div>
             </div>
@@ -86,7 +86,7 @@
                 {
                     <div class="sertif_blank">
                         <div class="sertif_name">@invforbeg</div>
-                        <img class="sertif_dwnl_img" src="pict\sertif.png">
+                        <img class="sertif_dwnl_img" src="pict\Account\sertif.png">
                         <div class="sertif-dwnl-btn">
                             <a class="header-container-right_section-login" asp-controller="Certificate" asp-action="DownloadCertificate" asp-route-id="@item.Id">@download</a>
                         </div>

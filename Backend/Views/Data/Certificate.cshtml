@@ -1,0 +1,19 @@
+﻿@model Backend.ViewModels.CertificateViewModel
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Certificate creating";
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<form id="log-form" class="log-block-form" method="post" asp-controller="Account" asp-action="Login">
+    <div class="log-container">
+        <label class="log-label">Name</label>
+        <input name="Certificate.Name" placeholder="" class="form-control textbox-dg font-weight-bold text-center reg-log-input" type="text">
+        <label class="log-label">Media path</label>
+        <input name=Certificate.MediaTemplatePath placeholder="" class="form-control textbox-dg font-weight-bold text-center reg-log-input" type="text">
+        <div class="d-grid gap-2 d-md-block float-right">
+            <button type="submit" class="registerbtn">
+                <div class="log-in-btn">Add Certificate</div>
+            </button>
+        </div>
+    </div>
+</form>

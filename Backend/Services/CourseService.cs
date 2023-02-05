@@ -5,7 +5,6 @@ using Backend.Services.Interfaces;
 using Backend.Services.Repository;
 using Backend.Services.Repository.Interfaces;
 using Backend.ViewModels;
-using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using NLog;
 using System.Collections.Generic;
@@ -52,7 +51,7 @@ namespace Backend.Services
                 List<Course> boughtCourses = new List<Course>();
                 List<Course> inKartCourses = new List<Course>();
                 allCourses.AddRange(await cr.GetAll());
-                if (!user.PassedCoursesId.IsNullOrEmpty())
+                if (!String.IsNullOrEmpty(user.PassedCoursesId))
                 {
                     List<long> ids = JsonConvert.DeserializeObject<List<long>>(user.PassedCoursesId);
 
@@ -238,14 +237,11 @@ namespace Backend.Services
                         CurrentLesson = 0,
                     };
                     var course = await cr.Get(vm.IdCourse);
-                    if (user.PassedCoursesId is not null)
-                    {
-                        List<long> ids = JsonConvert.DeserializeObject<List<long>>(user.PassedCoursesId);
-                    }
-                    if (user.BoughtCourses is not null)
+                    
+                    if (!string.IsNullOrEmpty(user.BoughtCourses ))
                     {
                         boughtIds = JsonConvert.DeserializeObject<List<long>>(user.BoughtCourses);
-
+                        
                         if (boughtIds.Contains(course.Id)) {
                             responce.Description += $"Course with id={item.Id} was already bought";
                             break;

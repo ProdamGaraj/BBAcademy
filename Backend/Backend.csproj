@@ -9,6 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="pict\**" ><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory> </Content >
+    <Content Include="vid\**" ><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="7.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.2">
@@ -31,52 +36,10 @@
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Include="Views\Home\Index.cshtml" />
-    <None Include="wwwroot\css\Bilmbank.css" />
-    <None Include="wwwroot\css\Course.css" />
-    <None Include="wwwroot\css\My Account.css" />
-    <None Include="wwwroot\pict\arrow.svg" />
-    <None Include="wwwroot\pict\bag.svg" />
-    <None Include="wwwroot\pict\bell.svg" />
-    <None Include="wwwroot\pict\book-open.svg" />
-    <None Include="wwwroot\pict\book.svg" />
-    <None Include="wwwroot\pict\cours-scroll.png" />
-    <None Include="wwwroot\pict\course.svg" />
-    <None Include="wwwroot\pict\excel.png" />
-    <None Include="wwwroot\pict\footer_logo.png" />
-    <None Include="wwwroot\pict\foot_inst.png" />
-    <None Include="wwwroot\pict\foot_teleg.png" />
-    <None Include="wwwroot\pict\girl.png" />
-    <None Include="wwwroot\pict\girl2.png" />
-    <None Include="wwwroot\pict\Group.svg" />
-    <None Include="wwwroot\pict\guy.png" />
-    <None Include="wwwroot\pict\guy2.jpg" />
-    <None Include="wwwroot\pict\guy3.png" />
-    <None Include="wwwroot\pict\half-left-arrow.svg" />
-    <None Include="wwwroot\pict\left.svg" />
-    <None Include="wwwroot\pict\logo-icon 1.svg" />
-    <None Include="wwwroot\pict\main_logo.svg" />
-    <None Include="wwwroot\pict\Mask group.png" />
-    <None Include="wwwroot\pict\next.svg" />
-    <None Include="wwwroot\pict\partn.png" />
-    <None Include="wwwroot\pict\people.png" />
-    <None Include="wwwroot\pict\people.svg" />
-    <None Include="wwwroot\pict\peoples.svg" />
-    <None Include="wwwroot\pict\percent.svg" />
-    <None Include="wwwroot\pict\photo.png" />
-    <None Include="wwwroot\pict\rait.svg" />
-    <None Include="wwwroot\pict\sber.svg" />
-    <None Include="wwwroot\pict\sertif.png" />
-    <None Include="wwwroot\pict\sertif.svg" />
-    <None Include="wwwroot\pict\shop.svg" />
-    <None Include="wwwroot\pict\sort.svg" />
-    <None Include="wwwroot\pict\ur_photo.png" />
-    <None Include="wwwroot\pict\Vector.svg" />
-  </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Files\" />
+    <Folder Include="Views\Creating\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="https://json.schemastore.org/appveyor.json" /></VisualStudio></ProjectExtensions>

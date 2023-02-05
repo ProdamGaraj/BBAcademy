@@ -19,7 +19,6 @@ namespace Backend.Services.Repository
         {
             try
             {
-
                 entity.CreatedAt = DateTime.Now;
                 entity.ModifiedAt = DateTime.Now;
                 db.Exams.Add(entity);

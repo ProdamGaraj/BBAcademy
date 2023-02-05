@@ -1,12 +1,10 @@
-version: "3.4"
-
-networks:
-  services-network:
-    driver: bridge
+version: "3.9"
 
 services:
 
   backend:
+    depends_on:
+      - postgres_db
     container_name: backend
     image: backend:latest
     build:
@@ -15,4 +13,25 @@ services:
     ports:
       - "5051:80"
     networks:
-      - services-network
+      - default
+    environment:
+      ASPNETCORE_ConnectionStrings__DefaultConnection: "Host=postgres_db;Port=5432;Database=BBAcademyDb;Username=postgres;Password=Garbage1"
+    restart: unless-stopped
+
+  postgres_db:
+    container_name: PostgreSQL
+    image: "postgres:latest"
+    environment:
+      TZ: "Europe/Moscow"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "Garbage1"
+    restart: unless-stopped
+    volumes:
+      - myvolume:/var/lib/postgresql/data
+    #ports:
+     # - "5432:5432"
+    networks:
+      - default
+
+volumes:
+  myvolume:

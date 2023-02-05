@@ -56,30 +56,30 @@
     <div class="main-container">
         <div class="account-data">
             <div class="user_data">
-                <img class="user_data-photo" src="~/pict/ur_photo.png">
+                <img class="user_data-photo" src="~/pict/Account/ur_photo.png">
                 <div class="user_data-username">@User.Identity.Name</div>
             </div>
             <div class="user_info">
                 <div class="user_info-block">
-                    <img src="~/pict/people.svg">
+                    <img src="~/pict/Course/people.svg">
                     <div class="user_info-block-name">@Model.User.Name @Model.User.LastName @Model.User.SurName </div>
                 </div>
                 <div class="user_info-block">
-                    <img src="~/pict/bag.svg">
+                    <img src="~/pict/Account/bag.svg">
                     <div class="user_info-block-name">@Model.User.JobTitle in @Model.User.Organisation</div>
                 </div>
                 <div class="user_info-block">
-                    <img src="~/pict/rait.svg">
+                    <img src="~/pict/Account/rait.svg">
                     <div class="user_info-block-name">@rating</div>
                 </div>
                 <div class="user_info-block-1">
                     <div class="user_info-block-1-1">
-                        <img src="~/pict/peoples.svg">
+                        <img src="~/pict/Course/peoples.svg">
                         <div class="user_info-block-name">@myrecom</div>
                     </div>
                 </div>
                 <div class="user_info-block">
-                    <img src="~/pict/sertif.svg">
+                    <img src="~/pict/Account/sertif.svg">
                     <div class="user_info-block-name"><a asp-controller="Certificate" asp-action="Index">@mycert</a></div>
                 </div>
             </div>
@@ -90,7 +90,7 @@
         <div class="my_acc-tab_menu">
             <div class="media-block">
                 <div class="media-name">
-                    <img class="media-name-svg" src="~/pict/course.svg">
+                    <img class="media-name-svg" src="~/pict/Account/course.svg">
                     <div class="media-name-name"><a asp-controller="Account" asp-action="Index">@mycourse</a></div>
                 </div>
             </div>
@@ -104,14 +104,14 @@
                         </form>
                     </div>
                     <div class="mine_course-sort-element-2">
-                        <img class="mine_course-sort-svg-icon" src="~/pict/book-open.svg">
+                        <img class="mine_course-sort-svg-icon" src="~/pict/Account/book-open.svg">
                         <form style="display:flex; margin-bottom: 0;" method="get" asp-controller="Account" asp-action="ChangeFilterToBought">
                             <button type="submit" style="display:flex; border: none; align-items: center;">
                                 @startedcourses
                             </button>
                         </form>
                         <div class="mine_course-sort-element-3">
-                            <img class="mine_course-sort-svg-icon" src="~/pict/sber.svg">
+                            <img class="mine_course-sort-svg-icon" src="~/pict/Account/sber.svg">
                             <form style="display:flex; margin-bottom: 0;" method="get" asp-controller="Account" asp-action="ChangeFilterToPassed">
                                 <button type="submit" style="display:flex;border: none; align-items: center;">
                                     @passedcourses
@@ -138,7 +138,7 @@
                                         {
                                             var href = "/DeleteFromCart/"+item.Id;
                                             <scroll-page style="margin-right: 20px">
-                                                <img class="cours-scroll" src="~/pict/course_guy.jpg">
+                                                <img class="cours-scroll" src=@item.MediaPath>
                                                 <div class="cours-text">
                                                     <div class="cours-text-top">@item.Name</div>
                                                     <div class="cours-text-bot">@item.Description</div>
@@ -177,7 +177,7 @@
                             {
                                 var href = "/Course/GoToCourse/" + item.Id;
                                 <scroll-page style="margin-right: 20px">
-                                    <img class="cours-scroll" src="~/pict/course_guy.jpg">
+                                    <img class="cours-scroll" src=@item.MediaPath>
                                     <div class="cours-text">
                                         <div class="cours-text-top">@item.Name</div>
                                         <div class="cours-text-bot">@item.Description</div>

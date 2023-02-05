@@ -191,3 +191,8 @@ footer{
 	letter-spacing: 0em;
 	text-align: left;
 }
+.RegFormValidation {
+	font-family: 'Raleway';
+	color: red;
+	margin-bottom: 5px;
+}

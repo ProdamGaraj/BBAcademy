@@ -1,0 +1,24 @@
+﻿@model Backend.ViewModels.CourseViewModel
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Course creating";
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<form id="log-form" class="log-block-form" method="post" asp-controller="Account" asp-action="Login">
+    <div class="log-container">
+        <label class="log-label">Name</label>
+        <input name="Course.Name" placeholder="" class="form-control textbox-dg font-weight-bold text-center reg-log-input" type="text">
+        <label class="log-label">Price</label>
+        <input name="Course.Price" placeholder="" class="form-control textbox-dg font-weight-bold text-center reg-log-input" type="text">
+        <label class="log-label">Description</label>
+        <input name = "Course.Description" placeholder="" class="form-control textbox-dg font-weight-bold text-center reg-log-input" type="text">
+        <label class="log-label">Course logo</label>
+        <input name="Course.MediaTemplatePath" placeholder="" class="form-control textbox-dg font-weight-bold text-center reg-log-input" type="text">
+        <div class="d-grid gap-2 d-md-block float-right">
+
+            <button type="submit" class="registerbtn">
+                <div class="log-in-btn">Add course</div>
+            </button>
+        </div>
+    </div>
+</form>

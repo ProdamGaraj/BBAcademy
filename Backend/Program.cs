@@ -18,15 +18,20 @@ using Microsoft.AspNetCore.Mvc;
 using System.Data.Entity;
 using Backend.Services.Interfaces;
 using Backend.Services;
+using System.Net.Security;
+using System.Net;
+using System.Security.Cryptography.X509Certificates;
+using Microsoft.Extensions.FileProviders;
+
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 var builder = Microsoft.AspNetCore.Builder.WebApplication.CreateBuilder(args);
-int lang;
 var connection=builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Logging.ClearProviders();
-builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
+builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Information);
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<BBAcademyDb>(options=>options.UseSqlServer(connection));
+builder.Services.AddDbContext<BBAcademyDb>(options=>options.UseNpgsql(connection));
 
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<ICertificateService, CertificateService>();
@@ -65,7 +70,10 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+	FileProvider = new PhysicalFileProvider(builder.Environment.ContentRootPath)
+});
 
 app.UseRouting();
 
@@ -88,17 +96,6 @@ using var dc = serviceScope.ServiceProvider.GetRequiredService<BBAcademyDb>();
 
 app.Use(async (context, next) =>
 {
-	if (!context.User.Identity.IsAuthenticated)
-	{
-		if (!context.Request.Path.Equals("/Account/Register") && !context.Request.Path.Equals("/Account/Login") && !context.Request.Path.Equals("/"))
-		{
-            context.Response.Redirect("/Account/Login");
-        }
-	}
-	else
-	{
-        //context.Response.Redirect("/Account");
-    }
     await next.Invoke();
 });
 

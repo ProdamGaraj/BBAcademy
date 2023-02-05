@@ -1,0 +1,82 @@
+﻿@using Backend.Models;
+@using Newtonsoft.Json;
+<link rel="stylesheet" type="text/css" href="~/css/Course.css">
+
+@{
+        <link rel="stylesheet" type="text/css" href="~/css/Course.css">
+
+        <!--test-->
+        <div class="main-container-list-result-5" style="display:block">
+            <div class="main-container-list-result-cont-test">
+                <div class="main-container-list-result-cont-1">Тест</div>
+                    <form method="post"asp-page="Data">
+                Exam Description<br>
+                    <input class= type="text" name= "Exam.Description">
+                <br>Exam Type
+                <br>
+                    <input class= type="text" name= "Exam.ExamType">
+                <br>Exam passing grade
+                <br>
+                    <input class= type="text" name= "Exam.PassingGrade">
+                        <br>Exam name
+                <br>
+                    <input class= type="text" name= "Exam.Name">
+                        
+                        <button type="submit" class="course-next-button">
+                            <div class="log-in-btn">Send</div>
+                        </button>
+                    </form>
+
+                    <div class="main-container-list-result-cont-1">Курс</div>
+                    <form method="post"asp-page="Data">
+                Course Description<br>
+                    <input class= type="text" name= "Course.Description">
+                <br>Course Type
+                <br>
+                    <input class= type="text" name= "Course.CourseType">
+                <br>Course duration
+                <br>
+                    <input class= type="text" name= "Course.Duration">
+                        <br>Course mediapath
+                <br>
+                    <input class= type="text" name= "Course.MediaPath">
+                        <br>Price
+                <br>
+                    <input class= type="text" name= "Course.Price">
+                        <br>Course name
+                <br>
+                    <input class= type="text" name= "Course.Name">
+                        
+                        <button type="submit" class="course-next-button">
+                            <div class="log-in-btn">Send</div>
+                        </button>
+                    </form>
+                    
+                    <div class="main-container-list-result-cont-1">Lesson</div>
+                    <form method="post"asp-page="Data">
+                Course Description<br>
+                    <input class= type="text" name= "Course.Description">
+                <br>Course Type
+                <br>
+                    <input class= type="text" name= "Course.CourseType">
+                <br>Course duration
+                <br>
+                    <input class= type="text" name= "Course.Duration">
+                        <br>Course mediapath
+                <br>
+                    <input class= type="text" name= "Course.MediaPath">
+                        <br>Price
+                <br>
+                    <input class= type="text" name= "Course.Price">
+                        <br>Course name
+                <br>
+                    <input class= type="text" name= "Course.Name">
+                        
+                        <button type="submit" class="course-next-button">
+                            <div class="log-in-btn">Send</div>
+                        </button>
+                    </form>
+
+            </div>
+        </div>
+}
