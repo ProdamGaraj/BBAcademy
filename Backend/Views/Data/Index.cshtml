@@ -1,0 +1,25 @@
+﻿@using Backend.Models;
+@using Newtonsoft.Json;
+<link rel="stylesheet" type="text/css" href="~/css/Course.css">
+
+@{
+        <link rel="stylesheet" type="text/css" href="~/css/Course.css">
+
+        <!--test-->
+        <div class="main-container-list-result-5" style="display:block">
+            <div class="main-container-list-result-cont-test">
+                <div class="main-container-list-result-cont-1">Тест</div>
+                    <form method="post"asp-page="Data">
+
+                    <input class= type="text" name= "Exam.Description">
+                    <input class= type="text" name= "Exam.ExamType">
+                    <input class= type="text" name= "Exam.PassingGrade">
+                        
+                        <button type="submit" class="course-next-button">
+                            <div class="log-in-btn">Send</div>
+                        </button>
+                    </form>
+
+            </div>
+        </div>
+}

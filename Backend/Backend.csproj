@@ -28,12 +28,12 @@
     <Content Include="pict\guy2.png" />
     <Content Include="pict\guy3.png" />
     <Content Include="pict\half-left-arrow.svg" />
-    <Content Include="pict\left.svg" />
+    <Content Include="pict\Course\left.svg" />
     <Content Include="pict\logo-icon 1.svg" />
     <Content Include="pict\logo-icon 2.svg" />
     <Content Include="pict\main_logo.svg" />
     <Content Include="pict\Mask group.png" />
-    <Content Include="pict\next.svg" />
+    <Content Include="pict\Course\next.svg" />
     <Content Include="pict\partn.png" />
     <Content Include="pict\people.png" />
     <Content Include="pict\people.svg" />
