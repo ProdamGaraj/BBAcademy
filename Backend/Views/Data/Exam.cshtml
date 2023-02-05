@@ -4,9 +4,10 @@
     ViewBag.Title = "Exam creating";
 }
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-<form id="log-form" class="log-block-form" method="post">
+<form id="log-form" class="log-block-form" method="post" asp-controller="Data" asp-action="Question">
     <div class="log-container">
-        <input name="Model" type = "hidden" value=@Model>
+
+            <input name="ModelString" type="hidden" value=@Model.CurrentStruct>
         <label class="log-label">Name</label>
         <input name="Exam.Name" placeholder="" class="form-control textbox-dg font-weight-bold text-center reg-log-input" type="text">
         <label class="log-label">Description</label>
