@@ -9,46 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="pict\arrow.svg" />
-    <Content Include="pict\bag.svg" />
-    <Content Include="pict\bell.svg" />
-    <Content Include="pict\book-open.svg" />
-    <Content Include="pict\book.svg" />
-    <Content Include="pict\cours-scroll.png" />
-    <Content Include="pict\course.svg" />
-    <Content Include="pict\course_guy.jpg" />
-    <Content Include="pict\excel.png" />
-    <Content Include="pict\footer_logo.png" />
-    <Content Include="pict\foot_inst.png" />
-    <Content Include="pict\foot_teleg.png" />
-    <Content Include="pict\girl.png" />
-    <Content Include="pict\girl2.png" />
-    <Content Include="pict\Group.svg" />
-    <Content Include="pict\guy.png" />
-    <Content Include="pict\guy2.png" />
-    <Content Include="pict\guy3.png" />
-    <Content Include="pict\half-left-arrow.svg" />
-    <Content Include="pict\Course\left.svg" />
-    <Content Include="pict\logo-icon 1.svg" />
-    <Content Include="pict\logo-icon 2.svg" />
-    <Content Include="pict\main_logo.svg" />
-    <Content Include="pict\Mask group.png" />
-    <Content Include="pict\Course\next.svg" />
-    <Content Include="pict\partn.png" />
-    <Content Include="pict\people.png" />
-    <Content Include="pict\people.svg" />
-    <Content Include="pict\peoples.svg" />
-    <Content Include="pict\percent.svg" />
-    <Content Include="pict\photo.png" />
-    <Content Include="pict\rait.svg" />
-    <Content Include="pict\sber.svg" />
-    <Content Include="pict\sertif.png" />
-    <Content Include="pict\sertif.svg" />
-    <Content Include="pict\shop.svg" />
-    <Content Include="pict\sort.svg" />
-    <Content Include="pict\ur_photo.png" />
-    <Content Include="pict\Vector.svg" />
-    <Content Include="vid\6.mp4" />
+    <Content Include="pict\**" ><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory> </Content >
+    <Content Include="vid\**" ><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -74,16 +36,10 @@
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Include="Views\Home\Index.cshtml" />
-    <None Include="wwwroot\css\Bilmbank.css" />
-    <None Include="wwwroot\css\Course.css" />
-    <None Include="wwwroot\css\My Account.css" />
-    <None Include="pict\guy2.jpg" />
-  </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Files\" />
+    <Folder Include="Views\Creating\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="https://json.schemastore.org/appveyor.json" /></VisualStudio></ProjectExtensions>

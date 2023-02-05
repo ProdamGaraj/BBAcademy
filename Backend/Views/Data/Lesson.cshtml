@@ -7,13 +7,13 @@
 <form id="log-form" class="log-block-form" method="post" asp-controller="Account" asp-action="Login">
     <div class="log-container">
         <label class="log-label">Name</label>
-        <input asp-for="" placeholder="" class="form-control textbox-dg font-weight-bold text-center reg-log-input" type="text">
+        <input name="Lesson.Name" placeholder="" class="form-control textbox-dg font-weight-bold text-center reg-log-input" type="text">
         <label class="log-label">Description</label>
-        <input asp-for="" placeholder="" class="form-control textbox-dg font-weight-bold text-center reg-log-input" type="text">
+        <input name="Lesson.Description" placeholder="" class="form-control textbox-dg font-weight-bold text-center reg-log-input" type="text">
         <label class="log-label">Text content</label>
-        <input asp-for="" placeholder="" class="form-control textbox-dg font-weight-bold text-center reg-log-input" type="text">
+        <input name="Lesson.Content" placeholder="" class="form-control textbox-dg font-weight-bold text-center reg-log-input" type="text">
         <label class="log-label">Media content path (can be empty)</label>
-        <input asp-for="" placeholder="" class="form-control textbox-dg font-weight-bold text-center reg-log-input" type="text">
+        <input name="Lesson.MediaTemplatePath" placeholder="" class="form-control textbox-dg font-weight-bold text-center reg-log-input" type="text">
         <div class="d-grid gap-2 d-md-block float-right">
 
             <button type="submit" class="registerbtn">

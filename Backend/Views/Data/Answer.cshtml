@@ -1,4 +1,4 @@
-﻿@model Backend.ViewModels.AnswerViewModel
+﻿@model Backend.ViewModels.CourseViewModel
 @{
     Layout = "_Layout";
     ViewBag.Title = "Answer creating";
@@ -7,11 +7,11 @@
 <form id="log-form" class="log-block-form" method="post" asp-controller="Account" asp-action="Login">
     <div class="log-container">
         <label class="log-label">Content</label>
-        <input asp-for="" placeholder="" class="form-control textbox-dg font-weight-bold text-center reg-log-input" type="text">
+        <input name="Answer.Content" placeholder="" class="form-control textbox-dg font-weight-bold text-center reg-log-input" type="text">
         <label class="log-label">Cost</label>
-        <input asp-for="" placeholder="" class="form-control textbox-dg font-weight-bold text-center reg-log-input" type="text">
+        <input name="Answer.Cost" placeholder="" class="form-control textbox-dg font-weight-bold text-center reg-log-input" type="text">
         <label class="log-label">Is Correct</label>
-        <input asp-for="" placeholder="" class="form-control textbox-dg font-weight-bold text-center reg-log-input" type="checkbox">s
+        <input name="Answer.IsCorrect" placeholder="" class="form-control textbox-dg font-weight-bold text-center reg-log-input" type="checkbox">s
         <div class="d-grid gap-2 d-md-block float-right">
 
             <button type="submit" class="registerbtn">

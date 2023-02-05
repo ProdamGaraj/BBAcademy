@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Backend.Migrations
 {
     /// <inheritdoc />
-    public partial class postgersdb : Migration
+    public partial class ini : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -22,8 +22,8 @@ namespace Backend.Migrations
                     ExamType = table.Column<string>(type: "text", nullable: false),
                     PassingGrade = table.Column<int>(type: "integer", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    ModifiedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Deleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
@@ -53,8 +53,8 @@ namespace Backend.Migrations
                     BoughtCourses = table.Column<string>(type: "text", nullable: true),
                     AboutMe = table.Column<string>(type: "text", nullable: true),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    ModifiedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Deleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
@@ -73,8 +73,8 @@ namespace Backend.Migrations
                     QuestionType = table.Column<int>(type: "integer", nullable: false),
                     ExamId = table.Column<long>(type: "bigint", nullable: true),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    ModifiedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Deleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
@@ -97,8 +97,8 @@ namespace Backend.Migrations
                     CourseId = table.Column<long>(type: "bigint", nullable: false),
                     MediaTemplatePath = table.Column<string>(type: "text", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    ModifiedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Deleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
@@ -123,8 +123,8 @@ namespace Backend.Migrations
                     Cost = table.Column<int>(type: "integer", nullable: false),
                     QuestionId = table.Column<long>(type: "bigint", nullable: true),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    ModifiedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Deleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
@@ -151,8 +151,8 @@ namespace Backend.Migrations
                     Price = table.Column<decimal>(type: "numeric", nullable: false),
                     CertificateId = table.Column<long>(type: "bigint", nullable: true),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    ModifiedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Deleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
@@ -184,8 +184,8 @@ namespace Backend.Migrations
                     CourseId = table.Column<long>(type: "bigint", nullable: true),
                     UserId = table.Column<long>(type: "bigint", nullable: true),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ModifiedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    ModifiedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Deleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>

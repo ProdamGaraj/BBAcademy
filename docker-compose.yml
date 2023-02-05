@@ -28,8 +28,8 @@ services:
     restart: unless-stopped
     volumes:
       - myvolume:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
+    #ports:
+     # - "5432:5432"
     networks:
       - default
 

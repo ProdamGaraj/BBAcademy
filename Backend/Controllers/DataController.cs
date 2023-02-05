@@ -3,6 +3,7 @@ using Backend.Services.AccountService.Interfaces;
 using Backend.Services.Interfaces;
 using Backend.Services.Repository;
 using Backend.Services.Repository.Interfaces;
+using Backend.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,6 +21,10 @@ namespace Backend.Controllers
         public Question Question { get; set; }
         [BindProperty]
         public Answer Answer { get; set; }
+        [BindProperty]
+        public Certificate Certificate { get; set; }
+        [BindProperty]
+        public DataViewModel Model { get; set; } = new DataViewModel();
         private ICourseRepository cr;
         private IExamRepository er;
         private ILessonRepository lr;
@@ -65,6 +70,16 @@ namespace Backend.Controllers
                 await ar.Add(Answer);
             }
             return View();
+        }
+        public async Task<ActionResult> ExamAsync(DataViewModel dvm)
+        {
+            if(Model.Course is null)
+            {
+                Model.Course = new Course();
+            }
+            Model.Course.Exam = Exam;
+            dvm = Model;
+            return View(dvm);
         }
 
         [HttpPost]
