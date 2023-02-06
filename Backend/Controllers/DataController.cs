@@ -41,8 +41,7 @@ namespace Backend.Controllers
         // GET: DataController
         public async Task<ActionResult> IndexAsync()
         {
-            
-            return View();
+            return RedirectToAction("Course");
         }
         public async Task<ActionResult> CourseAsync(DataViewModel dvm)
         {
@@ -137,6 +136,7 @@ namespace Backend.Controllers
             dvm = Model;
             dvm.CurrentStruct = null;
             dvm.CurrentStruct = JsonConvert.SerializeObject(dvm);
+            creationService.CreateFullCourse(dvm);
             return RedirectToAction("Course");
         }
 
