@@ -13,6 +13,9 @@ namespace Backend.Controllers
     public class DataController : Controller
     {
         [BindProperty]
+        public long CurrentId { get; set; }
+
+        [BindProperty]
         public Exam Exam { get; set; }
         [BindProperty]
         public Course Course { get; set; }
@@ -23,28 +26,17 @@ namespace Backend.Controllers
         [BindProperty]
         public Answer Answer { get; set; }
         [BindProperty]
-        public Certificate Certificate { get; set; }
+        public CertificateTemplate CertificateTemplate { get; set; }
         [BindProperty]
         public string ModelString { get; set; }
         public DataViewModel Model { get; set; } = new DataViewModel();
-        private ICourseRepository cr;
-        private IExamRepository er;
-        private ILessonRepository lr;
-        private IQuestionRepository qr;
-        private IAnswerRepository ar;
-        private ICertificateRepository cer;
+        private readonly ICreationService creationService;
 
-        [BindProperty]
-        public long CurrentId { get; set; }
 
-        public DataController(IExamRepository er, ICourseRepository cr, ILessonRepository lr, IQuestionRepository qr, IAnswerRepository ar, ICertificateRepository cer)
+        public DataController(ICreationService creationService)
         {
-            this.cr = cr;
-            this.er = er;
-            this.lr = lr;
-            this.qr = qr;
-            this.ar = ar;
-            this.cer = cer;
+            this.creationService = creationService;
+          
         }
         // GET: DataController
         public async Task<ActionResult> IndexAsync()
@@ -141,7 +133,7 @@ namespace Backend.Controllers
             var s = Request.Form;
             if (ModelString is not null)
                 Model = JsonConvert.DeserializeObject<DataViewModel>(ModelString);
-            Model.Certificate = Certificate;
+            Model.Course.CertificateTemplate = CertificateTemplate;
             dvm = Model;
             dvm.CurrentStruct = null;
             dvm.CurrentStruct = JsonConvert.SerializeObject(dvm);
@@ -151,27 +143,8 @@ namespace Backend.Controllers
         [HttpPost]
         public async Task<IActionResult> OnPostAsync()
         {
-            if (Exam is not null && Exam.Name is not null)
-            {
-                await er.Add(Exam);
-            }
-            if (Course is not null && Course.Name is not null)
-            {
-                await cr.Add(Course);
-            }
-            if (Lesson is not null && Lesson.Name is not null)
-            {
-                await lr.Add(Lesson);
-            }
-            if (Question is not null && Question.Name is not null)
-            {
-                await qr.Add(Question);
-            }
-            if (Answer is not null && Answer.Name is not null)
-            {
-                await ar.Add(Answer);
-            }
-
+            var dataViewModel = Model;
+            creationService.CreateFullCourse(dataViewModel);
             return View();
         }
     }

@@ -11,13 +11,14 @@ namespace Backend.Models
         public string Description { get; set; }
         public CourseType CourseType { get; set; }
         public ICollection<Lesson> Lessons { get; set; }
+        public CertificateTemplate CertificateTemplate { get; set; }
         public Exam Exam{ get; set; }
         public decimal Price { get; set; }
         public Course()
         {
 
         }
-        public Course(string mediaPath, string duration, string description, CourseType courseType, ICollection<Lesson> lessons, Exam exam,bool deleted = false, decimal price = 0)
+        public Course(string mediaPath, string duration, string description, CourseType courseType, ICollection<Lesson> lessons, Exam exam,bool deleted = false, decimal price = 0, CertificateTemplate certificateTemplate = null)
         {
             MediaPath = mediaPath;
             Duration = duration;
@@ -27,6 +28,7 @@ namespace Backend.Models
             Exam = exam;
             Deleted = deleted;
             Price = price;
+            CertificateTemplate = certificateTemplate;
         }
     }
 }

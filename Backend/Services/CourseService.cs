@@ -15,12 +15,12 @@ namespace Backend.Services
     {
         //public async Task<IBaseResponce<AccountViewModel>> GetAllCourses(CourseViewModel vm)
         //{
-        //    CourseRepository cr = new CourseRepository();
+        //    CourseRepository courseRepository = new CourseRepository();
         //    List<Course> allCourses = new List<Course>();
-        //    allCourses.AddRange(await cr.GetAll());
+        //    allCourses.AddRange(await courseRepository.GetAll());
         //    return new BaseResponse<AccountViewModel>() { Data = , Description = "Get all courses for a user", StatusCode = Models.Enum.StatusCode.OK };
         //}
-        //private ICertificateRepository cr;
+        //private ICertificateRepository courseRepository;
         private IUserRepository ur;
         private ICourseRepository cr;
         private IQuestionRepository qr;

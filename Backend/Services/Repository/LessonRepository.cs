@@ -34,6 +34,27 @@ namespace Backend.Services.Repository
             }
         }
 
+        public async Task<bool> AddRange(ICollection<Lesson> entity)
+        {
+            try
+            {
+                foreach (var item in entity)
+                {
+                    item.CreatedAt = DateTime.Now;
+                    item.ModifiedAt = DateTime.Now;
+                }
+                db.Lessons.AddRange(entity);
+                await db.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                return false;
+            }
+
+        }
+
         public async Task<Lesson> Get(long id)
         {
             try

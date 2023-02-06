@@ -17,22 +17,24 @@ namespace Backend.Services
     {
         Logger logger = LogManager.GetCurrentClassLogger();
         private IAccountService accountService;
-        private ICertificateRepository cr;
-        private IUserRepository ur;
-        private ICourseRepository cor;
+        private ICertificateRepository certificateRepository;
+        private IUserRepository userRepository;
+        private ICourseRepository courseRepository;
+        private ICertificateTemplateRepository certificateTemplateRepository;
 
         public CertificateService(IAccountService _accountService, ICertificateRepository _cr, IUserRepository _ur, ICourseRepository _cor)
         {
             accountService = _accountService;
-            cr = _cr;
-            ur = _ur;
-            cor = _cor;
+            certificateRepository = _cr;
+            userRepository = _ur;
+            courseRepository = _cor;
         }
         public async Task<IBaseResponce<Certificate>> CreateCertificate(CourseViewModel vm)
         {
 
-            User user = await ur.Get(vm.User.Id);
-            Course course = await cor.Get(vm.IdCourse);
+            User user = await userRepository.Get(vm.User.Id);
+            Course course = await courseRepository.Get(vm.IdCourse);
+            CertificateTemplate certificateTemplate = await certificateTemplateRepository.Get(course.CertificateTemplate.Id);
             if (user != null && course != null)
             {
                 try
@@ -40,11 +42,11 @@ namespace Backend.Services
                     var certificate = new Certificate()
                     {
                         UserId = user.Id,
-                        CourseId = course.Id,
-                        Name = "Certificate for " + user.Name + " " + user.LastName + " " + user.SurName + " passed course " + course.Name
+                        Name = "Certificate for " + user.Name + " " + user.LastName + " " + user.SurName + " passed course " + course.Name,
+                        CertificateTemplate= certificateTemplate
                     };
                     user.Certificates.Add(certificate);
-                    await cr.Add(certificate);
+                    await certificateRepository.Add(certificate);
                     File.Copy(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\Files\\Certificates\\certificate.pdf", Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + $"\\Files\\Certificates\\{certificate.Id}.pdf");
                     return new BaseResponse<Certificate>() {
                         Data = certificate,
@@ -71,8 +73,8 @@ namespace Backend.Services
 
         public async Task<IBaseResponce<List<Certificate>>> GetCertificates(CertificateViewModel vm)
         {
-            User user = await ur.Get(vm.User.Id);
-            List<Certificate> certificates = (await cr.GetAll()).Where(x=>x.UserId==user.Id).ToList();
+            User user = await userRepository.Get(vm.User.Id);
+            List<Certificate> certificates = (await certificateRepository.GetAll()).Where(x=>x.UserId==user.Id).ToList();
             if (user is not null&&certificates is not null)
             {
                 return new BaseResponse<List<Certificate>>()

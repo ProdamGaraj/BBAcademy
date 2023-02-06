@@ -23,8 +23,8 @@ namespace Backend.Services.Repository
                 entity.ModifiedAt = DateTime.Now;
                 db.Certificates.Add(entity);
                 CourseRepository cr = new CourseRepository(db);
-                if (entity.Courses is not null)
-                    foreach (Course course in entity.Courses)
+                if (entity.CertificateTemplate.Courses is not null)
+                    foreach (Course course in entity.CertificateTemplate.Courses)
                     {
                         if (await cr.Get(course.Id) is not null)
                         {
@@ -111,8 +111,8 @@ namespace Backend.Services.Repository
                     entity.ModifiedAt = DateTime.Now;
                     db.Certificates.Update(entity);
                     CourseRepository cr = new CourseRepository(db);
-                    if (entity.Courses is not null)
-                        foreach (Course course in entity.Courses)
+                    if (entity.CertificateTemplate.Courses is not null)
+                        foreach (Course course in entity.CertificateTemplate.Courses)
                         {
                             await cr.Update(course);
                         }
