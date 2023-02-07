@@ -22,7 +22,6 @@ namespace Backend.Services.Repository
 
                 entity.CreatedAt = DateTime.Now;
                 entity.ModifiedAt = DateTime.Now;
-                JsonConvert.SerializeObject(entity);
                 db.Courses.Add(entity);
                 //LessonRepository lr = new LessonRepository(db);
                 //if (entity.Lessons is not null)
