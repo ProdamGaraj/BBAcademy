@@ -9,8 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="pict/**" ><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory> </Content >
-    <Content Include="vid/**" ><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
+    <Content Include="pict/**"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory> </Content>
+    <Content Include="vid/**"><CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory></Content>
   </ItemGroup>
 
   <ItemGroup>

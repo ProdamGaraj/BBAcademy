@@ -47,7 +47,7 @@ namespace Backend.Services.Repository
             try
             {
 
-                Certificate Certificate = await db.Certificates.Include("Courses").FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
+                Certificate Certificate = await db.Certificates.FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
                 return Certificate;
 
             }
@@ -63,7 +63,7 @@ namespace Backend.Services.Repository
             try
             {
 
-                IList<Certificate> myCertificate = await db.Certificates.Include("Courses").ToListAsync();
+                IList<Certificate> myCertificate = await db.Certificates.ToListAsync();
                 return myCertificate;
 
             }
