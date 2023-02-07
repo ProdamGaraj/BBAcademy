@@ -140,12 +140,5 @@ namespace Backend.Controllers
             return RedirectToAction("Course");
         }
 
-        [HttpPost]
-        public async Task<IActionResult> OnPostAsync()
-        {
-            var dataViewModel = Model;
-            creationService.CreateFullCourse(dataViewModel);
-            return View();
-        }
     }
 }
