@@ -5,10 +5,10 @@
     var bilimbank = "@bilimbank";
 
     string controller = ViewContext.RouteData.Values["controller"].ToString();
-    string rights;
-    string learningproc;
-    string usagepol;
-    string privpol;
+    string rights = "© 2023 Все права защищены, bilimbank";
+    string learningproc = "Процесс обучения";
+    string usagepol = "Условия использования";
+    string privpol = "Политика конфиденциальности";
     int? inCart = Context.Session.GetInt32("inCart");
     if (inCart is null)
         inCart = 0;
@@ -57,29 +57,36 @@
             </div>
             <div class="header-container-rightside">
                 @{
-                    if(inCart==0){
-                <a class="header-container-rightside-icon" href="/Cart">
+                    if (inCart == 0)
+                    {
+                        <a class="header-container-rightside-icon" href="/Cart">
                             <img src="~/pict/Account/shop.svg">
-                </a>
-                }
-                else{
-                <a class="header-container-rightside-icon" style="background: #0093DC"; href="/Cart">
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="header-container-rightside-icon" style="background: #0093DC" ; href="/Cart">
                             <img src="~/pict/Account/shop.svg">
-                </a>
-                }
+                        </a>
+                    }
                 }
                 <a class="header-container-rightside-icon" href="/NotFound">
                     <img src="~/pict/Account/bell.svg">
                 </a>
-                @{if (User.Identity.IsAuthenticated){
-                <a class="ur_photo" asp-controller="Account" asp-action="Logout">
+                @{
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        <a class="ur_photo" asp-controller="Account" asp-action="Logout">
                             <img src="~/pict/Account/ur_photo.png">
-                </a>
-                }else{
-                <a class="ur_photo" asp-asp-controller="Account" asp-action="Login" >
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="ur_photo" asp-asp-controller="Account" asp-action="Login">
                             <img src="~/pict/Account/ur_photo.png">
-                </a>
-                }}
+                        </a>
+                    }
+                }
             </div>
         </div>
     </header>
