@@ -5,35 +5,61 @@
     ViewBag.Title = "Cart";
 }
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    string download = "Скачать PDF";
+    string invforbeg = "Инвестиции для начинающих";
+    string mycert = "Мои сертификаты";
+    string mycourse = "Мои курсы";
+    string myrecom = "Мои рекомендации";
+    string rating = "Рейтинг";
+    if (Model.User.Lang == 0)
+    {
+        download = "Yuklab olish";
+        invforbeg = "Boshlovchilar uchun investitsiya";
+        mycert = "Mening sertifikatlarim";
+        mycourse = "Mening kurslaring";
+        myrecom = "Mening tavsiyalarim";
+        rating = "Reyting";
+    }
+    else
+    {
+        download = "Скачать PDF";
+        invforbeg = "Инвестиции для начинающих";
+        mycert = "Мои сертификаты";
+        mycourse = "Мои курсы";
+        myrecom = "Мои рекомендации";
+        rating = "Рейтинг";
+    }
+}
 <body>
     <div class="main-container">
         <div class="account-data">
             <div class="user_data">
-                <img class="user_data-photo" src="pict\Account\ur_photo.png">
-                <div class="user_data-username">kuznetsov_an</div>
+                <img class="user_data-photo" src="~/pict/Account/ur_photo.png">
+                <div class="user_data-username">@User.Identity.Name</div>
             </div>
             <div class="user_info">
                 <div class="user_info-block">
-                    <img src="pict\people.svg">
-                    <div class="user_info-block-name">Андрей Андреевич Кузнецов</div>
+                    <img src="~/pict/Account/people.png">
+                    <div class="user_info-block-name">@Model.User.Name @Model.User.LastName @Model.User.SurName </div>
                 </div>
                 <div class="user_info-block">
-                    <img src="pict\bag.svg">
-                    <div class="user_info-block-name">Банкир в BankName</div>
+                    <img src="~/pict/Account/bag.svg">
+                    <div class="user_info-block-name">@Model.User.JobTitle in @Model.User.Organisation</div>
                 </div>
                 <div class="user_info-block">
-                    <img src="pict\rait.svg">
-                    <div class="user_info-block-name">Рейтинг: 200</div>
+                    <img src="~/pict/Account/rait.svg">
+                    <div class="user_info-block-name">@rating</div>
                 </div>
                 <div class="user_info-block-1">
                     <div class="user_info-block-1-1">
-                        <img src="pict\peoples.svg">
-                        <div class="user_info-block-name">Мои рекомендации</div>
+                        <img src="~/pict/Account/rait.svg">
+                        <div class="user_info-block-name">@myrecom</div>
                     </div>
                 </div>
                 <div class="user_info-block">
-                    <img src="pict\sertif.svg">
-                    <div class="user_info-block-name">Мои сертификаты</div>
+                    <img src="~/pict/Account/sertif.svg">
+                    <div class="user_info-block-name"><a asp-controller="Certificate" asp-action="Index">@mycert</a></div>
                 </div>
             </div>
         </div>
