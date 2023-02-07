@@ -7,11 +7,29 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Backend.Migrations
 {
     /// <inheritdoc />
-    public partial class ini : Migration
+    public partial class CertificateTemplate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "CertificateTemplates",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    MediaPath = table.Column<string>(type: "text", nullable: false),
+                    TextContent = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    ModifiedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    Deleted = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CertificateTemplates", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Exams",
                 columns: table => new
@@ -63,6 +81,41 @@ namespace Backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Courses",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    MediaPath = table.Column<string>(type: "text", nullable: false),
+                    Duration = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    CourseType = table.Column<int>(type: "integer", nullable: false),
+                    CertificateTemplateId = table.Column<long>(type: "bigint", nullable: false),
+                    ExamId = table.Column<long>(type: "bigint", nullable: false),
+                    Price = table.Column<decimal>(type: "numeric", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    ModifiedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    Deleted = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Courses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Courses_CertificateTemplates_CertificateTemplateId",
+                        column: x => x.CertificateTemplateId,
+                        principalTable: "CertificateTemplates",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Courses_Exams_ExamId",
+                        column: x => x.ExamId,
+                        principalTable: "Exams",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Questions",
                 columns: table => new
                 {
@@ -94,8 +147,7 @@ namespace Backend.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<long>(type: "bigint", nullable: false),
-                    CourseId = table.Column<long>(type: "bigint", nullable: false),
-                    MediaTemplatePath = table.Column<string>(type: "text", nullable: false),
+                    CertificateTemplateId = table.Column<long>(type: "bigint", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     ModifiedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
@@ -105,68 +157,15 @@ namespace Backend.Migrations
                 {
                     table.PrimaryKey("PK_Certificates", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Certificates_CertificateTemplates_CertificateTemplateId",
+                        column: x => x.CertificateTemplateId,
+                        principalTable: "CertificateTemplates",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Certificates_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Answers",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Content = table.Column<string>(type: "text", nullable: false),
-                    IsCorrect = table.Column<bool>(type: "boolean", nullable: false),
-                    Cost = table.Column<int>(type: "integer", nullable: false),
-                    QuestionId = table.Column<long>(type: "bigint", nullable: true),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    ModifiedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    Deleted = table.Column<bool>(type: "boolean", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Answers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Answers_Questions_QuestionId",
-                        column: x => x.QuestionId,
-                        principalTable: "Questions",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Courses",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    MediaPath = table.Column<string>(type: "text", nullable: false),
-                    Duration = table.Column<string>(type: "text", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: false),
-                    CourseType = table.Column<int>(type: "integer", nullable: false),
-                    ExamId = table.Column<long>(type: "bigint", nullable: false),
-                    Price = table.Column<decimal>(type: "numeric", nullable: false),
-                    CertificateId = table.Column<long>(type: "bigint", nullable: true),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    ModifiedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    Deleted = table.Column<bool>(type: "boolean", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Courses", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Courses_Certificates_CertificateId",
-                        column: x => x.CertificateId,
-                        principalTable: "Certificates",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Courses_Exams_ExamId",
-                        column: x => x.ExamId,
-                        principalTable: "Exams",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -203,10 +202,40 @@ namespace Backend.Migrations
                         principalColumn: "Id");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Answers",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Content = table.Column<string>(type: "text", nullable: false),
+                    IsCorrect = table.Column<bool>(type: "boolean", nullable: false),
+                    Cost = table.Column<int>(type: "integer", nullable: false),
+                    QuestionId = table.Column<long>(type: "bigint", nullable: true),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    ModifiedAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    Deleted = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Answers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Answers_Questions_QuestionId",
+                        column: x => x.QuestionId,
+                        principalTable: "Questions",
+                        principalColumn: "Id");
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Answers_QuestionId",
                 table: "Answers",
                 column: "QuestionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Certificates_CertificateTemplateId",
+                table: "Certificates",
+                column: "CertificateTemplateId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Certificates_UserId",
@@ -214,9 +243,9 @@ namespace Backend.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Courses_CertificateId",
+                name: "IX_Courses_CertificateTemplateId",
                 table: "Courses",
-                column: "CertificateId");
+                column: "CertificateTemplateId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Courses_ExamId",
@@ -246,6 +275,9 @@ namespace Backend.Migrations
                 name: "Answers");
 
             migrationBuilder.DropTable(
+                name: "Certificates");
+
+            migrationBuilder.DropTable(
                 name: "Lessons");
 
             migrationBuilder.DropTable(
@@ -255,13 +287,13 @@ namespace Backend.Migrations
                 name: "Courses");
 
             migrationBuilder.DropTable(
-                name: "Certificates");
+                name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "CertificateTemplates");
 
             migrationBuilder.DropTable(
                 name: "Exams");
-
-            migrationBuilder.DropTable(
-                name: "Users");
         }
     }
 }

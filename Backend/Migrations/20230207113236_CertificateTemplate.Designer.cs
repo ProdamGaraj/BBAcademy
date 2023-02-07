@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Backend.Migrations
 {
     [DbContext(typeof(BBAcademyDb))]
-    [Migration("20230205194220_ini")]
-    partial class ini
+    [Migration("20230207113236_CertificateTemplate")]
+    partial class CertificateTemplate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -74,7 +74,7 @@ namespace Backend.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("CourseId")
+                    b.Property<long>("CertificateTemplateId")
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("CreatedAt")
@@ -82,10 +82,6 @@ namespace Backend.Migrations
 
                     b.Property<bool>("Deleted")
                         .HasColumnType("boolean");
-
-                    b.Property<string>("MediaTemplatePath")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<DateTime>("ModifiedAt")
                         .HasColumnType("timestamp without time zone");
@@ -99,9 +95,45 @@ namespace Backend.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CertificateTemplateId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Certificates");
+                });
+
+            modelBuilder.Entity("Backend.Models.CertificateTemplate", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("MediaPath")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("ModifiedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("TextContent")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CertificateTemplates");
                 });
 
             modelBuilder.Entity("Backend.Models.Course", b =>
@@ -112,7 +144,7 @@ namespace Backend.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<long?>("CertificateId")
+                    b.Property<long>("CertificateTemplateId")
                         .HasColumnType("bigint");
 
                     b.Property<int>("CourseType")
@@ -151,7 +183,7 @@ namespace Backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CertificateId");
+                    b.HasIndex("CertificateTemplateId");
 
                     b.HasIndex("ExamId");
 
@@ -370,24 +402,36 @@ namespace Backend.Migrations
 
             modelBuilder.Entity("Backend.Models.Certificate", b =>
                 {
+                    b.HasOne("Backend.Models.CertificateTemplate", "CertificateTemplate")
+                        .WithMany()
+                        .HasForeignKey("CertificateTemplateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Backend.Models.User", null)
                         .WithMany("Certificates")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("CertificateTemplate");
                 });
 
             modelBuilder.Entity("Backend.Models.Course", b =>
                 {
-                    b.HasOne("Backend.Models.Certificate", null)
+                    b.HasOne("Backend.Models.CertificateTemplate", "CertificateTemplate")
                         .WithMany("Courses")
-                        .HasForeignKey("CertificateId");
+                        .HasForeignKey("CertificateTemplateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Backend.Models.Exam", "Exam")
                         .WithMany()
                         .HasForeignKey("ExamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("CertificateTemplate");
 
                     b.Navigation("Exam");
                 });
@@ -410,7 +454,7 @@ namespace Backend.Migrations
                         .HasForeignKey("ExamId");
                 });
 
-            modelBuilder.Entity("Backend.Models.Certificate", b =>
+            modelBuilder.Entity("Backend.Models.CertificateTemplate", b =>
                 {
                     b.Navigation("Courses");
                 });

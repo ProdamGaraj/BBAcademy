@@ -101,9 +101,19 @@ using var dc = serviceScope.ServiceProvider.GetRequiredService<BBAcademyDb>();
 
 app.Use(async (context, next) =>
 {
+    //if (!context.User.Identity.IsAuthenticated)
+    //{
+    //    if (!context.Request.Path.Equals("/Account/Register") && !context.Request.Path.Equals("/Account/Login") && !context.Request.Path.Equals("/"))
+    //    {
+    //        context.Response.Redirect("/Account/Login");
+    //    }
+    //}
+    //else
+    //{
+    //    //context.Response.Redirect("/Account");
+    //}
     await next.Invoke();
 });
-
 app.Run();
 foreach (var item in app.Urls)
 {
