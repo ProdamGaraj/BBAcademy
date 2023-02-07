@@ -20,19 +20,21 @@ namespace Backend.Services
 
         public async Task<IBaseResponce<List<Course>>> GetInCartCourses(User user)
         {
-            List<Course> inKartCourses = new List<Course>();
+            List<Course> inCartCourses = new List<Course>();
             List<Course> allCourses = new List<Course>();
             allCourses.AddRange(await cr.GetAll());
             List<long> courseIds = new List<long>();
-
-            courseIds.AddRange(JsonConvert.DeserializeObject<List<long>>(user.InCartCourses));
+            if (user.InCartCourses is not null)
+            {
+                courseIds.AddRange(JsonConvert.DeserializeObject<List<long>>(user.InCartCourses));
+            }
             foreach (long id in courseIds)
             {
-                inKartCourses.Add(allCourses.FirstOrDefault(x => x.Id == id));
+                inCartCourses.Add(allCourses.FirstOrDefault(x => x.Id == id));
             }
             return new BaseResponse<List<Course>>()
             {
-                Data = inKartCourses,
+                Data = inCartCourses,
                 Description = "Get all courses for a user",
                 StatusCode = Models.Enum.StatusCode.OK
             };

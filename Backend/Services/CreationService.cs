@@ -35,55 +35,18 @@ namespace Backend.Services
         public async Task<IBaseResponce<DataViewModel>> CreateFullCourse(DataViewModel dataViewModel)
         {
             Logger logger = LogManager.GetCurrentClassLogger();
-            Exam Exam = null;
-            Course Course = null;
-            ICollection<Lesson> Lessons = null;
-            ICollection<Question> Questions = null;
-            ICollection<ICollection<Answer>> Answers = null;
-            CertificateTemplate CertificateTemplate = null;
+            Course Course;
+            CertificateTemplate CertificateTemplate;
             try
             {
                 if (dataViewModel is not null)
                 {
-                    Exam = dataViewModel.Course.Exam;
                     Course = dataViewModel.Course;
-                    Lessons = dataViewModel.Course.Lessons;
-                    Questions = dataViewModel.Course.Exam.Questions;
-                    foreach (var item in Questions)
+
+                    if (Course is not null && Course.Name is not null)
                     {
-                        Answers.Add(item.Answers);
+                        courseRepository.Add(Course);
                     }
-                    CertificateTemplate = dataViewModel.Course.CertificateTemplate; //It`s a template adding comming soon
-                }
-                if (Course is not null && Course.Name is not null)
-                {
-                    courseRepository.Add(Course);
-                }
-                if (Exam is not null && Exam.Name is not null)
-                {
-                    examRepository.Add(Exam);
-                }
-                if (Lessons is not null && Lessons.Count >= 1)
-                {
-                    lessonRepository.AddRange(Lessons);
-                }
-                if (Questions is not null && Questions.Count >= 1)
-                {
-                    questionRepository.AddRange(Questions);
-                }
-                if (Answers is not null)
-                {
-                    foreach (var item in Answers)
-                    {
-                        if (item.Count >= 1 && item.All(x => x.Name is not null))
-                        {
-                            answerRepository.AddRange(item);
-                        }
-                    }
-                }
-                if (CertificateTemplate is not null && CertificateTemplate.Name is not null)
-                {
-                    certificateTemplateRepository.Add(CertificateTemplate);
                 }
                 return new BaseResponse<DataViewModel>()
                 {

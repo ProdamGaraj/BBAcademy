@@ -227,6 +227,7 @@ namespace Backend.Services
                 var user = await ur.Get(cvm.User.Id);
                 List<long> boughtIds = new List<long>();
                 var responce = new BaseResponse<CartViewModel>() { Data=cvm};
+                List<Course> courses = cvm.Courses;
                 foreach (var item in cvm.Courses)
                 {
                     var vm = new CourseViewModel()
@@ -255,8 +256,8 @@ namespace Backend.Services
                         passed.Remove(course.Id);
                         user.InCartCourses= JsonConvert.SerializeObject(passed);
                     }
-                    if (await ur.Update(user)) {
-                        cvm.Courses.Add(course);
+                    if (await ur.Update(user)) 
+                    {
                         responce.Description += $"\n Course with id = {item.Id} has been added successfuly!";
                     }
                     else
