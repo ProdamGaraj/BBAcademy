@@ -13,23 +13,10 @@ namespace Backend.Services
     public class CreationService : ICreationService
     {
         private ICourseRepository courseRepository;
-        private IExamRepository examRepository;
-        private ILessonRepository lessonRepository;
-        private IQuestionRepository questionRepository;
-        private IAnswerRepository answerRepository;
-        private ICertificateRepository certificateRepository;
-        private ICertificateTemplateRepository certificateTemplateRepository;
 
-
-        public CreationService(IExamRepository examRepository, ICourseRepository courseRepository, ILessonRepository lessonRepository, IQuestionRepository questionRepository, IAnswerRepository answerRepository, ICertificateRepository certificateRepository, ICertificateTemplateRepository certificateTemplateRepository)
+        public CreationService( ICourseRepository courseRepository)
         {
             this.courseRepository = courseRepository;
-            this.examRepository = examRepository;
-            this.lessonRepository = lessonRepository;
-            this.questionRepository = questionRepository;
-            this.answerRepository = answerRepository;
-            this.certificateRepository = certificateRepository;
-            this.certificateTemplateRepository = certificateTemplateRepository;
         }
 
         public async Task<IBaseResponce<DataViewModel>> CreateFullCourse(DataViewModel dataViewModel)

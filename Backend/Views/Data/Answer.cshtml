@@ -7,6 +7,8 @@
 <form id="log-form" class="log-block-form" method="post" asp-controller="Data" asp-action="Answer">
     <div class="log-container">
         <input name="ModelString" type="hidden" value=@Model.CurrentStruct>
+        <label class="log-label">Name</label>
+        <input name="Answer.Name" placeholder="" class="form-control textbox-dg font-weight-bold text-center reg-log-input" type="text">
         <label class="log-label">Content</label>
         <input name="Answer.Content" placeholder="" class="form-control textbox-dg font-weight-bold text-center reg-log-input" type="text">
         <label class="log-label">Cost</label>
