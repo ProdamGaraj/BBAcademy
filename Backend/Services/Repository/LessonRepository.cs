@@ -59,8 +59,7 @@ namespace Backend.Services.Repository
         {
             try
             {
-
-                Lesson Lesson = await db.Lessons.FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
+                Lesson Lesson = await db.Lessons.FirstAsync(b => b.Id == id && !b.Deleted);
                 return Lesson;
 
             }

@@ -47,7 +47,7 @@ namespace Backend.Services.Repository
             try
             {
 
-                Exam Exam = await db.Exams.Include("Questions").FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
+                Exam Exam = await db.Exams.Include("Questions").FirstAsync(b => b.Id == id && !b.Deleted);
                 return Exam;
 
             }

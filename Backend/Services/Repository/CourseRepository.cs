@@ -2,6 +2,7 @@
 using Backend.Services.Repository.Interfaces;
 using NLog;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace Backend.Services.Repository
 {
@@ -22,21 +23,24 @@ namespace Backend.Services.Repository
                 entity.CreatedAt = DateTime.Now;
                 entity.ModifiedAt = DateTime.Now;
                 db.Courses.Add(entity);
-                LessonRepository lr = new LessonRepository(db);
-                if (entity.Lessons is not null)
-                    foreach (Lesson lesson in entity.Lessons)
-                    {
-                        if (await lr.Get(lesson.Id) is not null)
-                        {
-                            db.Entry(lesson).State = EntityState.Unchanged;
-                        }
-                    }
-                ExamRepository er = new ExamRepository(db);
-                if (entity.Exam is not null)
-                    if (await er.Get(entity.Exam.Id) is not null)
-                    {
-                        db.Entry(entity.Exam).State = EntityState.Unchanged;
-                    }
+                //LessonRepository lr = new LessonRepository(db);
+                //if (entity.Lessons is not null)
+                //    foreach (Lesson lesson in entity.Lessons)
+                //    {
+                //        if (lesson.Id != null)
+                //            if ((await lr.Get(lesson.Id)).Name is not null)
+                //            {
+                //                db.Entry(lesson).State = EntityState.Unchanged;
+                //            }
+                //    }
+                //ExamRepository er = new ExamRepository(db);
+                //if (entity.Exam is not null)
+                //    if (entity.Exam.Id != null && (await er.Get(entity.Exam.Id)).Name is not null)
+                //    {
+                //        db.Entry(entity.Exam).State = EntityState.Unchanged;
+                //    }
+
+
                 await db.SaveChangesAsync();
 
                 return true;
