@@ -8,7 +8,7 @@
 <form id="log-form" class="log-block-form" method="post" asp-controller="Data" asp-action="Lesson">
     <div class="log-container">
 
-        <input name="ModelString" type="hidden" value=@Model.CurrentStruct>
+        <input name="ModelString" type="hidden" value="@Model.CurrentStruct">
         <label class="log-label">Name</label>
         <input name="Lesson.Name" placeholder="" class="form-control textbox-dg font-weight-bold text-center reg-log-input" type="text" required>
         <label class="log-label">Description</label>
@@ -27,7 +27,7 @@
 <form id="log-form" class="log-block-form" method="post" asp-controller="Data" asp-action="Exam">
     <div class="log-container">
 
-        <input name="ModelString" type="hidden" value=@Model.CurrentStruct>
+        <input name="ModelString" type="hidden" value="@Model.CurrentStruct">
         <button type="submit" class="registerbtn">
             <div class="log-in-btn">Add exam</div>
         </button>
