@@ -1,25 +1,33 @@
-﻿using Backend.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Backend.Models;
 using Backend.Services.Repository.Interfaces;
-using NLog;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
+using Microsoft.Extensions.Logging;
 
 namespace Backend.Services.Repository
 {
     public class CourseRepository : ICourseRepository
     {
         private readonly BBAcademyDb db;
-        Logger logger;
-        public CourseRepository(BBAcademyDb db)
+        private IExamRepository _examRepository;
+        private ILessonRepository _lessonRepository;
+        private ILogger<CourseRepository> _logger;
+
+        public CourseRepository(BBAcademyDb db, ILogger<CourseRepository> logger, IExamRepository examRepository, ILessonRepository lessonRepository)
         {
-            logger = LogManager.GetCurrentClassLogger();
             this.db = db;
+            _logger = logger;
+            _examRepository = examRepository;
+            _lessonRepository = lessonRepository;
         }
+
         public async Task<bool> Add(Course entity)
         {
             try
             {
-
                 entity.CreatedAt = DateTime.Now;
                 entity.ModifiedAt = DateTime.Now;
                 db.Courses.Add(entity);
@@ -40,14 +48,14 @@ namespace Backend.Services.Repository
                 //        db.Entry(entity.Exam).State = EntityState.Unchanged;
                 //    }
 
-
+                _logger.LogError("Saving changes");
                 await db.SaveChangesAsync();
 
                 return true;
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return false;
             }
         }
@@ -56,14 +64,14 @@ namespace Backend.Services.Repository
         {
             try
             {
-
-                Course Course = await db.Courses.Include("Lessons").Include("Exam").FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
+                Course Course = await db.Courses.Include("Lessons")
+                    .Include("Exam")
+                    .FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
                 return Course;
-
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return null;
             }
         }
@@ -72,14 +80,14 @@ namespace Backend.Services.Repository
         {
             try
             {
-
-                IList<Course> myCourse = db.Courses.Include("Lessons").Include("Exam").ToList();
+                IList<Course> myCourse = db.Courses.Include("Lessons")
+                    .Include("Exam")
+                    .ToList();
                 return myCourse;
-
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return null;
             }
         }
@@ -88,7 +96,6 @@ namespace Backend.Services.Repository
         {
             try
             {
-
                 var result = await db.Courses.FirstOrDefaultAsync(b => b.Id.Equals(entity.Id));
                 if (result != null)
                 {
@@ -99,14 +106,13 @@ namespace Backend.Services.Repository
                 }
                 else
                 {
-                    logger.Error("No such entity to mark");
+                    _logger.LogError("No such entity to mark");
                     return false;
                 }
-
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return false;
             }
         }
@@ -115,38 +121,39 @@ namespace Backend.Services.Repository
         {
             try
             {
-
                 var result = await db.Courses.FirstOrDefaultAsync(b => b.Id.Equals(entity.Id));
                 if (result != null)
                 {
                     entity.ModifiedAt = DateTime.Now;
                     db.Courses.Update(entity);
-                    LessonRepository lr = new LessonRepository(db);
                     if (entity.Lessons is not null)
+                    {
                         foreach (Lesson lesson in entity.Lessons)
                         {
-                            await lr.Update(lesson);
+                            await _lessonRepository.Update(lesson);
                         }
-                    ExamRepository er = new ExamRepository(db);
+                    }
 
                     if (entity.Exam is not null)
-                        if (await er.Get(entity.Exam.Id) is not null)
+                    {
+                        if ((await _examRepository.Get(entity.Exam.Id)) is not null)
                         {
-                            await er.Update(entity.Exam);
+                            await _examRepository.Update(entity.Exam);
                         }
+                    }
+
                     await db.SaveChangesAsync();
                     return true;
                 }
                 else
                 {
-                    logger.Error("No such entity to update");
+                    _logger.LogError("No such entity to update");
                     return false;
                 }
-
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return false;
             }
         }

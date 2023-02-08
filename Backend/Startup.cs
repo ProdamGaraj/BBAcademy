@@ -1,11 +1,7 @@
-﻿using Backend.Services.AccountService.Interfaces;
-using Backend.Services.AccountService;
-using Backend.Services.Repository;
-using Backend.Services.Repository.Interfaces;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
-using Backend.Services;
-using Backend.Services.Interfaces;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Backend
 {

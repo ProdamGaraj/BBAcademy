@@ -1,13 +1,15 @@
-﻿using Backend.Models.Interfaces;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Backend.Models.Interfaces;
 using Backend.Models.Responce;
 using Backend.Models;
 using Backend.ViewModels;
 using Newtonsoft.Json;
 using Backend.Models.Enum;
-using NLog;
-using Backend.Services.Repository;
 using Backend.Services.Repository.Interfaces;
 using Backend.Services.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace Backend.Services
 {
@@ -15,16 +17,17 @@ namespace Backend.Services
     {
         private ICourseRepository cr;
         private IUserRepository ur;
+        private ILogger<LessonService> _logger;
 
-        public LessonService(ICourseRepository cr, IUserRepository ur)
+        public LessonService(ICourseRepository cr, IUserRepository ur, ILogger<LessonService> logger)
         {
             this.cr = cr;
             this.ur = ur;
+            _logger = logger;
         }
 
         public async Task<IBaseResponce<ICollection<Lesson>>> GetLessons(LessonViewModel vm)
         {
-            Logger logger = LogManager.GetCurrentClassLogger();
             try
             {
                 var course = await cr.Get(vm.Course.Id);
@@ -39,7 +42,7 @@ namespace Backend.Services
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return new BaseResponse<ICollection<Lesson>>()
                 {
                     Description = ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace,

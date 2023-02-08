@@ -1,22 +1,26 @@
-﻿using Backend.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Backend.Models;
 using Backend.Models.Enum;
 using Backend.Services.Repository.Interfaces;
-using NLog;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.Extensions.Logging;
 
 namespace Backend.Services.Repository
 {
     public class QuestionRepository : IQuestionRepository
     {
-
-        Logger logger;
         private readonly BBAcademyDb db;
-
-        public QuestionRepository(BBAcademyDb db)
+        private ILogger<QuestionRepository> _logger;
+        private IAnswerRepository _answerRepository;
+        
+        public QuestionRepository(BBAcademyDb db, ILogger<QuestionRepository> logger, IAnswerRepository answerRepository)
         {
-            logger = LogManager.GetCurrentClassLogger();
             this.db = db;
+            _logger = logger;
+            _answerRepository = answerRepository;
         }
         public async Task<bool> Add(Question entity)
         {
@@ -26,11 +30,10 @@ namespace Backend.Services.Repository
                 entity.CreatedAt = DateTime.Now;
                 entity.ModifiedAt = DateTime.Now;
                 db.Questions.Add(entity);
-                AnswerRepository ar = new AnswerRepository(db);
                 if (entity.Answers is not null)
                     foreach (Answer lesson in entity.Answers)
                     {
-                        if (await ar.Get(lesson.Id) is not null)
+                        if (await _answerRepository.Get(lesson.Id) is not null)
                         {
                             db.Entry(lesson).State = EntityState.Unchanged;
                         }
@@ -41,7 +44,7 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return false;
             }
         }
@@ -61,7 +64,7 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return false;
             }
         }
@@ -70,15 +73,13 @@ namespace Backend.Services.Repository
         {
             try
             {
-
-
-                Question Question = await db.Questions.Include("Answers").FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
-                return Question;
+                Question question = await db.Questions.Include("Answers").FirstOrDefaultAsync(b => b.Id == id && !b.Deleted);
+                return question;
 
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return null;
             }
         }
@@ -94,7 +95,7 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return null;
             }
         }
@@ -114,14 +115,14 @@ namespace Backend.Services.Repository
                 }
                 else
                 {
-                    logger.Error("No such entity to mark");
+                    _logger.LogError("No such entity to mark");
                     return false;
                 }
 
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return false;
             }
         }
@@ -135,25 +136,24 @@ namespace Backend.Services.Repository
                 {
                     entity.ModifiedAt = DateTime.Now;
                     db.Questions.Update(entity);
-                    AnswerRepository ar = new AnswerRepository(db);
                     if (entity.Answers is not null)
                         foreach (Answer answer in entity.Answers)
                         {
-                            await ar.Update(answer);
+                            await _answerRepository.Update(answer);
                         }
                     await db.SaveChangesAsync();
                     return true;
                 }
                 else
                 {
-                    logger.Error("No such entity to update");
+                    _logger.LogError("No such entity to update");
                     return false;
                 }
 
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return false;
             }
         }
@@ -173,7 +173,7 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return null;
             }
         }

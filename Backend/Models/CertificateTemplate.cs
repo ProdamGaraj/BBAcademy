@@ -1,4 +1,6 @@
-﻿namespace Backend.Models
+﻿using System.Collections.Generic;
+
+namespace Backend.Models
 {
     public class CertificateTemplate:Entity
     {

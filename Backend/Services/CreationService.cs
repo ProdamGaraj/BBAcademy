@@ -1,38 +1,40 @@
-﻿using Backend.Models;
+﻿using System;
+using System.Threading.Tasks;
+using Backend.Models;
 using Backend.Models.Enum;
 using Backend.Models.Interfaces;
 using Backend.Models.Responce;
 using Backend.Services.Interfaces;
-using Backend.Services.Repository;
 using Backend.Services.Repository.Interfaces;
 using Backend.ViewModels;
-using NLog;
+using Microsoft.Extensions.Logging;
 
 namespace Backend.Services
 {
     public class CreationService : ICreationService
     {
         private ICourseRepository courseRepository;
+        private ILogger<CreationService> _logger;
 
-        public CreationService( ICourseRepository courseRepository)
+        public CreationService( ICourseRepository courseRepository, ILogger<CreationService> logger)
         {
             this.courseRepository = courseRepository;
+            _logger = logger;
         }
 
         public async Task<IBaseResponce<DataViewModel>> CreateFullCourse(DataViewModel dataViewModel)
         {
-            Logger logger = LogManager.GetCurrentClassLogger();
-            Course Course;
-            CertificateTemplate CertificateTemplate;
+            Course course;
             try
             {
                 if (dataViewModel is not null)
                 {
-                    Course = dataViewModel.Course;
+                    course = dataViewModel.Course;
 
-                    if (Course is not null && Course.Name is not null)
+                    if (course is not null && course.Name is not null)
                     {
-                        await courseRepository.Add(Course);
+                        _logger.LogError("CreateFullCourse before add");
+                        await courseRepository.Add(course);
                     }
                 }
                 return new BaseResponse<DataViewModel>()
@@ -44,7 +46,7 @@ namespace Backend.Services
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return new BaseResponse<DataViewModel>()
                 {
                     Description = ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace,

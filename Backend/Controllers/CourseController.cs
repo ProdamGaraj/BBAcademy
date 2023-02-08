@@ -1,16 +1,14 @@
-﻿using Backend.Models;
-using Backend.Models.Enum;
-using Backend.Services;
-using Backend.Services.AccountService;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Backend.Models;
 using Backend.Services.AccountService.Interfaces;
 using Backend.Services.Interfaces;
-using Backend.Services.Repository;
 using Backend.Services.Repository.Interfaces;
 using Backend.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using NuGet.Packaging.Signing;
 
 namespace Backend.Controllers
 {

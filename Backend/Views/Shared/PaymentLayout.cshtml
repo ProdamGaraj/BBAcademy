@@ -1,29 +1,31 @@
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
     var bilimbank = "@bilimbank";
 
-    string rights = "© 2023 Все права защищены, bilimbank";
-    string learningproc = "Процесс обучения";
-    string usagepol = "Условия использования"; ;
-    string privpol = "Политика конфиденциальности";
+    string rights = "пїЅ 2023 пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, bilimbank";
+    string learningproc = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
+    string usagepol = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ"; ;
+    string privpol = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
     int? inCart = Context.Session.GetInt32("inCart");
     if (inCart is null)
         inCart = 0;
     if (Context.Session.GetInt32("language") == 0)
     {
-        rights = "© 2023 Barcha huquqlar himoyalangan, bilimbank";
-        learningproc = "O’quv jarayoni";
+        rights = "пїЅ 2023 Barcha huquqlar himoyalangan, bilimbank";
+        learningproc = "OпїЅquv jarayoni";
         usagepol = "Ishlatish shartlari";
         privpol = "Maxfiylik siyosati";
     }
     else
     {
-        rights = "© 2023 Все права защищены, bilimbank";
-        learningproc = "Процесс обучения";
-        usagepol = "Условия использования";
-        privpol = "Политика конфиденциальности";
+        rights = "пїЅ 2023 пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, bilimbank";
+        learningproc = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
+        usagepol = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
+        privpol = "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
     }
 }
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers

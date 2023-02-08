@@ -1,14 +1,15 @@
-﻿using Backend.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Backend.Models;
 using Backend.Models.Enum;
 using Backend.Models.Interfaces;
 using Backend.Models.Responce;
 using Backend.Services.Interfaces;
-using Backend.Services.Repository;
 using Backend.Services.Repository.Interfaces;
 using Backend.ViewModels;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using NLog;
-using System.Linq;
 
 namespace Backend.Services
 {
@@ -18,18 +19,19 @@ namespace Backend.Services
         private ICourseRepository cr;
         private IUserRepository ur;
         private IQuestionRepository qr;
+        private ILogger<ExamService> _logger;
 
-        public ExamService(ICertificateService cs, ICourseRepository cr, IUserRepository ur, IQuestionRepository qr)
+        public ExamService(ICertificateService cs, ICourseRepository cr, IUserRepository ur, IQuestionRepository qr, ILogger<ExamService> logger)
         {
             this.cs = cs;
             this.cr = cr;
             this.ur = ur;
             this.qr = qr;
+            _logger = logger;
         }
 
         public async Task<IBaseResponce<Exam>> GetExamForUser(ExamViewModel vm)
         {
-            Logger logger = LogManager.GetCurrentClassLogger();
             try
             {
                 var course = new Course();
@@ -68,7 +70,7 @@ namespace Backend.Services
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return new BaseResponse<Exam>()
                 {
                     Description = ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace,
@@ -79,7 +81,6 @@ namespace Backend.Services
 
         public async Task<IBaseResponce<Exam>> CreateExamWithId(string description, string examType, List<long> ids)
         {
-            Logger logger = LogManager.GetCurrentClassLogger();
             try
             {
                 Exam exam = new Exam(description, examType, new List<Question>());
@@ -96,7 +97,7 @@ namespace Backend.Services
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return new BaseResponse<Exam>()
                 {
                     Description = ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace,
@@ -107,7 +108,6 @@ namespace Backend.Services
         }
         public async Task<IBaseResponce<Exam>> CreateExamWithType(string description, string examType, Dictionary<QuestionType, int> keyValues)
         {
-            Logger logger = LogManager.GetCurrentClassLogger();
             try
             {
                 Exam exam = new Exam(description, examType, new List<Question>());
@@ -122,7 +122,7 @@ namespace Backend.Services
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return new BaseResponse<Exam>()
                 {
                     Description = ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace,
@@ -134,7 +134,6 @@ namespace Backend.Services
         public async Task<IBaseResponce<bool>> Check(CourseViewModel vm)
         {
             var user = await ur.Get(vm.User.Id);
-            Logger logger = LogManager.GetCurrentClassLogger();
             try
             {
                 int currentGrade = 0;
@@ -201,7 +200,7 @@ namespace Backend.Services
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return new BaseResponse<bool>()
                 {
                     Description = ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace,

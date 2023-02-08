@@ -1,13 +1,15 @@
-﻿using Backend.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Backend.Models;
 using Backend.Models.Interfaces;
 using Backend.Models.Responce;
 using Backend.Services.Interfaces;
-using Backend.Services.Repository;
 using Backend.Services.Repository.Interfaces;
 using Backend.ViewModels;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using NLog;
-using System.Collections.Generic;
 
 namespace Backend.Services
 {
@@ -25,12 +27,14 @@ namespace Backend.Services
         private ICourseRepository cr;
         private IQuestionRepository qr;
         private IExamRepository er;
-        public CourseService(IUserRepository ur, ICourseRepository cr, IQuestionRepository qr, IExamRepository er)
+        private ILogger<CourseService> _logger;
+        public CourseService(IUserRepository ur, ICourseRepository cr, IQuestionRepository qr, IExamRepository er, ILogger<CourseService> logger)
         {
             this.ur = ur;
             this.cr = cr;
             this.qr = qr;
             this.er = er;
+            _logger = logger;
         }
 
         public async Task<IBaseResponce<AccountViewModel>> GetCourses(CourseViewModel vm)
@@ -42,7 +46,6 @@ namespace Backend.Services
             {
                 user = await ur.Get(vm.User.Id);
             }
-            Logger logger = LogManager.GetCurrentClassLogger();
 
             try
             {
@@ -64,7 +67,7 @@ namespace Backend.Services
                                 passedCourses.Add(allCourses.First(x => x.Id == id));
                                 allCourses.Remove(passedCourses.Last());
                             }
-                            catch (Exception ex) { logger.Error(ex.Message); }
+                            catch (Exception ex) { _logger.LogError(ex.Message); }
                         }
                     }
                 }
@@ -106,7 +109,7 @@ namespace Backend.Services
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return new BaseResponse<AccountViewModel>()
                 {
                     Data = null,
@@ -118,7 +121,6 @@ namespace Backend.Services
 
         public async Task<IBaseResponce<CourseViewModel>> GetCourse(CourseViewModel vm)
         {
-            Logger logger = LogManager.GetCurrentClassLogger();
             try
             {
                 var course = await cr.Get(vm.IdCourse);
@@ -157,7 +159,7 @@ namespace Backend.Services
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return new BaseResponse<CourseViewModel>()
                 {
                     Data = null,
@@ -221,7 +223,6 @@ namespace Backend.Services
         }
         public async Task<IBaseResponce<CartViewModel>> BuyCourses(CartViewModel cvm)
         {
-            Logger logger = LogManager.GetCurrentClassLogger();
             try
             {
                 var user = await ur.Get(cvm.User.Id);
@@ -271,7 +272,7 @@ namespace Backend.Services
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return new BaseResponse<CartViewModel>()
                 {
                     Data = null,

@@ -1,11 +1,11 @@
-﻿using Backend.Models;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Backend.Models;
 using Backend.Models.Interfaces;
 using Backend.Models.Responce;
 using Backend.Services.Interfaces;
-using Backend.Services.Repository;
 using Backend.Services.Repository.Interfaces;
-using Backend.ViewModels;
-using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace Backend.Services

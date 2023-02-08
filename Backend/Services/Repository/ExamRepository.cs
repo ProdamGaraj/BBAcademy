@@ -1,19 +1,23 @@
-﻿using Backend.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Backend.Models;
 using Backend.Services.Repository.Interfaces;
-using NLog;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.Extensions.Logging;
 
 namespace Backend.Services.Repository
 {
     public class ExamRepository : IExamRepository
     {
         private readonly BBAcademyDb db;
-        Logger logger;
-        public ExamRepository(BBAcademyDb db)
+        private readonly IQuestionRepository _questionRepository;
+        private ILogger<ExamRepository> _logger;
+        public ExamRepository(BBAcademyDb db, IQuestionRepository questionRepository, ILogger<ExamRepository> logger)
         {
-            logger = LogManager.GetCurrentClassLogger();
             this.db = db;
+            _questionRepository = questionRepository;
+            _logger = logger;
         }
         public async Task<bool> Add(Exam entity)
         {
@@ -22,11 +26,10 @@ namespace Backend.Services.Repository
                 entity.CreatedAt = DateTime.Now;
                 entity.ModifiedAt = DateTime.Now;
                 db.Exams.Add(entity);
-                QuestionRepository qr = new QuestionRepository(db);
                 if (entity.Questions is not null)
                     foreach (Question question in entity.Questions)
                     {
-                        if (await qr.Get(question.Id) is not null)
+                        if (await _questionRepository.Get(question.Id) is not null)
                         {
                             db.Entry(question).State = EntityState.Unchanged;
                         }
@@ -37,7 +40,7 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return false;
             }
         }
@@ -53,7 +56,7 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return new Exam();
             }
         }
@@ -69,7 +72,7 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return new List<Exam>();
             }
         }
@@ -89,14 +92,14 @@ namespace Backend.Services.Repository
                 }
                 else
                 {
-                    logger.Error("No such entity to mark");
+                    _logger.LogError("No such entity to mark");
                     return false;
                 }
 
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return false;
             }
         }
@@ -112,25 +115,24 @@ namespace Backend.Services.Repository
                     entity.ModifiedAt = DateTime.Now;
                     db.Exams.Update(entity);
 
-                    QuestionRepository qr = new QuestionRepository(db);
                     if (entity.Questions is not null)
                         foreach (Question question in entity.Questions)
                         {
-                            await qr.Update(question);
+                            await _questionRepository.Update(question);
                         }
                     await db.SaveChangesAsync();
                     return true;
                 }
                 else
                 {
-                    logger.Error("No such entity to update");
+                    _logger.LogError("No such entity to update");
                     return false;
                 }
 
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return false;
             }
         }

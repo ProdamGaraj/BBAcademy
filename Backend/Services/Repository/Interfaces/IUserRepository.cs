@@ -1,6 +1,5 @@
 ﻿using Backend.Models;
 using Backend.Services.Repository.ICRUD;
-using Microsoft.EntityFrameworkCore.Update;
 
 namespace Backend.Services.Repository.Interfaces
 {

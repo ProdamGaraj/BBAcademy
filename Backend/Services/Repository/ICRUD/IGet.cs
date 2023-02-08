@@ -1,4 +1,6 @@
-﻿namespace Backend.Services.Repository.ICRUD
+﻿using System.Threading.Tasks;
+
+namespace Backend.Services.Repository.ICRUD
 {
     public interface IGet<TEntity> where TEntity : class
     {

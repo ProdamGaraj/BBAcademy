@@ -1,11 +1,11 @@
-﻿using Backend.Models;
-using Backend.Services.AccountService.Interfaces;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Backend.Models;
 using Backend.Services.Interfaces;
-using Backend.Services.Repository;
-using Backend.Services.Repository.Interfaces;
 using Backend.ViewModels;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace Backend.Controllers
@@ -31,12 +31,13 @@ namespace Backend.Controllers
         public string ModelString { get; set; }
         public DataViewModel Model { get; set; } = new DataViewModel();
         private readonly ICreationService creationService;
+        private ILogger<DataController> _logger;
 
 
-        public DataController(ICreationService creationService)
+        public DataController(ICreationService creationService, ILogger<DataController> logger)
         {
             this.creationService = creationService;
-          
+            _logger = logger;
         }
         // GET: DataController
         public async Task<ActionResult> IndexAsync()
@@ -135,8 +136,10 @@ namespace Backend.Controllers
             Model.Course.CertificateTemplate = CertificateTemplate;
             dvm = Model;
             dvm.CurrentStruct = null;
-            dvm.CurrentStruct = JsonConvert.SerializeObject(dvm);
-            creationService.CreateFullCourse(dvm);
+            dvm.CurrentStruct = JsonConvert.SerializeObject(dvm, Formatting.Indented);
+            _logger.LogError("Creating {current_struct}", dvm.CurrentStruct);
+            await creationService.CreateFullCourse(dvm);
+            _logger.LogError("Finished creating");
             return RedirectToAction("Course");
         }
 

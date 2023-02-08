@@ -1,37 +1,50 @@
-﻿using Backend;
-using Microsoft.AspNetCore;
+﻿using System;
+using System.Linq;
+using Backend;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Backend.Services.Repository.Interfaces;
 using Backend.Services.Repository;
 using Backend.Services.AccountService;
 using Backend.Services.AccountService.Interfaces;
 using Microsoft.EntityFrameworkCore;
-
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using NLog;
-using Backend.Models;
-using Microsoft.AspNetCore.Mvc;
-using System.Data.Entity;
 using Backend.Services.Interfaces;
 using Backend.Services;
-using System.Net.Security;
-using System.Net;
-using System.Security.Cryptography.X509Certificates;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Serilog;
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
-var builder = Microsoft.AspNetCore.Builder.WebApplication.CreateBuilder(args);
-var connection=builder.Configuration.GetConnectionString("DefaultConnection");
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Host
+    .UseSerilog(
+        (builderContext, config) =>
+        {
+            config
+                .MinimumLevel.Information()
+                .Enrich.FromLogContext()
+                .WriteTo.Seq("http://seq")
+                .ReadFrom.Configuration(builderContext.Configuration)
+                .WriteTo.Console();
+        }
+    );
+
+
 builder.Logging.ClearProviders();
-builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Information);
+builder.Logging.SetMinimumLevel(LogLevel.Information);
+builder.Logging.AddSerilog(dispose: true);
+
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<BBAcademyDb>(options=>options.UseNpgsql(connection));
+var connection = builder.Configuration.GetConnectionString("DefaultConnection");
+
+builder.Services.AddDbContext<BBAcademyDb>(options => options.UseNpgsql(connection));
 
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<ICertificateService, CertificateService>();
@@ -54,31 +67,48 @@ builder.Services.AddScoped<ICertificateTemplateRepository, CertificateTemplateRe
 builder.Services.AddRazorPages();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-	.AddCookie(options =>
-	{
-		options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
-		options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
-	});
+    .AddCookie(
+        options =>
+        {
+            options.LoginPath = new PathString("/Account/Login");
+            options.AccessDeniedPath = new PathString("/Account/Login");
+        }
+    );
 builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession(options=>{
-	options.IdleTimeout = TimeSpan.FromMinutes(5);
-	options.Cookie.HttpOnly = true;
-	options.Cookie.IsEssential= true;
-});
+builder.Services.AddSession(
+    options =>
+    {
+        options.IdleTimeout = TimeSpan.FromMinutes(5);
+        options.Cookie.HttpOnly = true;
+        options.Cookie.IsEssential = true;
+    }
+);
 
 var app = builder.Build();
+
+{
+    using var scope = app.Services.CreateScope();
+    var context = scope.ServiceProvider.GetRequiredService<BBAcademyDb>();
+
+    if (context.Database.GetPendingMigrations().Any())
+    {
+        await context.Database.MigrateAsync();
+    }
+}
 if (!app.Environment.IsDevelopment())
 {
-	app.UseExceptionHandler("/Home/Error");
-	app.UseHsts();
+    app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 app.UseStaticFiles();
-app.UseStaticFiles(new StaticFileOptions
-{
-	FileProvider = new PhysicalFileProvider(builder.Environment.ContentRootPath)
-});
+app.UseStaticFiles(
+    new StaticFileOptions
+    {
+        FileProvider = new PhysicalFileProvider(builder.Environment.ContentRootPath)
+    }
+);
 
 app.UseRouting();
 
@@ -86,39 +116,46 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();
 
-app.UseCors(builder =>
-{
-	builder.AllowAnyMethod().AllowAnyHeader().SetIsOriginAllowed(_ => true).AllowCredentials();
-});
+app.UseCors(
+    builder =>
+    {
+        builder.AllowAnyMethod()
+            .AllowAnyHeader()
+            .SetIsOriginAllowed(_ => true)
+            .AllowCredentials();
+    }
+);
+
+app.Use(
+    async (context, next) =>
+    {
+        if (!context.User.Identity.IsAuthenticated)
+        {
+            if (!context.Request.Path.Equals("/Account/Register") && !context.Request.Path.Equals("/Account/Login") && !context.Request.Path.Equals("/"))
+            {
+                context.Response.Redirect("/Account/Login");
+            }
+        }
+        else
+        {
+            //context.Response.Redirect("/Account");
+        }
+
+        await next.Invoke();
+    }
+);
 
 app.MapControllerRoute(
-	name: "default",
-	pattern: "{controller=Home}/{action=Index}/{id?}");
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}"
+);
 
-
-using var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
-using var dc = serviceScope.ServiceProvider.GetRequiredService<BBAcademyDb>();
-
-app.Use(async (context, next) =>
-{
-    if (!context.User.Identity.IsAuthenticated)
-    {
-        if (!context.Request.Path.Equals("/Account/Register") && !context.Request.Path.Equals("/Account/Login") && !context.Request.Path.Equals("/"))
-        {
-            context.Response.Redirect("/Account/Login");
-        }
-    }
-    else
-    {
-        //context.Response.Redirect("/Account");
-    }
-    await next.Invoke();
-});
-app.Run();
 foreach (var item in app.Urls)
 {
     Console.WriteLine(item);
 }
+
+await app.RunAsync();
 
 //public static IWebHost BuildWebHost(string[] args)=>
 //	WebHost.CreateDefaultBuilder(args)

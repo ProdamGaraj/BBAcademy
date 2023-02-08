@@ -1,12 +1,11 @@
-﻿using Backend.Models;
-using Backend.Services.AccountService;
+﻿using System;
+using System.Threading.Tasks;
+using Backend.Models;
 using Backend.Services.AccountService.Interfaces;
-using Backend.Services.Interfaces;
-using Backend.Services.Repository;
 using Backend.Services.Repository.Interfaces;
 using Backend.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Globalization;
 
 namespace Backend.Controllers
 {

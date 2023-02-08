@@ -1,33 +1,37 @@
-﻿using Backend.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using Backend.Models;
 using Backend.Models.Enum;
 using Backend.Models.Interfaces;
 using Backend.Models.Responce;
 using Backend.Services.AccountService.Interfaces;
 using Backend.Services.Interfaces;
-using Backend.Services.Repository;
 using Backend.Services.Repository.Interfaces;
 using Backend.ViewModels;
-using NLog;
 using System.Reflection;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace Backend.Services
 {
     public class CertificateService:ICertificateService
     {
-        Logger logger = LogManager.GetCurrentClassLogger();
         private IAccountService accountService;
         private ICertificateRepository certificateRepository;
         private IUserRepository userRepository;
         private ICourseRepository courseRepository;
         private ICertificateTemplateRepository certificateTemplateRepository;
+        private ILogger<CertificateService> _logger;
 
-        public CertificateService(IAccountService _accountService, ICertificateRepository _cr, IUserRepository _ur, ICourseRepository _cor)
+        public CertificateService(IAccountService _accountService, ICertificateRepository _cr, IUserRepository _ur, ICourseRepository _cor, ILogger<CertificateService> logger)
         {
             accountService = _accountService;
             certificateRepository = _cr;
             userRepository = _ur;
             courseRepository = _cor;
+            _logger = logger;
         }
         public async Task<IBaseResponce<Certificate>> CreateCertificate(CourseViewModel vm)
         {
@@ -56,7 +60,7 @@ namespace Backend.Services
                 }
                 catch (Exception ex)
                 {
-                    logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                    _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                     return new BaseResponse<Certificate>()
                     {
                         Description = ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace,
@@ -75,7 +79,7 @@ namespace Backend.Services
         {
             User user = await userRepository.Get(vm.User.Id);
             List<Certificate> certificates = (await certificateRepository.GetAll()).Where(x=>x.UserId==user.Id).ToList();
-            if (user is not null&&certificates is not null)
+            if (user is not null && certificates is not null)
             {
                 return new BaseResponse<List<Certificate>>()
                 {

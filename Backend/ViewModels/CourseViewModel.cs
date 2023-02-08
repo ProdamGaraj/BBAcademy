@@ -1,5 +1,5 @@
-﻿using Backend.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
+using Backend.Models;
 
 namespace Backend.ViewModels
 {

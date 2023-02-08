@@ -1,19 +1,21 @@
-﻿using Backend.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Backend.Models;
 using Backend.Services.Repository.Interfaces;
-using NLog;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.Extensions.Logging;
 
 namespace Backend.Services.Repository
 {
     public class LessonRepository : ILessonRepository
     {
         private readonly BBAcademyDb db;
-        Logger logger;
-        public LessonRepository(BBAcademyDb db)
+        private ILogger<LessonRepository> _logger;
+        public LessonRepository(BBAcademyDb db, ILogger<LessonRepository> logger)
         {
-            logger = LogManager.GetCurrentClassLogger();
             this.db = db;
+            _logger = logger;
         }
         public async Task<bool> Add(Lesson entity)
         {
@@ -29,7 +31,7 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return false;
             }
         }
@@ -49,7 +51,7 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return false;
             }
 
@@ -65,7 +67,7 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return new Lesson();
             }
         }
@@ -81,7 +83,7 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return new List<Lesson>();
             }
         }
@@ -101,14 +103,14 @@ namespace Backend.Services.Repository
                 }
                 else
                 {
-                    logger.Error("No such entity to mark");
+                    _logger.LogError("No such entity to mark");
                     return false;
                 }
 
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return false;
             }
         }
@@ -128,14 +130,14 @@ namespace Backend.Services.Repository
                 }
                 else
                 {
-                    logger.Error("No such entity to update");
+                    _logger.LogError("No such entity to update");
                     return false;
                 }
 
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return false;
             }
         }

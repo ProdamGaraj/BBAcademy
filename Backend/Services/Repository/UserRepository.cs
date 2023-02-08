@@ -1,18 +1,25 @@
-﻿using Backend.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Backend.Models;
 using Backend.Services.Repository.Interfaces;
-using NLog;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.Extensions.Logging;
+
 namespace Backend.Services.Repository
 {
     public class UserRepository : IUserRepository
     {
         private readonly BBAcademyDb db;
-        Logger logger;
-        public UserRepository(BBAcademyDb db)
+        private ILogger<UserRepository> _logger;
+        private ICertificateRepository _certificateRepository;
+        private ILessonRepository _lessonRepository;
+        public UserRepository(BBAcademyDb db, ILogger<UserRepository> logger, ICertificateRepository certificateRepository, ILessonRepository lessonRepository)
         {
-            logger = LogManager.GetCurrentClassLogger();
             this.db = db;
+            _logger = logger;
+            _certificateRepository = certificateRepository;
+            _lessonRepository = lessonRepository;
         }
         public async Task<bool> Add(User entity)
         {
@@ -23,20 +30,18 @@ namespace Backend.Services.Repository
                 entity.ModifiedAt = DateTime.Now;
                 db.Users.Add(entity);
 
-                CertificateRepository cr = new CertificateRepository(db);
                 if (entity.Certificates is not null)
                     foreach (Certificate certificate in entity.Certificates)
                     {
-                        if (cr.Get(certificate.Id) is not null)
+                        if (_certificateRepository.Get(certificate.Id) is not null)
                         {
                             db.Entry(certificate).State = EntityState.Unchanged;
                         }
                     }
-                LessonRepository lr = new LessonRepository(db);
                 if (entity.SolvedLessons is not null)
                     foreach (Lesson lesson in entity.SolvedLessons)
                     {
-                        if (lr.Get(lesson.Id) is not null)
+                        if (_lessonRepository.Get(lesson.Id) is not null)
                         {
                             db.Entry(lesson).State = EntityState.Unchanged;
                         }
@@ -47,7 +52,7 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return false;
             }
         }
@@ -63,7 +68,7 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return null;
             }
         }
@@ -79,7 +84,7 @@ namespace Backend.Services.Repository
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return null;
             }
         }
@@ -98,14 +103,14 @@ namespace Backend.Services.Repository
                 }
                 else
                 {
-                    logger.Error("No such entity to mark");
+                    _logger.LogError("No such entity to mark");
                     return false;
                 }
 
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return false;
             }
         }
@@ -121,33 +126,31 @@ namespace Backend.Services.Repository
                     entity.ModifiedAt = DateTime.Now;
                     db.Users.Update(entity);
 
-                    CertificateRepository cr = new CertificateRepository(db);
                     if (entity.Certificates is not null)
                         foreach (Certificate certificate in entity.Certificates)
                         {
-                            await cr.Update(certificate);
+                            await _certificateRepository.Update(certificate);
                         }
 
 
-                    LessonRepository lr = new LessonRepository(db);
                     if (entity.SolvedLessons is not null)
                         foreach (Lesson lesson in entity.SolvedLessons)
                         {
-                            await lr.Update(lesson);
+                            await _lessonRepository.Update(lesson);
                         }
                     await db.SaveChangesAsync();
                     return true;
                 }
                 else
                 {
-                    logger.Error("No such entity to mark");
+                    _logger.LogError("No such entity to mark");
                     return false;
                 }
 
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
+                _logger.LogError(ex.Message + ":" + ex.InnerException + ":" + ex.StackTrace);
                 return false;
             }
         }

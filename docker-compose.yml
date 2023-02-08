@@ -5,13 +5,14 @@ services:
   backend:
     depends_on:
       - postgres_db
+      - seq
     container_name: backend
     image: backend:latest
     build:
-      context: backend
+      context: Backend
       dockerfile: Dockerfile
     ports:
-      - "5051:80"
+      - "8080:80"
     networks:
       - default
     environment:
@@ -27,11 +28,19 @@ services:
       POSTGRES_PASSWORD: "Garbage1"
     restart: unless-stopped
     volumes:
-      - myvolume:/var/lib/postgresql/data
+      - /home/host6/BBAcademy/pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     networks:
       - default
-
-volumes:
-  myvolume:
+  
+  seq:
+    image: datalust/seq
+    restart: unless-stopped
+    ports:
+      - "50505:80"
+    volumes:
+      - /home/host6/BBAcademy/seq:/data
+    environment:
+      ACCEPT_EULA: "Y"
+      SEQ_API_CANONICALURI: "http://91.190.159.42:50505"

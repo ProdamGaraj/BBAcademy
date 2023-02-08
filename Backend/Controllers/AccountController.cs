@@ -1,16 +1,15 @@
-﻿using Backend.ViewModels;
+﻿using System.Collections.Generic;
+using Backend.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Backend.Services.AccountService.Interfaces;
 using System.Security.Claims;
-using Backend.Services;
-using Backend.Services.AccountService;
-using Microsoft.AspNetCore.Cors.Infrastructure;
+using System.Threading.Tasks;
 using Backend.Models;
-using Backend.Services.Repository;
 using Backend.Services.Interfaces;
 using Backend.Services.Repository.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
 namespace Backend.Controllers

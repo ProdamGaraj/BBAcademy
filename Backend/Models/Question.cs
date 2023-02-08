@@ -1,4 +1,5 @@
-﻿using Backend.Models.Enum;
+﻿using System.Collections.Generic;
+using Backend.Models.Enum;
 
 namespace Backend.Models
 {

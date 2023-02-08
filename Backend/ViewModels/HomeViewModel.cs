@@ -1,6 +1,4 @@
-﻿using Backend.Models;
-
-namespace Backend.ViewModels
+﻿namespace Backend.ViewModels
 {
     public class HomeViewModel
     {
