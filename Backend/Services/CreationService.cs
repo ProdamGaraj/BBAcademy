@@ -32,7 +32,7 @@ namespace Backend.Services
 
                     if (Course is not null && Course.Name is not null)
                     {
-                        courseRepository.Add(Course);
+                        await courseRepository.Add(Course);
                     }
                 }
                 return new BaseResponse<DataViewModel>()
