@@ -6,9 +6,6 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <form id="log-form" class="log-block-form" method="post" asp-controller="Data" asp-action="Lesson">
     <div class="log-container">
-        <fieldset id="model" style="border: none">
-            <input name="Model" type="hidden" value=@Model>
-        </fieldset>
         <label class="log-label">Name</label>
         <input name="Course.Name" placeholder="" class="form-control textbox-dg font-weight-bold text-center reg-log-input" type="text">
         <label class="log-label">Duration</label>
