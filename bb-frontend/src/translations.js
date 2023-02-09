@@ -61,7 +61,7 @@
         'rateSystem':"Reyting sistemasi",
 
         'autoExamination':"Ishni avtomatik tekshirish",
-        'professor comunication':"O’qituvchilar bilan bog’lanish",
+        'professorCommunication':"O’qituvchilar bilan bog’lanish",
         'categories':"Bo’limlar",
         'showMore':"Banking",
         'bBanking':"14 kurs",
@@ -81,7 +81,7 @@
         'improveYourProfessionalCapital':"Увеличивай свой профессиональный капитал",
 
         'autoExamination':"Автоматическая проверка работы",
-        'professor comunication':"Коммуникация с преподавателем ",
+        'professorCommunication':"Коммуникация с преподавателем ",
         'categories':"Категории",
         'showMore':"Показать больше",
         'bBanking':"Банкинг"        ,
