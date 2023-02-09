@@ -1,13 +1,12 @@
 ﻿using System.Reflection;
 using BLL.Models;
-using BLL.Services.Interfaces;
 using Infrastructure.Common;
 using Infrastructure.Models;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace BLL.Services
+namespace BLL.CertificateService
 {
     public class CertificateService : ICertificateService
     {

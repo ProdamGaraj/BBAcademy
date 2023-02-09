@@ -1,7 +1,7 @@
 ﻿using BLL.Models;
 using Infrastructure.Models;
 
-namespace BLL.Services.Interfaces
+namespace BLL.CertificateService
 {
     public interface ICertificateService
     {

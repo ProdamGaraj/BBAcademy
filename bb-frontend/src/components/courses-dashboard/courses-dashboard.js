@@ -1,5 +1,5 @@
-﻿import './courses.css'
-import {useContext} from "react";
+﻿import './courses-dashboard.css'
+import {useContext, useState} from "react";
 import UserContext from "../../contexts/user-context";
 import LangContext from "../../contexts/lang-context";
 import translations from "../../translations";
@@ -10,7 +10,7 @@ export default () => {
 
     let currentLang = useContext(LangContext).lang
 
-    let items = [{
+    let [courses, setCourses] = useState([{
         MediaPath: 'some-path',
         Name: 'some-name',
         Description: 'some-description',
@@ -18,7 +18,7 @@ export default () => {
         Duration: '5.5',
         IsBought: false,
         Id: 505
-    },];
+    },]);
 
     const showMyCert = () => {
         window.location.href = '/mycerts'
@@ -108,7 +108,7 @@ export default () => {
                     </div>
                     <div className="items-wrapper">
                         <div className="item-wrapper">
-                            {items.map((item, i) => (<div key={i} className="course-wrapper">
+                            {courses.map((item, i) => (<div key={i} className="course-wrapper">
 
                                 <img className="cours-scroll" src={item.MediaPath}/>
                                 <div className="cours-text">
