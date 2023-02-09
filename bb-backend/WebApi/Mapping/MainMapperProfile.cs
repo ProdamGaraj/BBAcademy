@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BLL.Models.GetCourseForView;
+using BLL.Models.GetUserForAccount;
 using BLL.Models.Save;
 using Infrastructure.Models;
 
@@ -15,10 +16,12 @@ public class MainMapperProfile : Profile
         CreateMap<SaveExamDto, Exam>();
         CreateMap<SaveLessonDto, Course>();
         CreateMap<SaveQuestionDto, Course>();
+        CreateMap<GetUserShortForAccountDto , User>();
 
         // OUT
         CreateMap<AnswerOption, GetAnswerOptionForViewDto>();
         CreateMap<Course, GetCourseForViewDto>();
+        CreateMap<User, GetUserShortForAccountDto>();
         CreateMap<Exam, GetExamForViewDto>();
         CreateMap<Course, GetLessonForViewDto>();
         CreateMap<Course, GetQuestionForViewDto>();

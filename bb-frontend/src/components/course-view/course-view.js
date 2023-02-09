@@ -11,14 +11,12 @@ export default (props) => {
     let [course, setCourse] = useState(null)
     let [lessonIndex, setLessonIndex] = useState(-1)
 
-
     useEffect(() => {
         const query = new URLSearchParams(window.location.search);
         const courseId = query.get('id')
 
-        if (courseId === undefined) {
-            fetch(baseurl + "/Course/GetFullInfoForView?id=" + courseId)
-                .then(r => r.json())
+        if (courseId !== undefined) {
+            CoursesGetFullInfoForView
                 .then(r => setCourse(r))
         } else {
             alert('courseId missing');
@@ -27,10 +25,10 @@ export default (props) => {
     }, [])
 
     let prev = () => {
-        setLessonIndex(lessonIndex - 1)
+        setLessonIndex(prev => prev - 1)
     }
     let next = () => {
-        setLessonIndex(lessonIndex + 1)
+        setLessonIndex(prev => prev + 1)
     }
 
 

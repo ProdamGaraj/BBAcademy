@@ -5,21 +5,8 @@ import baseurl from 'base-url'
 import LangContext from "../../contexts/lang-context";
 
 import './login.css'
+import backend from "../../backend";
 
-const DoLogin = async (data) => {
-    let r = await fetch(baseurl + '/Account/Login', {
-        body: JSON.stringify(data), headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-        }, method: 'POST'
-    })
-
-    if (r.status === 200) {
-        let response = await r.text();
-        alert('Logined successfully\n' + response)
-    } else {
-        alert('Received status code: ' + r.status + '\n' + r.statusText)
-    }
-}
 
 export default (props) => {
     let currentLang = useContext(LangContext).lang
@@ -28,8 +15,9 @@ export default (props) => {
     let [password, setPassword] = useState('')
 
     const onLogin = () => {
-        DoLogin({Login: login, Password: password})
-            .then(() => {
+        backend.Account.Login({Login: login, Password: password})
+            .then((token) => {
+                localStorage.setItem('token', token)
                 window.location.href = '/courses'
             });
     }

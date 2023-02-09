@@ -2,27 +2,10 @@
 import {useContext, useState} from "react";
 
 import translations from 'translations'
-import baseurl from 'base-url'
 import LangContext from "../../contexts/lang-context";
+import backend from "../../backend";
 
 export default () => {
-    const DoRegister = async (data) => {
-        await fetch(baseurl + '/Account/Register', {
-            body: JSON.stringify(data), headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            }, method: 'POST'
-        })
-            .then(async r => {
-                if (r.status === 200) {
-                    let response = await r.text();
-                    alert('Registered successfully\n' + response)
-                } else {
-                    alert('Received status code: ' + r.status + '\n' + r.statusText)
-                }
-            }, e => {
-                alert(e)
-            })
-    }
     let currentLang = useContext(LangContext).lang
 
     let [login, setLogin] = useState('')
@@ -35,7 +18,7 @@ export default () => {
 
 
     const onRegister = () => {
-        DoRegister({
+        backend.Account.Register({
             Login: login,
             Password: password,
             FirstName: firstName,
@@ -43,7 +26,8 @@ export default () => {
             MiddleName: middleName,
             ConfirmPassword: confirmPassword,
             Email: email
-        }).then(() => {
+        }).then((token) => {
+            localStorage.setItem('token', token)
             window.location.href = '/login'
         })
     }

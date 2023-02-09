@@ -37,7 +37,8 @@ let setLsEdit = (edit) => {
 const pushToBackend = async (data) => {
     await fetch(baseurl + '/Data/SaveCourse', {
         body: JSON.stringify(data), headers: {
-            'Content-Type': 'application/json;charset=utf-8'
+            'Content-Type': 'application/json;charset=utf-8',
+            credentials: "include"
         }, method: 'POST'
     })
         .then(r => {
