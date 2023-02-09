@@ -1,4 +1,5 @@
 ﻿using BLL.Models.GetCourseForView;
+using BLL.Models.GetCoursesForDashboard;
 using BLL.Models.Save;
 using Infrastructure.Models;
 
@@ -9,5 +10,6 @@ namespace BLL.CourseService
         Task<ICollection<Course>> GetCourses(long userId);
         Task<GetCourseForViewDto> GetFullInfoForView(long courseId);
         Task<long> SaveCourse(SaveCourseDto dto);
+        Task<ICollection<CourseForDashboardDto>> GetCoursesForDashboard(long userId);
     }
 }

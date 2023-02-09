@@ -6,9 +6,9 @@ namespace BLL.AccountService
 {
     public interface IAccountService
     {
-        Task<ClaimsIdentity> Register(RegisterDto dto);
+        Task<(long UserId, string Username)> Register(RegisterDto dto);
 
-        Task<ClaimsIdentity> Login(LoginDto dto);
+        Task<(long UserId, string Username)> Login(LoginDto dto);
 
         // Task<bool> ChangePassword(ChangePasswordViewModel vm);
 

@@ -1,21 +1,19 @@
-﻿using System;
-using BLL;
+﻿using System.Text;
 using BLL.AccountService;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using BLL.CourseService;
+using BLL.Models.Configs;
 using Infrastructure;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Serilog;
-using WebApi.Middlewares;
+using WebApi.Auth;
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection(nameof(JwtConfig)));
 
 builder.Host
     .UseSerilog(
@@ -42,28 +40,60 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddDb(builder.Configuration);
 
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<ICourseService, CourseService>();
 
 builder.Services.AddSpaStaticFiles(opt => opt.RootPath = builder.Environment.WebRootPath);
 
 builder.Services.AddRazorPages();
 
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(
-        options =>
-        {
-            options.LoginPath = new PathString("/Account/Login");
-            options.AccessDeniedPath = new PathString("/Account/Login");
-        }
-    );
-builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession(
-    options =>
+builder.Services.AddSingleton<AuthoriserService>();
+
+builder.Services.AddAuthentication(o =>
+{
+    o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    o.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(o =>
+{
+    o.TokenValidationParameters = new TokenValidationParameters
     {
-        options.IdleTimeout = TimeSpan.FromMinutes(5);
-        options.Cookie.HttpOnly = true;
-        options.Cookie.IsEssential = true;
-    }
-);
+        ValidIssuer = builder.Configuration["JwtConfig:Issuer"],
+        ValidAudience = builder.Configuration["JwtConfig:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey
+            (Encoding.UTF8.GetBytes(builder.Configuration["JwtConfig:Key"])),
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = false,
+        ValidateIssuerSigningKey = true
+    };
+});
+
+builder.Services.AddAuthorization();
+//
+// builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+//     .AddCookie(
+//         options =>
+//         {
+//             options.LoginPath = new PathString("/Account/Login");
+//             options.AccessDeniedPath = new PathString("/Account/Login");
+//             options.Cookie.Name = "YourAppCookieName";
+//             options.Cookie.HttpOnly = true;
+//             options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+//             // ReturnUrlParameter requires 
+//             //using Microsoft.AspNetCore.Authentication.Cookies;
+//             options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
+//             options.SlidingExpiration = true;
+//         }
+//     );
+// builder.Services.AddDistributedMemoryCache();
+// builder.Services.AddSession(
+//     options =>
+//     {
+//         options.IdleTimeout = TimeSpan.FromMinutes(5);
+//         options.Cookie.HttpOnly = true;
+//         options.Cookie.IsEssential = true;
+//     }
+// );
 
 var app = builder.Build();
 
@@ -120,8 +150,6 @@ app.UseForwardedHeaders(
     }
 );
 
-Console.WriteLine(builder.Environment.ContentRootPath);
-
 app.UseDefaultFiles();
 app.UseSpaStaticFiles();
 
@@ -129,9 +157,6 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseSession();
-
-app.UseMiddleware<AuthRequiredMiddleware>();
 
 app.MapControllers();
 

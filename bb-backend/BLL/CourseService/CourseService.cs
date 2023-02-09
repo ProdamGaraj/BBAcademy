@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using BLL.Models.GetCourseForView;
+using BLL.Models.GetCoursesForDashboard;
 using BLL.Models.Save;
 using Infrastructure.Common;
 using Infrastructure.Models;
+using Infrastructure.Models.Enum;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -37,12 +39,38 @@ namespace BLL.CourseService
                     .ToListAsync();
 
                 // TODO: filtering
-                
+
                 return courses;
             }
             catch (Exception ex)
             {
                 throw new BusinessException("Failed GetCourses", ex);
+            }
+        }
+
+        public async Task<ICollection<CourseForDashboardDto>> GetCoursesForDashboard(long userId)
+        {
+            try
+            {
+                var courses = await _courseRepository.GetAll()
+                    .Select(
+                        c => new CourseForDashboardDto()
+                        {
+                            Name = c.Description,
+                            Description = c.Description,
+                            DurationHours = c.DurationHours,
+                            LessonsCount = c.Lessons.Count(),
+                            MediaPath = c.MediaPath,
+                            IsBought = c.CourseProgresses.Any(p => p.State == CourseProgressState.Bought && p.UserId == userId)
+                        }
+                    )
+                    .ToListAsync();
+
+                return courses;
+            }
+            catch (Exception ex)
+            {
+                throw new BusinessException("GetCoursesForDashboard", ex);
             }
         }
 
@@ -71,11 +99,11 @@ namespace BLL.CourseService
         {
             using var scope = _logger.BeginScope(dto);
             _logger.LogInformation("Saving Course");
-            
+
             var course = _mapper.Map<Course>(dto);
             _courseRepository.Add(course);
             await _courseRepository.SaveChangesAsync();
-            
+
             _logger.LogInformation("Finished saving course");
 
             return course.Id;

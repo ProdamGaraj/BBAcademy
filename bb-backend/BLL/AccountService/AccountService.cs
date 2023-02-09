@@ -25,7 +25,7 @@ namespace BLL.AccountService
                 .FirstOrDefaultAsync(x => x.Login == login);
         }
 
-        public async Task<ClaimsIdentity> Register(RegisterDto dto)
+        public async Task<(long UserId, string Username)> Register(RegisterDto dto)
         {
             try
             {
@@ -50,7 +50,7 @@ namespace BLL.AccountService
                 };
                 _userRepository.Add(user);
                 await _userRepository.SaveChangesAsync();
-                return CreateClaimsIdentity(user);
+                return (user.Id, user.Email);
             }
             catch (Exception ex)
             {
@@ -60,7 +60,7 @@ namespace BLL.AccountService
         }
 
 
-        public async Task<ClaimsIdentity> Login(LoginDto dto)
+        public async Task<(long UserId, string Username)> Login(LoginDto dto)
         {
             try
             {
@@ -79,34 +79,13 @@ namespace BLL.AccountService
                     throw new BusinessException("Wrong password");
                 }
 
-                return CreateClaimsIdentity(user);
+                return (user.Id, user.Login);
             }
             catch (Exception ex)
             {
                 // TODO: LOG
                 throw new BusinessException("Failed Login", ex);
             }
-        }
-
-        // public async Task<bool> ChangePassword(ChangePasswordViewModel vm)
-        // {
-        //     throw new NotImplementedException();
-        // }
-
-        private ClaimsIdentity CreateClaimsIdentity(User user)
-        {
-            var claims = new List<Claim>
-            {
-                new Claim("UserId", user.Id.ToString()),
-                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login),
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.ToString())
-            };
-            return new ClaimsIdentity(
-                claims,
-                "ApplicationCookie",
-                ClaimsIdentity.DefaultNameClaimType,
-                ClaimsIdentity.DefaultRoleClaimType
-            );
         }
     }
 }

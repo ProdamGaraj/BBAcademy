@@ -1,8 +1,9 @@
 ﻿import './courses-dashboard.css'
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import UserContext from "../../contexts/user-context";
 import LangContext from "../../contexts/lang-context";
 import translations from "../../translations";
+import backend from "../../backend";
 
 export default () => {
 
@@ -20,6 +21,13 @@ export default () => {
         Id: 505
     },]);
 
+    useEffect(() => {
+        backend.Course.GetForDashboard()
+            .then(response => {
+                setCourses(response)
+            })
+    }, [])
+
     const showMyCert = () => {
         window.location.href = '/mycerts'
     };
@@ -29,7 +37,7 @@ export default () => {
     };
 
     const removeFromCart = courseId => {
-        
+
     };
 
     return (<>

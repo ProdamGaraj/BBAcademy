@@ -1,6 +1,7 @@
 ﻿using BLL.CourseService;
 using BLL.Models.Save;
 using BLL.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
@@ -20,6 +21,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> SaveCourse([FromBody] SaveCourseDto dto)
         {
             var result = await _courseService.SaveCourse(dto);
