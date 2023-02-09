@@ -1,8 +1,12 @@
 import { useEffect, useState, useContext } from "react";
 import UserContext from "../../contexts/user-context";
+import baseurl from "base-url";
+import LangContext from "../../contexts/lang-context";
+import translations from 'translations'
 
 export default () => {
 
+    let currentLang = useContext(LangContext).lang
     let user = useContext(UserContext).user;
     let [courses, setCourses] = useState([])
 
@@ -41,6 +45,16 @@ export default () => {
         }
         removeFromCart()
     }
+
+    let showMyCert = () => {
+        async function showMyCert() {
+            const response = await fetch(
+                baseurl + "/myCertificates"
+            ).then((response) => response.json()).then(response => showMyCert()).catch(error => alert(error))
+        }
+        showMyCert()
+    }
+
     return (<>
         <body>
             <div className="courses-container">
@@ -71,7 +85,7 @@ export default () => {
                         </div>
                         <div className="user_info-block user_info-block-clickable" onClick={() => showMyCert()}>
                             <img src="/img/Account/sertif.svg" />
-                            <div className="user_info-block-name">{translations[currentLang].mycert}</div>
+                            <div className="user_info-block-name">{(translations[currentLang].mycert)}</div>
                         </div>
                     </div>
                 </div>
@@ -79,30 +93,31 @@ export default () => {
                 <div className="Demarcation-line"></div>
                 <div className="mine_course">
 
-                        <div className="ShoppingCart">Корзина</div>
-                                <div className="items-wrapper">
-                                    <div className="item-wrapper">
-                                        {courses.map((course, i) => (<div key={i} className="course-wrapper">
+                    <div className="ShoppingCart">Корзина</div>
+                    <div className="items-wrapper">
+                        <div className="item-wrapper">
+                            {courses.map((course, i) => 
+                            (<div key={i} className="course-wrapper">
 
-                                            <img className="cours-scroll" src={course.MediaPath} />
-                                            <div className="cours-text">
-                                                <div className="cours-text-top">{course.Name}</div>
-                                                <div className="cours-text-bot">{course.Description}</div>
-                                            </div>
-                                            <div className="cours-info-block">
-                                                <img className="cours-info-block-src" src="/img/Account/bell.svg" />
-                                                <div className="cours-info-block-hours-1">{course.Lessons.length} lessons</div>
-                                                <div className="cours-info-block-hours-2">{course.Duration}</div>
-                                                {course.IsBought ? (<a className="cours-info-block-button button-special"
-                                                    onClick={() => removeFromCart(course.Id)}>{translations[currentLang].incart}</a>) : (
-                                                    <a className="cours-info-block-button button-special"
-                                                        href={"/course-view?id=" + course.Id}>{translations[currentLang].incart}</a>)}
-                                            </div>
-                                        </div>))}
-                                    </div>
+                                <img className="cours-scroll" src={course.MediaPath} />
+                                <div className="cours-text">
+                                    <div className="cours-text-top">{course.Name}</div>
+                                    <div className="cours-text-bot">{course.Description}</div>
                                 </div>
-                        <a className="Buy_Button" onClick={()=>buy()}>Купить {courses.reduce((acc,cur)=>acc+cur.Price,0)}</a>
+                                <div className="cours-info-block">
+                                    <img className="cours-info-block-src" src="/img/Account/bell.svg" />
+                                    <div className="cours-info-block-hours-1">{course.Lessons.length} lessons</div>
+                                    <div className="cours-info-block-hours-2">{course.Duration}</div>
+                                    {course.IsBought ? (<a className="cours-info-block-button button-special"
+                                        onClick={() => removeFromCart(course.Id)}>{translations[currentLang].incart}</a>) : (
+                                        <a className="cours-info-block-button button-special"
+                                            href={"/course-view?id=" + course.Id}>{translations[currentLang].incart}</a>)}
+                                </div>
+                            </div>))}
+                        </div>
                     </div>
+                    <a className="Buy_Button" onClick={() => buy()}>Купить {courses.reduce((acc, cur) => acc + cur.Price, 0)}</a>
+                </div>
             </div>
         </body>
     </>)
