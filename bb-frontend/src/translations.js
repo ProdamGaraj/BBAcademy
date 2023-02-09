@@ -23,8 +23,8 @@
         'endreg': "Ro’yxatdan o’tish",
 
         'downloadPDF': "Yuklab olish",
-        'invforbeg ': "Boshlovchilar uchun investitsiya",
-        'mycert ': "Mening sertifikatlarim",
+        'invforbeg': "Boshlovchilar uchun investitsiya",
+        'mycert': "Mening sertifikatlarim",
 
         'next': "Keyingisi",
         'prev': "Orqaga",
@@ -72,6 +72,7 @@
         'mobileApp':"Tez kunda bizning mobil dasturlarimiz PlayMarket va AppleStore da",
         'download':"Yuklab olish",
         'ourPartners':"Bizning hamkorlar",
+        'reg': "Ro’yxatdan o’tish",
     },
 
     ru: {
@@ -150,6 +151,7 @@
         'test': "Тест",
         'links': "Ссылки и материалы",
         'ending': "Заключение и сертификат",
+        'reg': "Регистрация",
     }
 }
 export default translations;

@@ -33,7 +33,7 @@ export default (props) => {
                         </div>
                     </div>
                     <a className="header-container-right_section-login"
-                       href={(isLogin ? '/register' : '/login')}>{translations[currentLang]['enter']}</a>
+                       href={(isLogin ? '/register' : '/login')}>{translations[currentLang][(isLogin ? 'reg' : 'enter')]}</a>
                 </div>
             </div>
         </header>

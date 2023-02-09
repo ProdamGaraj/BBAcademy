@@ -80,6 +80,7 @@ a {
     align-items: center;
     text-align: center;
     margin-right: 30px;
+    cursor: pointer;
 }
 
 .header-container-right_section-login {
