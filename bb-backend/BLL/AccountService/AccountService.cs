@@ -1,6 +1,9 @@
 ﻿using System.Security.Claims;
+using AutoMapper;
 using BLL.Helpers;
 using BLL.Models;
+using BLL.Models.GetCourseForView;
+using BLL.Models.GetUserForAccount;
 using Infrastructure.Common;
 using Infrastructure.Models;
 using Infrastructure.Models.Enum;
@@ -12,10 +15,11 @@ namespace BLL.AccountService
     public class AccountService : IAccountService
     {
         private readonly IRepository<User> _userRepository;
-
-        public AccountService(IRepository<User> userRepository)
+        private readonly IMapper _mapper;
+        public AccountService(IRepository<User> userRepository, IMapper mapper)
         {
             _userRepository = userRepository;
+            _mapper = mapper;
         }
 
         public async Task<User> GetUserByLogin(string login)
@@ -23,6 +27,17 @@ namespace BLL.AccountService
             return await _userRepository
                 .GetAll()
                 .FirstOrDefaultAsync(x => x.Login == login);
+        }
+        public async Task<GetUserShortForAccountDto> GetUserShortById(long id)
+        {
+            var user = await _userRepository
+                .GetAll()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            var resultDto = _mapper.Map<GetUserShortForAccountDto>(user);
+            resultDto.RecommendedBy = "Kogda MVP?";
+            resultDto.Rating = 404;
+            return resultDto;
         }
 
         public async Task<(long UserId, string Username)> Register(RegisterDto dto)
