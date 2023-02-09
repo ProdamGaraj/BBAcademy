@@ -1,5 +1,7 @@
 ﻿let translations = {
     uz: {
+        'editingAnswerOption':"Javobni tahrirlash opsiyasi",
+        'saveAnswerandreturntoQuestion':"Javobni saqlang va Savolga qayting",
         'devpage': "Sahifa ishlab chiqilmoqda",
         'enter': "Tizimga kirish",
         'mycourse': "Mening kurslaring",
@@ -76,6 +78,9 @@
     },
 
     ru: {
+        'editingAnswerOption':"Редактирование ответа",
+        'saveAnswerandreturntoQuestion':"Сохранить ответ, вернуться на вопрос",
+
         'rateSystem':"Система рейтинга",
         'aLotOfCourses':"Широкий выбор курсов",
         'learnWithBBAcademy':"Учись в BilimBank",

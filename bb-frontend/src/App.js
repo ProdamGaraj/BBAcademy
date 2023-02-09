@@ -10,6 +10,7 @@ import Register from "./components/register/register";
 import Courses from "./components/courses/courses";
 import CourseView from "./components/course-view/course-view";
 import Data from "./components/data/data";
+import Cart from "./components/cart";
 
 let getLsLang = () => {
     let lsLang = localStorage.getItem('lang');
@@ -71,6 +72,7 @@ function App() {
                             <Route path='/courses' element={<Courses/>}/>
                             <Route path='/course-view' element={<CourseView/>}/>
                             <Route path='/data/*' element={<Data/>}/>
+                            <Route path='/cart' element={<Cart/>}/>
                         </Routes>
                     </BrowserRouter>
                 </Template>
