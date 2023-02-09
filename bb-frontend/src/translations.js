@@ -55,10 +55,53 @@
         'block':"Bloklash",
         'test':"Test",
         'links':"Havolalar va materiallar",
-        'ending':"Xulosa va sertifikat",
+        'ending': "Xulosa va sertifikat",
+
+        'learnWithBBAcademy':"BilimBankda ta’lim oling",
+        'improveYourProfessionalCapital':"Professional kapitalingizni oshiring",
+        'investYourself':"O’zingizga investitsiya qiling",
+        'aLotOfCourses':"Keng ko’lamli kurslar",
+        'rateSystem':"Reyting sistemasi",
+
+        'autoExamination':"Ishni avtomatik tekshirish",
+        'professor comunication':"O’qituvchilar bilan bog’lanish",
+        'categories':"Bo’limlar",
+        'showMore':"Banking",
+        'bBanking':"14 kurs",
+        '14courses':"Popular courses",
+        'popularCourses':"Kurs: yangi boshlanuvchilar uchun investitsiyalar",
+        'infestionForBeginners':"Yana ko’rsatish",
+        'moreStability':"Yanada ko'proq harakat, ko'proq qulaylik",
+        'mobileApp':"Tez kunda bizning mobil dasturlarimiz PlayMarket va AppleStore da",
+        'download':"Yuklab olish",
+        'ourPartners':"Bizning hamkorlar",
     },
 
     'ru': {
+        'rateSystem':"Система рейтинга",
+        'aLotOfCourses':"Широкий выбор курсов",
+        'investYourself':"Инвестируй в себя",
+        'learnWithBBAcademy':"Учись в BilimBank",
+        'improveYourProfessionalCapital':"Увеличивай свой профессиональный капитал",
+
+        'autoExamination':"Автоматическая проверка работы",
+        'professor comunication':"Коммуникация с преподавателем ",
+        'categories':"Категории",
+        'showMore':"Показать больше",
+        'bBanking':"Банкинг"        ,
+        '14courses':"14 курсов",
+        'popularCourses':"Популярные курсы",
+        'infestionForBeginners':"Курс: инвестиции для начинающих",
+        'moreStability':"Ещё больше стабильности, ещё больше комфорта",
+        'mobileApp':"Наше мобильное приложение скоро в гугл плэй и эппл стор",
+        'download':"Скачать",
+        'ourPartners':"Наши партнёры",
+
+
+
+
+        'investYourself':"Инвестируй в себя",
+
         'devpage':"Страница находится в разработке",
 
         'lesson':"Урок",
