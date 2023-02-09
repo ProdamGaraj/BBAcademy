@@ -10,33 +10,15 @@ using Newtonsoft.Json;
 
 namespace Backend.Controllers
 {
+    [Controller]
+    [Route("[controller]/[action]")]
     public class DataController : Controller
     {
-        [BindProperty]
-        public long CurrentId { get; set; }
-
-        [BindProperty]
-        public Exam Exam { get; set; }
-        [BindProperty]
-        public Course Course { get; set; }
-        [BindProperty]
-        public Lesson Lesson { get; set; }
-        [BindProperty]
-        public Question Question { get; set; }
-        [BindProperty]
-        public Answer Answer { get; set; }
-        [BindProperty]
-        public CertificateTemplate CertificateTemplate { get; set; }
-        [BindProperty]
-        public string ModelString { get; set; }
-        public DataViewModel Model { get; set; } = new DataViewModel();
-        private readonly ICreationService creationService;
         private ILogger<DataController> _logger;
 
 
-        public DataController(ICreationService creationService, ILogger<DataController> logger)
+        public DataController(ILogger<DataController> logger)
         {
-            this.creationService = creationService;
             _logger = logger;
         }
         // GET: DataController

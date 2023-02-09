@@ -1,21 +1,11 @@
-﻿using System;
-using System.Linq;
-using Backend;
+﻿using Backend.Middlewares;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Backend.Services.Repository.Interfaces;
-using Backend.Services.Repository;
 using Backend.Services.AccountService;
-using Backend.Services.AccountService.Interfaces;
-using Microsoft.EntityFrameworkCore;
 using Backend.Services.Interfaces;
 using Backend.Services;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+using Infrastructure;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.FileProviders;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Serilog;
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
@@ -42,10 +32,6 @@ builder.Logging.AddSerilog(dispose: true);
 
 builder.Services.AddControllersWithViews();
 
-var connection = builder.Configuration.GetConnectionString("DefaultConnection");
-
-builder.Services.AddDbContext<BBAcademyDb>(options => options.UseNpgsql(connection));
-
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<ICertificateService, CertificateService>();
 builder.Services.AddScoped<ICartService, CartService>();
@@ -54,14 +40,7 @@ builder.Services.AddScoped<IExamService, ExamService>();
 builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<ICreationService, CreationService>();
 
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IAnswerRepository, AnswerRepository>();
-builder.Services.AddScoped<ICertificateRepository, CertificateRepository>();
-builder.Services.AddScoped<ICourseRepository, CourseRepository>();
-builder.Services.AddScoped<IExamRepository, ExamRepository>();
-builder.Services.AddScoped<ILessonRepository, LessonRepository>();
-builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
-builder.Services.AddScoped<ICertificateTemplateRepository, CertificateTemplateRepository>();
+builder.Services.AddDb(builder.Configuration);
 
 
 builder.Services.AddRazorPages();
@@ -86,20 +65,36 @@ builder.Services.AddSession(
 
 var app = builder.Build();
 
-{
-    using var scope = app.Services.CreateScope();
-    var context = scope.ServiceProvider.GetRequiredService<BBAcademyDb>();
+await app.Services.MigrateDb();
 
-    if (context.Database.GetPendingMigrations().Any())
-    {
-        await context.Database.MigrateAsync();
-    }
+if (!builder.Environment.IsProduction())
+{
+    // TODO: Maybe API sometime
+    // app.UseSwagger();
+    // app.UseSwaggerUI();
 }
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
+
+app.UseCors(
+    builder =>
+    {
+        builder.AllowAnyMethod()
+            .AllowAnyHeader()
+            .SetIsOriginAllowed(_ => true)
+            .AllowCredentials();
+    }
+);
+
+// makes it work behind NGINX
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+});
 
 // app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -116,47 +111,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();
 
-app.UseCors(
-    builder =>
-    {
-        builder.AllowAnyMethod()
-            .AllowAnyHeader()
-            .SetIsOriginAllowed(_ => true)
-            .AllowCredentials();
-    }
-);
+app.UseMiddleware<AuthRequiredMiddleware>();
 
-app.Use(
-    async (context, next) =>
-    {
-        if (!context.User.Identity.IsAuthenticated)
-        {
-            if (!context.Request.Path.Equals("/Account/Register") && !context.Request.Path.Equals("/Account/Login") && !context.Request.Path.Equals("/"))
-            {
-                context.Response.Redirect("/Account/Login");
-            }
-        }
-        else
-        {
-            //context.Response.Redirect("/Account");
-        }
-
-        await next.Invoke();
-    }
-);
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}"
-);
-
-foreach (var item in app.Urls)
-{
-    Console.WriteLine(item);
-}
+app.MapControllers();
 
 await app.RunAsync();
-
-//public static IWebHost BuildWebHost(string[] args)=>
-//	WebHost.CreateDefaultBuilder(args)
-//	.Build();

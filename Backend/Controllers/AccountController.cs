@@ -1,138 +1,90 @@
-﻿using System.Collections.Generic;
-using Backend.ViewModels;
+﻿using Backend.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Backend.Services.AccountService.Interfaces;
 using System.Security.Claims;
-using System.Threading.Tasks;
-using Backend.Models;
-using Backend.Services.Interfaces;
-using Backend.Services.Repository.Interfaces;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
+using AutoMapper;
+using BLL.AccountService;
+using BLL.Models;
+using BLL.Services.Interfaces;
 
 namespace Backend.Controllers
 {
+    [Controller]
+    [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
-        private readonly IAccountService accountService;
-        private IUserRepository ur;
-        private ICourseService cs;
-        private IExamService es;
+        private readonly IAccountService _accountService;
+        private readonly ICourseService _courseService;
+        private readonly IMapper _mapper;
 
-        public AccountController(IAccountService accountService, IUserRepository ur, ICourseService cs, IExamService es)
+        public AccountController(ICourseService courseService, IAccountService accountService, IMapper mapper)
         {
-            this.accountService = accountService;
-            this.ur = ur;
-            this.cs = cs;
-            this.es = es;
+            _courseService = courseService;
+            _accountService = accountService;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(AccountViewModel accountViewModel)
+        public async Task<IActionResult> Index()
         {
-            if (TempData["filter"] is not null)
-            {
-                accountViewModel.filter = TempData["filter"].ToString();
-            }
-            else
-            {
-                accountViewModel.filter = "AllCourses";
-            }
-            accountViewModel.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
-            if (HttpContext.Session.TryGetValue("language", out byte[] value))
-            {
-                accountViewModel.User.Lang = HttpContext.Session.GetInt32("language");
-            }
-            if (accountViewModel.User.Lang is null)
-            {
-                accountViewModel.User.Lang = 1;
-                HttpContext.Session.SetInt32("language", 1);
-            }
-            else
-            {
-                HttpContext.Session.SetInt32("language", (int)accountViewModel.User.Lang);
-            }
+            var courses = await _courseService.GetCourses(HttpContext.User.GetId());
 
-            if (accountViewModel.User.InCartCourses is not null)
-            {
-                List<long> course = JsonConvert.DeserializeObject<List<long>>(accountViewModel.User.InCartCourses);
-                if (course is not null && course.Count > 0)
-                    HttpContext.Session.SetInt32("inCart", 1);
-                else
-                    HttpContext.Session.SetInt32("inCart", 0);
-            }
-            else
-            {
-                HttpContext.Session.SetInt32("inCart", 0);
-            }
-            await ur.Update(accountViewModel.User);
-            var responce = (await cs.GetCourses(new CourseViewModel() { User = accountViewModel.User }));
-            if (responce.StatusCode == Models.Enum.StatusCode.OK)
-            {
-                accountViewModel.AllCourses = responce.Data.AllCourses;
-                accountViewModel.BoughtCourses = responce.Data.BoughtCourses;
-                accountViewModel.EndedCourses = responce.Data.EndedCourses;
-                accountViewModel.InCartCourses = responce.Data.InCartCourses;
-                return View(accountViewModel);
-            }
-            //accountViewModel.AllCourses.Add(new Models.Course());
-            return View(accountViewModel);
+            return View(courses);
         }
 
         [HttpGet]
-        public IActionResult Register() => View();
+        public IActionResult Register()
+        {
+            return View();
+        }
+
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel vm)
+        public async Task<IActionResult> Register([FromBody] RegisterViewModel viewModel)
         {
-            if (ModelState.IsValid)
-            {
-                var responce = await accountService.Register(vm);
-                if (responce.StatusCode == Models.Enum.StatusCode.OK)
-                {
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                        new ClaimsPrincipal(responce.Data));
-                    return RedirectToAction("Index", "Account");
-                }
-                ModelState.AddModelError("", responce.Description);
-            }
-            return View(vm);
+            if (!ModelState.IsValid) return View(viewModel);
+
+            var registerDto = _mapper.Map<RegisterDto>(viewModel);
+
+            var claimsIdentity = await _accountService.Register(registerDto);
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity)
+            );
+
+            return RedirectToAction("Index", "Account");
         }
+
         [HttpGet]
         public IActionResult Login()
         {
-            if (User.Identity.IsAuthenticated)
+            if (User.Identity?.IsAuthenticated is true)
             {
                 return RedirectToAction("Index");
             }
+
             return View();
         }
+
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel vm)
+        public async Task<IActionResult> Login([FromBody] LoginViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                var responce = await accountService.Login(vm);
-                if (responce.StatusCode == Models.Enum.StatusCode.OK)
-                {
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                        new ClaimsPrincipal(responce.Data));
-                    return RedirectToAction("Index", "Account");
-                }
-                ModelState.AddModelError("", responce.Description);
+                var loginDto = _mapper.Map<LoginDto>(viewModel);
+                
+                var claimsIdentity = await _accountService.Login(loginDto);
+
+                await HttpContext.SignInAsync(
+                    CookieAuthenticationDefaults.AuthenticationScheme,
+                    new ClaimsPrincipal(claimsIdentity)
+                );
+                return RedirectToAction("Index", "Account");
             }
-            return View(vm);
+
+            return View(viewModel);
         }
-        [HttpGet("DeleteFromCart/{id}")]
-        public async Task<IActionResult> DeleteFromCart(string id)
-        {
-            var cvm = new CourseViewModel();
-            cvm.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
-            cvm.IdCourse = long.Parse(id);
-            await cs.RemoveCartCourse(cvm);
-            return RedirectToAction("");
-        }
+
         [HttpGet]
         public async Task<IActionResult> Logout()
         {
@@ -140,45 +92,23 @@ namespace Backend.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        // [HttpGet("/ChangeLang/{langId}")]
+        // public async Task<IActionResult> ChangeLang(int langId, string returnUrl)
+        // {
+        //     if (HttpContext.User.Identity?.IsAuthenticated is true)
+        //     {
+        //         await _accountService.SetUserLang(HttpContext.User.GetId(), langId);
+        //         
+        //         HttpContext.Session.SetInt32("language", langId);
+        //     }
+        //
+        //     return Redirect(returnUrl ?? "/");
+        // }
 
-
-        [HttpGet]
-        public async Task<IActionResult> ChangeFilterToAll(AccountViewModel accountViewModel)
-        {
-            accountViewModel.filter = "AllCourses";
-            TempData["filter"] = accountViewModel.filter;
-            return Redirect("/Account");
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> ChangeFilterToBought(AccountViewModel accountViewModel)
-        {
-            accountViewModel.filter = "BoughtCourses";
-            TempData["filter"] = accountViewModel.filter;
-            return Redirect("/Account");
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> ChangeFilterToPassed(AccountViewModel accountViewModel)
-        {
-            accountViewModel.filter = "PassedCourses";
-            TempData["filter"] = accountViewModel.filter;
-            return Redirect("/Account");
-        }
-
-        public async Task<IActionResult> ChangeLang(int id)
-        {
-            if (HttpContext.User.Identity.IsAuthenticated)
-            {
-                User user = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
-                user.Lang = id;
-
-                await ur.Update(user);
-            }
-            HttpContext.Session.SetInt32("language", id);//Setting language for entire session 
-            return RedirectToAction("");
-        }
         [HttpGet("NotFound")]
-        public async Task<IActionResult> NotFound() => View();
+        public async Task<IActionResult> NotFoundErrorPage()
+        {
+            return View("NotFound");
+        }
     }
 }

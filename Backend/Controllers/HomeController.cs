@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Backend.Models;
-using Backend.Services.AccountService.Interfaces;
+using Backend.Services.AccountService;
 using Backend.Services.Repository.Interfaces;
 using Backend.ViewModels;
 using Microsoft.AspNetCore.Http;
@@ -9,7 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
 {
-
+    [Controller]
+    [Route("[controller]/[action]")]
     public class HomeController : Controller
     {
         private IUserRepository ur;

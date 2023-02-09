@@ -16,7 +16,7 @@ services:
     networks:
       - default
     environment:
-      ASPNETCORE_ConnectionStrings__DefaultConnection: "Host=postgres_db;Port=5432;Database=BBAcademyDb;Username=postgres;Password=Garbage1"
+      ASPNETCORE_ConnectionStrings__Bilim: "Host=postgres_db;Port=5432;Database=BBAcademyDb;Username=postgres;Password=Garbage1"
     restart: unless-stopped
 
   postgres_db:
