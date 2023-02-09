@@ -1,0 +1,43 @@
+﻿.add-course-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 394px;
+    height: 39px;
+    background: #0093DC;
+    margin: 0 auto;
+    box-shadow: 0 1px 5px rgb(0 0 0 / 25%);
+    border-radius: 55px;
+    border-width: 0;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+}
+
+.gapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.log-label {
+    width: 100%;
+}
+
+.heading {
+    display: flex;
+    justify-content: center;
+    color: black;
+    font-family: 'Raleway', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+}
+
+.check {
+    width: 40px;
+    box-shadow: inset 0px 0px 5px rgb(0 0 0 / 25%);
+    border-radius: 10px;
+    border: none;
+}

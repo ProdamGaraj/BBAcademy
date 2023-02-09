@@ -1,6 +1,4 @@
-﻿using Infrastructure.Models.Enum;
-
-namespace Infrastructure.Models
+﻿namespace Infrastructure.Models
 {
     public class Course : Entity
     {
@@ -9,8 +7,6 @@ namespace Infrastructure.Models
         public float DurationHours { get; set; }
 
         public string Description { get; set; }
-
-        public CourseType CourseType { get; set; }
 
         public decimal Price { get; set; }
 
