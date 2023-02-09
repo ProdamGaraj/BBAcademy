@@ -15,7 +15,7 @@ export default (props) => {
     useEffect(() => {
         const query = new URLSearchParams(window.location.search);
         const course = query.get('id')
-
+    
         // TODO: load course
     }, [])
 
