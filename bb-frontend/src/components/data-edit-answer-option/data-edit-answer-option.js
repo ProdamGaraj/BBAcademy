@@ -39,7 +39,7 @@ export default () => {
                    required/>
             <NavLink to={'/data/question'}>
                 <button className="add-course-btn"  onClick={() => onSave()}>
-                    <div className="log-in-btn">{(translations[currentLang].saveAnswerandreturntoQuestion)}</div>
+                    <div className="log-in-btn">{translations[currentLang].saveAnswerandreturntoQuestion}</div>
                 </button>
             </NavLink>
         </div>
