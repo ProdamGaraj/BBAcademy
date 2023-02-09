@@ -56,8 +56,6 @@
         'test':"Test",
         'links':"Havolalar va materiallar",
         'ending':"Xulosa va sertifikat",
-
-        'privpol' : "Maxfiylik siyosati",
     },
 
     'ru': {
