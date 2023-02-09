@@ -2,9 +2,6 @@
 import translations from 'translations'
 import LangContext from "../../contexts/lang-context";
 import {useContext} from "react";
-
-
-
 export default ({match}) => {
 
     let currentLang = useContext(LangContext).lang
