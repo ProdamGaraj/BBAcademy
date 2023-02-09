@@ -39,8 +39,8 @@ export default (props) => {
                     </button>
                 </NavLink>
                 <NavLink to={'/data/exam'}>
-                    <button type="submit" className="add-course-btn">
-                        <div className="log-in-btn" onClick={() => onSave()}>Save and Return to Exam</div>
+                    <button className="add-course-btn" onClick={() => onSave()}>
+                        <div className="log-in-btn">Save and Return to Exam</div>
                     </button>
                 </NavLink>
             </div>

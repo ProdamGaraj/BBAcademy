@@ -2,8 +2,7 @@
 {
     public class Exam : Entity
     {
-        public long CourseId { get; set; }
-
+        // no course ID because it's ID is bound to Course.Id
         public virtual Course Course { get; set; }
 
         public string Description { get; set; }

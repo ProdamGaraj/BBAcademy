@@ -2,12 +2,31 @@
 import DataEditCourse from "../data-edit-course/data-edit-course";
 
 import './data.css'
+import baseurl from 'base-url'
 import DataEditLesson from "../data-edit-lesson/data-edit-lesson";
 import DataEditQuestion from "../data-edit-question/data-edit-question";
 import DataEditAnswerOption from "../data-edit-answer-option/data-edit-answer-option";
 import DataEditContext from "../../contexts/data-edit-context";
 import {useContext, useState} from "react";
 import DataEditExam from "../data-edit-exam/data-edit-exam";
+
+
+const pushToBackend = async (data) => {
+    await fetch(baseurl + '/Data/SaveCourse', {
+        body: JSON.stringify(data), headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        }, method: 'POST'
+    })
+        .then(r => {
+            if (r.status === 200) {
+                alert('Saved successfully')
+            } else {
+                alert('Received status code: ' + r.status + '\n' + r.statusText)
+            }
+        }, e => {
+            alert(e)
+        })
+}
 
 let Page = () => {
 
@@ -40,20 +59,6 @@ export default () => {
             Lessons: []
         }
     });
-
-    const pushToBackend = async (data) => {
-        await fetch('/Data/SaveCourse', {body: JSON.stringify(data), method: 'POST'})
-            .then(r => {
-                if(r.status === 200) {
-                    alert('Saved successfully')
-                }
-                else{
-                    alert('Received status code: ' + r.status + '\n' + r.statusText)
-                }
-            }, e => {
-                alert(e)
-            })
-    }
 
     const onAddLesson = (lesson) => {
         setEdit({...edit, Course: {...edit.Course, Lessons: [...edit.Course.Lessons, lesson]}})
@@ -98,7 +103,7 @@ export default () => {
         pushToBackend(({...edit, Course: {...edit.Course, ...latestCourse}}))
             .then(() => console.log('finished pushing'))
     }
-    
+
     return (<>
         <DataEditContext.Provider value={{
             edit: edit,
@@ -108,7 +113,8 @@ export default () => {
             addAnswer: onAddAnswer,
             addExam: onAddExam,
             beginEdit: onBeginEdit,
-            finish: onFinish
+            finish: onFinish,
+
         }}>
             <Routes>
                 <Route path='/' element={<Page/>}/>

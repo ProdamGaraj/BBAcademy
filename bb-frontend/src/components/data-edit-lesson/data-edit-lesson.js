@@ -42,8 +42,8 @@ export default () => {
                    required/>
 
             <NavLink to={'/data/course'}>
-                <button type="submit" className="add-course-btn">
-                    <div className="log-in-btn" onClick={() => onSave()}>Save and Return to Course</div>
+                <button type="submit" className="add-course-btn" onClick={() => onSave()}>
+                    <div className="log-in-btn">Save and Return to Course</div>
                 </button>
             </NavLink>
         </div>

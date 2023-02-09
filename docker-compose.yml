@@ -9,10 +9,12 @@ services:
     container_name: backend
     image: backend:latest
     build:
-      context: Backend
-      dockerfile: Dockerfile
+      context: ./bb-backend
+      dockerfile: ./WebApi/Dockerfile
     ports:
       - "8080:80"
+    volumes:
+      - /home/egop/bb/frontend:/app/wwwroot
     networks:
       - default
     environment:
@@ -28,7 +30,7 @@ services:
       POSTGRES_PASSWORD: "Garbage1"
     restart: unless-stopped
     volumes:
-      - /home/host6/BBAcademy/pgdata:/var/lib/postgresql/data
+      - /home/egop/bb/pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     networks:
@@ -40,7 +42,7 @@ services:
     ports:
       - "50505:80"
     volumes:
-      - /home/host6/BBAcademy/seq:/data
+      - /home/egop/bb/seq:/data
     environment:
       ACCEPT_EULA: "Y"
-      SEQ_API_CANONICALURI: "http://91.190.159.42:50505"
+      SEQ_API_CANONICALURI: "http://birdegop.ru:50505"

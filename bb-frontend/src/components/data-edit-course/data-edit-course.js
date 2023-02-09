@@ -41,17 +41,17 @@ export default () => {
 
             <div className="gapper">
                 <NavLink to={'/data/lesson'}>
-                    <button type="submit" className="add-course-btn">
-                        <div className="log-in-btn" onClick={() => onSave()}>Save and Add Lesson</div>
+                    <button className="add-course-btn" onClick={() => onSave()}>
+                        <div className="log-in-btn">Save and Add Lesson</div>
                     </button>
                 </NavLink>
                 <NavLink to={'/data/exam'}>
-                    <button type="submit" className="add-course-btn">
-                        <div className="log-in-btn" onClick={() => onSave()}>Save and Add/Edit Exam</div>
+                    <button className="add-course-btn" onClick={() => onSave()}>
+                        <div className="log-in-btn">Save and Add/Edit Exam</div>
                     </button>
                 </NavLink>
-                <button type="submit" className="add-course-btn">
-                    <div className="log-in-btn" onClick={() => onFinish()}>Save and Finish Editing</div>
+                <button className="add-course-btn" onClick={() => onFinish()}>
+                    <div className="log-in-btn">Save and Finish Editing</div>
                 </button>
             </div>
         </div>

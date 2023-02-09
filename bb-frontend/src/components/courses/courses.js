@@ -59,10 +59,9 @@ export default () => {
                             <div className="user_info-block-name">{user.RecommendedBy}</div>
                         </div>
                     </div>
-                    <div className="user_info-block user_info-block-clickable">
+                    <div className="user_info-block user_info-block-clickable" onClick={() => showMyCert()}>
                         <img src="/img/Account/sertif.svg"/>
-                        <div className="user_info-block-name"
-                             onClick={() => showMyCert()}>{translations[currentLang].mycert}</div>
+                        <div className="user_info-block-name">{translations[currentLang].mycert}</div>
                     </div>
                 </div>
             </div>

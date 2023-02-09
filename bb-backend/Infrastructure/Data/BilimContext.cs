@@ -1,4 +1,5 @@
-﻿using Infrastructure.Models;
+﻿using System.Reflection;
+using Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data
@@ -8,6 +9,16 @@ namespace Infrastructure.Data
         public BilimContext(DbContextOptions<BilimContext> options)
             : base(options)
         {
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // устанавливаем конфигурации сущностей через FluentAPI из текущей сборки
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            modelBuilder.SetupSoftDelete();
         }
 
         public DbSet<AnswerOption> Answers { get; set; }

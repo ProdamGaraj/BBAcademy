@@ -14,6 +14,10 @@ let context = React.createContext({
 
     beginEdit: () => {
     },
+    CourseId:1,
+    LessonId:1,
+    QuestionId:1,
+    AnswerOptionId:1,
 
     addCourseInfo: (course) => {
     }, addLesson: (lesson) => {
@@ -22,4 +26,5 @@ let context = React.createContext({
     }, addExam: (exam) => {
     }
 });
+
 export default context;

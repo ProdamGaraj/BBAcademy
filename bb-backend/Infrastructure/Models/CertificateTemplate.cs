@@ -5,5 +5,6 @@
         public virtual ICollection<Course> Courses { get; set; }
 
         public string MediaPath { get; set; }
+        public virtual ICollection<Certificate> Certificates { get; set; }
     }
 }

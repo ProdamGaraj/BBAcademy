@@ -34,8 +34,8 @@ export default () => {
                    className="form-control textbox-dg font-weight-bold text-center reg-log-input check" type="checkbox"
                    required/>
             <NavLink to={'/data/question'}>
-                <button type="submit" className="add-course-btn">
-                    <div className="log-in-btn" onClick={() => onSave()}>Save Answer and return to Question</div>
+                <button className="add-course-btn"  onClick={() => onSave()}>
+                    <div className="log-in-btn">Save Answer and return to Question</div>
                 </button>
             </NavLink>
         </div>

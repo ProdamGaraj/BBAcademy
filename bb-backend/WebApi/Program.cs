@@ -1,10 +1,15 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
-using Backend.Services.AccountService;
-using Backend.Services.Interfaces;
-using Backend.Services;
+﻿using System;
+using BLL;
+using BLL.AccountService;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Infrastructure;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Serilog;
 using WebApi.Middlewares;
 
@@ -32,16 +37,13 @@ builder.Logging.AddSerilog(dispose: true);
 
 builder.Services.AddControllersWithViews();
 
-// builder.Services.AddScoped<IAccountService, AccountService>();
-// builder.Services.AddScoped<ICertificateService, CertificateService>();
-// builder.Services.AddScoped<ICartService, CartService>();
-// builder.Services.AddScoped<ILessonService, LessonService>();
-// builder.Services.AddScoped<IExamService, ExamService>();
-// builder.Services.AddScoped<ICourseService, CourseService>();
-// builder.Services.AddScoped<ICreationService, CreationService>();
+builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddDb(builder.Configuration);
 
+builder.Services.AddScoped<IAccountService, AccountService>();
+
+builder.Services.AddSpaStaticFiles(opt => opt.RootPath = builder.Environment.WebRootPath);
 
 builder.Services.AddRazorPages();
 
@@ -80,30 +82,48 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+// app.UseCors(
+//     builder =>
+//     {
+//         builder.AllowAnyMethod()
+//             .AllowAnyHeader()
+//             .SetIsOriginAllowed(_ => true)
+//             .AllowCredentials();
+//     }
+// );
+
 app.UseCors(
-    builder =>
-    {
-        builder.AllowAnyMethod()
-            .AllowAnyHeader()
-            .SetIsOriginAllowed(_ => true)
-            .AllowCredentials();
-    }
+    builder => builder
+        .WithOrigins(
+            "http://localhost",
+            "http://localhost:8080",
+            "http://localhost:3000",
+            "http://birdegop.ru",
+            "http://birdegop.ru:8080",
+            "https://localhost",
+            "https://localhost:8081",
+            "https://birdegop.ru",
+            "https://birdegop.ru:8081",
+            "http://91.190.159.42",
+            "https://91.190.159.42"
+        )
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials()
 );
 
 // makes it work behind NGINX
-app.UseForwardedHeaders(new ForwardedHeadersOptions
-{
-    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-});
-
-// app.UseHttpsRedirection();
-app.UseStaticFiles();
-app.UseStaticFiles(
-    new StaticFileOptions
+app.UseForwardedHeaders(
+    new ForwardedHeadersOptions
     {
-        FileProvider = new PhysicalFileProvider(builder.Environment.ContentRootPath)
+        ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
     }
 );
+
+Console.WriteLine(builder.Environment.ContentRootPath);
+
+app.UseDefaultFiles();
+app.UseSpaStaticFiles();
 
 app.UseRouting();
 
@@ -114,5 +134,7 @@ app.UseSession();
 app.UseMiddleware<AuthRequiredMiddleware>();
 
 app.MapControllers();
+
+app.MapFallbackToFile("/index.html");
 
 await app.RunAsync();
