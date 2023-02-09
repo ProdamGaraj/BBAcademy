@@ -4,6 +4,7 @@ import baseurl from 'base-url'
 import CourseViewContainer from "../course-view-container/course-view-container";
 import LangContext from "../../contexts/lang-context";
 import translations from 'translations'
+import backend from "../../backend";
 
 export default (props) => {
 
@@ -16,8 +17,8 @@ export default (props) => {
         const courseId = query.get('id')
 
         if (courseId !== undefined) {
-            CoursesGetFullInfoForView
-                .then(r => setCourse(r))
+            // backend.Course.GetFullInfoForView
+            //     .then(r => setCourse(r))
         } else {
             alert('courseId missing');
             window.location.back()

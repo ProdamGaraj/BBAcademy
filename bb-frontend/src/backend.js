@@ -20,8 +20,7 @@ export default {
     },
     Account: {
         Register: async (data) => {
-            let response = await axios.post(baseurl + '/Account/Register', {
-                body: JSON.stringify(data),
+            let response = await axios.post(baseurl + '/Account/Register', data, {
                 withCredentials: true,
                 validateStatus
             });
@@ -29,8 +28,7 @@ export default {
             return response.data;
         },
         Login: async (data) => {
-            let response = await axios.post(baseurl + '/Account/Login', {
-                body: JSON.stringify(data),
+            let response = await axios.post(baseurl + '/Account/Login', data, {
                 withCredentials: true,
                 validateStatus
             })
