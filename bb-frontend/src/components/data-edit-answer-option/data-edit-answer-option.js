@@ -17,7 +17,10 @@ export default () => {
 
     const onSave = () => {
         context.addAnswer({
-            Title: title, Weight: weight, IsCorrect: isCorrect, MediaPath: mediaPath
+            Title: title, 
+            Weight: weight, 
+            IsCorrect: isCorrect, 
+            MediaPath: mediaPath
         })
     }
 

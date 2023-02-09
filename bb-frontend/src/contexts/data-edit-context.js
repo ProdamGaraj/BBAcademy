@@ -14,16 +14,18 @@ let context = React.createContext({
 
     beginEdit: () => {
     },
-    CourseId:1,
-    LessonId:1,
-    QuestionId:1,
-    AnswerOptionId:1,
+
+    CurrentQuestionId: undefined,
 
     addCourseInfo: (course) => {
     }, addLesson: (lesson) => {
+    }, removeLesson: (index) => {
     }, addQuestion: (question) => {
+    }, removeQuestion: (index) => {
     }, addAnswer: (answer) => {
+    }, removeAnswer: (index) => {
     }, addExam: (exam) => {
+    }, setActiveQuestion: (question) => {
     }
 });
 

@@ -15,6 +15,10 @@
     cursor: pointer;
 }
 
+.btn-warn {
+    background: #ff6565;
+}
+
 .gapper {
     display: flex;
     flex-direction: column;

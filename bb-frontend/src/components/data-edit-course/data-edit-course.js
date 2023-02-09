@@ -1,6 +1,7 @@
 ﻿import {NavLink} from "react-router-dom";
 import {useContext, useState} from "react";
 import DataEditContext from "../../contexts/data-edit-context";
+import styles from './data-edit-course.module.css'
 
 export default () => {
 
@@ -23,6 +24,10 @@ export default () => {
         });
     };
 
+    const removeLesson = index => {
+        context.removeLesson(index)
+    };
+
     return (<>
         <div className="log-container">
             <div className="heading">Editing Course</div>
@@ -39,6 +44,32 @@ export default () => {
             <input placeholder="" value={mediaPath} onChange={e => setMediaPath(e.target.value)}
                    className="form-control textbox-dg font-weight-bold text-center reg-log-input" type="text"/>
 
+            {/*Description: description,*/}
+            {/*LessonContentType: mediaPath,*/}
+            {/*Content: content,*/}
+            {/*MediaContentPath: mediaPath*/}
+
+            <p className={styles.text}>Existing Lessons</p>
+            <div className={styles.lessons_wrapper + ' ' + styles.text}>
+                {context.edit.Course.Lessons.map((lesson, index) => (<div key={index} className={styles.lessons_item}>
+                    <p><b>Lesson {index + 1}</b></p>
+                    <p>
+                        {lesson.Description}
+                    </p>
+                    <p>
+                        {lesson.LessonContentType}
+                    </p>
+                    <button className={styles.small_delete + ' btn-warn'} onClick={() => removeLesson(index)}>Delete</button>
+                </div>))}
+            </div>
+
+            {context.edit.Course.Lessons.length ? '' : <div className={styles.no_lessons}>
+                <span
+                    className={styles.text}>
+                    No Lessons Were Added
+                </span>
+            </div>}
+
             <div className="gapper">
                 <NavLink to={'/data/lesson'}>
                     <button className="add-course-btn" onClick={() => onSave()}>
@@ -50,7 +81,7 @@ export default () => {
                         <div className="log-in-btn">Save and Add/Edit Exam</div>
                     </button>
                 </NavLink>
-                <button className="add-course-btn" onClick={() => onFinish()}>
+                <button className="add-course-btn btn-warn" onClick={() => onFinish()}>
                     <div className="log-in-btn">Save and Finish Editing</div>
                 </button>
             </div>

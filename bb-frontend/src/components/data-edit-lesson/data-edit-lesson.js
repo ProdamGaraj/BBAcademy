@@ -15,7 +15,7 @@ export default () => {
     const onSave = () => {
         context.addLesson({
             Description: description,
-            LessonContentType: mediaPath,
+            LessonContentType: type,
             Content: content,
             MediaContentPath: mediaPath
         })

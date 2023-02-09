@@ -9,7 +9,30 @@ import DataEditAnswerOption from "../data-edit-answer-option/data-edit-answer-op
 import DataEditContext from "../../contexts/data-edit-context";
 import {useContext, useState} from "react";
 import DataEditExam from "../data-edit-exam/data-edit-exam";
+import styles from "../data-edit-course/data-edit-course.module.css";
 
+
+let getLsEdit = () => {
+    let lsEdit = JSON.parse(localStorage.getItem('edit'));
+    if (!lsEdit) {
+        lsEdit = {
+            Course: {
+                MediaPath: '',
+                DurationHours: 0,
+                Description: '',
+                Price: 0,
+                Exam: {Description: '', MinimumPassingGrade: 0, Questions: []},
+                Lessons: []
+            }, CurrentQuestionId: undefined,
+        }
+        localStorage.setItem('edit', JSON.stringify(lsEdit))
+    }
+    return lsEdit
+};
+
+let setLsEdit = (edit) => {
+    localStorage.setItem('edit', JSON.stringify(edit));
+};
 
 const pushToBackend = async (data) => {
     await fetch(baseurl + '/Data/SaveCourse', {
@@ -32,11 +55,57 @@ let Page = () => {
 
     let context = useContext(DataEditContext)
 
+    let allCourses = [{
+        DurationHours: 10, Price: 69420, Description: "Example Course1", MediaPath: '/media1'
+    },{
+        DurationHours: 10, Price: 69420, Description: "Example Course2", MediaPath: '/media2'
+    },{
+        DurationHours: 10, Price: 69420, Description: "Example Course3", MediaPath: '/media3'
+    },{
+        DurationHours: 10, Price: 69420, Description: "Example Course4", MediaPath: '/media4'
+    },]
+
     const onBegin = () => {
         context.beginEdit()
     };
 
+    const removeCourse = id => {
+        alert('unsupported Course Deletion')
+    };
+
     return (<>
+
+        {/*DurationHours: duration, */}
+        {/*Price: price, */}
+        {/*Description: description, */}
+        {/*MediaPath: mediaPath*/}
+        <div style={{padding: '0 50px', width: '100%', boxSizing: 'border-box'}}>
+            <p className={styles.text}>Existing Courses</p>
+            <div className={styles.lessons_wrapper + ' ' + styles.text}>
+                {allCourses.map((course, index) => (<div key={index} className={styles.lessons_item}>
+                    <p><b>Course {index + 1}</b></p>
+                    <p>
+                        {course.Description}
+                    </p>
+                    <p>
+                        {course.Price}
+                    </p>
+                    <p>
+                        {course.DurationHours} h
+                    </p>
+                    <button className={styles.small_delete + ' btn-warn'}
+                            onClick={() => removeCourse(course.Id)}>Delete
+                    </button>
+                </div>))}
+            </div>
+        </div>
+
+        {allCourses.length ? '' : <div className={styles.no_lessons}>
+                <span
+                    className={styles.text}>
+                    No Courses Were Added
+                </span>
+        </div>}
         <div className="gapper">
             <NavLink to={'/data/course'}>
                 <button className="add-course-btn" onClick={() => onBegin()}>
@@ -49,23 +118,23 @@ let Page = () => {
 
 export default () => {
 
-    let [edit, setEdit] = useState({
-        Course: {
-            MediaPath: '',
-            DurationHours: 0,
-            Description: '',
-            Price: 0,
-            Exam: {Description: '', MinimumPassingGrade: 0, Questions: []},
-            Lessons: []
-        }
-    });
+    let [edit, setEdit] = useState(getLsEdit());
+
+    const onSetEdit = (new_edit) => {
+        setLsEdit(new_edit)
+        setEdit(prev => ({...prev, ...new_edit}))
+    }
 
     const onAddLesson = (lesson) => {
-        setEdit({...edit, Course: {...edit.Course, Lessons: [...edit.Course.Lessons, lesson]}})
+        onSetEdit({...edit, Course: {...edit.Course, Lessons: [...edit.Course.Lessons, lesson]}})
+    };
+
+    const onRemoveLesson = (index) => {
+        onSetEdit({...edit, Course: {...edit.Course, Lessons: edit.Course.Lessons.filter((l, i) => i !== index)}})
     };
 
     const onAddQuestion = (question) => {
-        setEdit({
+        onSetEdit({
             ...edit, Course: {
                 ...edit.Course, Exam: {
                     ...edit.Course.Exam, Questions: [...edit.Course.Exam.Questions, question]
@@ -74,20 +143,52 @@ export default () => {
         })
     };
 
+    const onRemoveQuestion = (index) => {
+        onSetEdit({
+            ...edit, Course: {
+                ...edit.Course, Exam: {
+                    ...edit.Course.Exam, Questions: edit.Course.Exam.Questions.filter((q, i) => i !== index)
+                }
+            }
+        })
+    };
+
     const onAddCourseInfo = (course) => {
-        setEdit({...edit, Course: {...edit.Course, ...course}})
+        onSetEdit({...edit, Course: {...edit.Course, ...course}})
     };
 
     const onAddAnswer = (answer) => {
+        onSetEdit({
+            ...edit, Course: {
+                ...edit.Course, Exam: {
+                    ...edit.Course.Exam,
+                    Questions: edit.Course.Exam.Questions.map((q, i) => (i === edit.CurrentQuestionId ? {
+                        ...q, Answers: [...q.Answers, answer]
+                    } : q))
+                }
+            }
+        })
+    };
 
+    const onRemoveAnswer = (index) => {
+        onSetEdit({
+            ...edit, Course: {
+                ...edit.Course, Exam: {
+                    ...edit.Course.Exam,
+                    Questions: edit.Course.Exam.Questions.map((q, i) => (i === edit.CurrentQuestionId ? {
+                        ...q, Answers: q.Answers.filter((a, ii) => ii !== index)
+                    } : q))
+                }
+            }
+        })
     };
 
     const onAddExam = (exam) => {
-        setEdit({...edit, Course: {...edit.Course, Exam: {...edit.Course.Exam, ...exam}}})
+        onSetEdit({...edit, Course: {...edit.Course, Exam: {...edit.Course.Exam, ...exam}}})
     };
 
     const onBeginEdit = () => {
-        setEdit({
+        onSetEdit({
             Course: {
                 MediaPath: '',
                 DurationHours: 0,
@@ -95,26 +196,48 @@ export default () => {
                 Price: 0,
                 Exam: {Description: '', MinimumPassingGrade: 0, Questions: []},
                 Lessons: []
-            }
+            }, CurrentQuestionId: undefined,
         });
     };
 
     const onFinish = (latestCourse) => {
-        pushToBackend(({...edit, Course: {...edit.Course, ...latestCourse}}))
+
+        let data = ({...edit.Course, ...latestCourse});
+
+        if (data.Exam === undefined) {
+            alert('Не заполнена информация об экзамене')
+            return;
+        }
+
+        if (!data.Lessons.length) {
+            alert('Не заполнена информация о занятиях')
+            return;
+        }
+
+        pushToBackend(data)
             .then(() => console.log('finished pushing'))
+    }
+
+    function onSetActiveQuestion(question) {
+        onSetEdit({
+            ...edit, CurrentQuestionId: question
+        })
     }
 
     return (<>
         <DataEditContext.Provider value={{
             edit: edit,
-            addLesson: onAddLesson,
-            addQuestion: onAddQuestion,
             addCourseInfo: onAddCourseInfo,
+            addLesson: onAddLesson,
+            removeLesson: onRemoveLesson,
+            addQuestion: onAddQuestion,
+            removeQuestion: onRemoveQuestion,
             addAnswer: onAddAnswer,
+            removeAnswer: onRemoveAnswer,
             addExam: onAddExam,
             beginEdit: onBeginEdit,
             finish: onFinish,
-
+            setActiveQuestion: onSetActiveQuestion
         }}>
             <Routes>
                 <Route path='/' element={<Page/>}/>
