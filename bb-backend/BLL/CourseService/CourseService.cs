@@ -1,12 +1,13 @@
-﻿using BLL.Services.Interfaces;
+﻿using AutoMapper;
+using BLL.Models.GetCourseForView;
+using BLL.Models.Save;
 using Infrastructure.Common;
 using Infrastructure.Models;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
-namespace BLL.Services
+namespace BLL.CourseService
 {
     public class CourseService : ICourseService
     {
@@ -15,14 +16,16 @@ namespace BLL.Services
         private readonly IRepository<Question> _questionRepository;
         private readonly IRepository<Exam> _examRepository;
         private readonly ILogger<CourseService> _logger;
+        private readonly IMapper _mapper;
 
-        public CourseService(IRepository<User> userRepository, IRepository<Course> courseRepository, IRepository<Question> questionRepository, IRepository<Exam> examRepository, ILogger<CourseService> logger)
+        public CourseService(IRepository<User> userRepository, IRepository<Course> courseRepository, IRepository<Question> questionRepository, IRepository<Exam> examRepository, ILogger<CourseService> logger, IMapper mapper)
         {
             _userRepository = userRepository;
             _courseRepository = courseRepository;
             _questionRepository = questionRepository;
             _examRepository = examRepository;
             _logger = logger;
+            _mapper = mapper;
         }
 
         public async Task<ICollection<Course>> GetCourses(long userId)
@@ -43,19 +46,39 @@ namespace BLL.Services
             }
         }
 
-        public async Task<Course> GetCourse(long courseId)
+        public async Task<GetCourseForViewDto> GetFullInfoForView(long courseId)
         {
             try
             {
                 var course = await _courseRepository.GetAll()
+                    .Include(c => c.Exam)
+                    .ThenInclude(e => e.Questions)
+                    .ThenInclude(q => q.AnswerOptions)
+                    .Include(c => c.Lessons)
                     .FirstOrDefaultAsync(c => c.Id == courseId);
 
-                return course;
+                var resultDto = _mapper.Map<GetCourseForViewDto>(course);
+
+                return resultDto;
             }
             catch (Exception ex)
             {
                 throw new BusinessException("Failed GetCourse", ex);
             }
+        }
+
+        public async Task<long> SaveCourse(SaveCourseDto dto)
+        {
+            using var scope = _logger.BeginScope(dto);
+            _logger.LogInformation("Saving Course");
+            
+            var course = _mapper.Map<Course>(dto);
+            _courseRepository.Add(course);
+            await _courseRepository.SaveChangesAsync();
+            
+            _logger.LogInformation("Finished saving course");
+
+            return course.Id;
         }
     }
 }

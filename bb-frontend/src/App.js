@@ -7,10 +7,10 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Login from "./components/login/login";
 import {useState} from "react";
 import Register from "./components/register/register";
-import Courses from "./components/courses/courses";
 import CourseView from "./components/course-view/course-view";
 import Data from "./components/data/data";
-import Cart from "./components/cart";
+// import Cart from "./components/cart/cart";
+import CoursesDashboard from "./components/courses-dashboard/courses-dashboard";
 
 let getLsLang = () => {
     let lsLang = localStorage.getItem('lang');
@@ -29,8 +29,8 @@ let getLsUser = () => {
     let lsUser = JSON.parse(localStorage.getItem('user'));
     if (!lsUser) {
         lsUser = {
-            FirstName: 'Perec',
             LastName: 'Superskiy',
+            FirstName: 'Perec',
             MiddleName: 'Percovich',
             JobTitle: 'Common grower',
             Organisation: 'Gryadka',
@@ -69,10 +69,10 @@ function App() {
                             <Route path='/' element={<Landing/>}/>
                             <Route path='/login' element={<Login/>}/>
                             <Route path='/register' element={<Register/>}/>
-                            <Route path='/courses' element={<Courses/>}/>
+                            <Route path='/courses' element={<CoursesDashboard/>}/>
                             <Route path='/course-view' element={<CourseView/>}/>
                             <Route path='/data/*' element={<Data/>}/>
-                            <Route path='/cart' element={<Cart/>}/>
+                            {/*<Route path='/cart' element={<Cart/>}/>*/}
                         </Routes>
                     </BrowserRouter>
                 </Template>
