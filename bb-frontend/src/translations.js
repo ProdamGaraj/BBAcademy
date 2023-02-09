@@ -1,7 +1,6 @@
-﻿export default {
-    'uz': {
+﻿let translations = {
+    uz: {
         'devpage': "Sahifa ishlab chiqilmoqda",
-
         'enter': "Tizimga kirish",
         'mycourse': "Mening kurslaring",
         'myrecom': "Mening tavsiyalarim",
@@ -10,9 +9,7 @@
         'passedcourses': "Tugallanganlari",
         'start': "Sotib olish",
         'startedcourses': "Started courses",
-        'login': "Login",
         'inkart': "Savatdan olib tashlang",
-        'password': "Parol",
 
         'firstname': "Ism",
         'surname': "Familiya",
@@ -77,10 +74,9 @@
         'ourPartners':"Bizning hamkorlar",
     },
 
-    'ru': {
+    ru: {
         'rateSystem':"Система рейтинга",
         'aLotOfCourses':"Широкий выбор курсов",
-        'investYourself':"Инвестируй в себя",
         'learnWithBBAcademy':"Учись в BilimBank",
         'improveYourProfessionalCapital':"Увеличивай свой профессиональный капитал",
 
@@ -104,27 +100,6 @@
 
         'devpage':"Страница находится в разработке",
 
-        'lesson':"Урок",
-        'block':"Блок",
-        'test':"Тест",
-        'links':"Ссылки и материалы",
-        'ending':"Заключение и сертификат",
-
-        'rights': "© 2023 Все права защищены, bilimbank",
-        'learningproc': "Процесс обучения",
-        'usagepol': "Условия использования",
-        'privpol': "Политика конфиденциальности",
-        'about': "О школе",
-        'vacancies': "Вакансии",
-        'company': "Компаниям",
-        'companyInfo': "Сведения об образовательной организации",
-        'onlineCourses': "Онлайн-курсы",
-        'programms': "Программы",
-        'webinars': "Вебинары",
-        'fests': "Фестивали",
-        'carrier': "Карьера",
-
-
         'enter': "Войти",
         'mycert': "Мои сертификаты",
         'mycourse': "Мои курсы",
@@ -134,9 +109,7 @@
         'passedcourses': "Завершённые курсы",
         'start': "Начать",
         'startedcourses': "Начатые курсы",
-        'login': "Войти",
         'inkart': "Удалить из корзины",
-        'password': "Пароль",
 
         'firstname': "Имя",
         'surname': "Фамилия",
@@ -182,3 +155,4 @@
         'ending': "Заключение и сертификат",
     }
 }
+export default translations;
