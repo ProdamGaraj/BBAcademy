@@ -1,0 +1,228 @@
+﻿@model WebApi.ViewModels.CourseViewModel
+<link rel="stylesheet" type="text/css" href="~/css/Course.css">
+
+@{
+    var prevLesHref = $"/Course/PrevLesson/{Model.IdCourse}/{Model.CurrentLesson}/{Model.AllLessons.Count}";
+    var nextLesHref = $"/Course/NextLesson/{Model.IdCourse}/{Model.CurrentLesson}/{Model.AllLessons.Count}";
+    ViewBag.Title = "Courses";
+    Layout = "CLLayout";
+    string header = "";
+    bool lang = Model.User.Lang == 0;
+    string next;
+    string prev;
+    string send;
+    string end;
+    string congratz;
+    string incart;
+
+    if (lang)
+    {
+        next = "Keyingisi";
+        prev = "Orqaga";
+        send = "Tugatish";
+        end = "Xulosa";
+        congratz = "Tabriklaymiz! Siz “Yangilar uchun Investitsiya” kursini tamomladingiz";
+        incart = "Savatchaga qo'shish";
+    }
+    else
+    {
+        next = "Дальше";
+        prev = "Назад";
+        send = "Отправить";
+        end = "Заключение";
+        congratz = "Поздравляем! Вы завершили курс Инвестиции для начинающих";
+        incart = "В корзину";
+    }
+    if (Model.CurrentLesson < Model.AllLessons.Count)
+    {
+        if (Model.CurrentLesson == 0)
+        {
+            if (lang)
+            {
+                header = "Kirish";
+            }
+            else
+            {
+                header = "Введение";
+            }
+        }
+        else
+        {
+            header = "1." + Model.CurrentLesson;
+        }
+        <div class="main-container">
+            <div class="main-container-cont">
+                <div class="Demarcation-line"></div>
+                <div class="main-container-list-result">
+                    <div class="main-container-list-result-cont">
+                        <div class="main-container-list-result-cont-1">@header</div>
+                        <div class="main-container-list-result-cont-2">@Model.AllLessons.ElementAt( Model.CurrentLesson).TextContent </div>
+                        @if (Model.AllLessons.ElementAt(Model.CurrentLesson).MediaContentPath is not null)
+                        {
+                            <div class="video-block">
+                                <video id="testVideo" width="800" controls>
+                                    <source src=@Model.AllLessons.ElementAt(Model.CurrentLesson).MediaContentPath type="video/mp4">
+                                </video>
+                            </div>
+                        }
+                        @if (!Model.IsBought)
+                        {
+
+                            <div class="back-next-btns">
+
+                                <form method="get" asp-controller="Course" asp-action="NextLesson">
+                                    <a class="course-back-button" style="background: #0093DC; font-family: 'Raleway';" href="/Course/InCart/@Model.IdCourse">
+                                        <div class="next">@incart</div>
+                                        <img class="next-button-icon" src="~/pict/Course/next.svg">
+                                    </a>
+                                </form>
+                            </div>
+                        }
+                        else
+                        {
+                            if (Model.CurrentLesson == 0)
+                            {
+                                <div class="back-next-btns">
+                                    <form>
+                                        <a class="course-back-button">
+                                            <img class="back-button-icon" src="~/pict/Course/left.svg">
+                                            <div class="left">@prev</div>
+                                        </a>
+                                    </form>
+
+                                    <form>
+                                        <a class="course-back-button" style="background: #0093DC; font-family: 'Raleway';" href=@nextLesHref>
+                                            <div class="next">@next</div>
+                                            <img class="next-button-icon" src="~/pict/Course/next.svg">
+                                        </a>
+                                    </form>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="back-next-btns">
+                                    <form>
+                                        <a class="course-back-button" style="background: #0093DC;" href=@prevLesHref>
+                                            <img class="back-button-icon" src="~/pict/Course/left.svg">
+                                            <div class="left">@prev</div>
+                                        </a>
+                                    </form>
+
+                                    <form>
+                                        <a class="course-back-button" style="background: #0093DC; font-family: 'Raleway';" href=@nextLesHref>
+                                            <div class="next">@next</div>
+                                            <img class="next-button-icon" src="~/pict/Course/next.svg">
+                                        </a>
+                                    </form>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    else if (Model.CurrentLesson == Model.AllLessons.Count)
+    {
+        var hrefcontroller = $"Course/{Model.IdCourse}/SendAllAsync";
+        <link rel="stylesheet" type="text/css" href="~/css/Course.css">
+
+        <!--test-->
+        <div class="main-container-list-result-5" style="display:block">
+            <div class="main-container-list-result-cont-test">
+                <div class="main-container-list-result-cont-1">Тест</div>
+                @if (Model.Exam is not null && Model.Exam.Questions is not null)
+                {
+                    <form method="post" name="Exam">
+                            <input type="hidden" value="@Model.IdCourse" name="CourseId" />
+                        @foreach (var question in Model.Exam.Questions)
+                        {
+                            @if (question.QuestionType.Equals(Backend.Models.Enum.QuestionType.TextManyAnswers) && question.Answers is not null)
+                            {
+                                <fieldset @question.Id style="border: none">
+                                    <p class="course-test-que-text">@question.Content</p>
+                                    @foreach (var answer in question.Answers)
+                                    {
+
+                                        <div class="test-que">
+                                            <input class="test-que-checkbox" type="checkbox" name="@question.Id" value="@answer.Id" id=@answer.Id>
+                                            <label class="course-test-que-text-text">@answer.Content</label>
+                                        </div>
+
+                                    }
+                                </fieldset>
+                            }
+                            else if (question.QuestionType.Equals(Backend.Models.Enum.QuestionType.TextOneAnswer) && question.Answers is not null)
+                            {
+
+                                <p class="course-test-que-text">@question.Content</p>
+
+                                <fieldset id=@question.Id style="border: none">
+                                    @foreach (var answer in question.Answers)
+                                    {
+
+                                        <div class="test-que">
+                                            <input class="test-que-checkbox" type="radio" name="@question.Id " value="@answer.Id" id=@answer.Id>
+                                            <label class="course-test-que-text-text">@answer.Content</label>
+                                        </div>
+
+                                    }
+                                </fieldset>
+                            }
+                            else if (question.QuestionType.Equals(Backend.Models.Enum.QuestionType.MediaOneAnswer) && question.Answers is not null)
+                            {
+                                <p class="course-test-que-text">@question.Content</p>
+                                <img class="png-que" src=@question.MediaPath>
+                                <fieldset id=@question.Id style="border: none">
+                                    @foreach (var answer in question.Answers)
+                                    {
+
+                                        <div class="test-que">
+                                            <input class="test-que-checkbox" type="radio" name="@question.Id" value="@answer.Id" id=@answer.Id>
+                                            <label class="course-test-que-text-text">@answer.Content</label>
+                                        </div>
+
+                                    }
+                                </fieldset>
+                            }
+                            else if (question.QuestionType.Equals(Backend.Models.Enum.QuestionType.MediaManyAnswers) && question.Answers is not null)
+                            {
+
+                                <p class="course-test-que-text">@question.Content</p>
+                                <img class="png-que" src=@question.MediaPath>
+                                <fieldset style="border: none">
+                                    @foreach (var answer in question.Answers)
+                                    {
+
+                                        <div class="test-que">
+                                            <input class="test-que-checkbox" type="checkbox" name="@question.Id" value="@answer.Id" id=@answer.Id>
+                                            <label class="course-test-que-text-text">@answer.Content</label>
+                                        </div>
+
+                                    }
+                                </fieldset>
+                            }
+
+                        }
+                        <button type="submit" class="course-next-button">
+                            <div class="log-in-btn">@send</div>
+                        </button>
+                    </form>
+                }
+
+            </div>
+        </div>
+    }
+    else
+    {
+        <!--ending-->
+        <div class="main-container-list-result-6">
+            <div class="main-container-list-result-cont">
+                <p class="sertif-conc">@end</p>
+                <p class="sertig-gratz">@congratz</p>
+                <img class="sertif-set" src="~/pict/Account/sertif.png">
+            </div>
+        </div>
+    }
+}
