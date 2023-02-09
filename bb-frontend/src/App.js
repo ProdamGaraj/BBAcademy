@@ -12,6 +12,7 @@ import Data from "./components/data/data";
 import Cart from "./components/cart/cart";
 import CoursesDashboard from "./components/courses-dashboard/courses-dashboard";
 import MyCertificates from 'components/my-certificates/my-certificates';
+import Exam from 'components/exam/exam'
 
 let getLsLang = () => {
     let lsLang = localStorage.getItem('lang');
@@ -74,7 +75,8 @@ function App() {
                             <Route path='/course-view' element={<CourseView/>}/>
                             <Route path='/data/*' element={<Data/>}/>
                             <Route path='/cart/*' element={<Cart/>}/>
-                            <Route path='/my-certificates/*' element={<MyCertificates/>}/>
+                            <Route path='/my-certificates' element={<MyCertificates/>}/>
+                            <Route path='/exam' element={<Exam/>}/>
                         </Routes>
                     </BrowserRouter>
                 </Template>

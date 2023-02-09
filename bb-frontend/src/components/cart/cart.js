@@ -2,7 +2,8 @@ import { useEffect, useState, useContext } from "react";
 import UserContext from "../../contexts/user-context";
 import baseurl from "base-url";
 import LangContext from "../../contexts/lang-context";
-import translations from 'translations'
+import translations from 'translations';
+import { NavLink } from "react-router-dom";
 
 export default () => {
 
@@ -46,15 +47,6 @@ export default () => {
         removeFromCart()
     }
 
-    let showMyCert = () => {
-        async function showMyCert() {
-            const response = await fetch(
-                baseurl + "/myCertificates"
-            ).then((response) => response.json()).then(response => showMyCert()).catch(error => alert(error))
-        }
-        showMyCert()
-    }
-
     return (<>
         <body>
             <div className="courses-container">
@@ -83,10 +75,12 @@ export default () => {
                                 <div className="user_info-block-name">{user.RecommendedBy}</div>
                             </div>
                         </div>
-                        <div className="user_info-block user_info-block-clickable" onClick={() => showMyCert()}>
+                        <NavLink to='/my-certificates'>
+                        <div className="user_info-block user_info-block-clickable">
                             <img src="/img/Account/sertif.svg" />
                             <div className="user_info-block-name">{(translations[currentLang].mycert)}</div>
                         </div>
+                    </NavLink>
                     </div>
                 </div>
 

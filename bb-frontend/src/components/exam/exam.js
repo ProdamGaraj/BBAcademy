@@ -5,48 +5,67 @@ import LangContext from "../../contexts/lang-context";
 import translations from 'translations'
 import { NavLink } from "react-router-dom";
 
-export default (props) => {
 
+
+let questionTypeConverter = ({ type, answers }) => {
+
+    switch (type) {
+        case 1:
+            return (<>
+                {answers.map((answer, i) => (<div className="test-que">
+                    <input className="test-que-checkbox" type="radio" />
+                    <label className="course-test-que-text-text">{answer.Content}</label>
+                </div>))}
+            </>)
+        case 2:
+            return (<>
+                {answers.map((answer, i) => (<div className="test-que">
+                    <input className="test-que-checkbox" type="checkbox" />
+                    <label className="course-test-que-text-text">{answer.Content}</label>
+                </div>))}
+            </>)
+    }
+}
+
+let sendExam = async (data) => {
+    await fetch(baseurl + '/Exam/Send', {
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json;charset=utf-8' },
+        method: 'POST'
+    })
+        .then(async r => {
+            if (r.status === 200) {
+                let response = await r.text();
+                alert('Exam send succsesfully\n' + response)
+            } else {
+                alert('Received status code: ' + r.status + '\n' + r.statusText)
+            }
+        }, e => {
+            alert(e)
+        })
+}
+
+export default (props) => {
+    let [exam, setExam] = useState(null)
     let currentLang = useContext(LangContext).lang
     let user = useContext(UserContext).user;
-    let [certificates, setCertificates] = useState([])
 
     useEffect(() => {
+
+        const query = new URLSearchParams(window.location.search);
+        const courseId = query.get('id')
+
         async function getData() {
             const response = await fetch(
-                baseurl + "/Certificates/GetAll"
+                baseurl + "/Exam/GetByCourse&id=" + courseId
             )
             let actualData = await response.json();
-            this.setCertificates(actualData)
+            this.setExam(actualData)
             console.log(actualData)
         }
         getData()
     }, [])
 
-    /*let download = index => {
-        async function download(index) {
-            const response = await fetch(
-                baseurl + "/Certificates/Get&id=" + certificateId
-            )
-            let actualData = await response.json();
-            this.setCourses(actualData)
-            console.log(actualData)
-        }
-        download()
-    }*/
-
-
-    let showMyCert = () => {
-        async function showMyCert() {
-
-            fetch(
-                baseurl + "/my-certificates/")
-                .then((response) => response.json())
-                .then(response => showMyCert())
-                .catch(error => alert(error))
-        }
-        showMyCert()
-    }
 
     return (<>
         <div className="main-container">
@@ -82,33 +101,21 @@ export default (props) => {
                     </NavLink>
                 </div>
             </div>
+        </div>
 
-            <div className="Demarcation-line"></div>
+        <div className="Demarcation-line"></div>
 
-            <div className="sertif_dwnl-block">
-                <div className="my_acc-tab_menu">
-                    <div className="media-block">
-                        <div className="media-name-1">
-                            <img className="media-name-svg" src="pict\people.png" />
-                            <div className="media-name-name">{(translations[currentLang].personalArea)}</div>
-                        </div>
-                        <div className="media-name">
-                            <img className="media-name-svg" src="pict\Account\course.svg" />
-                            <div className="media-name-name"><div className="media-name-name"><a onClick={() => showMyCert()}>{(translations[currentLang].mycourse)}</a></div></div>
-                        </div>
-                    </div>
-                </div>
-                <div className="sertif_dwnl">
-                    {certificates.map((certificate, i) => (<div key={i} className="course-wrapper">
-                        <div className="sertif_blank">
-                            <div className="sertif_name">{/*certificate.Name*/"TODO: certificate name"}</div>
-                            <img className="sertif_dwnl_img" src="pict\Account\sertif.png" />
-                            <div className="sertif-dwnl-btn">
-                                <a className="header-container-right_section-login">{(translations[currentLang].download)}</a>
-                            </div>
-                        </div>
+        <div className="main-container-list-result-5">
+            <div className="main-container-list-result-cont-test">
+                <div className="main-container-list-result-cont-1">{translations[currentLang].exam}</div>
+                {exam === null ? '' : exam.Questions.map((question, i) => (
+                    <div key={i}>
+                        <p>{question.Content}</p>
+                        {questionTypeConverter(question.type, question.answers)}
                     </div>))}
-                </div>
+                <button type="submit" className="course-next-button">
+                    <div className="log-in-btn" onClick={() => sendExam(exam)}></div>
+                </button>
             </div>
         </div>
     </>)
