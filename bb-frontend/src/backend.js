@@ -22,9 +22,6 @@ export default {
         Register: async (data) => {
             let response = await axios.post(baseurl + '/Account/Register', {
                 body: JSON.stringify(data),
-                headers: {
-                    Authorization: 'Bearer ' + localStorage.getItem('token')
-                },
                 withCredentials: true,
                 validateStatus
             });
@@ -34,9 +31,6 @@ export default {
         Login: async (data) => {
             let response = await axios.post(baseurl + '/Account/Login', {
                 body: JSON.stringify(data),
-                headers: {
-                    Authorization: 'Bearer ' + localStorage.getItem('token')
-                },
                 withCredentials: true,
                 validateStatus
             })
