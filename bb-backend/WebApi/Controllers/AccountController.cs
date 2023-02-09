@@ -42,5 +42,24 @@ namespace WebApi.Controllers
 
             return Ok();
         }
+        [HttpGet]
+        public async Task<IActionResult> GetUser()
+        {
+            long id = HttpContext.User.GetId();
+            var user = await _accountService.GetUserShortById(id);
+            return Ok(user);
+        }
+        [HttpPost]
+        public async Task<IActionResult> User([FromBody] LoginDto dto)
+        {
+            var claimsIdentity = await _accountService.Login(dto);
+
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity)
+            );
+
+            return Ok();
+        }
     }
 }
