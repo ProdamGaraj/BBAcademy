@@ -32,13 +32,13 @@ builder.Logging.AddSerilog(dispose: true);
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddScoped<IAccountService, AccountService>();
-builder.Services.AddScoped<ICertificateService, CertificateService>();
-builder.Services.AddScoped<ICartService, CartService>();
-builder.Services.AddScoped<ILessonService, LessonService>();
-builder.Services.AddScoped<IExamService, ExamService>();
-builder.Services.AddScoped<ICourseService, CourseService>();
-builder.Services.AddScoped<ICreationService, CreationService>();
+// builder.Services.AddScoped<IAccountService, AccountService>();
+// builder.Services.AddScoped<ICertificateService, CertificateService>();
+// builder.Services.AddScoped<ICartService, CartService>();
+// builder.Services.AddScoped<ILessonService, LessonService>();
+// builder.Services.AddScoped<IExamService, ExamService>();
+// builder.Services.AddScoped<ICourseService, CourseService>();
+// builder.Services.AddScoped<ICreationService, CreationService>();
 
 builder.Services.AddDb(builder.Configuration);
 

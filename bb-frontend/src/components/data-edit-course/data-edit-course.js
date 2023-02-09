@@ -11,15 +11,16 @@ export default () => {
     let [description, setDescription] = useState(context.edit.Course.Description ?? '')
     let [mediaPath, setMediaPath] = useState(context.edit.Course.MediaPath ?? '')
 
-    const onSaveToLesson = () => {
+    const onSave = () => {
         context.addCourseInfo({
             DurationHours: duration, Price: price, Description: description, MediaPath: mediaPath
         })
     };
-    const onSaveToExam = () => {
-        context.addCourseInfo({
+
+    const onFinish = () => {
+        context.finish({
             DurationHours: duration, Price: price, Description: description, MediaPath: mediaPath
-        })
+        });
     };
 
     return (<>
@@ -41,14 +42,17 @@ export default () => {
             <div className="gapper">
                 <NavLink to={'/data/lesson'}>
                     <button type="submit" className="add-course-btn">
-                        <div className="log-in-btn" onClick={() => onSaveToLesson()}>Save and Add Lesson</div>
+                        <div className="log-in-btn" onClick={() => onSave()}>Save and Add Lesson</div>
                     </button>
                 </NavLink>
                 <NavLink to={'/data/exam'}>
                     <button type="submit" className="add-course-btn">
-                        <div className="log-in-btn" onClick={() => onSaveToExam()}>Save and Add/Edit Exam</div>
+                        <div className="log-in-btn" onClick={() => onSave()}>Save and Add/Edit Exam</div>
                     </button>
                 </NavLink>
+                <button type="submit" className="add-course-btn">
+                    <div className="log-in-btn" onClick={() => onFinish()}>Save and Finish Editing</div>
+                </button>
             </div>
         </div>
     </>)

@@ -41,6 +41,20 @@ export default () => {
         }
     });
 
+    const pushToBackend = async (data) => {
+        await fetch('/Data/SaveCourse', {body: JSON.stringify(data), method: 'POST'})
+            .then(r => {
+                if(r.status === 200) {
+                    alert('Saved successfully')
+                }
+                else{
+                    alert('Received status code: ' + r.status + '\n' + r.statusText)
+                }
+            }, e => {
+                alert(e)
+            })
+    }
+
     const onAddLesson = (lesson) => {
         setEdit({...edit, Course: {...edit.Course, Lessons: [...edit.Course.Lessons, lesson]}})
     };
@@ -80,6 +94,11 @@ export default () => {
         });
     };
 
+    const onFinish = (latestCourse) => {
+        pushToBackend(({...edit, Course: {...edit.Course, ...latestCourse}}))
+            .then(() => console.log('finished pushing'))
+    }
+    
     return (<>
         <DataEditContext.Provider value={{
             edit: edit,
@@ -88,7 +107,8 @@ export default () => {
             addCourseInfo: onAddCourseInfo,
             addAnswer: onAddAnswer,
             addExam: onAddExam,
-            beginEdit: onBeginEdit
+            beginEdit: onBeginEdit,
+            finish: onFinish
         }}>
             <Routes>
                 <Route path='/' element={<Page/>}/>
