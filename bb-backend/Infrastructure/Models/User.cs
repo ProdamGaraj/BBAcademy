@@ -4,7 +4,6 @@ namespace Infrastructure.Models
 {
     public class User : Entity
     {
-        public int? Lang { get; set; }
         public UserRole Role { get; set; }
 
         public string FirstName { get; set; }

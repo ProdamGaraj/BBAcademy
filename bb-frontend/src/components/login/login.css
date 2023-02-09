@@ -22,48 +22,6 @@
     margin-left: 20px;
     font-size:20px;
 }
-footer{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 875px;
-
-    height: 64px;
-    background: #FAFAFA;
-
-    margin: auto 0 0;
-    width: 100%;
-
-    font-family: 'Raleway', serif;
-    font-style: normal;
-    font-weight: 400;
-}
-.footer-container{
-    width: 1320px;
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-.footer-element{
-    display: flex;
-    align-items: center;
-    margin-right: auto;
-}
-.footer-logo{
-    padding-right: 8px;
-}
-.footer-icon{
-    height: 25px;
-    margin-right: 10px;
-}
-.footer-right{
-    display: flex;
-    flex-direction: row;
-    width: 270px;
-}
 .main-container{
     height: 840px;
     width: 1320px;

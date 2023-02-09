@@ -1,31 +1,4 @@
-body {
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 970px;
-}
-
-header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 875px;
-
-    height: 64px;
-    background: #FAFAFA;
-}
-
-.header-container {
-    width: 1320px;
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-
+﻿
 .arrow {
     margin-right: 10px;
 }
@@ -80,49 +53,6 @@ header {
 .header-container-rightside-icon-text {
     color: gray;
 
-}
-
-footer {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 875px;
-
-    height: 64px;
-    background: #FAFAFA;
-
-    margin-top: auto;
-}
-
-.footer-container {
-    width: 1320px;
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-
-.footer-element {
-    display: flex;
-    align-items: center;
-    margin-right: auto;
-}
-
-.footer-logo {
-    padding-right: 8px;
-}
-
-.footer-icon {
-    height: 25px;
-    margin-right: 10px;
-}
-
-.footer-right {
-    display: flex;
-    flex-direction: row;
-    width: 270px;
 }
 
 .main-container {
@@ -242,7 +172,6 @@ li {
 }
 
 .main-container-list-result-cont {
-    margin-top: 55px;
     width: 765px;
     display: flex;
     flex-direction: column;
@@ -275,27 +204,6 @@ li {
     justify-content: center;
 }
 
-.test-que {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: 9px;
-    margin-top: 9px;
-}
-
-.test-que-checkbox {
-    margin-right: 30px;
-    margin-left: 18px;
-}
-
-.course-test-que-text-text {
-    font-family: 'Raleway';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 111%;
-}
-
 .png-que {
     display: flex;
     margin-left: auto;
@@ -303,10 +211,7 @@ li {
 }
 
 .video-block {
-    margin-top: 60px;
-    width: 765px;
-    height: 429px;
-    background: black;
+    box-sizing: border-box;
 }
 
 .main-container-list-result-cont-1-2 {
@@ -364,9 +269,7 @@ li {
 
 .back-next-btns {
     display: flex;
-    flex-direction: row;
-    margin-left: auto;
-    margin-right: auto;
+    justify-content: center;
 }
 
 .next-button-icon {
@@ -392,10 +295,10 @@ li {
 .course-back-button {
     margin-right: 10px;
 
-    width: 249px;
-    height: 35px;
-    left: 0;
-    top: 9px;
+    width: 248.8px;
+    height: 35.43px;
+    left: 0px;
+    top: 9.24px;
 
     background: rgba(0, 0, 0, 0.2);
     box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
@@ -407,8 +310,6 @@ li {
     align-items: center;
 
     margin-top: 78px;
-    background: #0093DC;
-    font-family: 'Raleway';
 }
 
 .back-button-icon {

@@ -18,19 +18,6 @@ namespace WebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            // certificateViewModel.User = (await accountService.GetUserByLogin(HttpContext.User.Identity.Name)).Data;
-            // if (HttpContext.Session.TryGetValue("language", out _))
-            //     certificateViewModel.User.Lang = HttpContext.Session.GetInt32("language");
-            // if (certificateViewModel.User.Lang is null)
-            // {
-            //     certificateViewModel.User.Lang = 1;
-            //     HttpContext.Session.SetInt32("language", 1);
-            // }
-            // else
-            // {
-            //     HttpContext.Session.SetInt32("language", (int)certificateViewModel.User.Lang);
-            // }
-
             var certificates = await _certificateService.GetCertificatesByUser(HttpContext.User.GetId());
 
             return View(certificates);

@@ -16,6 +16,7 @@ export default () => {
         Description: 'some-description',
         LessonsCount: 5,
         Duration: '5.5',
+        IsBought: false,
         Id: 505
     },];
 
@@ -25,6 +26,10 @@ export default () => {
 
     const showMyCourses = () => {
         window.location.href = '/courses'
+    };
+
+    const removeFromCart = courseId => {
+        
     };
 
     return (<>
@@ -56,7 +61,8 @@ export default () => {
                     </div>
                     <div className="user_info-block user_info-block-clickable">
                         <img src="/img/Account/sertif.svg"/>
-                        <div className="user_info-block-name" onClick={() => showMyCert()}>{translations[currentLang].mycert}</div>
+                        <div className="user_info-block-name"
+                             onClick={() => showMyCert()}>{translations[currentLang].mycert}</div>
                     </div>
                 </div>
             </div>
@@ -114,9 +120,10 @@ export default () => {
                                     <img className="cours-info-block-src" src="/img/Account/bell.svg"/>
                                     <div className="cours-info-block-hours-1">{item.LessonsCount} lessons</div>
                                     <div className="cours-info-block-hours-2">{item.Duration}</div>
-                                    <a className="cours-info-block-button button-special"
-                                       href={"/DeleteFromCart/" + item.Id}>{translations[currentLang].incart}</a>
-                                    {/*"/Course/GoToCourse/" + item.Id*/}
+                                    {item.IsBought ? (<a className="cours-info-block-button button-special"
+                                                         onClick={() => removeFromCart(item.Id)}>{translations[currentLang].incart}</a>) : (
+                                        <a className="cours-info-block-button button-special"
+                                           href={"/course-view?id=" + item.Id}>{translations[currentLang].incart}</a>)}
                                 </div>
                             </div>))}
                         </div>

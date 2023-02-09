@@ -8,6 +8,7 @@ import Login from "./components/login/login";
 import {useState} from "react";
 import Register from "./components/register/register";
 import Courses from "./components/courses/courses";
+import CourseView from "./components/course-view/course-view";
 
 let getLsLang = () => {
     let lsLang = localStorage.getItem('lang');
@@ -67,6 +68,7 @@ function App() {
                             <Route path='/login' element={<Login/>}/>
                             <Route path='/register' element={<Register/>}/>
                             <Route path='/courses' element={<Courses/>}/>
+                            <Route path='/course-view' element={<CourseView/>}/>
                             {/*<Route path='/roster/:number' component={Player}/>*/}
                         </Routes>
                     </BrowserRouter>

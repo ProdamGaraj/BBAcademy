@@ -7,21 +7,6 @@
     margin-right: 43px;
 }
 
-.footer-logo {
-    padding-right: 8px;
-}
-
-.footer-icon {
-    height: 25px;
-    margin-right: 10px;
-}
-
-.footer-right {
-    display: flex;
-    flex-direction: row;
-    width: 270px;
-}
-
 .account-data {
     display: flex;
     flex-direction: column;

@@ -437,14 +437,6 @@ label {
     background: rgba(0, 175, 181, 0.6);
 }
 
-.video-block {
-    width: 1250px;
-    height: 742px;
-
-    background: #101010;
-    margin-bottom: 115px;
-}
-
 .category_and_popular {
     background-color: #F5F5F5;
     display: flex;
