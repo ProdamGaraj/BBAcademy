@@ -7,12 +7,14 @@
     row-gap: 52px;
     margin: 0 8%;
     box-sizing: border-box;
+    /*min-width: 1200px;*/
 }
 
 .order-completion {
     display: flex;
     flex-direction: column;
     gap: 12px;
+    min-width: 760px;
 }
 .order-completion h1 {
     font-weight: 500;

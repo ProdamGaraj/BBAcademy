@@ -1,6 +1,6 @@
 import Template from "../template/template";
 import {useContext, useEffect, useState} from "react";
-import Order from "./order";
+import Order from "../order/order";
 import backend from "../../backend";
 import LoaderModalContext from "../../contexts/loader-modal-context";
 import ErrorModalContext from "../../contexts/error-modal-context";
