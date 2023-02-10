@@ -51,7 +51,7 @@ public class CartController : Controller
         var userId = HttpContext.User.GetId();
         var result = await _cartService.RemoveCourse(courseId, userId);
 
-        return Ok(result);
+        return Ok();
     }
 
     [HttpGet]
