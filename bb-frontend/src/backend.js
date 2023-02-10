@@ -62,6 +62,7 @@ export default {
 
             return response.data;
         },
+        
         RemoveCourse: async (courseId) => {
             let response = await axios.get(baseurl + "/Cart/RemoveCourse", {
                 params: {
@@ -76,6 +77,7 @@ export default {
 
             return response.data;
         },
+        
         Checkout: async () => {
             let response = await axios.post(baseurl + "/Cart/Checkout", {}, {
                 headers: {

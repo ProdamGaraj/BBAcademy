@@ -1,9 +1,6 @@
-﻿using System.Security.Claims;
-using BLL.AccountService;
-using BLL.Models;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
+﻿using BLL.AccountService;
+using BLL.Models.Login;
+using BLL.Models.Register;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Auth;
 

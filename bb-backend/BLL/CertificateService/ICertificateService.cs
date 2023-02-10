@@ -1,4 +1,4 @@
-﻿using BLL.Models;
+﻿using BLL.Models.CreateCertificate;
 using Infrastructure.Models;
 
 namespace BLL.CertificateService

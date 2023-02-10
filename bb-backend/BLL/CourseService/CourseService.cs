@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BLL.Models.CourseForCart;
 using BLL.Models.GetCourseForView;
 using BLL.Models.GetCoursesForDashboard;
 using BLL.Models.Save;
@@ -62,6 +63,33 @@ namespace BLL.CourseService
                             LessonsCount = c.Lessons.Count(),
                             MediaPath = c.MediaPath,
                             IsBought = c.CourseProgresses.Any(p => p.State == CourseProgressState.Bought && p.UserId == userId)
+                        }
+                    )
+                    .ToListAsync();
+
+                return courses;
+            }
+            catch (Exception ex)
+            {
+                throw new BusinessException("GetCoursesForDashboard", ex);
+            }
+        }
+
+        public async Task<ICollection<CourseForCartDto>> GetCartedCoursesForUser(long userId)
+        {
+            
+            try
+            {
+                var courses = await _courseRepository.GetAll()
+                    .Select(
+                        c => new CourseForCartDto()
+                        {
+                            Name = c.Description, //TODO mapping
+                            Description = c.Description,
+                            DurationHours = c.DurationHours,
+                            LessonsCount = c.Lessons.Count(),
+                            MediaPath = c.MediaPath,
+                            IsBought = c.CourseProgresses.Any(p => p.State == CourseProgressState.InCart && p.UserId == userId)
                         }
                     )
                     .ToListAsync();

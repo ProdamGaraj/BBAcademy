@@ -1,6 +1,6 @@
-﻿using System.Security.Claims;
-using BLL.Models;
-using BLL.Models.GetUserForAccount;
+﻿using BLL.Models.GetUserForAccount;
+using BLL.Models.Login;
+using BLL.Models.Register;
 using Infrastructure.Models;
 
 namespace BLL.AccountService

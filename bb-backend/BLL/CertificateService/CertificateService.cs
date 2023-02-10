@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using BLL.Models;
+using BLL.Models.CreateCertificate;
 using Infrastructure.Common;
 using Infrastructure.Models;
 using Infrastructure.Repositories;

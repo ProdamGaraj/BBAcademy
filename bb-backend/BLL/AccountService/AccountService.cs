@@ -1,9 +1,8 @@
-﻿using System.Security.Claims;
-using AutoMapper;
+﻿using AutoMapper;
 using BLL.Helpers;
-using BLL.Models;
-using BLL.Models.GetCourseForView;
 using BLL.Models.GetUserForAccount;
+using BLL.Models.Login;
+using BLL.Models.Register;
 using Infrastructure.Common;
 using Infrastructure.Models;
 using Infrastructure.Models.Enum;
