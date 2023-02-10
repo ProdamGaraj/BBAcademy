@@ -1,0 +1,76 @@
+.grid-content {
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    row-gap: 52px;
+    margin: 0 8%;
+    box-sizing: border-box;
+}
+
+.order-completion {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.order-completion h1 {
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 33px;
+}
+.order-completion .field-wrapper {
+    width: 100%;
+    max-width: 617px;
+    display: inherit;
+    flex-direction: inherit;
+    gap: inherit;
+}
+.order-completion .field-wrapper label,
+.order-completion .field-wrapper input{
+    width: 100%;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 23px;
+}
+
+.total-info-card {
+    font-weight: 400;
+    display: flex;
+    flex-direction: column;
+}
+.total-info-card h2,
+.total-info-card h4 {
+    display: flex;
+    justify-content: space-between;
+    gap: 19px;
+}
+.total-info-card h2 {
+    font-size: 32px;
+    line-height: 108.5%;
+}
+.total-info-card h4 {
+    font-size: 20px;
+    line-height: 23px;
+    color: rgba(0, 0, 0, 0.6);;
+}
+.total-info-card button {
+    background: #0093DC;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+    border-radius: 55px;
+    min-height: 32px;
+    color: white;
+    outline: none;
+    border: none;
+}
+
+.orders-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.orders-container h2 {
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 28px;
+}

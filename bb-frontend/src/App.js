@@ -17,6 +17,7 @@ import ErrorModalContext from "./contexts/error-modal-context";
 import {LoaderModal} from "./components/loader-modal/loader-modal";
 import {ErrorModal} from "./components/error-modal/error-modal";
 import DataDashboard from "./components/data/data-dashboard/data-dashboard";
+import Payment from "./components/payment/payment";
 
 let getLsLang = () => {
     let lsLang = localStorage.getItem('lang');
@@ -109,6 +110,7 @@ function App() {
                                     <Route path='/cart/*' element={<Cart/>}/>
                                     <Route path='/my-certificates' element={<MyCertificates/>}/>
                                     <Route path='/exam' element={<Exam/>}/>
+                                    <Route path='/payment' element={<Payment/>}/>
                                 </Routes>
                             </BrowserRouter>
                         </Template>
