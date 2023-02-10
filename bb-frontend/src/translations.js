@@ -159,6 +159,11 @@
         'links': "Ссылки и материалы",
         'ending': "Заключение и сертификат",
         'reg': "Регистрация",
+
+        //Payment Page
+        'order-completion': 'Оформление заказа',
+        'mail-for-receipt': 'Электронная почта для получения чека',
+         // TODO: Finish all translation for payment page.
     }
 }
 export default translations;
