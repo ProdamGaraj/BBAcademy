@@ -10,7 +10,8 @@
     align-items: center;
     gap: 26px;
     width: 256px;
-    
+    margin-left: 50px;
+    margin-bottom: 20px;
 }
 
 .certTitle {
