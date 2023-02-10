@@ -8,7 +8,6 @@ import Login from "./components/login/login";
 import {useRef, useState} from "react";
 import Register from "./components/register/register";
 import CourseView from "./components/course-view/course-view";
-import Data from "./components/data/data";
 import Cart from "./components/cart/cart";
 import CoursesDashboard from "./components/courses-dashboard/courses-dashboard";
 import MyCertificates from 'components/my-certificates/my-certificates';
@@ -17,6 +16,7 @@ import LoaderModalContext from "./contexts/loader-modal-context";
 import ErrorModalContext from "./contexts/error-modal-context";
 import {LoaderModal} from "./components/loader-modal/loader-modal";
 import {ErrorModal} from "./components/error-modal/error-modal";
+import DataDashboard from "./components/data/data-dashboard/data-dashboard";
 
 let getLsLang = () => {
     let lsLang = localStorage.getItem('lang');
@@ -54,8 +54,6 @@ let setLsUser = (user) => {
 
 function App() {
 
-    let loaderModalRef = useRef(null);
-
     let [lang, setLang] = useState(() => getLsLang())
     let [user, setUser] = useState(() => getLsUser())
 
@@ -73,17 +71,17 @@ function App() {
     const [errorText, setErrorText] = useState('')
 
     let openLoaderModal = () => {
-        setLoaderVisible(prev => true)
+        setLoaderVisible(true)
     }
     let closeLoaderModal = () => {
-        setLoaderVisible(prev => false)
+        setLoaderVisible(false)
     }
     let openErrorModal = (message) => {
-        setErrorVisible(prev => true)
+        setErrorVisible(true)
         setErrorText(prev => message)
     }
     let closeErrorModal = () => {
-        setErrorVisible(prev => false)
+        setErrorVisible(false)
     }
 
     return (<>
@@ -107,7 +105,7 @@ function App() {
                                     <Route path='/register' element={<Register/>}/>
                                     <Route path='/courses' element={<CoursesDashboard/>}/>
                                     <Route path='/course-view' element={<CourseView/>}/>
-                                    <Route path='/data/*' element={<Data/>}/>
+                                    <Route path='/data/*' element={<DataDashboard/>}/>
                                     <Route path='/cart/*' element={<Cart/>}/>
                                     <Route path='/my-certificates' element={<MyCertificates/>}/>
                                     <Route path='/exam' element={<Exam/>}/>

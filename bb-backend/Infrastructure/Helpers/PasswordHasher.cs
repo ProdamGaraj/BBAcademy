@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace BLL.Helpers
+namespace Infrastructure.Helpers
 {
     public class PasswordHasher
     {

@@ -2,6 +2,7 @@ namespace BLL.Models.GetCoursesForDashboard;
 
 public class CourseForDashboardDto
 {
+    public long Id { get; set; }
     public string MediaPath { get; set; }
 
     public string Name { get; set; }

@@ -48,6 +48,17 @@ export default {
             })
 
             return response.data;
+        },
+        Tester: async () => {
+            let response = await axios.get(baseurl + '/Account/Tester', {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                },
+                withCredentials: true,
+                validateStatus
+            })
+
+            return response.data;
         }
     },
     Cart: {

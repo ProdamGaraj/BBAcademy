@@ -44,7 +44,7 @@ a {
     height: 32px;
     margin-top: auto;
     margin-bottom: auto;
-    font-family: 'Prompt', serif;
+    font-family: 'Prompt', sans-serif;
     font-style: normal;
     font-weight: 300;
     font-size: 32px;
@@ -70,7 +70,7 @@ a {
     height: 33px;
 
 
-    font-family: 'Raleway', serif;
+    font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 23px;
@@ -103,7 +103,7 @@ a {
 
     /* rw_reg_20 */
 
-    font-family: 'Raleway', serif;
+    font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 20px;
@@ -226,7 +226,7 @@ a {
 
 label {
     margin-top: 25px;
-    font-family: 'Raleway', serif;
+    font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
@@ -296,7 +296,7 @@ label {
 .block-learn-in_right-section-top-top {
     width: 544px;
 
-    font-family: 'Raleway', serif;
+    font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 700;
     font-size: 80px;
@@ -308,7 +308,7 @@ label {
 .block-learn-in_right-section-top-bot {
     height: 33px;
 
-    font-family: 'Raleway', serif;
+    font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 28px;
@@ -330,7 +330,7 @@ label {
     width: 507px;
     height: 40px;
 
-    font-family: 'Raleway', serif;
+    font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 36px;
@@ -348,7 +348,7 @@ label {
     width: 347px;
     height: 150px;
 
-    font-family: 'Raleway', serif;
+    font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 36px;
@@ -392,7 +392,7 @@ label {
 
     /* rw_reg_32 */
 
-    font-family: 'Raleway', serif;
+    font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 32px;
@@ -453,7 +453,7 @@ label {
 }
 
 .category-top-left {
-    font-family: 'Raleway', serif;
+    font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 38px;
@@ -461,7 +461,7 @@ label {
 }
 
 .category-top-right {
-    font-family: 'Raleway', serif;
+    font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 24px;
@@ -546,7 +546,7 @@ label {
 }
 
 .category-bot-block-text-1 {
-    font-family: 'Raleway', serif;
+    font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 38px;
@@ -554,7 +554,7 @@ label {
 }
 
 .category-bot-block-text-2 {
-    font-family: 'Raleway', serif;
+    font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 200;
     font-size: 24px;
@@ -577,7 +577,7 @@ label {
 }
 
 .popular-top-left {
-    font-family: 'Raleway', serif;
+    font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 38px;
@@ -644,7 +644,7 @@ label {
 }
 
 .popular-bot-block-deco-title {
-    font-family: 'Raleway', serif;
+    font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 28px;
@@ -717,7 +717,7 @@ label {
     height: 112px;
     margin-top: 185px;
 
-    font-family: 'Raleway', serif;
+    font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 40px;
@@ -730,7 +730,7 @@ label {
     left: 300px;
     top: 2690px;
 
-    font-family: 'Raleway', serif;
+    font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 32px;
@@ -739,7 +739,7 @@ label {
 
 .mobility-left-download {
     border-width: 0;
-    font-family: 'Raleway', serif;
+    font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 28px;
@@ -763,7 +763,7 @@ label {
 }
 
 .partners-top {
-    font-family: 'Raleway', serif;
+    font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 36px;
@@ -795,7 +795,7 @@ footer {
 .all-rights {
     height: 39px;
 
-    font-family: 'Raleway', serif;
+    font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
@@ -835,7 +835,7 @@ footer {
     width: 146px;
     height: 32px;
 
-    font-family: 'Prompt', serif;
+    font-family: 'Prompt', sans-serif;
     font-style: normal;
     font-weight: 300;
     font-size: 32px;
@@ -891,7 +891,7 @@ footer {
     display: flex;
     flex-direction: row;
     width: 320px;
-    font-family: 'Raleway', serif;
+    font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 300;
     font-size: 20px;
@@ -907,7 +907,7 @@ footer {
     width: 110px;
     height: 30px;
 
-    font-family: 'Prompt', serif;
+    font-family: 'Prompt', sans-serif;
     font-style: normal;
     font-weight: 300;
     font-size: 20px;

@@ -57,6 +57,7 @@ namespace BLL.CourseService
                     .Select(
                         c => new CourseForDashboardDto()
                         {
+                            Id = c.Id,
                             Name = c.Description,
                             Description = c.Description,
                             DurationHours = c.DurationHours,

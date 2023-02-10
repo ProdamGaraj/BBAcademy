@@ -8,6 +8,7 @@ namespace WebApi.Controllers
 {
     [Controller]
     [Route("[controller]/[action]")]
+    [ResponseCache(NoStore = true)]
     public class DataController : Controller
     {
         private ILogger<DataController> _logger;

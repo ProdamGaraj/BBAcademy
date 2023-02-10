@@ -1,23 +1,41 @@
-﻿import './courses-dashboard.css'
+﻿import styles from './courses-dashboard.module.css'
 import {useContext, useEffect, useState} from "react";
-import UserContext from "../../contexts/user-context";
 import LangContext from "../../contexts/lang-context";
 import translations from "../../translations";
 import backend from "../../backend";
-import {NavLink} from "react-router-dom";
 import LoaderModalContext from "../../contexts/loader-modal-context";
 import ErrorModalContext from "../../contexts/error-modal-context";
+import UserLeftLayoutContainer from "../user-left-layout/user-left-layout";
+import MainNavigator from "../main-navigator/main-navigator";
+import {NavLink} from "react-router-dom";
 
 export default () => {
-
-    let user = useContext(UserContext).user
 
     let currentLang = useContext(LangContext).lang
 
     let loaderModal = useContext(LoaderModalContext)
     let errorModal = useContext(ErrorModalContext)
 
-    let [courses, setCourses] = useState([]);
+    let [courses, setCourses] = useState([
+        // {
+        //     name: 'Инвестиции для начинающих',
+        //     description: 'Lorem ipsum dolor sit amet lorem ipsum dolor sit amet Lorem ipsum dolor sit amet. Lorem ipsum dolor sit ametLorem ipsum dolor sit amet',
+        //     LessonsCount: 9,
+        //     Duration: 3.5,
+        //     State: 'InCart',
+        //     Id: 1,
+        //     MediaPath: '/img/Shared/course_guy.png'
+        // },
+        // {
+        //     Name: 'Инвестиции для начинающих',
+        //     Description: 'Lorem ipsum dolor sit amet lorem ipsum dolor sit amet Lorem ipsum dolor sit amet. Lorem ipsum dolor sit ametLorem ipsum dolor sit amet',
+        //     LessonsCount: 9,
+        //     Duration: 3.5,
+        //     State: 'InCart',
+        //     Id: 1,
+        //     MediaPath: '/img/Shared/course_guy.png'
+        // }
+    ]);
 
     useEffect(() => {
         loaderModal.showModal()
@@ -27,117 +45,73 @@ export default () => {
             .finally(() => loaderModal.close())
     }, [])
 
-    const showMyCert = () => {
-        window.location.href = '/mycerts'
-    };
+    useEffect(() => {
+        loaderModal.showModal()
+        backend.Account.Tester()
+            .then(response => console.log(response))
+            .catch(e => errorModal.showModal(e.message))
+            .finally(() => loaderModal.close())
+    }, [])
 
-    const showMyCourses = () => {
-        window.location.href = '/courses'
-    };
+    const removeFromCart = (id) => {
 
-    const removeFromCart = courseId => {
-
-    };
+    }
 
     return (<>
-        <div className="courses-container">
-            <div className="account-data">
-                <div className="user_data">
-                    <img className="user_data-photo" src="/img/perec-percovich.png"/>
-                    <div className="user_data-username">{user.FirstName}</div>
+        <UserLeftLayoutContainer>
+            <MainNavigator/>
+            <div className={styles.filterContainer}>
+                <div className={styles.filterButtonsContainer}>
+                    <span className={styles.filterElement}>
+                        <span>
+                            {translations[currentLang].allcourses}
+                        </span>
+                    </span>
+                    <span className={styles.filterElement}>
+                        <img className={styles.filterIcon} src="/img/Account/book-open.svg" alt=""/>
+                        <span>
+                            {translations[currentLang].startedcourses}
+                        </span>
+                    </span>
+                    <span className={styles.filterElement}>
+                        <img className={styles.filterIcon} src="/img/Account/sber.svg" alt=""/>
+                        <span>
+                            {translations[currentLang].passedcourses}
+                        </span>
+                    </span>
                 </div>
-                <div className="user_info">
-                    <div className="user_info-block">
-                        <img src="/img/Course/people.svg"/>
-                        <div className="user_info-block-name"> {user.LastName} {user.FirstName} {user.MiddleName}
-                        </div>
-                    </div>
-                    <div className="user_info-block">
-                        <img src="/img/Account/bag.svg"/>
-                        <div className="user_info-block-name">{user.JobTitle} in {user.Organisation}</div>
-                    </div>
-                    <div className="user_info-block">
-                        <img src="/img/Account/rait.svg"/>
-                        <div className="user_info-block-name">{user.Rating}</div>
-                    </div>
-                    <div className="user_info-block-1">
-                        <div className="user_info-block-1-1">
-                            <img src="/img/Course/peoples.svg"/>
-                            <div className="user_info-block-name">{user.RecommendedBy}</div>
-                        </div>
-                    </div>
-                    <NavLink to={'/my-certificates/'}>
-                        <div className="user_info-block user_info-block-clickable">
-                            <img src="/img/Account/sertif.svg"/>
-                            <div className="user_info-block-name">{translations[currentLang].mycert}</div>
-                        </div>
-                    </NavLink>
-                </div>
+
+                <img src="/img/Account/sort.svg" alt=""/>
             </div>
 
-            <div className="Demarcation-line"></div>
-
-            <div className="my_acc-tab_menu">
-                <div className="media-block">
-                    <div className="media-name">
-                        <img className="media-name-svg" src="/img/Account/course.svg"/>
-                        <div className="media-name-name media-name-name-clickable" onClick={() => showMyCourses()}>
-                            {translations[currentLang].mycourse}
-                        </div>
-                    </div>
-                </div>
-                <div className="mine_course">
-                    <div className="mine_course-sort">
-                        <div className="mine_course-sort-element-1">
-
-                            <button type="submit" className="button1">
-                                {translations[currentLang].allcourses}
-                            </button>
-
-                        </div>
-                        <div className="mine_course-sort-element-2">
-                            <img className="mine_course-sort-svg-icon" src="/img/Account/book-open.svg"/>
-
-                            <button type="submit" className="button1">
-                                {translations[currentLang].startedcourses}
-                            </button>
-
-                            <div className="mine_course-sort-element-3">
-                                <img className="mine_course-sort-svg-icon" src="/img/Account/sber.svg"/>
-
-                                <button type="submit" className="button1">
-                                    {translations[currentLang].passedcourses}
-                                </button>
-
+            <div className={styles.coursesListWrapper}>
+                {courses.map((item, i) => (
+                    <div key={i} className={styles.courseCard}>
+                        <img className={styles.cardImage} src={item.mediaPath} alt=""/>
+                        <div className={styles.cardInfoFlex}>
+                            <div className={styles.cardTextBlock}>
+                                <div className={styles.cardTitle}>{item.name}</div>
+                                <div className={styles.cardDescription}>{item.description}</div>
                             </div>
-                            <div className="mine_course-sort-element-4">
-                                <img src="/img/Account/sort.svg"/>
+                            <div className={styles.cardInfoBlock}>
+                                <img src="/img/Account/bell.svg" alt=""/>
+                                <div className={styles.cardInfoText}>{item.lessonsCount} уроков</div>
+                                <div className={styles.cardInfoText}>{item.durationHours} часов</div>
+                                {item.State === 'InCart' ?
+                                    <span
+                                        className={styles.cardButton + ' ' + styles.cardButtonRed}
+                                        onClick={() => removeFromCart(item.id)}>
+                                    {translations[currentLang].incart}
+                                </span> :
+                                    <NavLink to={"/course-view?id=" + item.id}>
+                                        <span className={styles.cardButton}>{translations[currentLang].start}</span>
+                                    </NavLink>
+                                }
                             </div>
                         </div>
                     </div>
-                    <div className="items-wrapper">
-                        <div className="item-wrapper">
-                            {courses.map((item, i) => (<div key={i} className="course-wrapper">
-
-                                <img className="cours-scroll" src={item.MediaPath}/>
-                                <div className="cours-text">
-                                    <div className="cours-text-top">{item.Name}</div>
-                                    <div className="cours-text-bot">{item.Description}</div>
-                                </div>
-                                <div className="cours-info-block">
-                                    <img className="cours-info-block-src" src="/img/Account/bell.svg"/>
-                                    <div className="cours-info-block-hours-1">{item.LessonsCount} lessons</div>
-                                    <div className="cours-info-block-hours-2">{item.Duration}</div>
-                                    {item.IsBought ? (<a className="cours-info-block-button button-special"
-                                                         onClick={() => removeFromCart(item.Id)}>{translations[currentLang].incart}</a>) : (
-                                        <a className="cours-info-block-button button-special"
-                                           href={"/course-view?id=" + item.Id}>{translations[currentLang].incart}</a>)}
-                                </div>
-                            </div>))}
-                        </div>
-                    </div>
-                </div>
+                ))}
             </div>
-        </div>
+        </UserLeftLayoutContainer>
     </>)
 }

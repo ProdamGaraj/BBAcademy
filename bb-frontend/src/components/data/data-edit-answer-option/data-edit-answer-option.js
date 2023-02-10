@@ -1,7 +1,7 @@
 ﻿import {NavLink} from "react-router-dom";
 import {useContext, useState} from "react";
-import DataEditContext from "../../contexts/data-edit-context";
-import LangContext from "../../contexts/lang-context";
+import DataEditContext from "contexts/data-edit-context";
+import LangContext from "contexts/lang-context";
 import translations from 'translations'
 
 export default () => {

@@ -1,6 +1,6 @@
 ﻿import {NavLink} from "react-router-dom";
 import {useContext, useState} from "react";
-import DataEditContext from "../../contexts/data-edit-context";
+import DataEditContext from "contexts/data-edit-context";
 import styles from './data-edit-course.module.css'
 
 export default () => {

@@ -26,7 +26,7 @@
     box-sizing: border-box;
 
 
-    font-family: 'Raleway', serif;
+    font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
@@ -54,7 +54,7 @@
 }
 
 .log-in-btn {
-    font-family: 'Raleway', serif;
+    font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 300;
     font-size: 20px;
@@ -69,7 +69,7 @@
 
     /* raleway_16_shortline */
 
-    font-family: 'Raleway', serif;
+    font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 400;
     margin-bottom: 10px;
@@ -87,7 +87,7 @@
 
     /* raleway_16_shortline */
 
-    font-family: 'Raleway', serif;
+    font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
@@ -100,7 +100,7 @@
 }
 
 .log-label-l-sr {
-    font-family: Raleway, serif;
+    font-family: 'Raleway', sans-serif;
     font-size: 12px;
     font-weight: 400;
     line-height: 18px;
@@ -119,7 +119,7 @@
     padding-left: 10px;
     box-sizing: border-box;
 
-    font-family: 'Raleway', serif;
+    font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;

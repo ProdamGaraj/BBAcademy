@@ -11,6 +11,7 @@ namespace WebApi.Controllers;
 
 [Controller]
 [Route("[controller]/[action]")]
+[ResponseCache(NoStore = true)]
 public class CartController : Controller
 {
     private readonly ICourseService _courseService;

@@ -1,7 +1,6 @@
 ﻿using BLL.CourseService;
 using BLL.Models.GetCourseForView;
 using BLL.Models.GetCoursesForDashboard;
-using BLL.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +8,7 @@ namespace WebApi.Controllers;
 
 [Controller]
 [Route("[controller]/[action]")]
+[ResponseCache(NoStore = true)]
 public class CourseController : Controller
 {
     private readonly ICourseService _courseService;

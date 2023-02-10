@@ -1,12 +1,12 @@
 ﻿import {NavLink, Route, Routes} from "react-router-dom";
 import DataEditCourse from "../data-edit-course/data-edit-course";
 
-import './data.css'
+import './data-dashboard.css'
 import baseurl from 'base-url'
 import DataEditLesson from "../data-edit-lesson/data-edit-lesson";
 import DataEditQuestion from "../data-edit-question/data-edit-question";
 import DataEditAnswerOption from "../data-edit-answer-option/data-edit-answer-option";
-import DataEditContext from "../../contexts/data-edit-context";
+import DataEditContext from "contexts/data-edit-context";
 import {useContext, useState} from "react";
 import DataEditExam from "../data-edit-exam/data-edit-exam";
 import styles from "../data-edit-course/data-edit-course.module.css";

@@ -7,6 +7,7 @@ namespace WebApi.Controllers
 {
     [Controller]
     [Route("[controller]/[action]")]
+    [ResponseCache(NoStore = true)]
     public class CertificateController : Controller
     {
         private readonly ICertificateService _certificateService;

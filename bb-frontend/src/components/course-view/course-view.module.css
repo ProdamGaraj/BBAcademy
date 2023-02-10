@@ -178,23 +178,6 @@ li {
     justify-content: center;
 }
 
-.main-container-list-result-cont-1 {
-    font-family: 'Raleway';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 28px;
-    line-height: 108.5%;
-
-    margin-bottom: 25px;
-}
-
-.main-container-list-result-cont-2 {
-    font-family: 'Raleway';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 19px;
-}
 
 .main-container-list-result-cont-test {
     margin-top: 55px;

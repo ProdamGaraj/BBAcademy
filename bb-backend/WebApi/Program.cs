@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using WebApi.Auth;
+using WebApi.Middlewares;
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
@@ -152,6 +153,8 @@ app.UseForwardedHeaders(
 
 app.UseDefaultFiles();
 app.UseSpaStaticFiles();
+
+app.UseMiddleware<ExceptionCatcherMiddleware>();
 
 app.UseRouting();
 

@@ -1,0 +1,27 @@
+﻿.navigator {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    margin-bottom: 20px;
+}
+
+.navigatorElement {
+    margin-left: 8px;
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 19px;
+
+    display: flex;
+    gap: 8px;
+}
+
+.navigatorElementClickable {
+    cursor: pointer;
+
+}
+
+.navigatorElementClickable:hover {
+    background: #DDD;
+}

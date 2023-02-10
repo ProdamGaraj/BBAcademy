@@ -16,7 +16,7 @@
 
     width: 91px;
 
-    font-family: 'Prompt', serif;
+    font-family: 'Prompt', sans-serif;
     font-style: normal;
     font-weight: 300;
     margin-left: 20px;
@@ -55,7 +55,7 @@
     box-sizing: border-box;
 
 
-    font-family: 'Raleway', serif;
+    font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
@@ -83,7 +83,7 @@
     color: white;
 }
 .log-in-btn{
-    font-family: 'Raleway', serif;
+    font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 300;
     font-size: 20px;
@@ -98,7 +98,7 @@
 
     /* raleway_16_shortline */
 
-    font-family: 'Raleway', serif;
+    font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 400;
     margin-bottom: 10px;
