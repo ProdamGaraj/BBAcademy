@@ -18,6 +18,7 @@
     width: 76px;
     height: 76px;
     margin-right: 20px;
+    border-radius: 50%;
 }
 
 .user_data-username {

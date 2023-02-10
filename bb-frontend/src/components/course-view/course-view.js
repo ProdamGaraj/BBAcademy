@@ -1,14 +1,19 @@
 ﻿import {useEffect, useState, useContext} from "react";
 import './course-view.css';
-import baseurl from 'base-url'
 import CourseViewContainer from "../course-view-container/course-view-container";
 import LangContext from "../../contexts/lang-context";
 import translations from 'translations'
 import backend from "../../backend";
+import LoaderModalContext from "../../contexts/loader-modal-context";
+import ErrorModalContext from "../../contexts/error-modal-context";
 
 export default (props) => {
 
     let currentLang = useContext(LangContext).lang
+
+    let loaderModal = useContext(LoaderModalContext)
+    let errorModal = useContext(ErrorModalContext)    
+    
     let [course, setCourse] = useState(null)
     let [lessonIndex, setLessonIndex] = useState(-1)
 
@@ -17,10 +22,13 @@ export default (props) => {
         const courseId = query.get('id')
 
         if (courseId !== undefined) {
-            backend.Course.GetFullInfoForView
-                .then(r => setCourse(r))
+            loaderModal.showModal()
+            backend.Course.GetFullInfoForView(courseId)
+                .then(response => setCourse(response))
+                .catch(e => errorModal.showModal(e.message))
+                .finally(() => loaderModal.close())
         } else {
-            alert('courseId missing');
+            errorModal.showModal('courseId missing')
             window.location.back()
         }
     }, [])

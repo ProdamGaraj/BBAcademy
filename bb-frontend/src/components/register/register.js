@@ -33,14 +33,11 @@ export default () => {
             Email: email
         })
             .then((token) => {
-                loaderModal.close()
                 localStorage.setItem('token', token)
                 window.location.href = '/login'
             })
-            .catch(e => {
-                loaderModal.close();
-                errorModal.showModal(e.message)
-            })
+            .catch(e => errorModal.showModal(e.message))
+            .finally(() => loaderModal.close())
     }
 
     return (<>

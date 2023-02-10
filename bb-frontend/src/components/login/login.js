@@ -22,14 +22,11 @@ export default (props) => {
         loaderModal.showModal()
         backend.Account.Login({Login: login, Password: password})
             .then((token) => {
-                loaderModal.close()
                 localStorage.setItem('token', token)
                 window.location.href = '/courses'
             })
-            .catch(e => {
-                loaderModal.close()
-                errorModal.showModal(e.message);
-            });
+            .catch(e => errorModal.showModal(e.message))
+            .finally(() => loaderModal.close())
     }
 
     return (<>

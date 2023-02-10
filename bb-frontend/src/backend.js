@@ -18,7 +18,10 @@ export default {
             return response.data;
         },
         GetFullInfoForView: async (courseId) => {
-            let response = await axios.get(baseurl + '/Course/GetFullInfoForView', {
+            let response = await axios.post(baseurl + '/Course/GetFullInfoForView', {
+                params: {
+                    id: courseId
+                },
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('token')
                 },
@@ -81,6 +84,46 @@ export default {
                 withCredentials: true,
                 validateStatus
             });
+
+            return response.data;
+        }
+    },
+    Exam: {
+        Send: async (data) => {
+            let response = await axios.post(baseurl + '/Exam/Send', data, {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                },
+                withCredentials: true,
+                validateStatus
+            })
+
+            return response.data;
+        },
+        GetByCourse: async (courseId) => {
+            let response = await axios.post(baseurl + '/Exam/GetByCourse', {}, {
+                params: {
+                    id: courseId
+                },
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                },
+                withCredentials: true,
+                validateStatus
+            })
+
+            return response.data;
+        }
+    },
+    Certificate: {
+        GetAll: async () => {
+            let response = await axios.post(baseurl + '/Certificate/GetMyForDashboard', {}, {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                },
+                withCredentials: true,
+                validateStatus
+            })
 
             return response.data;
         }

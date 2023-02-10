@@ -21,39 +21,28 @@ export default () => {
     useEffect(() => {
         loaderModal.showModal()
         backend.Cart.GetAll()
-            .then(response => {
-                setCourses(response)
-                loaderModal.close()
-            })
-            .catch(e => {
-                errorModal.showModal(e.message)
-                loaderModal.close()
-            })
+            .then(response => setCourses(response))
+            .catch(e => errorModal.showModal(e.message))
+            .finally(() => loaderModal.close())
     }, [])
 
     let checkout = () => {
         loaderModal.showModal()
         backend.Cart.Checkout()
             .then(() => {
+                // TODO: Do something with checkout
                 loaderModal.close()
             })
-            .catch(e => {
-                errorModal.showModal(e.message)
-                loaderModal.close()
-            })
+            .catch(e => errorModal.showModal(e.message))
+            .finally(() => loaderModal.close())
     }
 
     let removeFromCart = (courseId) => {
         loaderModal.showModal()
         backend.Cart.RemoveCourse(courseId)
-            .then(() => {
-                setCourses(prev => prev.filter(c => c.Id !== courseId))
-                loaderModal.close()
-            })
-            .catch(e => {
-                errorModal.showModal(e.message)
-                loaderModal.close()
-            })
+            .then(() => setCourses(prev => prev.filter(c => c.Id !== courseId)))
+            .catch(e => errorModal.showModal(e.message))
+            .finally(() => loaderModal.close())
     }
 
     return (<>

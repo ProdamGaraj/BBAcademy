@@ -1,46 +1,11 @@
-﻿import './courses-dashboard.css'
-import {useContext, useEffect, useState} from "react";
-import UserContext from "../../contexts/user-context";
-import LangContext from "../../contexts/lang-context";
+﻿import {NavLink} from "react-router-dom";
 import translations from "../../translations";
-import backend from "../../backend";
-import {NavLink} from "react-router-dom";
-import LoaderModalContext from "../../contexts/loader-modal-context";
-import ErrorModalContext from "../../contexts/error-modal-context";
+
+import styles from './user-left-layout-container.module.css'
 
 export default () => {
-
-    let user = useContext(UserContext).user
-
-    let currentLang = useContext(LangContext).lang
-
-    let loaderModal = useContext(LoaderModalContext)
-    let errorModal = useContext(ErrorModalContext)
-
-    let [courses, setCourses] = useState([]);
-
-    useEffect(() => {
-        loaderModal.showModal()
-        backend.Course.GetForDashboard()
-            .then(response => setCourses(response))
-            .catch(e => errorModal.showModal(e.message))
-            .finally(() => loaderModal.close())
-    }, [])
-
-    const showMyCert = () => {
-        window.location.href = '/mycerts'
-    };
-
-    const showMyCourses = () => {
-        window.location.href = '/courses'
-    };
-
-    const removeFromCart = courseId => {
-
-    };
-
     return (<>
-        <div className="courses-container">
+        <div className={styles.layout}>
             <div className="account-data">
                 <div className="user_data">
                     <img className="user_data-photo" src="/img/perec-percovich.png"/>
