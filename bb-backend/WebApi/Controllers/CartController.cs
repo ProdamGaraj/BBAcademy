@@ -54,6 +54,8 @@ public class CartController : Controller
         return Ok(result);
     }
 
+    [HttpGet]
+    [Authorize]
     public async Task<ActionResult<CourseForCartDto>> Checkout()
     {
         var userId = HttpContext.User.GetId();

@@ -6,6 +6,7 @@ using Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Serilog;
 using WebApi.Auth;
 using WebApi.Middlewares;
@@ -69,42 +70,37 @@ builder.Services.AddAuthentication(o =>
     };
 });
 
+
+builder.Services.AddSwaggerGen(options =>
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "bb API",
+        Description = "bb API",
+        TermsOfService = new Uri("https://example.com/terms"),
+        Contact = new OpenApiContact
+        {
+            Name = "Example Contact",
+            Url = new Uri("https://example.com/contact")
+        },
+        License = new OpenApiLicense
+        {
+            Name = "Example License",
+            Url = new Uri("https://example.com/license")
+        }
+    }));
+
 builder.Services.AddAuthorization();
-//
-// builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-//     .AddCookie(
-//         options =>
-//         {
-//             options.LoginPath = new PathString("/Account/Login");
-//             options.AccessDeniedPath = new PathString("/Account/Login");
-//             options.Cookie.Name = "YourAppCookieName";
-//             options.Cookie.HttpOnly = true;
-//             options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
-//             // ReturnUrlParameter requires 
-//             //using Microsoft.AspNetCore.Authentication.Cookies;
-//             options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
-//             options.SlidingExpiration = true;
-//         }
-//     );
-// builder.Services.AddDistributedMemoryCache();
-// builder.Services.AddSession(
-//     options =>
-//     {
-//         options.IdleTimeout = TimeSpan.FromMinutes(5);
-//         options.Cookie.HttpOnly = true;
-//         options.Cookie.IsEssential = true;
-//     }
-// );
 
 var app = builder.Build();
 
 await app.Services.MigrateDb();
 
-if (!builder.Environment.IsProduction())
+// if (!builder.Environment.IsProduction())
 {
     // TODO: Maybe API sometime
-    // app.UseSwagger();
-    // app.UseSwaggerUI();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 if (!app.Environment.IsDevelopment())

@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using BLL.CertificateService;
 using BLL.Models.CertificateOut;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
@@ -17,6 +18,8 @@ namespace WebApi.Controllers
             _certificateService = certificateService;
         }
 
+        [HttpGet]
+        [Authorize]
         public async Task<ActionResult<ICollection<CertificateOutDto>>> GetAll()
         {
             var userId = HttpContext.User.GetId();
