@@ -39,7 +39,14 @@ export default (props) => {
             </div>
         </header>
         <header>
-            <div className={styles.header-conteiner}>
+            <div className={styles.headerContainer}>
+                <span className={styles.leftContainer}>
+                    <img src="/img/Shared/main-logo.png" alt="logo"/>
+                    <label>
+                        
+                    </label>
+                </span>
+                <span></span>
             </div>
         </header>
     </>)
