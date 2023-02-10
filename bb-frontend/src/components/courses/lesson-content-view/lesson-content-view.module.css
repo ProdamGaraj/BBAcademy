@@ -3,6 +3,7 @@
     flex-direction: column;
     justify-content: start;
     align-items: center;
+    gap: 24px;
 }
 
 .contentHeading {
@@ -24,10 +25,7 @@
     
     width: 100%;
 }
+
 .contentMedia {
-    font-family: 'Raleway', sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 20px;
+    width: 100%;
 }

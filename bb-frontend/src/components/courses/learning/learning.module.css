@@ -1,0 +1,51 @@
+﻿.buttonLine {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.lessonButton {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 13px;
+    box-sizing: border-box;
+    width: 248px;
+    height: 35px;
+
+    background: #0093DC;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+    border-radius: 55px;
+
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    color: white;
+    position: relative;
+    
+    cursor: pointer;
+    user-select: none;
+}
+
+.arrowRight, .arrowLeft {
+    width: 19px;
+    height: 19px;
+}
+
+.arrowLeft {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translate(50%, -50%);
+}
+
+.arrowRight {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}

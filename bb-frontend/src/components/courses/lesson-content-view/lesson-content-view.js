@@ -11,7 +11,7 @@ export default ({lesson}) => {
         <>
             <div className={styles.contentContainer}>
                 <div className={styles.contentHeading}>
-                    {(translations[lang].header)}
+                    {lesson.title}
                 </div>
 
                 <div className={styles.contentText}>
@@ -19,7 +19,7 @@ export default ({lesson}) => {
                 </div>
 
                 <div className={styles.contentMedia}>
-                    <video width="800" controls>
+                    <video width="100%" controls>
                         <source src={lesson.mediaContentPath} type="video/mp4"/>
                     </video>
                 </div>

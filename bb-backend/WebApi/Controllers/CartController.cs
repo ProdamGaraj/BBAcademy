@@ -24,7 +24,7 @@ public class CartController : Controller
     }
 
 
-    [HttpGet]
+    [HttpPost]
     [Authorize]
     public async Task<ActionResult<ICollection<CourseForCartDto>>> GetAll()
     {

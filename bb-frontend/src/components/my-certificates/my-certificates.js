@@ -35,7 +35,8 @@ export default () => {
                             <span className={styles.certDownloadButton}>
                                 {(translations[lang].downloadPDF)}
                             </span>
-                    </div>))}
+                    </div>
+                ))}
             </div>
         </UserLeftLayoutContainer>
     </>)

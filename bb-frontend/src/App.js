@@ -7,7 +7,6 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Login from "./components/login/login";
 import {useRef, useState} from "react";
 import Register from "./components/register/register";
-import CourseView from "./components/course-view/course-view";
 import Cart from "./components/cart/cart";
 import CoursesDashboard from "./components/courses-dashboard/courses-dashboard";
 import MyCertificates from 'components/my-certificates/my-certificates';
@@ -17,6 +16,7 @@ import ErrorModalContext from "./contexts/error-modal-context";
 import {LoaderModal} from "./components/loader-modal/loader-modal";
 import {ErrorModal} from "./components/error-modal/error-modal";
 import DataDashboard from "./components/data/data-dashboard/data-dashboard";
+import Learning from "./components/courses/learning/learning";
 
 let getLsLang = () => {
     let lsLang = localStorage.getItem('lang');
@@ -104,7 +104,7 @@ function App() {
                                     <Route path='/login' element={<Login/>}/>
                                     <Route path='/register' element={<Register/>}/>
                                     <Route path='/courses' element={<CoursesDashboard/>}/>
-                                    <Route path='/course-view' element={<CourseView/>}/>
+                                    <Route path='/learning' element={<Learning/>}/>
                                     <Route path='/data/*' element={<DataDashboard/>}/>
                                     <Route path='/cart/*' element={<Cart/>}/>
                                     <Route path='/my-certificates' element={<MyCertificates/>}/>
