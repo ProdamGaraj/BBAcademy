@@ -52,6 +52,13 @@
     border: none;
     color: black;
     margin-bottom:20px;
+    box-sizing: border-box;
+
+
+    font-family: 'Raleway', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
 }
 .registerbtn{
     margin-left: auto;

@@ -6,19 +6,29 @@ import LangContext from "../../contexts/lang-context";
 
 import './login.css'
 import backend from "../../backend";
+import LoaderModalContext from "../../contexts/loader-modal-context";
+import ErrorModalContext from "../../contexts/error-modal-context";
 
 
 export default (props) => {
     let currentLang = useContext(LangContext).lang
+    let loaderModal = useContext(LoaderModalContext)
+    let errorModal = useContext(ErrorModalContext)
 
     let [login, setLogin] = useState('')
     let [password, setPassword] = useState('')
 
     const onLogin = () => {
+        loaderModal.showModal()
         backend.Account.Login({Login: login, Password: password})
             .then((token) => {
+                loaderModal.close()
                 localStorage.setItem('token', token)
                 window.location.href = '/courses'
+            })
+            .catch(e => {
+                loaderModal.close()
+                errorModal.showModal(e.message);
             });
     }
 

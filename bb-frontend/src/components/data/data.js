@@ -44,7 +44,8 @@ const pushToBackend = async (data) => {
         .then(r => {
             if (r.status === 200) {
                 alert('Saved successfully')
-            } else {
+            }
+            else {
                 alert('Received status code: ' + r.status + '\n' + r.statusText)
             }
         }, e => {
@@ -58,11 +59,11 @@ let Page = () => {
 
     let allCourses = [{
         DurationHours: 10, Price: 69420, Description: "Example Course1", MediaPath: '/media1'
-    },{
+    }, {
         DurationHours: 10, Price: 69420, Description: "Example Course2", MediaPath: '/media2'
-    },{
+    }, {
         DurationHours: 10, Price: 69420, Description: "Example Course3", MediaPath: '/media3'
-    },{
+    }, {
         DurationHours: 10, Price: 69420, Description: "Example Course4", MediaPath: '/media4'
     },]
 
@@ -101,12 +102,13 @@ let Page = () => {
             </div>
         </div>
 
-        {allCourses.length ? '' : <div className={styles.no_lessons}>
+        {allCourses.length ? '' :
+            <div className={styles.no_lessons}>
                 <span
                     className={styles.text}>
                     No Courses Were Added
                 </span>
-        </div>}
+            </div>}
         <div className="gapper">
             <NavLink to={'/data/course'}>
                 <button className="add-course-btn" onClick={() => onBegin()}>

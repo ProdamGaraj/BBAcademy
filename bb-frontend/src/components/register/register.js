@@ -4,9 +4,13 @@ import {useContext, useState} from "react";
 import translations from 'translations'
 import LangContext from "../../contexts/lang-context";
 import backend from "../../backend";
+import LoaderModalContext from "../../contexts/loader-modal-context";
+import ErrorModalContext from "../../contexts/error-modal-context";
 
 export default () => {
     let currentLang = useContext(LangContext).lang
+    let loaderModal = useContext(LoaderModalContext)
+    let errorModal = useContext(ErrorModalContext)
 
     let [login, setLogin] = useState('')
     let [password, setPassword] = useState('')
@@ -18,6 +22,7 @@ export default () => {
 
 
     const onRegister = () => {
+        loaderModal.showModal()
         backend.Account.Register({
             Login: login,
             Password: password,
@@ -26,10 +31,16 @@ export default () => {
             MiddleName: middleName,
             ConfirmPassword: confirmPassword,
             Email: email
-        }).then((token) => {
-            localStorage.setItem('token', token)
-            window.location.href = '/login'
         })
+            .then((token) => {
+                loaderModal.close()
+                localStorage.setItem('token', token)
+                window.location.href = '/login'
+            })
+            .catch(e => {
+                loaderModal.close();
+                errorModal.showModal(e.message)
+            })
     }
 
     return (<>
@@ -72,11 +83,9 @@ export default () => {
 
                 <label className="log-label-l">
                     {translations[currentLang].condition}
-                    <br/>
                     <div className="log-label-l-sr">{translations[currentLang].unnesessaryfield}</div>
                 </label>
-                <input type="text" list="banks" className="reg-log-input"/>
-                <select id="banks">
+                <select className={'banks-select'}>
                     <option value="bank0">BilimBank</option>
                     <option value="bank1">BilimBank</option>
                     <option value="bank2">BilimBank</option>

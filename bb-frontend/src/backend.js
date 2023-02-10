@@ -16,6 +16,17 @@ export default {
             })
 
             return response.data;
+        },
+        GetFullInfoForView: async (courseId) => {
+            let response = await axios.get(baseurl + '/Course/GetFullInfoForView', {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                },
+                withCredentials: true,
+                validateStatus
+            })
+
+            return response.data;
         }
     },
     Account: {
@@ -32,6 +43,44 @@ export default {
                 withCredentials: true,
                 validateStatus
             })
+
+            return response.data;
+        }
+    },
+    Cart: {
+        GetAll: async () => {
+            let response = await axios.post(baseurl + "/Cart/GetAll", {}, {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                },
+                withCredentials: true,
+                validateStatus
+            });
+
+            return response.data;
+        },
+        RemoveCourse: async (courseId) => {
+            let response = await axios.get(baseurl + "/Cart/RemoveCourse", {
+                params: {
+                    id: courseId
+                },
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                },
+                withCredentials: true,
+                validateStatus
+            });
+
+            return response.data;
+        },
+        Checkout: async () => {
+            let response = await axios.post(baseurl + "/Cart/Checkout", {}, {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                },
+                withCredentials: true,
+                validateStatus
+            });
 
             return response.data;
         }

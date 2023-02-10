@@ -17,8 +17,8 @@ export default (props) => {
         const courseId = query.get('id')
 
         if (courseId !== undefined) {
-            // backend.Course.GetFullInfoForView
-            //     .then(r => setCourse(r))
+            backend.Course.GetFullInfoForView
+                .then(r => setCourse(r))
         } else {
             alert('courseId missing');
             window.location.back()

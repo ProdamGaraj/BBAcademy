@@ -5,12 +5,15 @@ import LangContext from "../../contexts/lang-context";
 import translations from "../../translations";
 import backend from "../../backend";
 import {NavLink} from "react-router-dom";
+import LoaderModalContext from "../../contexts/loader-modal-context";
 
 export default () => {
 
     let user = useContext(UserContext).user
 
     let currentLang = useContext(LangContext).lang
+
+    let loaderModal = useContext(LoaderModalContext)
 
     let [courses, setCourses] = useState([{
         MediaPath: 'some-path',
@@ -23,9 +26,11 @@ export default () => {
     },]);
 
     useEffect(() => {
+        loaderModal.showModal()
         backend.Course.GetForDashboard()
             .then(response => {
                 setCourses(response)
+                loaderModal.close()
             })
     }, [])
 

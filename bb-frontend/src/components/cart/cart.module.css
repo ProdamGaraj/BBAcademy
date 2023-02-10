@@ -1,0 +1,13 @@
+
+.text {
+    font-family: 'Raleway', serif;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.no_courses {
+    display: flex;
+    justify-content: center;
+    justify-self: center;
+    margin-bottom: 20px;
+}

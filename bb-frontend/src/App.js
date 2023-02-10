@@ -5,7 +5,7 @@ import LangContext from "./contexts/lang-context";
 import UserContext from "./contexts/user-context";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Login from "./components/login/login";
-import {useState} from "react";
+import {useRef, useState} from "react";
 import Register from "./components/register/register";
 import CourseView from "./components/course-view/course-view";
 import Data from "./components/data/data";
@@ -13,6 +13,10 @@ import Cart from "./components/cart/cart";
 import CoursesDashboard from "./components/courses-dashboard/courses-dashboard";
 import MyCertificates from 'components/my-certificates/my-certificates';
 import Exam from 'components/exam/exam'
+import LoaderModalContext from "./contexts/loader-modal-context";
+import ErrorModalContext from "./contexts/error-modal-context";
+import {LoaderModal} from "./components/loader-modal/loader-modal";
+import {ErrorModal} from "./components/error-modal/error-modal";
 
 let getLsLang = () => {
     let lsLang = localStorage.getItem('lang');
@@ -50,6 +54,8 @@ let setLsUser = (user) => {
 
 function App() {
 
+    let loaderModalRef = useRef(null);
+
     let [lang, setLang] = useState(() => getLsLang())
     let [user, setUser] = useState(() => getLsUser())
 
@@ -62,24 +68,54 @@ function App() {
         setLsUser(user)
     }
 
+    const [loaderVisible, setLoaderVisible] = useState(false)
+    const [errorVisible, setErrorVisible] = useState(false)
+    const [errorText, setErrorText] = useState('')
+
+    let openLoaderModal = () => {
+        setLoaderVisible(prev => true)
+    }
+    let closeLoaderModal = () => {
+        setLoaderVisible(prev => false)
+    }
+    let openErrorModal = (message) => {
+        setErrorVisible(prev => true)
+        setErrorText(prev => message)
+    }
+    let closeErrorModal = () => {
+        setErrorVisible(prev => false)
+    }
+
     return (<>
         <LangContext.Provider value={{lang: lang, setLang: onSetLang}}>
             <UserContext.Provider value={{user: user, setUser: onSetUser}}>
-                <Template>
-                    <BrowserRouter>
-                        <Routes>
-                            <Route path='/' element={<Landing/>}/>
-                            <Route path='/login' element={<Login/>}/>
-                            <Route path='/register' element={<Register/>}/>
-                            <Route path='/courses' element={<CoursesDashboard/>}/>
-                            <Route path='/course-view' element={<CourseView/>}/>
-                            <Route path='/data/*' element={<Data/>}/>
-                            <Route path='/cart/*' element={<Cart/>}/>
-                            <Route path='/my-certificates' element={<MyCertificates/>}/>
-                            <Route path='/exam' element={<Exam/>}/>
-                        </Routes>
-                    </BrowserRouter>
-                </Template>
+                <LoaderModalContext.Provider
+                    value={{isOpen: loaderVisible, showModal: openLoaderModal, close: closeLoaderModal}}>
+                    <ErrorModalContext.Provider value={{
+                        isOpen: errorVisible,
+                        message: errorText,
+                        showModal: openErrorModal,
+                        close: closeErrorModal
+                    }}>
+                        <Template>
+                            <LoaderModal/>
+                            <ErrorModal/>
+                            <BrowserRouter>
+                                <Routes>
+                                    <Route path='/' element={<Landing/>}/>
+                                    <Route path='/login' element={<Login/>}/>
+                                    <Route path='/register' element={<Register/>}/>
+                                    <Route path='/courses' element={<CoursesDashboard/>}/>
+                                    <Route path='/course-view' element={<CourseView/>}/>
+                                    <Route path='/data/*' element={<Data/>}/>
+                                    <Route path='/cart/*' element={<Cart/>}/>
+                                    <Route path='/my-certificates' element={<MyCertificates/>}/>
+                                    <Route path='/exam' element={<Exam/>}/>
+                                </Routes>
+                            </BrowserRouter>
+                        </Template>
+                    </ErrorModalContext.Provider>
+                </LoaderModalContext.Provider>
             </UserContext.Provider>
         </LangContext.Provider>
     </>);

@@ -1,7 +1,8 @@
-﻿.log-block-form{
+﻿.log-block-form {
     display: block;
 }
-.log-container{
+
+.log-container {
     margin-right: auto;
     margin-left: auto;
     width: 550px;
@@ -9,7 +10,8 @@
     flex-direction: column;
     margin-top: 0px;
 }
-.reg-log-input{
+
+.reg-log-input {
     width: 548px;
     height: 40px;
 
@@ -18,11 +20,19 @@
     background: #FDFDFD;
     box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
-    border:none;
-    color:black;
-    padding-left:5px;
+    border: none;
+    color: black;
+    padding-left: 10px;
+    box-sizing: border-box;
+
+
+    font-family: 'Raleway', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
 }
-.registerbtn{
+
+.registerbtn {
     margin: 68px auto 10px;
     display: flex;
     flex-direction: row;
@@ -42,7 +52,8 @@
     border-width: 0;
     color: white;
 }
-.log-in-btn{
+
+.log-in-btn {
     font-family: 'Raleway', serif;
     font-style: normal;
     font-weight: 300;
@@ -52,7 +63,8 @@
     align-items: center;
     text-align: center;
 }
-.log-label{
+
+.log-label {
     height: 18px;
 
     /* raleway_16_shortline */
@@ -66,7 +78,8 @@
     font-size: 16px;
     line-height: 111%;
 }
-.log-label-l{
+
+.log-label-l {
     margin-bottom: 10px;
     margin-top: 20px;
 
@@ -85,11 +98,29 @@
     flex-direction: column;
     align-items: flex-start;
 }
-.log-label-l-sr{
+
+.log-label-l-sr {
     font-family: Raleway, serif;
     font-size: 12px;
     font-weight: 400;
     line-height: 18px;
     letter-spacing: 0em;
     text-align: left;
+}
+
+.banks-select {
+    width: 548px;
+    min-height: 40px;
+    background: #FDFDFD;
+    box-shadow: inset 0px 0px 5px rgb(0 0 0 / 25%);
+    border-radius: 10px;
+    border: none;
+    color: black;
+    padding-left: 10px;
+    box-sizing: border-box;
+
+    font-family: 'Raleway', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
 }

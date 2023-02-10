@@ -48,17 +48,5 @@ namespace WebApi.Controllers
             var user = await _accountService.GetUserShortById(id);
             return Ok(user);
         }
-        [HttpPost]
-        public async Task<IActionResult> User([FromBody] LoginDto dto)
-        {
-            var claimsIdentity = await _accountService.Login(dto);
-
-            await HttpContext.SignInAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(claimsIdentity)
-            );
-
-            return Ok();
-        }
     }
 }
