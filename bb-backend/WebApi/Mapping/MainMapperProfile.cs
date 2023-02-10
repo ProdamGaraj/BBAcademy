@@ -29,7 +29,6 @@ public class MainMapperProfile : Profile
         CreateMap<AnswerOptionDto, AnswerOption>();
         
         
-        
 
         // OUT
         CreateMap<AnswerOption, GetAnswerOptionForViewDto>();
@@ -44,7 +43,6 @@ public class MainMapperProfile : Profile
         CreateMap<Certificate, CreateCertificateDto>();
         CreateMap<Exam, ExamDto>();
         CreateMap<AnswerOption, AnswerOptionDto>();
-
         
     }
 }

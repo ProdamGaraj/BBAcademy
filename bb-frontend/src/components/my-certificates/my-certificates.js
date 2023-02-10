@@ -12,7 +12,7 @@ import styles from './my-certificates.module.css'
 export default () => {
 
     let lang = useContext(LangContext).lang
-    let [certificates, setCertificates] = useState([])
+    let [certificates, setCertificates] = useState([{userId:1, certificateTemplateId:1},{userId:1, certificateTemplateId:1},{userId:1, certificateTemplateId:1}])
     let loaderModal = useContext(LoaderModalContext)
     let errorModal = useContext(ErrorModalContext)
 
@@ -31,12 +31,10 @@ export default () => {
                 {certificates.map((certificate, i) => (
                     <div key={i} className={styles.certElement}>
                         <span className={styles.certTitle}>{"TODO: certificate name"}</span>
-                        <img className={styles.certImage} src="/img/Account/sertif.svg" alt=""/>
-                        <button>
+                        <img className={styles.certImage} src="/img/Account/sertif.png" alt=""/>
                             <span className={styles.certDownloadButton}>
                                 {(translations[lang].downloadPDF)}
                             </span>
-                        </button>
                     </div>))}
             </div>
         </UserLeftLayoutContainer>

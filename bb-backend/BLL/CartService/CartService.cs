@@ -4,7 +4,7 @@ namespace BLL.CartService;
 
 public class CartService:ICartService
 {
-    public Task<ICollection<CourseForCartDto>> Checkout(long dto)
+    public Task<ICollection<CourseForCartDto>> Checkout(long userId)
     {
         throw new NotImplementedException();
     }
