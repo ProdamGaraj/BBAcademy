@@ -4,7 +4,7 @@ import Order from "../order/order";
 import backend from "../../backend";
 import LoaderModalContext from "../../contexts/loader-modal-context";
 import ErrorModalContext from "../../contexts/error-modal-context";
-import styles from './payment.css';
+import styles from './payment.module.css';
 
 export default () => {
     const loaderModal = useContext(LoaderModalContext)
@@ -55,7 +55,7 @@ export default () => {
         //             useMock();
         //         })
         //         .finally(() => loaderModal.close())
-    }, [setCourses])
+    }, [])
 
 
     function removeCourse(courseId) {
@@ -67,22 +67,22 @@ export default () => {
     }
 
     return (<>
-        <div className="grid-content">
-            <div className="order-completion">
+        <div className={styles.gridContent}>
+            <div className={styles.orderCompletion}>
                 <h1>Оформление заказа</h1>
 
-                <div className="field-wrapper">
+                <div className={styles.fieldWrapper}>
                     <label htmlFor="email-for-receipt">Электронная почта для получения чека</label>
                     <input id="email-for-receipt" type="email"/>
                 </div>
 
-                <div className="field-wrapper">
-                    <label htmlFor="reciver">Получатель</label>
-                    <input id="reciver" type="text"/>
+                <div className={styles.fieldWrapper}>
+                    <label htmlFor="receiver">Получатель</label>
+                    <input id="receiver" type="text"/>
                 </div>
             </div>
 
-            <div className="total-info-card">
+            <div className={styles.totalInfoCard}>
                 <h2>
                     <span>Всего: 2 курса</span>
                     <span>10 000</span>
@@ -98,7 +98,7 @@ export default () => {
                 <button>Перейти к оплате</button>
             </div>
 
-            <div className="orders-container">
+            <div className={styles.ordersContainer}>
                 <h2>Заказы</h2>
 
                 {courses.map(course => (

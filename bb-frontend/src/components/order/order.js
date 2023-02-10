@@ -1,5 +1,5 @@
-import styles from './order.css';
-import backend from "../../backend";
+import styles from './order.module.css';
+import backend from "backend";
 
 export default (props) => {
     const course = props.course;
@@ -37,20 +37,20 @@ export default (props) => {
     }
 
     return (
-        <div className="order-container" tabIndex={0}>
+        <div className={styles.orderContainer} tabIndex={0}>
             <img alt="" aria-hidden="true" role="presentation" src="/img/perec-percovich.png"/>
 
-            <div className="order-info-container">
+            <div className={styles.orderInfoContainer}>
                 <h3>{course.name}</h3>
                 <p>{course.description}</p>
             </div>
 
-            <div className="course-stats">
+            <div className={styles.courseStats}>
                 <h6>{computeLessonsString(course.lessonsCount)}</h6>
                 <h6>{computeHoursString(course.durationHours)}</h6>
             </div>
 
-            <button onClick={removeItem} tabIndex={0} className="delete-order">x</button>
+            <button onClick={removeItem} tabIndex={0} className={styles.deleteOrder}>x</button>
         </div>
     );
 }

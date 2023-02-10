@@ -1,4 +1,4 @@
-.grid-content {
+.gridContent {
     font-family: 'Raleway', sans-serif;
     font-style: normal;
     display: grid;
@@ -10,53 +10,53 @@
     /*min-width: 1200px;*/
 }
 
-.order-completion {
+.orderCompletion {
     display: flex;
     flex-direction: column;
     gap: 12px;
     min-width: 760px;
 }
-.order-completion h1 {
+.orderCompletion h1 {
     font-weight: 500;
     font-size: 28px;
     line-height: 33px;
 }
-.order-completion .field-wrapper {
+.orderCompletion .fieldWrapper {
     width: 100%;
     max-width: 617px;
     display: inherit;
     flex-direction: inherit;
     gap: inherit;
 }
-.order-completion .field-wrapper label,
-.order-completion .field-wrapper input{
+.orderCompletion .fieldWrapper label,
+.orderCompletion .fieldWrapper input{
     width: 100%;
     font-weight: 400;
     font-size: 20px;
     line-height: 23px;
 }
 
-.total-info-card {
+.totalInfoCard {
     font-weight: 400;
     display: flex;
     flex-direction: column;
 }
-.total-info-card h2,
-.total-info-card h4 {
+.totalInfoCard h2,
+.totalInfoCard h4 {
     display: flex;
     justify-content: space-between;
     gap: 19px;
 }
-.total-info-card h2 {
+.totalInfoCard h2 {
     font-size: 32px;
     line-height: 108.5%;
 }
-.total-info-card h4 {
+.totalInfoCard h4 {
     font-size: 20px;
     line-height: 23px;
     color: rgba(0, 0, 0, 0.6);;
 }
-.total-info-card button {
+.totalInfoCard button {
     background: #0093DC;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
     border-radius: 55px;
@@ -64,14 +64,15 @@
     color: white;
     outline: none;
     border: none;
+    cursor: pointer;
 }
 
-.orders-container {
+.ordersContainer {
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
-.orders-container h2 {
+.ordersContainer h2 {
     font-weight: 400;
     font-size: 24px;
     line-height: 28px;

@@ -1,4 +1,4 @@
-.order-container {
+.orderContainer {
     display: flex;
     justify-content: space-between;
     height: 150px;
@@ -13,7 +13,7 @@
     position: relative;
     padding: 19px 29px 19px 220px;
 }
-.order-container img {
+.orderContainer img {
     box-sizing: border-box;
     position: absolute;
     left: 0;
@@ -23,38 +23,38 @@
     border-top-right-radius: 10px;
     border-bottom-right-radius: 40px;
 }
-.order-container .order-info-container {
+.orderContainer .orderInfoContainer {
     width: 70%;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
-.order-container .order-info-container h3 {
+.orderContainer .orderInfoContainer h3 {
     font-weight: 600;
     font-size: 28px;
     margin: 0;
     line-height: 108.5%;
 }
-.order-container .order-info-container p {
+.orderContainer .orderInfoContainer p {
     margin: 0;
     font-weight: 400;
     font-size: 16px;
     line-height: 19px;
 }
 
-.course-stats {
+.courseStats {
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
-.course-stats > * {
+.courseStats > * {
     margin: 0;
     font-weight: 400;
     font-size: 16px;
     line-height: 20px;
 }
 
-.delete-order {
+.deleteOrder {
     position: absolute;
     right: 0;
     top: 0;
@@ -71,9 +71,9 @@
     cursor: pointer;
 }
 
-.order-container:focus > .delete-order,
-.order-container:hover > .delete-order,
-.delete-order:focus {
+.orderContainer:focus > .deleteOrder,
+.orderContainer:hover > .deleteOrder,
+.deleteOrder:focus {
     opacity: 1;
     z-index: 5;
 
