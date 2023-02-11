@@ -80,7 +80,7 @@ export default () => {
                                     {translations[lang].bBanking}
                                 </div>
                                 <div className={styles.categoryBotBlockDuration}>
-                                    {/* BUG: UNKNOWN STRING */}{translations[lang].courses14}
+                                    {translations[lang].fourteenCourses}
                                 </div>
                             </div>
                             <img className={styles.categoryPercent} src="/img/Home/percent.svg" alt=""/>
@@ -92,7 +92,7 @@ export default () => {
                                     {translations[lang].bBanking}
                                 </div>
                                 <div className={styles.categoryBotBlockDuration}>
-                                    {/* BUG: UNKNOWN STRING */}{translations[lang].courses14}
+                                    {translations[lang].fourteenCourses}
                                 </div>
                             </div>
                             <img className={styles.categoryPercent} src="/img/Home/percent.svg" alt=""/>
@@ -104,7 +104,7 @@ export default () => {
                                     {translations[lang].bBanking}
                                 </div>
                                 <div className={styles.categoryBotBlockDuration}>
-                                    {/* BUG: UNKNOWN STRING */}{translations[lang].courses14}
+                                    {translations[lang].fourteenCourses}
                                 </div>
                             </div>
                             <img className={styles.categoryPercent} src="/img/Home/percent.svg" alt=""/>
@@ -157,12 +157,12 @@ export default () => {
             <div className={styles.partners}>
                 <div className={styles.partnersTop}>{translations[lang].ourPartners}</div>
                 <div className={styles.partnersPhotoBlock}>
-                    <img className="partners-photo" src="/img/Home/partn.png" alt=""/>
-                    <img className="partners-photo" src="/img/Home/partn.png" alt=""/>
-                    <img className="partners-photo" src="/img/Home/partn.png" alt=""/>
-                    <img className="partners-photo" src="/img/Home/partn.png" alt=""/>
-                    <img className="partners-photo" src="/img/Home/partn.png" alt=""/>
-                    <img className="partners-photo" src="/img/Home/partn.png" alt=""/>
+                    <img className={styles.partnersPhoto} src="/img/Home/partn.png" alt=""/>
+                    <img className={styles.partnersPhoto} src="/img/Home/partn.png" alt=""/>
+                    <img className={styles.partnersPhoto} src="/img/Home/partn.png" alt=""/>
+                    <img className={styles.partnersPhoto} src="/img/Home/partn.png" alt=""/>
+                    <img className={styles.partnersPhoto} src="/img/Home/partn.png" alt=""/>
+                    <img className={styles.partnersPhoto} src="/img/Home/partn.png" alt=""/>
                 </div>
             </div>
 
