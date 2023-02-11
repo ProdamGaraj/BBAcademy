@@ -11,7 +11,7 @@ namespace Infrastructure.Models
         public int Order { get; set; }
         
         public string MediaPath { get; set; }
-        public string Content { get; set; }
+        public string Title { get; set; }
         public QuestionType QuestionType { get; set; }
         public virtual ICollection<AnswerOption> AnswerOptions { get; set; }
     }

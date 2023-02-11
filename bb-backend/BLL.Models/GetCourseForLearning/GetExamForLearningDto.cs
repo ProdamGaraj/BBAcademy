@@ -2,7 +2,7 @@ namespace BLL.Models.GetCourseForLearning;
 
 public class GetExamForLearningDto
 {
-    public string Description { get; set; }
+    public string Title { get; set; }
 
     public int MinimumPassingGrade { get; set; }
 

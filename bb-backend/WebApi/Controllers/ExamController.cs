@@ -1,6 +1,7 @@
 ﻿using BLL.CourseService;
 using BLL.ExamService;
-using BLL.Models.Exam;
+using BLL.Models.GetExamForTesting;
+using BLL.Models.SaveCourseExamResults;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,7 +9,7 @@ namespace WebApi.Controllers;
 
 [Controller]
 [Route("[controller]/[action]")]
-public class ExamController:Controller
+public class ExamController : Controller
 {
     private ILogger<DataController> _logger;
 
@@ -22,16 +23,10 @@ public class ExamController:Controller
 
     [HttpPost]
     [Authorize]
-    public async Task<ActionResult<ExamDto>> Send(ExamDto dto)
+    public async Task<ActionResult> SaveCourseExamResults([FromBody] SaveCourseExamResultsDto dto)
     {
-        await _examService.SolveExam(dto);
-        return Ok();
-    }
-    [HttpGet]
-    [Authorize]
-    public async Task<ActionResult<ExamDto>> GetByCourse(long courseId)
-    {
-        await _examService.GetByCourse(courseId);
+        var userId = HttpContext.User.GetId();
+        await _examService.SaveCourseExamResults(userId, dto);
         return Ok();
     }
 }

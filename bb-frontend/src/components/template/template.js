@@ -1,6 +1,6 @@
 ﻿import HeaderLanding from "../header-landing/header-landing";
 import HeaderCabinet from "../header-cabinet/header-cabinet";
-import FooterLogin from "../footer-login/footer-login";
+import FooterLogin from "../footer-landing/footer-landing";
 import FooterCabinet from "../footer-cabinet/footer-cabinet";
 
 import styles from './template.module.css'

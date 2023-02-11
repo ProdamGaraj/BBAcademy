@@ -54,7 +54,8 @@ public static class DI
             context.Courses.Add(
                 new Course()
                 {
-                    Description = "Example Course",
+                    Title = "This is Example Course Title",
+                    Description = "This is some Example Course long description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
                     Price = 505,
                     DurationHours = 10,
                     CertificateTemplate = new CertificateTemplate()
@@ -98,14 +99,14 @@ public static class DI
                     CreatedAt = DateTime.UtcNow,
                     Exam = new Exam()
                     {
+                        Title = "Example EXAM",
                         CreatedAt = DateTime.UtcNow,
                         MinimumPassingGrade = 99,
-                        Description = "Example EXAM",
                         Questions = new List<Question>()
                         {
                             new Question()
                             {
-                                Content = "question 1",
+                                Title = "question 1",
                                 Order = 1,
                                 MediaPath = "/img/question1.png",
                                 CreatedAt = DateTime.UtcNow,
@@ -130,7 +131,7 @@ public static class DI
                             },
                             new Question()
                             {
-                                Content = "question 2",
+                                Title = "question 2",
                                 Order = 2,
                                 MediaPath = "/img/question2.png",
                                 CreatedAt = DateTime.UtcNow,

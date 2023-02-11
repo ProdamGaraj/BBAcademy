@@ -5,7 +5,7 @@
         // no course ID because it's ID is bound to Course.Id
         public virtual Course Course { get; set; }
 
-        public string Description { get; set; }
+        public string Title { get; set; }
 
         public int MinimumPassingGrade { get; set; }
 
