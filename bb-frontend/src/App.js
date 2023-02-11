@@ -5,7 +5,7 @@ import LangContext from "./contexts/lang-context";
 import UserContext from "./contexts/user-context";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Login from "./components/login/login";
-import {useRef, useState} from "react";
+import {useState} from "react";
 import Register from "./components/register/register";
 import CoursesDashboard from "./components/courses-dashboard/courses-dashboard";
 import MyCertificates from 'components/my-certificates/my-certificates';
@@ -15,7 +15,7 @@ import ErrorModalContext from "./contexts/error-modal-context";
 import {LoaderModal} from "./components/loader-modal/loader-modal";
 import {ErrorModal} from "./components/error-modal/error-modal";
 import DataDashboard from "./components/data/data-dashboard/data-dashboard";
-import Learning from "./components/courses/learning/learning";
+import LearningDashboard from "./components/courses/learning-dashboard/learning-dashboard";
 import Payment from "./components/payment/payment";
 
 let getLsLang = () => {
@@ -104,7 +104,7 @@ function App() {
                                     <Route path='/login' element={<Login/>}/>
                                     <Route path='/register' element={<Register/>}/>
                                     <Route path='/courses' element={<CoursesDashboard/>}/>
-                                    <Route path='/learning' element={<Learning/>}/>
+                                    <Route path='/learning' element={<LearningDashboard/>}/>
                                     <Route path='/data/*' element={<DataDashboard/>}/>
                                     <Route path='/my-certificates' element={<MyCertificates/>}/>
                                     <Route path='/exam' element={<Exam/>}/>

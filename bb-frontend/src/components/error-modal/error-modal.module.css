@@ -43,7 +43,7 @@
     height: 70px;
     background: transparent;
     border-radius: 50%;
-    border: 4px solid #FF6B6B;
+    border: 4px solid #FF6565;
 }
 
 .errorCircle:after, .errorCircle:before {
@@ -53,7 +53,7 @@
     left: 45%;
     top: 10%;
     height: 80%;
-    background-color: #FF6B6B;
+    background-color: #FF6565;
     -webkit-transform: rotate(-45deg);
     transform: rotate(-45deg);
 }
@@ -83,12 +83,12 @@
     box-shadow: 0 0 10px rgb(0 0 0 / 40%);
     background: transparent;
 
-    border: 4px solid #FF6B6B;
+    border: 4px solid #FF6565;
     border-radius: 10px;
     box-sizing: border-box;
     min-width: 75px;
     min-height: 20px;
-    color: #FF6B6B;
+    color: #FF6565;
 }
 
 .closeButton:hover {

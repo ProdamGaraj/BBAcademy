@@ -1,11 +1,18 @@
 ﻿.layout {
-    max-width: 1320px;
-    min-width: 1320px;
     height: 100%;
+    margin-top: 53px;
 
     display: flex;
     flex-direction: row;
     justify-content: center;
+}
+
+.layoutContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    max-width: 1320px;
+    min-width: 1320px;
 }
 
 .userDataLeft {
@@ -55,6 +62,10 @@
 .cursorPointer {
     cursor: pointer;
 }
+.cursorPointer:hover {
+    color: #0093DC;
+    cursor: pointer;
+}
 
 .divider {
     height: 472px;
@@ -65,4 +76,8 @@
 
 .content {
     flex-grow: 1;
+}
+
+.certA {
+    text-decoration: none;
 }
