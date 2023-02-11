@@ -25,24 +25,24 @@ export default () => {
     }
 
     return (<>
-        <div className="log-container">
+        <div className="logContainer">
             <div className="heading">{(translations[currentLang].editingAnswerOption)}</div>
-            <label className="log-label">Title</label>
+            <label className="logLabel">Title</label>
             <input placeholder="" value={title} onChange={e => setTitle(e.target.value)}
-                   className="form-control textbox-dg font-weight-bold text-center reg-log-input" type="text"/>
-            <label className="log-label">Weight</label>
+                   className="form-control textbox-dg font-weight-bold text-center regLogInput" type="text"/>
+            <label className="logLabel">Weight</label>
             <input placeholder="" value={weight} onChange={e => setWeight(~~e.target.value)}
-                   className="form-control textbox-dg font-weight-bold text-center reg-log-input" type="text" required/>
-            <label className="log-label">Media Path</label>
+                   className="form-control textbox-dg font-weight-bold text-center regLogInput" type="text" required/>
+            <label className="logLabel">Media Path</label>
             <input placeholder="" value={mediaPath} onChange={e => setMediaPath(e.target.value)}
-                   className="form-control textbox-dg font-weight-bold text-center reg-log-input" type="text" required/><label
-            className="log-label">Is Correct</label>
+                   className="form-control textbox-dg font-weight-bold text-center regLogInput" type="text" required/><label
+            className="logLabel">Is Correct</label>
             <input placeholder="" checked={isCorrect} onChange={e => setIsCorrect(e.target.checked)}
-                   className="form-control textbox-dg font-weight-bold text-center reg-log-input check" type="checkbox"
+                   className="form-control textbox-dg font-weight-bold text-center regLogInput check" type="checkbox"
                    required/>
             <NavLink to={'/data/question'}>
                 <button className="add-course-btn"  onClick={() => onSave()}>
-                    <div className="log-in-btn">{translations[currentLang].saveAnswerandreturntoQuestion}</div>
+                    <div className="registerBtn">{translations[currentLang].saveAnswerandreturntoQuestion}</div>
                 </button>
             </NavLink>
         </div>

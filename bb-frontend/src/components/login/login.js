@@ -3,7 +3,7 @@
 import translations from 'translations'
 import LangContext from "contexts/lang-context";
 
-import './login.css'
+import styles from './login.module.css'
 import backend from "backend";
 import LoaderModalContext from "contexts/loader-modal-context";
 import ErrorModalContext from "contexts/error-modal-context";
@@ -30,24 +30,17 @@ export default (props) => {
     }
 
     return (<>
-        <div className="main-container">
-            <div className="log-container">
-                <label className="log-label">{translations[currentLang].login}</label>
-                <input placeholder="" value={login} onChange={e => setLogin(e.target.value)}
-                       className="form-control textbox-dg font-weight-bold text-center reg-log-input"
-                       type="text"/>
-
-                <label className="log-label">{translations[currentLang].password}</label>
-                <input placeholder="" value={password} onChange={e => setPassword(e.target.value)}
-                       className="form-control textbox-dg font-weight-bold text-center reg-log-input"
-                       type="password"/>
-
-                <div className="d-grid gap-2 d-md-block float-right">
-                    <button className="registerbtn"
-                            onClick={() => onLogin()}>
-                        <div className="log-in-btn">{translations[currentLang].enter}</div>
-                    </button>
-                </div>
+        <div className={styles.logContainer}>
+            <label className={styles.logLabel}>{translations[currentLang].login}</label>
+            <input placeholder="" value={login} onChange={e => setLogin(e.target.value)}
+                   className={styles.loginInput}
+                   type="text"/>
+            <label className={styles.logLabel}>{translations[currentLang].password}</label>
+            <input placeholder="" value={password} onChange={e => setPassword(e.target.value)}
+                   className={styles.loginInput}
+                   type="password"/>
+            <div className="d-grid gap-2 d-md-block float-right">
+                <div className={styles.loginBtn} onClick={() => onLogin()}>{translations[currentLang].enter}</div>
             </div>
         </div>
     </>)

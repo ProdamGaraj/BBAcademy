@@ -18,29 +18,29 @@ export default (props) => {
     };
 
     return (<>
-        <div className="log-container">
+        <div className="logContainer">
             <div className="heading">Editing Question</div>
-            <label className="log-label">Name</label>
+            <label className="logLabel">Name</label>
             <input placeholder="" value={name} onChange={e => setName(e.target.value)}
-                   className="form-control textbox-dg font-weight-bold text-center reg-log-input" type="text"/>
-            <label className="log-label">Content</label>
+                   className="form-control textbox-dg font-weight-bold text-center regLogInput" type="text"/>
+            <label className="logLabel">Content</label>
             <input placeholder="" value={content} onChange={e => setContent(e.target.value)}
-                   className="form-control textbox-dg font-weight-bold text-center reg-log-input" type="text"/>
-            <label className="log-label">Question Type</label>
+                   className="form-control textbox-dg font-weight-bold text-center regLogInput" type="text"/>
+            <label className="logLabel">Question Type</label>
             <input placeholder="" value={type} onChange={e => setType(e.target.value)}
-                   className="form-control textbox-dg font-weight-bold text-center reg-log-input" type="text"/>
-            <label className="log-label">Media Path</label>
+                   className="form-control textbox-dg font-weight-bold text-center regLogInput" type="text"/>
+            <label className="logLabel">Media Path</label>
             <input placeholder="" value={mediaPath} onChange={e => setMediaPath(e.target.value)}
-                   className="form-control textbox-dg font-weight-bold text-center reg-log-input" type="text"/>
+                   className="form-control textbox-dg font-weight-bold text-center regLogInput" type="text"/>
             <div className="gapper">
                 <NavLink to={'/data/answer'}>
                     <button type="submit" className="add-course-btn">
-                        <div className="log-in-btn" onClick={() => onSave()}>Save and Add answer</div>
+                        <div className="registerBtn" onClick={() => onSave()}>Save and Add answer</div>
                     </button>
                 </NavLink>
                 <NavLink to={'/data/exam'}>
                     <button className="add-course-btn" onClick={() => onSave()}>
-                        <div className="log-in-btn">Save and Return to Exam</div>
+                        <div className="registerBtn">Save and Return to Exam</div>
                     </button>
                 </NavLink>
             </div>

@@ -2,7 +2,7 @@
     display: block;
 }
 
-.log-container {
+.logContainer {
     margin-right: auto;
     margin-left: auto;
     width: 550px;
@@ -11,7 +11,7 @@
     margin-top: 0px;
 }
 
-.reg-log-input {
+.regLogInput {
     width: 548px;
     height: 40px;
 
@@ -32,7 +32,7 @@
     font-size: 16px;
 }
 
-.registerbtn {
+.registerBtn {
     margin: 68px auto 10px;
     display: flex;
     flex-direction: row;
@@ -53,7 +53,7 @@
     color: white;
 }
 
-.log-in-btn {
+.registerBtn {
     font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 300;
@@ -62,9 +62,11 @@
     display: flex;
     align-items: center;
     text-align: center;
+    cursor: pointer;
+    user-select: none;
 }
 
-.log-label {
+.logLabel {
     height: 18px;
 
     /* raleway_16_shortline */
@@ -79,7 +81,7 @@
     line-height: 111%;
 }
 
-.log-label-l {
+.logLabelUnnessesary {
     margin-bottom: 10px;
     margin-top: 20px;
 
@@ -99,7 +101,7 @@
     align-items: flex-start;
 }
 
-.log-label-l-sr {
+.logLabelUnnessesaryLabel {
     font-family: 'Raleway', sans-serif;
     font-size: 12px;
     font-weight: 400;
@@ -108,7 +110,7 @@
     text-align: left;
 }
 
-.banks-select {
+.banksSelect {
     width: 548px;
     min-height: 40px;
     background: #FDFDFD;
