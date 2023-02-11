@@ -3,7 +3,17 @@ import {useContext} from "react";
 import translations from 'translations'
 import LangContext from "../../contexts/lang-context";
 import Header from "../header/header";
+import LoginHeader from "../header/login-header";
 
+let headerResolver = (href) => {
+    if (href.endsWith('/') ||
+        href.endsWith('/login') ||
+        href.endsWith('/register')
+    ) {
+        return <LoginHeader></LoginHeader>
+    }
+    return <Header></Header>
+}
 export default (props) => {
 
     let langContext = useContext(LangContext);
@@ -13,33 +23,8 @@ export default (props) => {
         langContext.setLang(lang)
     }
 
-    let isLogin = window.location.href.endsWith('/login')
-
     return (<>
-        <Header></Header>
-        <header>
-            <div className="header-container">
-                <div className="header-container-left_section">
-                    <img className="svg-logo" src="/img/Shared/logo-icon-2.svg" alt="logo"/>
-                    <div className="header-container-left_section-text">BilimBank</div>
-                </div>
-                <div className="header-container-right_section">
-                    <div className="header-container-right_section-lang">
-                        <div className="header-container-right_section-lang-element">
-                            <span className="a-lang"
-                                  onClick={() => changeLang('uz')}>uz</span>
-                        </div>
-                        <div className="header-container-right_section-lang-element">
-                            <span className="a-lang"
-                                  onClick={() => changeLang('ru')}>ru</span>
-                        </div>
-                    </div>
-                    <a className="header-container-right_section-login"
-                       href={(isLogin ? '/register' : '/login')}>{translations[currentLang][(isLogin ? 'reg' : 'enter')]}</a>
-                </div>
-            </div>
-        </header>
-
+        {headerResolver(window.location.href)}
         <main role="main" className="pb-3">
             {props.children}
         </main>

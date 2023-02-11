@@ -7,6 +7,7 @@ import {NavLink} from "react-router-dom";
 import backend from "../../backend";
 import LoaderModalContext from "../../contexts/loader-modal-context";
 import ErrorModalContext from "../../contexts/error-modal-context";
+import UserLeftLayout from "../user-left-layout/user-left-layout";
 
 
 let questionTypeConverter = ({type, answers}) => {
@@ -38,7 +39,7 @@ let questionTypeConverter = ({type, answers}) => {
 export default (props) => {
     let currentLang = useContext(LangContext).lang
     let user = useContext(UserContext).user;
-
+    let [questions, setQuestions] = useState([{}])
     let loaderModal = useContext(LoaderModalContext)
     let errorModal = useContext(ErrorModalContext)
 
@@ -74,55 +75,20 @@ export default (props) => {
 
 
     return (<>
-        <div className="main-container">
-            <div className="account-data">
-                <div className="user_data">
-                    <img className="user_data-photo" src="/img/Account/ur_photo.png"/>
-                    <div className="user_data-username">{user.FirstName}</div>
-                </div>
-                <div className="user_info">
-                    <div className="user_info-block">
-                        <img src="/img/Account/people.png"/>
-                        <div className="user_info-block-name">{user.FirstName} {user.MiddleName} {user.LastName} </div>
-                    </div>
-                    <div clclassNameass="user_info-block">
-                        <img src="/img/Account/bag.svg"/>
-                        <div className="user_info-block-name">{user.JobTitle} in {user.Organisation}</div>
-                    </div>
-                    <div className="user_info-block">
-                        <img src="/img/Account/rait.svg"/>
-                        <div className="user_info-block-name">{user.Rating}</div>
-                    </div>
-                    <div className="user_info-block-1">
-                        <div className="user_info-block-1-1">
-                            <img src="/img/Account/rait.svg"/>
-                            <div className="user_info-block-name">{user.RecommendedBy}</div>
-                        </div>
-                    </div>
-                    <NavLink to='/my-certificates'>
-                        <div className="user_info-block user_info-block-clickable">
-                            <img src="/img/Account/sertif.svg"/>
-                            <div className="user_info-block-name">{(translations[currentLang].mycert)}</div>
-                        </div>
-                    </NavLink>
+        <UserLeftLayout>
+            <div className="main-container-list-result-5">
+                <div className="main-container-list-result-cont-test">
+                    <div className="main-container-list-result-cont-1">{translations[currentLang].exam}</div>
+                    {exam === null ? '' : exam.Questions.map((question, i) => (
+                        <div key={i}>
+                            <p>{question.Content}</p>
+                            {questionTypeConverter(question.Type, question.Answers)}
+                        </div>))}
+                    <button type="submit" className="course-next-button">
+                        <div className="log-in-btn" onClick={() => sendExam(exam)}></div>
+                    </button>
                 </div>
             </div>
-        </div>
-
-        <div className="Demarcation-line"></div>
-
-        <div className="main-container-list-result-5">
-            <div className="main-container-list-result-cont-test">
-                <div className="main-container-list-result-cont-1">{translations[currentLang].exam}</div>
-                {exam === null ? '' : exam.Questions.map((question, i) => (
-                    <div key={i}>
-                        <p>{question.Content}</p>
-                        {questionTypeConverter(question.Type, question.Answers)}
-                    </div>))}
-                <button type="submit" className="course-next-button">
-                    <div className="log-in-btn" onClick={() => sendExam(exam)}></div>
-                </button>
-            </div>
-        </div>
+        </UserLeftLayout>
     </>)
 }

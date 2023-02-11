@@ -7,7 +7,6 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Login from "./components/login/login";
 import {useRef, useState} from "react";
 import Register from "./components/register/register";
-import Cart from "./components/cart/cart";
 import CoursesDashboard from "./components/courses-dashboard/courses-dashboard";
 import MyCertificates from 'components/my-certificates/my-certificates';
 import Exam from 'components/exam/exam'
@@ -107,7 +106,6 @@ function App() {
                                     <Route path='/courses' element={<CoursesDashboard/>}/>
                                     <Route path='/learning' element={<Learning/>}/>
                                     <Route path='/data/*' element={<DataDashboard/>}/>
-                                    <Route path='/cart/*' element={<Cart/>}/>
                                     <Route path='/my-certificates' element={<MyCertificates/>}/>
                                     <Route path='/exam' element={<Exam/>}/>
                                     <Route path='/payment' element={<Payment/>}/>
