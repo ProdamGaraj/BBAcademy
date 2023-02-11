@@ -4,35 +4,31 @@ import styles from "./footer-login.module.css";
 import {useContext} from "react";
 
 export default () => {
-    let langContext = useContext(LangContext);
-    let currentLang = langContext.lang
+    let lang = useContext(LangContext).lang
 
     return (<>
         <footer className={styles.footer}>
             <div className={styles.footerTitleContainer}>
-                <div>
-                    <img className={styles.footerLogo} src="/img/Shared/logo-icon-1.svg" alt="logo"/>
-                    <label className={styles.footerTile}>BilimBank</label>
-                </div>
-                <div></div>{/*TODO: refactoring 1000px gap*/}
+                <img className={styles.footerLogo} src="/img/Shared/logo-icon-1.svg" alt="logo"/>
+                <label className={styles.footerTile}>BilimBank</label>
             </div>
             <div className={styles.footerContentContainer}>
                 <div className={styles.footerColumn}>
-                    <div className={styles.columnElement}>{translations[currentLang].about}</div>
-                    <div className={styles.columnElement}>{translations[currentLang].vacancies}</div>
-                    <div className={styles.columnElement}>{translations[currentLang].company}</div>
+                    <div className={styles.columnElement}>{translations[lang].about}</div>
+                    <div className={styles.columnElement}>{translations[lang].vacancies}</div>
+                    <div className={styles.columnElement}>{translations[lang].company}</div>
                     <br/>
-                    <div className={styles.columnElement}>{translations[currentLang].learningproc}</div>
-                    <div className={styles.columnElement}>{translations[currentLang].usagepol}</div>
-                    <div className={styles.columnElement}>{translations[currentLang].privpol}</div>
-                    <div className={styles.columnElement}>{translations[currentLang].companyInfo}</div>
+                    <div className={styles.columnElement}>{translations[lang].learningproc}</div>
+                    <div className={styles.columnElement}>{translations[lang].usagepol}</div>
+                    <div className={styles.columnElement}>{translations[lang].privpol}</div>
+                    <div className={styles.columnElement}>{translations[lang].companyInfo}</div>
                 </div>
                 <div className={styles.footerColumn}>
-                    <div className={styles.columnElement}>{translations[currentLang].online}</div>
-                    <div className={styles.columnElement}>{translations[currentLang].programms}</div>
-                    <div className={styles.columnElement}>{translations[currentLang].webinars}</div>
-                    <div className={styles.columnElement}>{translations[currentLang].fests}</div>
-                    <div className={styles.columnElement}>{translations[currentLang].carrier}</div>
+                    <div className={styles.columnElement}>{translations[lang].online}</div>
+                    <div className={styles.columnElement}>{translations[lang].programms}</div>
+                    <div className={styles.columnElement}>{translations[lang].webinars}</div>
+                    <div className={styles.columnElement}>{translations[lang].fests}</div>
+                    <div className={styles.columnElement}>{translations[lang].carrier}</div>
                 </div>
                 <div className={styles.footerColumn}>
                     <div className={styles.columnElement}>
@@ -46,7 +42,7 @@ export default () => {
                 </div>
             </div>
             <div className={styles.allRights}>
-                {translations[currentLang].rights}
+                {translations[lang].rights}
             </div>
         </footer>
     </>)

@@ -1,8 +1,10 @@
-﻿import style from "./template.css"
-import HeaderLanding from "../header-landing/header-landing";
+﻿import HeaderLanding from "../header-landing/header-landing";
 import HeaderCabinet from "../header-cabinet/header-cabinet";
 import FooterLogin from "../footer-login/footer-login";
 import FooterCabinet from "../footer-cabinet/footer-cabinet";
+
+import styles from './template.module.css'
+
 let headerResolver = () => {
     console.log(window.location.pathname)
     if (window.location.pathname==='/' ||
@@ -24,9 +26,7 @@ let footerResolver = () => {
 export default (props) => (
     <>
         {headerResolver()}
-        <main role="main" className="pb-3">
-            {props.children}
-        </main>
+        {props.children}
         {footerResolver()}
     </>)
 

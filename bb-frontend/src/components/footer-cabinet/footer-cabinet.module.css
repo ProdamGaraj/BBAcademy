@@ -1,38 +1,21 @@
-﻿.footerContainer {
-    width: 100%;
-    
-    
+﻿.footerContainer {    
     display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-
-    box-shadow: none;
     
+    flex-direction: row;
     align-items: center;
-    align-content: center;
+    justify-content: center;
     
     background-color: #FAFAFA;
     
-    padding-bottom: 10px;
-    padding-top: 10px;
-
-    font-family: 'Raleway', sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 19px;
+    padding: 25px 25px;
+    box-sizing: border-box;
 
     gap: 50px;
-    position:relative;
 }
 
 .logoImg {
-    display: flex;
     width: 32px;
     height: 32px;
-    top: -50%;
-    transform: translate(50%, 10%);
-    position: relative;
 }
 
 .footerTile {
@@ -45,27 +28,21 @@
 }
 
 .allRights {
-    height: 40px;
-    width: 100%;
-    margin-top: unset;
-    /* identical to box height */
-
-    display: flex;
-    align-items: center;
-    text-align: center;
-    justify-content: space-evenly;
     color: #000000;
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
 }
 
 
 .leftContainer{
-    margin-left: 50px;
     display: flex;
-    flex-direction: row;
-    justify-items: flex-end;
-    position: relative;
     align-items: center;
+    gap: 8px;
 }
+
 .rightContainer {
     display: flex;
     flex-direction: row;

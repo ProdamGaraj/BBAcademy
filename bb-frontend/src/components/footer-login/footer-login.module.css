@@ -1,12 +1,13 @@
 ﻿.footer {
     background-color: #EDEDED;
     margin-top: 85px;
-    padding-left: 120px;
     font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 300;
     font-size: 20px;
-
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .allRights {
@@ -28,36 +29,32 @@
 }
 
 .footerTitleContainer {
-    margin-bottom: 30px;
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    gap: 1110px; /*TODO: refactoring 1000px gap*/
+    justify-content: start;
+    gap: 16px;
+    padding: 29px 0;
+    width: 1250px;
 }
 
 .footerTile {
     font-family: 'Prompt', sans-serif;
     font-size: 32px;
     font-weight: 300;
+    line-height: 100%;
     color: #3A3B3F;
 }
 
 .footerLogo {
-    display: flex;
     width: 40px;
     height: 32px;
-    position: relative;
-    top: 50%;
-    transform: translate(-150%, 30%);
-
 }
 
 .footerContentContainer {
     display: flex;
-    gap: 200px;
-    line-height: 23px;
-    margin-bottom: 10px;
-    justify-content: center;
+    justify-content: flex-start;
+    width: 1250px;
+    margin-bottom: 20px;
 }
 
 .footerColumn {
@@ -66,6 +63,7 @@
     gap: 10px;
     align-items: flex-start;
 
+    max-width: 322px;
 
 }
 

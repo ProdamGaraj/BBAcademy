@@ -1,40 +1,39 @@
-﻿import '../header-landing/header-landing.css'
-import translations from "translations";
+﻿import translations from "translations";
 import {useContext} from "react";
 import LangContext from "contexts/lang-context";
+import styles from './header-landing.module.css'
 
 export default (props) => {
 
     let langContext = useContext(LangContext);
-    let currentLang = langContext.lang
+    let lang = langContext.lang
 
     let changeLang = (lang) => {
         langContext.setLang(lang)
     }
 
-    let isLogin = window.location.href.endsWith('/login')
-    let atHome = window.location.href.endsWith('/home')
+    let isLogin = window.location.pathname.endsWith('/login')
 
     return (<>
-        <header>
-            <div className="header-container">
-                <div className="header-container-left_section">
-                    <img className="svg-logo" src="/img/Shared/logo-icon-2.svg" alt="logo"/>
-                    <div className="header-container-left_section-text">BilimBank</div>
+        <header className={styles.headerWrapper}>
+            <div className={styles.headerContainer}>
+                <div className={styles.headerContainerLeftSection}>
+                    <img className={styles.svgLogo} src="/img/Shared/logo-icon-2.svg" alt="logo"/>
+                    <div className={styles.headerContainerLeftSectionText}>BilimBank</div>
                 </div>
-                <div className="header-container-right_section">
-                    <div className="header-container-right_section-lang">
-                        <div className="header-container-right_section-lang-element">
-                            <span className="a-lang"
+                <div className={styles.headerContainerRightSection}>
+                    <div className={styles.headerContainerRightSectionLang}>
+                        <div className={styles.headerContainerRightSectionLangElement}>
+                            <span className={styles.aLang}
                                   onClick={() => changeLang('uz')}>uz</span>
                         </div>
-                        <div className="header-container-right_section-lang-element">
-                            <span className="a-lang"
+                        <div className={styles.headerContainerRightSectionLangElement}>
+                            <span className={styles.aLang}
                                   onClick={() => changeLang('ru')}>ru</span>
                         </div>
                     </div>
-                    <a className="header-container-right_section-login"
-                       href={(isLogin ? '/register' : '/login')}>{translations[currentLang][(isLogin ? 'reg' : 'enter')]}</a>
+                    <a className={styles.headerContainerRightSectionLogin}
+                       href={(isLogin ? '/register' : '/login')}>{translations[lang][(isLogin ? 'reg' : 'enter')]}</a>
                 </div>
             </div>
         </header>

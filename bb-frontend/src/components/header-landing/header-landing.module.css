@@ -1,45 +1,38 @@
-.header {
-    width: 100%;
+.headerWrapper {
     display: flex;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    margin-bottom: 50px;
+    justify-content: center;
+    width: 100%;
+    padding: 32px 0;
+    box-sizing: border-box;
 }
 
-.a {
-    text-decoration: none;
-    border-bottom: none;
-    color: black;
-    cursor: pointer;
+.headerContainer{
+    display: flex;
+    width: 1250px;
 }
 
-.a-lang:hover {
+.aLang:hover {
     color: #0093DC;
     border-bottom: 3px solid;
 }
 
-.a-lang:active {
+.aLang:active {
     color: red;
     border-bottom: 3px solid;
 }
 
-.svg-logo {
+.svgLogo {
     margin-right: 15px;
 }
 
-.header-container {
-    width: 1250px;
-    margin: 35px auto;
-    display: flex;
-    flex-direction: row;
-}
-
-.header-container-left_section {
+.headerContainerLeftSection {
     display: flex;
     flex-direction: row;
     margin-right: auto;
 }
 
-.header-container-left_section-text {
+.headerContainerLeftSectionText {
     width: 146px;
     height: 32px;
     margin-top: auto;
@@ -52,20 +45,20 @@
     color: #2900FF;
 }
 
-.header-container-right_section {
+.headerContainerRightSection {
     margin-left: auto;
     display: flex;
     flex-direction: row;
 
 }
 
-.header-container-right_section-lang {
+.headerContainerRightSectionLang {
     display: flex;
     align-items: center;
     margin-right: 70px;
 }
 
-.header-container-right_section-lang-element {
+.headerContainerRightSectionLangElement {
     width: 31px;
     height: 33px;
 
@@ -83,7 +76,7 @@
     cursor: pointer;
 }
 
-.header-container-right_section-login {
+.headerContainerRightSectionLogin {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -113,6 +106,6 @@
     color: #FFFFFF;
 }
 
-.header-container-right_section-login:hover {
+.headerContainerRightSectionLogin:hover {
     background-color: #33A9E3;
 }

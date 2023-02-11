@@ -85,7 +85,7 @@
 
         'rateSystem': "Система рейтинга",
         'aLotOfCourses': "Широкий выбор курсов",
-        'learnWithBBAcademy': "Учись в BilimBank",
+        'learnWithBBAcademy': <span>Учись <br/> в BilimBank</span>,
         'improveYourProfessionalCapital': "Увеличивай свой профессиональный капитал",
 
         'autoExamination': "Автоматическая проверка работы",
