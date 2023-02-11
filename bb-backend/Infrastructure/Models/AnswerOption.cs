@@ -5,6 +5,8 @@
         public long QuestionId { get; set; }
 
         public virtual Question Question { get; set; }
+
+        public int Order { get; set; }
         
         public string Title { get; set; }
 

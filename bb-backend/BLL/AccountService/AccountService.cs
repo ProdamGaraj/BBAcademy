@@ -1,6 +1,6 @@
 using AutoMapper;
 using BLL.Models;
-using BLL.Models.GetCourseForView;
+using BLL.Models.GetCourseForLearning;
 using BLL.Models.GetUserForAccount;
 using BLL.Models.Login;
 using BLL.Models.Register;

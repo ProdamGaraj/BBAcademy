@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using BLL.Models.CourseForCart;
-using BLL.Models.GetCourseForView;
+using BLL.Models.GetCourseForLearning;
 using BLL.Models.GetUserForAccount;
 using BLL.Models.Save;
 using Infrastructure.Models;
@@ -31,18 +31,17 @@ public class MainMapperProfile : Profile
         
 
         // OUT
-        CreateMap<AnswerOption, GetAnswerOptionForViewDto>();
-        CreateMap<Course, GetCourseForViewDto>();
-        CreateMap<User, GetUserShortForAccountDto>();
-        CreateMap<Exam, GetExamForViewDto>();
-        CreateMap<Course, GetLessonForViewDto>();
-        CreateMap<Course, GetQuestionForViewDto>();
+        CreateMap<AnswerOption, GetAnswerOptionForLearningDto>();
+        CreateMap<Question, GetQuestionForLearningDto>();
+        CreateMap<Lesson, GetLessonForLearningDto>();
+        CreateMap<Course, GetCourseForLearningDto>();
+        CreateMap<Exam, GetExamForLearningDto>();
         CreateMap<Course, CourseForCartDto>();
+        CreateMap<User, GetUserShortForAccountDto>();
         
         CreateMap<Certificate, CertificateOutDto>();
         CreateMap<Certificate, CreateCertificateDto>();
         CreateMap<Exam, ExamDto>();
         CreateMap<AnswerOption, AnswerOptionDto>();
-        
     }
 }

@@ -1,7 +1,7 @@
 ﻿using BLL.CartService;
 using BLL.CourseService;
 using BLL.Models.CourseForCart;
-using BLL.Models.GetCourseForView;
+using BLL.Models.GetCourseForLearning;
 using BLL.Models.GetCoursesForDashboard;
 using BLL.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;

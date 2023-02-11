@@ -1,5 +1,5 @@
 ﻿using BLL.CourseService;
-using BLL.Models.GetCourseForView;
+using BLL.Models.GetCourseForLearning;
 using BLL.Models.GetCoursesForDashboard;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,11 +18,11 @@ public class CourseController : Controller
         _courseService = courseService;
     }
 
-    [HttpGet]
+    [HttpPost]
     [Authorize]
-    public async Task<ActionResult<GetCourseForViewDto>> GetFullInfoForView(long id)
+    public async Task<ActionResult<GetCourseForLearningDto>> GetForLearning(long id)
     {
-        var result = await _courseService.GetFullInfoForView(id);
+        var result = await _courseService.GetForLearning(id);
 
         return Ok(result);
     }
@@ -31,11 +31,6 @@ public class CourseController : Controller
     [Authorize]
     public async Task<ActionResult<ICollection<CourseForDashboardDto>>> GetForDashboard()
     {
-        if (HttpContext.User.Identity?.IsAuthenticated != true)
-        {
-            return Unauthorized();
-        }
-
         var userId = HttpContext.User.GetId();
         var result = await _courseService.GetCoursesForDashboard(userId);
 

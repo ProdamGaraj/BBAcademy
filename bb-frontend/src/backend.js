@@ -17,11 +17,8 @@ export default {
 
             return response.data;
         },
-        GetFullInfoForView: async (courseId) => {
-            let response = await axios.post(baseurl + '/Course/GetFullInfoForView', {
-                params: {
-                    id: courseId
-                },
+        GetForLearning: async (courseId) => {
+            let response = await axios.post(`${baseurl}/Course/GetForLearning?id=${courseId}`, {}, {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('token')
                 },

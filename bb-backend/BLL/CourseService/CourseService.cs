@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using BLL.Models.CourseForCart;
-using BLL.Models.GetCourseForView;
+using BLL.Models.GetCourseForLearning;
 using BLL.Models.GetCoursesForDashboard;
 using BLL.Models.Save;
 using Infrastructure.Common;
@@ -14,19 +14,13 @@ namespace BLL.CourseService
 {
     public class CourseService : ICourseService
     {
-        private readonly IRepository<User> _userRepository;
         private readonly IRepository<Course> _courseRepository;
-        private readonly IRepository<Question> _questionRepository;
-        private readonly IRepository<Exam> _examRepository;
         private readonly ILogger<CourseService> _logger;
         private readonly IMapper _mapper;
 
-        public CourseService(IRepository<User> userRepository, IRepository<Course> courseRepository, IRepository<Question> questionRepository, IRepository<Exam> examRepository, ILogger<CourseService> logger, IMapper mapper)
+        public CourseService(IRepository<Course> courseRepository, ILogger<CourseService> logger, IMapper mapper)
         {
-            _userRepository = userRepository;
             _courseRepository = courseRepository;
-            _questionRepository = questionRepository;
-            _examRepository = examRepository;
             _logger = logger;
             _mapper = mapper;
         }
@@ -103,24 +97,24 @@ namespace BLL.CourseService
             }
         }
 
-        public async Task<GetCourseForViewDto> GetFullInfoForView(long courseId)
+        public async Task<GetCourseForLearningDto> GetForLearning(long courseId)
         {
             try
             {
                 var course = await _courseRepository.GetAll()
                     .Include(c => c.Exam)
-                    .ThenInclude(e => e.Questions)
-                    .ThenInclude(q => q.AnswerOptions)
-                    .Include(c => c.Lessons)
+                    .ThenInclude(e => e.Questions.OrderBy(q => q.Order))
+                    .ThenInclude(q => q.AnswerOptions.OrderBy(a => a.Order))
+                    .Include(c => c.Lessons.OrderBy(l => l.Order))
                     .FirstOrDefaultAsync(c => c.Id == courseId);
 
-                var resultDto = _mapper.Map<GetCourseForViewDto>(course);
+                var resultDto = _mapper.Map<GetCourseForLearningDto>(course);
 
                 return resultDto;
             }
             catch (Exception ex)
             {
-                throw new BusinessException("Failed GetCourse", ex);
+                throw new BusinessException("Failed GetForLearning", ex);
             }
         }
 

@@ -1,6 +1,6 @@
-namespace BLL.Models.GetCourseForView;
+namespace BLL.Models.GetCourseForLearning;
 
-public class GetAnswerOptionForViewDto
+public class GetAnswerOptionForLearningDto
 {
     public string Title { get; set; }
 

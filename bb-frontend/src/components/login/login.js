@@ -1,13 +1,12 @@
 ﻿import {useContext, useState} from "react";
 
 import translations from 'translations'
-import baseurl from 'base-url'
-import LangContext from "../../contexts/lang-context";
+import LangContext from "contexts/lang-context";
 
 import './login.css'
-import backend from "../../backend";
-import LoaderModalContext from "../../contexts/loader-modal-context";
-import ErrorModalContext from "../../contexts/error-modal-context";
+import backend from "backend";
+import LoaderModalContext from "contexts/loader-modal-context";
+import ErrorModalContext from "contexts/error-modal-context";
 
 
 export default (props) => {
@@ -23,6 +22,7 @@ export default (props) => {
         backend.Account.Login({Login: login, Password: password})
             .then((token) => {
                 localStorage.setItem('token', token)
+                console.log('Authorized: ' + token)
                 window.location.href = '/courses'
             })
             .catch(e => errorModal.showModal(e.message))

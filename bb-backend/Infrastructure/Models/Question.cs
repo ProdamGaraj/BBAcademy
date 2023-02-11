@@ -7,6 +7,8 @@ namespace Infrastructure.Models
         public long ExamId { get; set; }
 
         public virtual Exam Exam { get; set; }
+
+        public int Order { get; set; }
         
         public string MediaPath { get; set; }
         public string Content { get; set; }

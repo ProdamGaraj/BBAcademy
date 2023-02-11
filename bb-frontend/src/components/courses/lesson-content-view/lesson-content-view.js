@@ -3,10 +3,33 @@ import translations from "translations";
 import {useContext} from "react";
 import LangContext from "contexts/lang-context";
 
+const mapContentType = (type, path) => {
+    switch (type) {
+        case 1: //text
+            return (<div className={styles.contentText}>
+                {path}
+            </div>)
+        case 2: //video
+            return (<div className={styles.contentMedia}>
+                <video width="100%" controls>
+                    <source src={path} type="video/mp4"/>
+                </video>
+            </div>)
+        case 3: //photo
+            return (<div className={styles.contentMedia}>
+                <object data="/img/home/girl2.png" type="image/png">
+                    <img src={path} alt=""/>
+                </object>
+                
+            </div>)
+        default: return 'Unknown Content Type'
+    }
+}
+
 export default ({lesson}) => {
 
     let lang = useContext(LangContext).lang
-    
+
     return (
         <>
             <div className={styles.contentContainer}>
@@ -15,14 +38,10 @@ export default ({lesson}) => {
                 </div>
 
                 <div className={styles.contentText}>
-                    {lesson.textContent}
+                    {lesson.content}
                 </div>
 
-                <div className={styles.contentMedia}>
-                    <video width="100%" controls>
-                        <source src={lesson.mediaContentPath} type="video/mp4"/>
-                    </video>
-                </div>
+                {mapContentType(lesson.lessonContentType, lesson.mediaContentPath)}
             </div>
         </>
     )

@@ -66,6 +66,8 @@ public static class DI
                     {
                         new Lesson()
                         {
+                            Title = "ex LESSON1",
+                            Order = 1,
                             Content = "Lesson PHOTO",
                             CreatedAt = DateTime.UtcNow,
                             LessonContentType = LessonContentType.Photo,
@@ -74,6 +76,8 @@ public static class DI
 
                         new Lesson()
                         {
+                            Title = "ex LESSON2",
+                            Order = 2,
                             Content = "Lesson VIDEO",
                             CreatedAt = DateTime.UtcNow,
                             LessonContentType = LessonContentType.Video,
@@ -82,6 +86,8 @@ public static class DI
 
                         new Lesson()
                         {
+                            Title = "ex LESSON3",
+                            Order = 3,
                             Content = "Lesson TEXT",
                             CreatedAt = DateTime.UtcNow,
                             LessonContentType = LessonContentType.Text,
@@ -100,6 +106,7 @@ public static class DI
                             new Question()
                             {
                                 Content = "question 1",
+                                Order = 1,
                                 MediaPath = "/img/question1.png",
                                 CreatedAt = DateTime.UtcNow,
                                 QuestionType = QuestionType.OneAnswer,
@@ -124,6 +131,7 @@ public static class DI
                             new Question()
                             {
                                 Content = "question 2",
+                                Order = 2,
                                 MediaPath = "/img/question2.png",
                                 CreatedAt = DateTime.UtcNow,
                                 QuestionType = QuestionType.ManyAnswers,
@@ -131,6 +139,7 @@ public static class DI
                                 {
                                     new AnswerOption()
                                     {
+                                        Order = 1,
                                         Title = "Answer Option opt1 correct",
                                         IsCorrect = true,
                                         CreatedAt = DateTime.UtcNow,
@@ -138,6 +147,7 @@ public static class DI
                                     },
                                     new AnswerOption()
                                     {
+                                        Order = 2,
                                         Title = "Answer Option opt2 correct",
                                         IsCorrect = true,
                                         CreatedAt = DateTime.UtcNow,
@@ -145,6 +155,7 @@ public static class DI
                                     },
                                     new AnswerOption()
                                     {
+                                        Order = 3,
                                         Title = "Answer Option opt3 incorrect",
                                         IsCorrect = false,
                                         CreatedAt = DateTime.UtcNow,

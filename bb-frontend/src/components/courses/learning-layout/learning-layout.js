@@ -17,7 +17,7 @@ export default ({children, course}) => {
                 </div>
 
                 {course.lessons.map((lesson, i) =>
-                    <div className={styles.lessonTitleLine}>
+                    <div className={styles.lessonTitleLine} key={i}>
                         <span> {lesson.title}</span>
                     </div>
                 )}
