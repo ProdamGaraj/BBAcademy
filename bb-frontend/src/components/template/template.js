@@ -7,7 +7,7 @@ import styles from './template.module.css'
 
 let headerResolver = () => {
     console.log(window.location.pathname)
-    if (window.location.pathname==='/' ||
+    if (window.location.pathname === '/' ||
         window.location.pathname.endsWith('/login') ||
         window.location.pathname.endsWith('/register')
     ) {
@@ -17,7 +17,7 @@ let headerResolver = () => {
 }
 
 let footerResolver = () => {
-    if (window.location.pathname==='/') {
+    if (window.location.pathname === '/') {
         return <FooterLogin></FooterLogin>
     }
     return <FooterCabinet></FooterCabinet>
@@ -25,8 +25,12 @@ let footerResolver = () => {
 
 export default (props) => (
     <>
-        {headerResolver()}
-        {props.children}
-        {footerResolver()}
+        <div className={styles.verticalStretch}>
+            {headerResolver()}
+                <div className={styles.content}>
+                    {props.children}
+                </div>
+            {footerResolver()}
+        </div>
     </>)
 

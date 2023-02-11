@@ -1,7 +1,7 @@
-﻿import styles from "../learning/learning.module.css";
-import translations from "../../../translations";
+﻿import styles from "./navigation-arrows.module.css";
+import translations from "translations";
 import {useContext} from "react";
-import LangContext from "../../../contexts/lang-context";
+import LangContext from "contexts/lang-context";
 
 export default ({onPrev, onNext, isFirst, isLast}) => {
 

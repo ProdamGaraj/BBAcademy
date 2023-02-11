@@ -6,13 +6,11 @@ import LangContext from "contexts/lang-context";
 export default (props) => {
 
     let langContext = useContext(LangContext);
-    let currentLang = langContext.lang
+    let lang = langContext.lang
 
-    let changeLang = (lang) => {
-        langContext.setLang(lang)
+    let changeLang = (lng) => {
+        langContext.setLang(lng)
     }
-
-    let isLogin = window.location.href.endsWith('/login')
 
     return (<>
         <header className={styles.headerContainer}>
@@ -22,18 +20,19 @@ export default (props) => {
             </a>
             <div className={styles.rightContainer}>
                 <div className={styles.headerLang}>
-                    <div className={styles.headerLangElement}
+
+                    <div className={styles.headerLangElement + (lang === 'uz' ? (' ' + styles.langSelected) : '')}
                          onClick={() => changeLang('uz')}>uz
                     </div>
 
-                    <div className={styles.headerLangElement}
+                    <div className={styles.headerLangElement + (lang === 'ru' ? (' ' + styles.langSelected) : '')}
                          onClick={() => changeLang('ru')}>ru
                     </div>
                 </div>
-                <a href="/courses">
+                <a className={styles.allCoursesA} href="/courses">
                     <div className={styles.allCoursesButton}>
-                        <img src="/img/Shared/all-courses-arrow.svg" className={styles.allCoursesArrow} alt="logo"/>
-                        <span className={styles.allCoursesTitle}>{translations[currentLang].allcourses}</span>
+                        <img src="/img/Shared/all-courses-arrow.svg" alt="logo"/>
+                        <span className={styles.allCoursesTitle}>{translations[lang].allcourses}</span>
                     </div>
                 </a>
                 <a href="/payment"><img src="/img/Account/shop.svg" alt="logo"/></a>

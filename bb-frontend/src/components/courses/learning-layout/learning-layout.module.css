@@ -1,10 +1,18 @@
 ﻿.layout {
-    max-width: 1097px;
-    min-width: 1097px;
-    height: 100%;
+    margin-top: 54px;
 
     display: flex;
     flex-direction: row;
+    justify-content: center;
+}
+
+
+.layoutContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    max-width: 1097px;
+    min-width: 1097px;
 }
 
 .navigationsLeft {
