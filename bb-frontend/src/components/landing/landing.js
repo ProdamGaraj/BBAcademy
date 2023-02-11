@@ -8,7 +8,6 @@ export default ({match}) => {
     let currentLang = useContext(LangContext).lang
 
     return (<>
-        
         <div className="block-learn-in">
             <img className="block-learn-in_left-section" src="/img/Home/guy3.png"/>
             <div className="block-learn-in_right-section">
