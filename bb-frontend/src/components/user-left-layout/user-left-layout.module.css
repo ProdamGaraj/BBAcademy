@@ -16,7 +16,7 @@
 }
 
 .userDataLeft {
-    width: 255px;
+    min-width: 255px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -70,7 +70,7 @@
 .divider {
     height: 472px;
     width: 2px;
-    margin: 0 65px;
+    margin: 0 64px;
     background: #F5F5F5;
 }
 

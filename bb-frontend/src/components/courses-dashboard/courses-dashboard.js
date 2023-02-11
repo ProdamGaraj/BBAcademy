@@ -16,26 +16,7 @@ export default () => {
     let loaderModal = useContext(LoaderModalContext)
     let errorModal = useContext(ErrorModalContext)
 
-    let [courses, setCourses] = useState([
-        // {
-        //     name: 'Инвестиции для начинающих',
-        //     description: 'Lorem ipsum dolor sit amet lorem ipsum dolor sit amet Lorem ipsum dolor sit amet. Lorem ipsum dolor sit ametLorem ipsum dolor sit amet',
-        //     LessonsCount: 9,
-        //     Duration: 3.5,
-        //     State: 'InCart',
-        //     Id: 1,
-        //     MediaPath: '/img/Shared/course_guy.png'
-        // },
-        // {
-        //     Name: 'Инвестиции для начинающих',
-        //     Description: 'Lorem ipsum dolor sit amet lorem ipsum dolor sit amet Lorem ipsum dolor sit amet. Lorem ipsum dolor sit ametLorem ipsum dolor sit amet',
-        //     LessonsCount: 9,
-        //     Duration: 3.5,
-        //     State: 'InCart',
-        //     Id: 1,
-        //     MediaPath: '/img/Shared/course_guy.png'
-        // }
-    ]);
+    let [courses, setCourses] = useState([]);
 
     useEffect(() => {
         loaderModal.showModal()
@@ -90,7 +71,7 @@ export default () => {
                         <img className={styles.cardImage} src={item.mediaPath} alt=""/>
                         <div className={styles.cardInfoFlex}>
                             <div className={styles.cardTextBlock}>
-                                <div className={styles.cardTitle}>{item.name}</div>
+                                <div className={styles.cardTitle}>{item.title}</div>
                                 <div className={styles.cardDescription}>{item.description}</div>
                             </div>
                             <div className={styles.cardInfoBlock}>
