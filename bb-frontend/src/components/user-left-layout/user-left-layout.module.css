@@ -80,4 +80,8 @@
 
 .certA {
     text-decoration: none;
+    color: black;
+}
+.certA:hover{
+    color: #0093DC;
 }

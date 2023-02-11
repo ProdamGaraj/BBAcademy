@@ -29,14 +29,14 @@ export default () => {
     };
 
     return (<>
-        <div className="log-container">
+        <div className="logContainer">
             <div className="heading">Editing Exam</div>
-            <label className="log-label">Description</label>
+            <label className="logLabel">Description</label>
             <input placeholder="" value={description} onChange={e => setDescription(e.target.value)}
-                   className="form-control textbox-dg font-weight-bold text-center reg-log-input" type="text"/>
-            <label className="log-label">Passing grade</label>
+                   className="form-control textbox-dg font-weight-bold text-center regLogInput" type="text"/>
+            <label className="logLabel">Passing grade</label>
             <input placeholder="" value={passingGrade} onChange={e => setPassingGrade(e.target.value)}
-                   className="form-control textbox-dg font-weight-bold text-center reg-log-input" type="number"/>
+                   className="form-control textbox-dg font-weight-bold text-center regLogInput" type="number"/>
 
             {/*MediaPath: mediaPath,*/}
             {/*Content: content,*/}
@@ -66,12 +66,12 @@ export default () => {
             <div className="gapper">
                 <NavLink to={'/data/question'}>
                     <button className="add-course-btn" onClick={() => onSaveToQuestion()}>
-                        <div className="log-in-btn">Save and Add Question</div>
+                        <div className="registerBtn">Save and Add Question</div>
                     </button>
                 </NavLink>
                 <NavLink to={'/data/course'}>
                     <button className="add-course-btn" onClick={() => onSaveToCourse()}>
-                        <div className="log-in-btn">Save and Return To Course</div>
+                        <div className="registerBtn">Save and Return To Course</div>
                     </button>
                 </NavLink>
             </div>

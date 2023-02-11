@@ -19,9 +19,10 @@
 
 .navigatorElementClickable {
     cursor: pointer;
-
+    text-decoration: none;
+    color: black;
 }
 
 .navigatorElementClickable:hover {
-    background: #DDD;
+    color: #0093DC;
 }

@@ -29,20 +29,20 @@ export default () => {
     };
 
     return (<>
-        <div className="log-container">
+        <div className="logContainer">
             <div className="heading">Editing Course</div>
-            <label className="log-label">Duration</label>
+            <label className="logLabel">Duration</label>
             <input placeholder="" value={duration} onChange={e => setDuration(e.target.value)}
-                   className="form-control textbox-dg font-weight-bold text-center reg-log-input" type="text"/>
-            <label className="log-label">Price</label>
+                   className="form-control textbox-dg font-weight-bold text-center regLogInput" type="text"/>
+            <label className="logLabel">Price</label>
             <input placeholder="" value={price} onChange={e => setPrice(~~e.target.value)}
-                   className="form-control textbox-dg font-weight-bold text-center reg-log-input" type="number"/>
-            <label className="log-label">Description</label>
+                   className="form-control textbox-dg font-weight-bold text-center regLogInput" type="number"/>
+            <label className="logLabel">Description</label>
             <input placeholder="" value={description} onChange={e => setDescription(e.target.value)}
-                   className="form-control textbox-dg font-weight-bold text-center reg-log-input" type="text"/>
-            <label className="log-label">Media Path</label>
+                   className="form-control textbox-dg font-weight-bold text-center regLogInput" type="text"/>
+            <label className="logLabel">Media Path</label>
             <input placeholder="" value={mediaPath} onChange={e => setMediaPath(e.target.value)}
-                   className="form-control textbox-dg font-weight-bold text-center reg-log-input" type="text"/>
+                   className="form-control textbox-dg font-weight-bold text-center regLogInput" type="text"/>
 
             {/*Description: description,*/}
             {/*LessonContentType: mediaPath,*/}
@@ -73,16 +73,16 @@ export default () => {
             <div className="gapper">
                 <NavLink to={'/data/lesson'}>
                     <button className="add-course-btn" onClick={() => onSave()}>
-                        <div className="log-in-btn">Save and Add Lesson</div>
+                        <div className="registerBtn">Save and Add Lesson</div>
                     </button>
                 </NavLink>
                 <NavLink to={'/data/exam'}>
                     <button className="add-course-btn" onClick={() => onSave()}>
-                        <div className="log-in-btn">Save and Add/Edit Exam</div>
+                        <div className="registerBtn">Save and Add/Edit Exam</div>
                     </button>
                 </NavLink>
                 <button className="add-course-btn btn-warn" onClick={() => onFinish()}>
-                    <div className="log-in-btn">Save and Finish Editing</div>
+                    <div className="registerBtn">Save and Finish Editing</div>
                 </button>
             </div>
         </div>

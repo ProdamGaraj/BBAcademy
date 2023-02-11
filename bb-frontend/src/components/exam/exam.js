@@ -85,7 +85,7 @@ export default (props) => {
                             {questionTypeConverter(question.Type, question.Answers)}
                         </div>))}
                     <button type="submit" className="course-next-button">
-                        <div className="log-in-btn" onClick={() => sendExam(exam)}></div>
+                        <div className="registerBtn" onClick={() => sendExam(exam)}></div>
                     </button>
                 </div>
             </div>

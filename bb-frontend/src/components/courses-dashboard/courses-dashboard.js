@@ -103,8 +103,8 @@ export default () => {
                                         onClick={() => removeFromCart(item.id)}>
                                     {translations[currentLang].incart}
                                 </span> :
-                                    <NavLink to={"/learning?id=" + item.id}>
-                                        <span className={styles.cardButton}>{translations[currentLang].start}</span>
+                                    <NavLink to={"/learning?id=" + item.id} className={styles.cardButton}>
+                                        {translations[currentLang].start}
                                     </NavLink>
                                 }
                             </div>
