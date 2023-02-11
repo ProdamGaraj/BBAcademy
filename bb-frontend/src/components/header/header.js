@@ -1,8 +1,8 @@
-﻿import './template.css'
-import {useContext} from "react";
+﻿import {useContext} from "react";
 import styles from "../header/header.module.css"
 import translations from 'translations'
 import LangContext from "../../contexts/lang-context";
+import {NavLink} from "react-router-dom";
 
 export default (props) => {
 
@@ -16,37 +16,28 @@ export default (props) => {
     let isLogin = window.location.href.endsWith('/login')
 
     return (<>
-        <header>
-            <div className="header-container">
-                <div className="header-container-left_section">
-                    <img className="svg-logo" src="/img/Shared/logo-icon-2.svg" alt="logo"/>
-                    <div className="header-container-left_section-text">BilimBank</div>
-                </div>
-                <div className="header-container-right_section">
-                    <div className="header-container-right_section-lang">
-                        <div className="header-container-right_section-lang-element">
-                            <span className="a-lang"
-                                  onClick={() => changeLang('uz')}>uz</span>
-                        </div>
-                        <div className="header-container-right_section-lang-element">
-                            <span className="a-lang"
-                                  onClick={() => changeLang('ru')}>ru</span>
-                        </div>
-                    </div>
-                    <a className="header-container-right_section-login"
-                       href={(isLogin ? '/register' : '/login')}>{translations[currentLang][(isLogin ? 'reg' : 'enter')]}</a>
-                </div>
+        <header className={styles.headerContainer}>
+            <div className={styles.leftContainer}>
+                <img src="/img/Shared/main-logo.png" className={styles.logoImage} alt="logo"/>
+                <div className={styles.logoTitle}>BilimBank</div>
             </div>
-        </header>
-        <header>
-            <div className={styles.headerContainer}>
-                <span className={styles.leftContainer}>
-                    <img src="/img/Shared/main-logo.png" alt="logo"/>
-                    <label>
-                        
-                    </label>
-                </span>
-                <span></span>
+            <div className={styles.rightContainer}>
+                <div className={styles.headerLang}>
+                            <div className={styles.headerLangElement}
+                                  onClick={() => changeLang('uz')}>uz</div>
+
+                            <div className={styles.headerLangElement}
+                                  onClick={() => changeLang('ru')}>ru</div>
+                </div>
+                <a href="/courses">
+                    <div className={styles.allCoursesButton}>
+                        <img src="/img/Shared/all-courses-arrow.svg" className={styles.allCoursesArrow} alt="logo"/>
+                        <span className={styles.allCoursesTitle}>{translations[currentLang].allcourses}</span>
+                    </div>
+                </a>
+                <a href="/payment"><img src="/img/Account/shop.svg" alt="logo"/></a>
+                <img src="/img/Shared/bell.svg"  alt="logo"/>
+                <img src="/img/perec-percovich.png" className={styles.userMiniAvatar} alt="logo"/>
             </div>
         </header>
     </>)

@@ -1,8 +1,107 @@
-﻿.headerContainer{
+﻿.headerContainer {
     display: flex;
     justify-content: space-between;
+    box-shadow: none;
+    align-items: center;
+    background-color: #FAFAFA;
+    padding-bottom: 10px;
+    padding-top: 10px;
 }
 
-.leftContainer{
+.leftContainer {
+    margin-left: 50px;
+    display: flex;
+    flex-direction: row;
+    margin-right: auto;
+    position: relative;
+}
+
+.rightContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 40px;
     
+    height: 44px;
+}
+
+.logoImage {
+    margin-right: 15px;
+}
+
+.logoTitle {
+
+    font-family: 'Prompt', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 100%;
+    /* identical to box height, or 20px */
+
+
+    color: #2900FF;
+}
+
+.allCoursesButton {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 13px;
+    box-sizing: border-box;
+    
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+}
+
+.allCoursesArrow {
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    padding-right: 15px;
+    transform: translate(50%, -50%);
+}
+
+.allCoursesTitle {
+    width: 91px;
+    height: 19px;
+
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    /* identical to box height */
+
+    display: flex;
+    align-items: center;
+}
+.headerLang {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.headerLangElement {
+    width: 31px;
+    height: 33px;
+    margin-right: 25px;
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 23px;
+    line-height: 33px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+}
+.userMiniAvatar{
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
 }

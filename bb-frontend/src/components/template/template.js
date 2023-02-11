@@ -2,6 +2,7 @@
 import {useContext} from "react";
 import translations from 'translations'
 import LangContext from "../../contexts/lang-context";
+import Header from "../header/header";
 
 export default (props) => {
 
@@ -15,6 +16,7 @@ export default (props) => {
     let isLogin = window.location.href.endsWith('/login')
 
     return (<>
+        <Header></Header>
         <header>
             <div className="header-container">
                 <div className="header-container-left_section">
