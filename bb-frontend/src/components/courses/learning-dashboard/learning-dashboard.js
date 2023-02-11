@@ -39,9 +39,13 @@ export default (props) => {
         setLessonIndex(prev => prev + 1)
     }
 
+    const switchToLesson = i => {
+        setLessonIndex(i);
+    };
+
     return (<>
         {course === null ? '' :
-            <LearningLayout course={course}>
+            <LearningLayout course={course} toLesson={(i) => switchToLesson(i)}>
                 <LessonContentView lesson={course.lessons[lessonIndex]}/>
                 <NavigationArrows
                     onNext={next}

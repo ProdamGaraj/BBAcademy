@@ -70,7 +70,7 @@
 .cardTextBlock {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 4px;
 }
 
 .cardTitle {
@@ -78,9 +78,7 @@
     font-style: normal;
     font-weight: 600;
     font-size: 28px;
-    height: 30px;
     text-overflow: ellipsis;
-    overflow: hidden;
     white-space: nowrap;
     color: rgb(0, 0, 0, 0.8);
 }
@@ -91,9 +89,15 @@
     font-weight: 400;
     font-size: 16px;
     color: rgb(0, 0, 0, 0.8);
+    
+    padding-right: 5px;
 
-    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
     overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
 }
 
 .cardInfoBlock {

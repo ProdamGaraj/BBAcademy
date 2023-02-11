@@ -72,7 +72,7 @@ public class ExamService : IExamService
                     }
                     else if (dQuestion.SelectedAnswerIds.Count == 0)
                     {
-                        throw new BusinessException("Для вопроса с не было получено ответов");
+                        throw new BusinessException("Для вопроса не было получено ответов");
                     }
 
                     break;

@@ -32,7 +32,7 @@ namespace BLL.CourseService
                     c => new CourseForDashboardDto()
                     {
                         Id = c.Id,
-                        Name = c.Description,
+                        Title = c.Title,
                         Description = c.Description,
                         DurationHours = c.DurationHours,
                         LessonsCount = c.Lessons.Count(),

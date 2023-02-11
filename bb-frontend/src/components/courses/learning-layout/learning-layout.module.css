@@ -56,6 +56,9 @@
 .cursorPointer {
     cursor: pointer;
 }
+.cursorPointer:hover {
+    color: #0093DC;
+}
 
 .divider {
     height: 472px;
