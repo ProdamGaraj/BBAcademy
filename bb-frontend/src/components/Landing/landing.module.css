@@ -282,7 +282,7 @@
     background: rgba(0, 175, 181, 0.6);
 }
 
-.category_and_popular {
+.categoryAndPopular {
     background-color: #F5F5F5;
     display: flex;
     flex-direction: column;
@@ -301,7 +301,7 @@
     margin-bottom: 75px;
 }
 
-.category-top {
+.categoryTop {
     width: 100%;
     display: flex;
     align-items: center;
@@ -310,7 +310,7 @@
     margin-bottom: 50px;
 }
 
-.category-top-left {
+.categoryTopLeft {
     font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 600;
@@ -318,7 +318,7 @@
     line-height: 45px;
 }
 
-.category-top-right {
+.categoryTopRight {
     font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 400;
@@ -328,14 +328,14 @@
     color: rgba(0, 0, 0, 0.6);
 }
 
-.category-bot {
+.categoryBot {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 
 }
 
-.category-bot-block {
+.categoryBotBlock {
     display: flex;
     flex-direction: row;
     width: 300px;
@@ -351,7 +351,7 @@
     flex-grow: 0;
 }
 
-.cat-circle-1 {
+.catCircleSky {
     width: 15px;
     height: 30px;
     border-radius: 100% 0 0 100% / 50% 0 0 50%;
@@ -361,7 +361,7 @@
     margin-bottom: auto;
 }
 
-.cat-circle-2 {
+.catCircleBlue {
     width: 15px;
     height: 30px;
     border-radius: 100% 0 0 100% / 50% 0 0 50%;
@@ -371,7 +371,7 @@
     margin-bottom: auto;
 }
 
-.cat-circle-3 {
+.catCircleMint {
     width: 15px;
     height: 30px;
     border-radius: 100% 0 0 100% / 50% 0 0 50%;
@@ -381,21 +381,21 @@
     margin-bottom: auto;
 }
 
-.cat-circle-4 {
+.catCircleRed {
     width: 15px;
     height: 30px;
     border-radius: 100% 0 0 100% / 50% 0 0 50%;
-    background: #0077B9;
+    background: #ff6565;
 
     margin-top: auto;
     margin-bottom: auto;
 }
 
-.category-percent {
+.categoryPercent {
     margin-left: auto;
 }
 
-.category-bot-block-text {
+.categoryBotBlockText {
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -403,7 +403,7 @@
     margin-left: 15px;
 }
 
-.category-bot-block-text-1 {
+.categoryBotBlockTitle {
     font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 600;
@@ -411,7 +411,7 @@
     line-height: 45px;
 }
 
-.category-bot-block-text-2 {
+.categoryBotBlockDuration {
     font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 200;
@@ -426,7 +426,7 @@
     flex-direction: column;
 }
 
-.popular-top {
+.popularTop {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -434,7 +434,7 @@
     margin-bottom: 75px;
 }
 
-.popular-top-left {
+.popularTopLeft {
     font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 600;
@@ -446,13 +446,13 @@
 
 }
 
-.popular-bot {
+.popularBot {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.popular-bot-block {
+.popularBotBlock {
     position: relative;
     width: 415px;
     height: 300px;
@@ -462,7 +462,7 @@
     overflow: hidden;
 }
 
-.popular-bot-block-deco-1 {
+.popularBotBlockBlue {
     position: absolute;
     left: -43%;
     width: 770px;
@@ -475,7 +475,7 @@
     backdrop-filter: blur(3px);
 }
 
-.popular-bot-block-deco-2 {
+.popularBotBlockMint {
     position: absolute;
     left: -43%;
     width: 770px;
@@ -488,7 +488,7 @@
     backdrop-filter: blur(3px);
 }
 
-.popular-bot-block-deco-3 {
+.popularBotBlockSky {
     position: absolute;
     left: -43%;
     width: 770px;
@@ -501,7 +501,7 @@
     backdrop-filter: blur(3px);
 }
 
-.popular-bot-block-deco-title {
+.popularBotBlockTitle {
     font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 600;
@@ -528,7 +528,7 @@
     position: absolute;
 }
 
-.show_more {
+.showMore {
     margin-top: 50px;
     display: flex;
     flex-direction: row;
@@ -561,17 +561,17 @@
     margin-top: 115px;
 }
 
-.mobility-right {
+.mobilityRight {
     margin-top: 110px;
 }
 
-.mobility-left {
+.mobilityLeft {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
 }
 
-.mobility-left-top-1 {
+.mobilityTitle {
     width: 555px;
     height: 112px;
     margin-top: 185px;
@@ -583,7 +583,7 @@
     line-height: 138.9%;
 }
 
-.mobility-left-top-2 {
+.mobilityText {
     width: 596px;
     height: 76px;
     left: 300px;
@@ -596,7 +596,7 @@
     line-height: 38px;
 }
 
-.mobility-left-download {
+.mobilityLeftDownload {
     border-width: 0;
     font-family: 'Raleway', sans-serif;
     font-style: normal;
@@ -621,7 +621,7 @@
     justify-content: space-between;
 }
 
-.partners-top {
+.partnersTop {
     font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 600;
@@ -632,7 +632,7 @@
     margin-bottom: 40px;
 }
 
-.partners-photo-block {
+.partnersPhotoBlock {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
