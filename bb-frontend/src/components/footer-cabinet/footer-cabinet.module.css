@@ -59,3 +59,8 @@
     align-items: center;
     text-decoration: none;
 }
+.contactImg{
+    height: 32px;
+    width: 32px;
+    align-self: center;
+}
