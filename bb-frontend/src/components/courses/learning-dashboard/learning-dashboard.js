@@ -43,8 +43,12 @@ export default (props) => {
         {course === null ? '' :
             <LearningLayout course={course}>
                 <LessonContentView lesson={course.lessons[lessonIndex]}/>
-                <NavigationArrows onNext={next} onPrev={prev} isFirst={lessonIndex === 0}
-                                  isLast={lessonIndex === (course.lessons.length - 1)}/>
+                <NavigationArrows
+                    onNext={next}
+                    onPrev={prev}
+                    isFirst={lessonIndex === 0}
+                    isLast={lessonIndex === (course.lessons.length - 1)}
+                />
             </LearningLayout>
         }
     </>)

@@ -1,4 +1,4 @@
-﻿using BLL.Models.CourseForCart;
+﻿using BLL.Models.GetCoursesForCart;
 using Infrastructure.Models;
 
 namespace BLL.CartService;

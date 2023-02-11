@@ -14,7 +14,7 @@ export default ({children, course}) => {
             <div className={styles.layoutContainer}>
                 <div className={styles.navigationsLeft}>
                     <div className={styles.courseHeader}>
-                        <div className={styles.courseHeaderTitle}>{course.description}</div>
+                        <div className={styles.courseHeaderTitle}>{course.title}</div>
                     </div>
 
                     {course.lessons.map((lesson, i) =>

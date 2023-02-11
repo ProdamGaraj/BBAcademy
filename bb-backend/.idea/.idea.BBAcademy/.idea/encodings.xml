@@ -2,6 +2,7 @@
 <project version="4">
   <component name="Encoding" addBOMForNewFiles="with BOM under Windows, with no BOM otherwise">
     <file url="file://$PROJECT_DIR$/Backend/Views/Cart/Index.cshtml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Infrastructure/add-migrations.sh" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../bb-frontend/src/components/template/template.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../bb-frontend/src/contexts/lang-context.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../bb-frontend/src/translations.js" charset="UTF-8" />

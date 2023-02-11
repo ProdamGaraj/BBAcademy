@@ -1,6 +1,6 @@
 ﻿import translations from 'translations'
-import LangContext from "../../contexts/lang-context";
-import styles from "./footer-login.module.css";
+import LangContext from "contexts/lang-context";
+import styles from "./footer-landing.module.css";
 import {useContext} from "react";
 
 export default () => {
