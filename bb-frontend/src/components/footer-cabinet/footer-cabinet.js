@@ -20,9 +20,9 @@ export default () => {
                     <a className={styles.contactHref} href="#">{translations[lang].learningproc}</a>
                     <a className={styles.contactHref} href="#">{translations[lang].usagepol}</a>
                     <a className={styles.contactHref} href="#">{translations[lang].privpol}</a>
-                    <img src="/img/Shared/foot-teleg.png" alt="telegram"/>
+                    <img className={styles.contactImg} src="/img/Shared/foot-teleg.png" alt="telegram"/>
                     <a className={styles.contactHref} href="#">@bilimbank</a>
-                    <img src="/img/Shared/foot-inst.png" alt="instagram"/>
+                    <img className={styles.contactImg} src="/img/Shared/foot-inst.png" alt="instagram"/>
                     <a className={styles.contactHref} href="#">@bilimbank</a>
                 </div>
 
