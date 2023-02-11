@@ -1,4 +1,4 @@
-﻿import '../template/template.css'
+﻿import '../header-landing/header-landing.css'
 import translations from "translations";
 import {useContext} from "react";
 import LangContext from "contexts/lang-context";

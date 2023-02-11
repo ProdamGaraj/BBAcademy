@@ -1,5 +1,5 @@
 ﻿import {useContext} from "react";
-import styles from "../header/header.module.css"
+import styles from "../header-cabinet/header-cabinet.module.css"
 import translations from 'translations'
 import LangContext from "contexts/lang-context";
 

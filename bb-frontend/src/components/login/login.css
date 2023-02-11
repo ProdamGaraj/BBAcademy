@@ -23,8 +23,6 @@
     font-size:20px;
 }
 .main-container{
-    height: 840px;
-    width: 1320px;
     display: flex;
     flex-direction: column;
     margin-left: auto;

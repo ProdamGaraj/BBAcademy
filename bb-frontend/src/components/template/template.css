@@ -925,3 +925,10 @@ footer {
     align-items: center;
     width: 100%;
 }
+.pb3 {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
