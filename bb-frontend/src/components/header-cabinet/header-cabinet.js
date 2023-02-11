@@ -16,17 +16,19 @@ export default (props) => {
 
     return (<>
         <header className={styles.headerContainer}>
-            <div className={styles.leftContainer}>
+            <a className={styles.leftContainer} href="/">
                 <img src="/img/Shared/main-logo.png" className={styles.logoImage} alt="logo"/>
                 <div className={styles.logoTitle}>BilimBank</div>
-            </div>
+            </a>
             <div className={styles.rightContainer}>
                 <div className={styles.headerLang}>
-                            <div className={styles.headerLangElement}
-                                  onClick={() => changeLang('uz')}>uz</div>
+                    <div className={styles.headerLangElement}
+                         onClick={() => changeLang('uz')}>uz
+                    </div>
 
-                            <div className={styles.headerLangElement}
-                                  onClick={() => changeLang('ru')}>ru</div>
+                    <div className={styles.headerLangElement}
+                         onClick={() => changeLang('ru')}>ru
+                    </div>
                 </div>
                 <a href="/courses">
                     <div className={styles.allCoursesButton}>
@@ -35,7 +37,7 @@ export default (props) => {
                     </div>
                 </a>
                 <a href="/payment"><img src="/img/Account/shop.svg" alt="logo"/></a>
-                <img src="/img/Shared/bell.svg"  alt="logo"/>
+                <img src="/img/Shared/bell.svg" alt="logo"/>
                 <img src="/img/perec-percovich.png" className={styles.userMiniAvatar} alt="logo"/>
             </div>
         </header>

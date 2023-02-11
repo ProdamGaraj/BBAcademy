@@ -4,30 +4,25 @@
     box-shadow: none;
     align-items: center;
     background-color: #FAFAFA;
-    padding-bottom: 10px;
-    padding-top: 10px;
+    padding: 10px 50px;
+    box-sizing: border-box;
 }
 
 .leftContainer {
-    margin-left: 50px;
     display: flex;
-    flex-direction: row;
-    margin-right: auto;
     position: relative;
+    gap: 15px;
 }
 
 .rightContainer {
     display: flex;
-    flex-direction: row;
     justify-content: flex-end;
     align-items: center;
     gap: 40px;
-    
     height: 44px;
 }
 
 .logoImage {
-    margin-right: 15px;
 }
 
 .logoTitle {
@@ -45,62 +40,51 @@
 
 .allCoursesButton {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 13px;
-    box-sizing: border-box;
-    
+    gap: 15px;
+
     position: relative;
     cursor: pointer;
     user-select: none;
 }
 
+.allCoursesButton:hover {
+    color: #0093DC;
+}
+
 .allCoursesArrow {
-    position: absolute;
-    top: 50%;
-    right: 100%;
-    padding-right: 15px;
-    transform: translate(50%, -50%);
 }
 
 .allCoursesTitle {
-    width: 91px;
-    height: 19px;
-
     font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
     line-height: 19px;
     /* identical to box height */
-
-    display: flex;
-    align-items: center;
 }
+
 .headerLang {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    position: relative;
+    gap: 25px;
 }
 
 .headerLangElement {
-    width: 31px;
-    height: 33px;
-    margin-right: 25px;
     font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 23px;
-    line-height: 33px;
-
-    display: flex;
-    align-items: center;
-    text-align: center;
     cursor: pointer;
+    height: 29px;
 }
-.userMiniAvatar{
+
+.headerLangElement:hover {
+    color: #0093DC;
+    border-bottom: 3px solid;
+    box-sizing: border-box;
+}
+
+.userMiniAvatar {
     width: 44px;
     height: 44px;
     border-radius: 50%;
