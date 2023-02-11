@@ -76,6 +76,7 @@ namespace BLL.CourseService
             try
             {
                 var courses = await _courseRepository.GetAll()
+                    .Where(c => c.CourseProgresses.Any(p => p.State == CourseProgressState.Bought && p.UserId == userId))
                     .Select(
                         c => new CourseForCartDto()
                         {
@@ -83,8 +84,7 @@ namespace BLL.CourseService
                             Description = c.Description,
                             DurationHours = c.DurationHours,
                             LessonsCount = c.Lessons.Count(),
-                            MediaPath = c.MediaPath,
-                            IsBought = c.CourseProgresses.Any(p => p.State == CourseProgressState.InCart && p.UserId == userId)
+                            MediaPath = c.MediaPath
                         }
                     )
                     .ToListAsync();
