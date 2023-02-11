@@ -54,7 +54,6 @@ export default () => {
                     </div>
                 </div>
             </div>
-            <div className="video-block"></div>
             <div className={styles.categoryAndPopular}>
                 <div className={styles.category}>
                     <div className={styles.categoryTop}>
