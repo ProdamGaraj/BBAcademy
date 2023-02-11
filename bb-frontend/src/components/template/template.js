@@ -3,15 +3,17 @@ import {useContext} from "react";
 import translations from 'translations'
 import LangContext from "../../contexts/lang-context";
 import Header from "../header/header";
-import LoginHeader from "../header/login-header";
+import LoginHeader from "../login-header/login-header";
 
 let headerResolver = (href) => {
+    console.log(href)
     if (href.endsWith('/') ||
         href.endsWith('/login') ||
         href.endsWith('/register')
     ) {
         return <LoginHeader></LoginHeader>
     }
+    console.log('resolved header')
     return <Header></Header>
 }
 export default (props) => {
@@ -24,7 +26,7 @@ export default (props) => {
     }
 
     return (<>
-        {headerResolver(window.location.href)}
+        {headerResolver(window.location.pathname)}
         <main role="main" className="pb-3">
             {props.children}
         </main>

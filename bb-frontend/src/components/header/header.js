@@ -1,8 +1,7 @@
 ﻿import {useContext} from "react";
 import styles from "../header/header.module.css"
 import translations from 'translations'
-import LangContext from "../../contexts/lang-context";
-import {NavLink} from "react-router-dom";
+import LangContext from "contexts/lang-context";
 
 export default (props) => {
 
