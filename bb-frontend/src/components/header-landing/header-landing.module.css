@@ -12,16 +12,30 @@
     width: 1250px;
 }
 
-.aLang:hover {
+.headerLang {
+    display: flex;
+    justify-content: space-between;
+    gap: 25px;
+}
+
+.headerLangElement {
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 23px;
+    cursor: pointer;
+    height: 29px;
+}
+
+.headerLangElement:hover {
     color: #0093DC;
     border-bottom: 3px solid;
+    box-sizing: border-box;
 }
 
-.aLang:active {
-    color: red;
-    border-bottom: 3px solid;
+.langSelected {
+    color: #0093DC;
 }
-
 .svgLogo {
     margin-right: 15px;
 }
