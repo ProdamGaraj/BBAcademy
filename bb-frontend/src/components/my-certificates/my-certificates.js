@@ -12,13 +12,13 @@ import styles from './my-certificates.module.css'
 export default () => {
 
     let lang = useContext(LangContext).lang
-    let [certificates, setCertificates] = useState([{userId:1, certificateTemplateId:1},{userId:1, certificateTemplateId:1},{userId:1, certificateTemplateId:1},{userId:1, certificateTemplateId:1},{userId:1, certificateTemplateId:1}])
+    let [certificates, setCertificates] = useState([])
     let loaderModal = useContext(LoaderModalContext)
     let errorModal = useContext(ErrorModalContext)
 
     useEffect(() => {
         loaderModal.showModal()
-        backend.Certificate.GetAll()
+        backend.Certificate.GetAllForDashboard()
             .then(r => setCertificates(r))
             .catch(e => errorModal.showModal(e.response.data.error))
             .finally(() => loaderModal.close())

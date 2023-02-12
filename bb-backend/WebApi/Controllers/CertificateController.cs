@@ -20,7 +20,7 @@ namespace WebApi.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<ICollection<CertificateOutDto>>> GetAll()
+        public async Task<ActionResult<ICollection<CertificateOutDto>>> GetAllForDashboard()
         {
             var userId = HttpContext.User.GetId();
             var result = await _certificateService.GetCertificatesByUser(userId);

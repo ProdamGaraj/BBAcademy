@@ -126,8 +126,8 @@ export default {
         }
     },
     Certificate: {
-        GetAll: async () => {
-            let response = await axios.post(baseurl + '/Certificate/GetMyForDashboard', {}, {
+        GetAllForDashboard: async () => {
+            let response = await axios.get(baseurl + '/Certificate/GetAllForDashboard', {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('token')
                 },
