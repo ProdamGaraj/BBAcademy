@@ -76,11 +76,12 @@
         'ourPartners': "Bizning hamkorlar",
         'reg': "Ro’yxatdan o’tish",
         'personalArea': "Shaxsiy kabinet",
-        'someDescriptionForAdv':<span>Какое то описание того,<br/>что это и зачем <br/>в несколько строк</span>,
+        'someDescriptionForAdv': <span>Nima haqida ba'zi tavsif<br/>bu nima va nima uchun <br/>bir necha qatorda</span>,
     },
 
     ru: {
-           'someDescriptionForAdv': <span>Nima haqida ba'zi tavsif<br/>bu nima va nima uchun <br/>bir necha qatorda</span>,
+        'someDescriptionForAdv':<span>Какое то описание того,<br/>что это и зачем <br/>в несколько строк</span>,
+           
         
         'personalArea': "Личный Кабинет",
         'editingAnswerOption': "Редактирование вопроса",
