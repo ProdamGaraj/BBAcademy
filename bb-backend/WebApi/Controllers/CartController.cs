@@ -34,33 +34,23 @@ public class CartController : Controller
         return Ok(result);
     }
 
-    [HttpGet]
-    [Authorize]
-    public async Task<ActionResult<ICollection<CourseForDashboardDto>>> GetForDashboard()
-    {
-        var userId = HttpContext.User.GetId();
-        var result = await _courseService.GetCoursesForDashboard(userId);
-
-        return Ok(result);
-    }
-
     [HttpPost]
     [Authorize]
-    public async Task<ActionResult<CourseForCartDto>> RemoveCourse(long courseId)
+    public async Task<ActionResult> RemoveCourse(long courseId)
     {
         var userId = HttpContext.User.GetId();
-        var result = await _cartService.RemoveCourse(courseId, userId);
+        await _cartService.RemoveCourse(courseId, userId);
 
         return Ok();
     }
 
     [HttpGet]
     [Authorize]
-    public async Task<ActionResult<CourseForCartDto>> Checkout()
+    public async Task<ActionResult> Checkout()
     {
         var userId = HttpContext.User.GetId();
-        var result = await _cartService.Checkout(userId);
+        await _cartService.Checkout(userId);
 
-        return Ok(result);
+        return Ok();
     }
 }
