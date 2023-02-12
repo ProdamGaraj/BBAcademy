@@ -9,7 +9,6 @@ import {useState} from "react";
 import Register from "./components/register/register";
 import CoursesDashboard from "./components/courses-dashboard/courses-dashboard";
 import MyCertificates from 'components/my-certificates/my-certificates';
-import Exam from 'components/exam/exam'
 import LoaderModalContext from "./contexts/loader-modal-context";
 import ErrorModalContext from "./contexts/error-modal-context";
 import {LoaderModal} from "./components/loader-modal/loader-modal";
@@ -107,7 +106,6 @@ function App() {
                                     <Route path='/learning' element={<LearningDashboard/>}/>
                                     <Route path='/data/*' element={<DataDashboard/>}/>
                                     <Route path='/my-certificates' element={<MyCertificates/>}/>
-                                    <Route path='/exam' element={<Exam/>}/>
                                     <Route path='/payment' element={<Payment/>}/>
                                 </Routes>
                             </BrowserRouter>
