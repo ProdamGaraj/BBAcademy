@@ -20,6 +20,7 @@
     font-weight: 500;
     font-size: 28px;
     line-height: 33px;
+    padding-bottom: 21px;
 }
 .orderCompletion .fieldWrapper {
     width: 100%;
@@ -28,12 +29,29 @@
     flex-direction: inherit;
     gap: inherit;
 }
-.orderCompletion .fieldWrapper label,
-.orderCompletion .fieldWrapper input{
+.orderCompletion .fieldWrapper label{
     width: 100%;
     font-weight: 400;
     font-size: 20px;
     line-height: 23px;
+}
+.orderCompletion .fieldWrapper input{
+    width: 100%;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 36px;
+
+    background: #FDFDFD;
+    box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    border: none;
+    color: black;
+    padding-left: 10px;
+    box-sizing: border-box;
+
+
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
 }
 
 .totalInfoCard {
@@ -41,11 +59,21 @@
     display: flex;
     flex-direction: column;
 }
-.totalInfoCard h2,
-.totalInfoCard h4 {
+.totalInfoCard h2{
+    font-weight: 500;
     display: flex;
     justify-content: space-between;
     gap: 19px;
+}
+.totalInfoCard h4 {
+    font-weight: 400;
+    display: flex;
+    justify-content: space-between;
+    gap: 19px;
+
+    margin-block-start: 0.7em;
+    margin-block-end: 0.7em;
+    
 }
 .totalInfoCard h2 {
     font-size: 32px;
