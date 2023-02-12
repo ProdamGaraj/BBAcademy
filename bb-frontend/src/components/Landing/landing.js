@@ -33,12 +33,10 @@ export default () => {
                         <div className={styles.advLeftCard}>
                             <img className={styles.advCardLeftImage} src="/img/Home/AdvLeftImage.svg" alt=""/>
                             <span className={styles.advCardTitle}>
-                                    Система рейтинга
+                                    {translations[lang].rateSystem}
                             </span>
                             <span className={styles.advCardText}>
-                                Какое то описание того,<br/>
-                                что это и зачем <br/>
-                                в несколько строк
+                                {translations[lang].someDescriptionForAdv}
                             </span>
                         </div>
                     </div>
@@ -47,7 +45,7 @@ export default () => {
                         <div className={styles.advRightCardTop}>
                             <img className={styles.advCardImage} src="/img/Home/AdvRightTopImage.svg" alt=""/>
                             <span className={styles.advCardTitle}>
-                                Широкий выбор курсов
+                                {translations[lang].aLotOfCourses}
                             </span>
                         </div>
 
@@ -55,7 +53,7 @@ export default () => {
                         <div className={styles.advRightCardMiddle}>
                             <img className={styles.advCardImage} src="/img/Home/AdvRightMiddleImage.svg" alt=""/>
                             <span className={styles.advCardTitle}>
-                                Автоматическая проверка работы
+                                {translations[lang].autoExamination}
                             </span>
                         </div>
 
@@ -63,7 +61,7 @@ export default () => {
                         <div className={styles.advRightCardBottom}>
                             <img className={styles.advCardImage} src="/img/Home/AdvRightBottomImage.svg" alt=""/>
                             <span className={styles.advCardTitle}>
-                                Коммуникация с преподавателем
+                                {translations[lang].professorCommunication}
                             </span>
                         </div>
 
