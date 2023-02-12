@@ -34,5 +34,6 @@ public class MainMapperProfile : Profile
         CreateMap<Lesson, GetLessonForLearningDto>();
         CreateMap<Course, GetCourseForLearningDto>();
         CreateMap<Exam, GetExamForLearningDto>();
+        CreateMap<User, GetUserShortForAccountDto>();
     }
 }
