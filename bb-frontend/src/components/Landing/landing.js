@@ -21,39 +21,58 @@ export default () => {
                     </div>
                 </div>
             </div>
+
+
             <div className={styles.advContainer}>
-                <div className={styles.advBlock}>
-                    <div className={styles.advTop}>
-                        {translations[lang].investYourself}
+
+                <div className={styles.advTop}>
+                    {translations[lang].investYourself}
+                </div>
+                <div className={styles.advContentContainer}>
+                    <div className={styles.advLeftContainer}>
+                        <div className={styles.advLeftCard}>
+                            <img className={styles.advCardLeftImage} src="/img/Home/AdvLeftImage.svg" alt=""/>
+                            <span className={styles.advCardTitle}>
+                                    Система рейтинга
+                            </span>
+                            <span className={styles.advCardText}>
+                                Какое то описание того,<br/>
+                                что это и зачем <br/>
+                                в несколько строк
+                            </span>
+                        </div>
                     </div>
-                    <div className={styles.advLearnRight}>
-                        <div className={styles.advLearnRightBlock}>
-                            <div className={styles.advCardBook}>
-                                <img className={styles.bookSvg} src="/img/Home/book.svg" alt=""/>
-                            </div>
-                            <div className={styles.cardText}>{translations[lang].aLotOfCourses}</div>
+                    <div className={styles.advRightContainer}>
+
+                        <div className={styles.advRightCardTop}>
+                            <img className={styles.advCardImage} src="/img/Home/AdvRightTopImage.svg" alt=""/>
+                            <span className={styles.advCardTitle}>
+                                Широкий выбор курсов
+                            </span>
                         </div>
-                        <div className={styles.advLearnRightBlock}>
-                            <div className={styles.advCardBook}>
-                                <img className={styles.bookSvg} src="/img/Home/book.svg" alt=""/>
-                            </div>
-                            <div className={styles.cardText}>{translations[lang].rateSystem}</div>
+
+
+                        <div className={styles.advRightCardMiddle}>
+                            <img className={styles.advCardImage} src="/img/Home/AdvRightMiddleImage.svg" alt=""/>
+                            <span className={styles.advCardTitle}>
+                                Автоматическая проверка работы
+                            </span>
                         </div>
-                        <div className={styles.advLearnRightBlock}>
-                            <div className={styles.advCardBook}>
-                                <img className={styles.bookSvg} src="/img/Home/book.svg" alt=""/>
-                            </div>
-                            <div className={styles.cardText}>{translations[lang].autoExamination}</div>
+
+
+                        <div className={styles.advRightCardBottom}>
+                            <img className={styles.advCardImage} src="/img/Home/AdvRightBottomImage.svg" alt=""/>
+                            <span className={styles.advCardTitle}>
+                                Коммуникация с преподавателем
+                            </span>
                         </div>
-                        <div className={styles.advLearnRightBlock}>
-                            <div className={styles.advCardBook}>
-                                <img className={styles.bookSvg} src="/img/Home/book.svg" alt=""/>
-                            </div>
-                            <div className={styles.cardText}>{translations[lang].professorCommunication}</div>
-                        </div>
+
                     </div>
                 </div>
+
             </div>
+
+
             <div className={styles.categoryAndPopular}>
                 <div className={styles.category}>
                     <div className={styles.categoryTop}>
@@ -145,8 +164,8 @@ export default () => {
             </div>
             <div className={styles.mobility}>
                 <div className={styles.mobilityLeft}>
-                        <div className={styles.mobilityTitle}>{translations[lang].moreStability}</div>
-                        <div className={styles.mobilityText}>{translations[lang].mobileApp}</div>
+                    <div className={styles.mobilityTitle}>{translations[lang].moreStability}</div>
+                    <div className={styles.mobilityText}>{translations[lang].mobileApp}</div>
                     <button className={styles.mobilityLeftDownload}>{translations[lang].download}</button>
                 </div>
                 <div className={styles.mobilityRight}>

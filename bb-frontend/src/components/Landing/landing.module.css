@@ -56,19 +56,14 @@
 }
 
 .advContainer {
+    width: 1320px;
     margin: 100px 0;
     display: flex;
+    flex-direction: column;
     justify-content: center;
 }
 
-.advBlock {
-    width: 1320px;
-}
-
 .advTop {
-    width: 507px;
-    height: 40px;
-
     font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 600;
@@ -80,75 +75,90 @@
     margin-bottom: 40px;
 }
 
-.advLearnLeft {
-    width: 347px;
-    height: 150px;
-
-    font-family: 'Raleway', sans-serif;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 36px;
-    line-height: 138.9%;
-    /* or 50px */
-
-    letter-spacing: 0.02em;
-
-    color: #000000;
-}
-
-.advLearnRight {
+.advContentContainer {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
+    gap: 10px;
 }
 
-.advLearnSpan {
-    color: #0093DC;
+.advLeftContainer {
+    display: flex;
+    max-width: 504px;
+    background-color: #0093DC;
+    box-shadow: 0px 2px 7px 1px rgba(0, 0, 0, 0.25);
+    border-radius: 16px;
+    padding: 20px 20px;
 }
 
-.advCardBook {
+.advRightContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 10px;
 
-    width: 148px;
-    height: 148px;
-    border-radius: 148px;
-    background: #FCFCFC;
-    box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
 
-    margin-top: 15px;
-    margin-bottom: 35px;
+
+}
+.advCardLeftImage{
+    margin-top: 30px;
+    padding: 20px 20px;
+    align-self: start;
+    margin-bottom: 49px;
 }
 
-.cardText {
+.advCardImage{
+    align-self: center;
+    padding: 20px 20px;
 
+}
+
+.advLeftCard {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+
+.advRightCardTop{
+    display: flex;
+    box-shadow: 0px 2px 7px 1px rgba(0, 0, 0, 0.25);
+    border-radius: 16px;
+    background-color: #004186;
+}
+.advRightCardMiddle{
+    display: flex;
+    min-height: 225px;
+    box-shadow: 0px 2px 7px 1px rgba(0, 0, 0, 0.25);
+    border-radius: 16px;
+    background-color: #02C59D;
+}
+.advRightCardBottom{
+    display: flex;
+    min-height: 225px;
+    box-shadow: 0px 2px 7px 1px rgba(0, 0, 0, 0.25);
+    border-radius: 16px;
+    background-color: #00AFB5;
+}
+
+.advCardTitle {
     font-family: 'Raleway', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 32px;
-    line-height: 38px;
-    text-align: center;
-
     color: #FFFFFF;
+    align-self: center;
 }
 
-.bookSvg {
-    margin-left: 24px;
-    margin-top: 24px;
-}
-
-.advLearnRightBlock {
-    display: flex;
-    flex-direction: column;
-    width: 304px;
-    height: 338px;
-
-    background: rgba(0, 147, 220, 0.6);
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 16px;
-
-    align-items: center;
-}
-
-.advLearnRightBlock:hover {
-    background: rgba(0, 175, 181, 0.6);
+.advCardText {
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    color: #FFFFFF;
+    padding-top: 22px;
 }
 
 .categoryAndPopular {
