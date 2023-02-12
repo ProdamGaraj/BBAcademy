@@ -1,7 +1,10 @@
 ﻿using System.Text;
 using BLL.AccountService;
 using BLL.CourseService;
+using BLL.ExamService;
 using BLL.Models.Configs;
+using BLL.Services;
+using BLL.Services.Interfaces;
 using Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -43,6 +46,8 @@ builder.Services.AddDb(builder.Configuration);
 
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<ICourseService, CourseService>();
+builder.Services.AddScoped<IExamService, ExamService>();
+builder.Services.AddScoped<ICourseProgressService, CourseProgressService>();
 
 builder.Services.AddSpaStaticFiles(opt => opt.RootPath = builder.Environment.WebRootPath);
 

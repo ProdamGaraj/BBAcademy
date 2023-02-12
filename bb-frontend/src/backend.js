@@ -2,7 +2,7 @@
 import axios from "axios";
 
 // Promise не будет выбивать в catch, если статусы ответа 200-300, 400 или 500.
-const validateStatus = status => (status >= 200 && status <= 300) || [400, 500].includes(status);
+const validateStatus = status => (status >= 200 && status <= 300) || [500].includes(status);
 
 export default {
     Course: {
@@ -99,8 +99,8 @@ export default {
         }
     },
     Exam: {
-        Send: async (data) => {
-            let response = await axios.post(baseurl + '/Exam/Send', data, {
+        SaveCourseExamResults: async (data) => {
+            let response = await axios.post(baseurl + '/Exam/SaveCourseExamResults', data, {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('token')
                 },

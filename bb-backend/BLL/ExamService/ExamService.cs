@@ -15,22 +15,25 @@ namespace BLL.ExamService;
 public class ExamService : IExamService
 {
     private readonly IRepository<Exam> _examRepository;
+    private readonly IRepository<Course> _courseRepository;
     private readonly ICourseProgressService _courseProgressService;
     private readonly ILogger<ExamService> _logger;
 
-    public ExamService(IRepository<Exam> examRepository, ILogger<ExamService> logger, ICourseProgressService courseProgressService)
+    public ExamService(IRepository<Exam> examRepository, ILogger<ExamService> logger, ICourseProgressService courseProgressService, IRepository<Course> courseRepository)
     {
         _examRepository = examRepository;
         _logger = logger;
         _courseProgressService = courseProgressService;
+        _courseRepository = courseRepository;
     }
 
     public async Task<bool> SaveCourseExamResults(long userId, SaveCourseExamResultsDto dto)
     {
-        var exam = await _examRepository.GetAll()
-            .Where(e => e.Course.Id == dto.CourseId)
-            .Include(e => e.Questions.OrderBy(q => q.Order))
+        var exam = await _courseRepository.GetAll()
+            .Where(c => c.Id == dto.CourseId)
+            .Include(c => c.Exam.Questions.OrderBy(q => q.Order))
             .ThenInclude(q => q.AnswerOptions.OrderBy(a => a.Order))
+            .Select(c => c.Exam)
             .FirstOrDefaultAsync();
 
         if (exam is null)
