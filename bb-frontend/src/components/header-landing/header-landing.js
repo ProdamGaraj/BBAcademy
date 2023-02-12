@@ -24,11 +24,11 @@ export default (props) => {
                 <div className={styles.headerContainerRightSection}>
                     <div className={styles.headerContainerRightSectionLang}>
                         <div className={styles.headerContainerRightSectionLangElement}>
-                            <span className={styles.aLang}
+                            <span className={styles.headerLangElement + (lang === 'uz' ? (' ' + styles.langSelected) : '')}
                                   onClick={() => changeLang('uz')}>uz</span>
                         </div>
                         <div className={styles.headerContainerRightSectionLangElement}>
-                            <span className={styles.aLang}
+                            <span className={styles.headerLangElement + (lang === 'ru' ? (' ' + styles.langSelected) : '')}
                                   onClick={() => changeLang('ru')}>ru</span>
                         </div>
                     </div>
