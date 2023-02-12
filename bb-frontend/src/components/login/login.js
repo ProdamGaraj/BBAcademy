@@ -37,7 +37,7 @@ export default (props) => {
                 console.log('Authorized: ' + token)
                 window.location.href = '/courses'
             })
-            .catch(e => errorModal.showModal(e.message))
+            .catch(e => errorModal.showModal(e.response.data.error))
             .finally(() => loaderModal.close())
     }
 

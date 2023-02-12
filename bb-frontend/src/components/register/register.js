@@ -56,7 +56,7 @@ export default () => {
                 localStorage.setItem('token', token)
                 window.location.href = '/login'
             })
-            .catch(e => errorModal.showModal(e.message))
+            .catch(e => errorModal.showModal(e.response.data.error))
             .finally(() => loaderModal.close())
     }
 

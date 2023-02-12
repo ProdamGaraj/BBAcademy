@@ -20,7 +20,7 @@ export default () => {
         loaderModal.showModal()
         backend.Certificate.GetAll()
             .then(r => setCertificates(r))
-            .catch(e => errorModal.showModal(e.message))
+            .catch(e => errorModal.showModal(e.response.data.error))
             .finally(() => loaderModal.close())
     }, [])
 

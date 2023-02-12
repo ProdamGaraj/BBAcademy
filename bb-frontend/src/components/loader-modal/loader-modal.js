@@ -17,6 +17,7 @@ const Modal = () => {
             dialogRef.current?.close();
         }
     }, [context.isOpen])
+        
 
     return (<>
         <div className={styles.background} style={{display: context.isOpen ? 'block' : 'none'}}>
