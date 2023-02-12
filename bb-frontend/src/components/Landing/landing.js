@@ -134,21 +134,21 @@ export default () => {
                     </div>
                     <div className={styles.popularBot}>
                         <div className={styles.popularBotBlock}>
-                            <img className={styles.popularBotBlock} src="/img/Shared/photo.png" alt=""/>
+                            <img className={styles.popularBotBlock} src="/img/Shared/course_guy.jpg" alt=""/>
                             <div className={styles.popularBotBlockBlue}>
                                 <div
                                     className={styles.popularBotBlockTitle}>{translations[lang].infestionForBeginners}</div>
                             </div>
                         </div>
                         <div className={styles.popularBotBlock}>
-                            <img className={styles.popularBotBlock} src="/img/Shared/photo.png" alt=""/>
+                            <img className={styles.popularBotBlock} src="/img/Shared/course_guy.jpg" alt=""/>
                             <div className={styles.popularBotBlockMint}>
                                 <div
                                     className={styles.popularBotBlockTitle}>{translations[lang].infestionForBeginners}</div>
                             </div>
                         </div>
                         <div className={styles.popularBotBlock}>
-                            <img className={styles.popularBotBlock} src="/img/Shared/photo.png" alt=""/>
+                            <img className={styles.popularBotBlock} src="/img/Shared/course_guy.jpg" alt=""/>
                             <div className={styles.popularBotBlockSky}>
                                 <div
                                     className={styles.popularBotBlockTitle}>{translations[lang].infestionForBeginners}</div>
