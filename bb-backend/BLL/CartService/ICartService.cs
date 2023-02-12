@@ -5,6 +5,6 @@ namespace BLL.CartService;
 
 public interface ICartService
 {
-    Task<ICollection<CourseForCartDto>> Checkout(long dto);
-    Task<CourseForCartDto> RemoveCourse(long courseId, long userId); 
+    Task Checkout(long dto);
+    Task RemoveCourse(long courseId, long userId); 
 }
