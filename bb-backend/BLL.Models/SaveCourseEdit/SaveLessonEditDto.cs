@@ -1,8 +1,8 @@
 ﻿using Infrastructure.Models.Enum;
 
-namespace BLL.Models.Save;
+namespace BLL.Models.SaveCourseEdit;
 
-public class SaveLessonDto
+public class SaveLessonEditDto
 {
     public LessonContentType LessonContentType { get; set; }
 

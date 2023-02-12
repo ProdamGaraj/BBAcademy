@@ -98,7 +98,6 @@ await app.Services.MigrateDb();
 
 // if (!builder.Environment.IsProduction())
 {
-    // TODO: Maybe API sometime
     app.UseSwagger();
     app.UseSwaggerUI();
 }
