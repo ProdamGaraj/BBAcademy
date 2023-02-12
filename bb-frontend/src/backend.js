@@ -56,6 +56,16 @@ export default {
             })
 
             return response.data;
+        },
+        GetUser: async () => {
+            let responce = await axios.get(baseurl + '/Account/GetUser', {
+
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                },
+                withCredentials: true,
+                validateStatus
+            })
         }
     },
     Cart: {
@@ -127,7 +137,7 @@ export default {
     },
     Certificate: {
         GetAllForDashboard: async () => {
-            let response = await axios.get(baseurl + '/Certificate/GetAllForDashboard', {
+            let response = await axios.post(baseurl + '/Certificate/GetAllForDashboard', {}, {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('token')
                 },
