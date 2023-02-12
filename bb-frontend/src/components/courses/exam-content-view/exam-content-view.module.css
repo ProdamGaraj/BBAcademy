@@ -1,0 +1,76 @@
+﻿.contentContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    align-items: center;
+}
+
+.questionBlock {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.contentHeading {
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 28px;
+
+    display: flex;
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+.contentText {
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+
+    width: 100%;
+}
+
+.contentMedia {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.answerLine {
+    display: flex;
+    width: 100%;
+}
+
+.answerOptionsWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.submitExamButton {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 13px;
+    box-sizing: border-box;
+    width: 248px;
+    height: 35px;
+
+    background: #0093DC;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+    border-radius: 55px;
+
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    color: white;
+    position: relative;
+
+    cursor: pointer;
+    user-select: none;
+}

@@ -6,7 +6,7 @@ import FooterCabinet from "../footer-cabinet/footer-cabinet";
 import styles from './template.module.css'
 
 let headerResolver = () => {
-    console.log(window.location.pathname)
+    // console.log(window.location.pathname)
     if (window.location.pathname === '/' ||
         window.location.pathname.endsWith('/login') ||
         window.location.pathname.endsWith('/register')

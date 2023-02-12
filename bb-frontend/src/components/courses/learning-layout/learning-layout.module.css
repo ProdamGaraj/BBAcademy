@@ -70,3 +70,7 @@
 .content {
     width: 765px;
 }
+
+.selectedLine {
+    color: #0093DC;
+}

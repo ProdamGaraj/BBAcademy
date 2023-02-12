@@ -1,0 +1,31 @@
+﻿.answerRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    max-width: 100%;
+    height: 18px;
+}
+
+.radioDot {
+    min-width: 15px;
+    max-width: 15px;
+    margin: 14px;
+}
+
+.checkText {
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.selectedText{
+    color: #0093DC;
+}
+
+.indexedRadioOptionsWrapper {
+    display: flex;
+    flex-grow: 1;
+    box-sizing: border-box;
+}

@@ -2,6 +2,7 @@
 
 public class GetCourseForLearningDto
 {
+    public long Id { get; set; }
     public string MediaPath { get; set; }
 
     public float DurationHours { get; set; }

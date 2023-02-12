@@ -1,14 +1,14 @@
 ﻿import styles from './lesson-content-view.module.css';
-import translations from "translations";
-import {useContext} from "react";
-import LangContext from "contexts/lang-context";
+import NavigationArrows from "../navigation-arrows/navigation-arrows";
 
 const mapContentType = (type, path) => {
     switch (type) {
         case 1: //text
-            return (<div className={styles.contentText}>
-                {path}
-            </div>)
+            return (
+                <div className={styles.contentText}>
+                    {path}
+                </div>
+            )
         case 2: //video
             return (<div className={styles.contentMedia}>
                 <video width="100%" controls>
@@ -20,15 +20,14 @@ const mapContentType = (type, path) => {
                 <object data="/img/home/girl2.png" type="image/png">
                     <img src={path} alt=""/>
                 </object>
-                
+
             </div>)
-        default: return 'Unknown Content Type'
+        default:
+            return 'Unknown Content Type'
     }
 }
 
-export default ({lesson}) => {
-
-    let lang = useContext(LangContext).lang
+export default ({lesson, toNextLesson, toPrevLesson, isFirst, isLast}) => {
 
     return (
         <>
@@ -42,6 +41,13 @@ export default ({lesson}) => {
                 </div>
 
                 {mapContentType(lesson.lessonContentType, lesson.mediaContentPath)}
+
+                <NavigationArrows
+                    onNext={toNextLesson}
+                    onPrev={toPrevLesson}
+                    isFirst={isFirst}
+                    isLast={isLast}
+                />
             </div>
         </>
     )
