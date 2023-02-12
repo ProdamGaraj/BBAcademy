@@ -20,6 +20,27 @@ export default () => {
 
 
     const onRegister = () => {
+        if (login===''||password===''||firstName===''||lastName===''||middleName===''||confirmPassword===''||email==='')
+        {errorModal.showModal('Заполните все обязательные поля.');return;}
+        if (
+            login.length<6)
+        {errorModal.showModal('Логин должен содержать не менее 6 символов.');return;}
+        if (
+            !/^[a-zA-Z0-9-_]+$/.test(login)
+        ){errorModal.showModal('Логин может состоять только из латинских букв, цифр и знаков "-" "_"');return;}
+        if (
+            password.length<6
+        )
+        {errorModal. showModal('Слишком короткий пароль');return;}
+        if (
+            /^[!@#№%:^&?*()+="'};.~{,_<>]+$/.test(firstName+middleName+lastName))
+        {errorModal.showModal('Поля имя, фамилия и отчество, не могут содержать спецсимволы кроме "`" "-"');return;}
+        if (!/^((([0-9A-Za-z]{1}[-0-9A-z\.]{1,}[0-9A-Za-z]{1})|([0-9А-Яа-я]{1}[-0-9А-я\.]{1,}[0-9А-Яа-я]{1}))@([-0-9A-Za-z]{1,}\.){1,2}[-A-Za-z]{2,})$/.test(email))
+        {errorModal.showModal('Почта введена неправильно.');return;}
+        if (password!==confirmPassword){
+            errorModal.showModal('Пароли не совпадают.');return;
+        }
+        
         loaderModal.showModal()
         backend.Account.Register({
             Login: login,
