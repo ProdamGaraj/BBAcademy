@@ -75,10 +75,13 @@
         'download': "Yuklab olish",
         'ourPartners': "Bizning hamkorlar",
         'reg': "Ro’yxatdan o’tish",
-        'personalArea': "Shaxsiy kabinet"
+        'personalArea': "Shaxsiy kabinet",
+        'someDescriptionForAdv':<span>Какое то описание того,<br/>что это и зачем <br/>в несколько строк</span>,
     },
 
     ru: {
+           'someDescriptionForAdv': <span>Nima haqida ba'zi tavsif<br/>bu nima va nima uchun <br/>bir necha qatorda</span>,
+        
         'personalArea': "Личный Кабинет",
         'editingAnswerOption': "Редактирование вопроса",
         'saveAnswerandreturntoQuestion': "Сохранить ответ, вернуться на вопрос",
