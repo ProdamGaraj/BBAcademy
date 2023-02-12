@@ -78,6 +78,7 @@ export default (props) => {
             }))
         })
             .then(() => {
+                switchToCert()
             })
             .catch(e => errorModal.showModal(e.response.data.error))
             .finally(() => loaderModal.close())

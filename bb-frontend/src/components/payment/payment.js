@@ -63,7 +63,10 @@ export default () => {
             .then(() => {
                 const _courses = courses.filter(value => value.id !== courseId);
                 setCourses(_courses);
-            });
+            })
+            .catch(e => errorModal.showModal(e.response.data.error))
+            .finally(() => loaderModal.close())
+        ;
     }
 
     return (<>
