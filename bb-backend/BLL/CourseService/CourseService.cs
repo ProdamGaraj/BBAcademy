@@ -2,7 +2,7 @@
 using BLL.Models.GetCourseForLearning;
 using BLL.Models.GetCoursesForCart;
 using BLL.Models.GetCoursesForDashboard;
-using BLL.Models.Save;
+using BLL.Models.SaveCourseEdit;
 using Infrastructure.Common;
 using Infrastructure.Models;
 using Infrastructure.Models.Enum;
@@ -78,12 +78,12 @@ namespace BLL.CourseService
             return resultDto;
         }
 
-        public async Task<long> SaveCourse(SaveCourseDto dto)
+        public async Task<long> SaveCourseEdit(SaveCourseEditDto editDto)
         {
-            using var scope = _logger.BeginScope(dto);
+            using var scope = _logger.BeginScope(editDto);
             _logger.LogInformation("Saving Course");
 
-            var course = _mapper.Map<Course>(dto);
+            var course = _mapper.Map<Course>(editDto);
             _courseRepository.Add(course);
             await _courseRepository.SaveChangesAsync();
 

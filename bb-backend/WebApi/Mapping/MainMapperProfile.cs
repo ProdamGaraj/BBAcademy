@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using BLL.Models.GetCourseForLearning;
 using BLL.Models.GetUserForAccount;
-using BLL.Models.Save;
 using Infrastructure.Models;
 using BLL.Models.CertificateOut;
 using BLL.Models.CreateCertificate;
 using BLL.Models.GetCoursesForCart;
 using BLL.Models.GetExamForTesting;
+using BLL.Models.SaveCourseEdit;
 
 namespace WebApi.Mapping;
 
@@ -15,11 +15,11 @@ public class MainMapperProfile : Profile
     public MainMapperProfile()
     {
         // SaveCourse - IN
-        CreateMap<SaveAnswerOptionDto, AnswerOption>();
-        CreateMap<SaveCourseDto, Course>();
-        CreateMap<SaveExamDto, Exam>();
-        CreateMap<SaveLessonDto, Course>();
-        CreateMap<SaveQuestionDto, Course>();
+        CreateMap<SaveAnswerOptionEditDto, AnswerOption>();
+        CreateMap<SaveCourseEditDto, Course>();
+        CreateMap<SaveExamEditDto, Exam>();
+        CreateMap<SaveLessonEditDto, Course>();
+        CreateMap<SaveQuestionEditDto, Course>();
 
         CreateMap<GetUserShortForAccountDto , User>();
         CreateMap<CourseForCartDto, Course>();

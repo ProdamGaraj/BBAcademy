@@ -1,6 +1,6 @@
-namespace BLL.Models.Save;
+﻿namespace BLL.Models.SaveCourseEdit;
 
-public class SaveAnswerOptionDto
+public class SaveAnswerOptionEditDto
 {
     public string Title { get; set; }
 
