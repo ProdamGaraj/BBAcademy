@@ -1,4 +1,5 @@
-﻿using BLL.CartService;
+﻿using System.ComponentModel.DataAnnotations;
+using BLL.CartService;
 using BLL.CourseService;
 using BLL.Models.GetCourseForLearning;
 using BLL.Models.GetCoursesForCart;
@@ -20,7 +21,7 @@ public class CartController : Controller
     public CartController(ICourseService courseService, ICartService cartService)
     {
         _courseService = courseService;
-        _cartService = cartService; 
+        _cartService = cartService;
     }
 
 
@@ -36,10 +37,20 @@ public class CartController : Controller
 
     [HttpPost]
     [Authorize]
-    public async Task<ActionResult> RemoveCourse(long courseId)
+    public async Task<ActionResult> RemoveCourse([Required] long id)
     {
         var userId = HttpContext.User.GetId();
-        await _cartService.RemoveCourse(courseId, userId);
+        await _cartService.RemoveCourse(id, userId);
+
+        return Ok();
+    }
+
+    [HttpPost]
+    [Authorize]
+    public async Task<ActionResult> AddCourse([Required] long id)
+    {
+        var userId = HttpContext.User.GetId();
+        await _cartService.AddCourse(id, userId);
 
         return Ok();
     }

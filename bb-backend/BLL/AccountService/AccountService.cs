@@ -66,7 +66,7 @@ namespace BLL.AccountService
                 };
                 _userRepository.Add(user);
                 await _userRepository.SaveChangesAsync();
-                return (user.Id, user.Email);
+                return (user.Id, user.Login);
             }
             catch (Exception ex)
             {

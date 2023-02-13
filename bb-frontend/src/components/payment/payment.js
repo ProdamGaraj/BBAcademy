@@ -45,16 +45,10 @@ export default () => {
     }
 
     useEffect(() => {
-        useMock();
-        //     backend.Cart.GetAll()
-        //         .then(courses => {
-        //             setCourses(courses);
-        //         })
-        //         .catch(e => {
-        //             // errorModal.showModal(e.message)
-        //             useMock();
-        //         })
-        //         .finally(() => loaderModal.close())
+        backend.Cart.GetAll()
+            .then(courses => setCourses(courses))
+            .catch(e => errorModal.showModal(e.message))
+            .finally(() => loaderModal.close())
     }, [])
 
 

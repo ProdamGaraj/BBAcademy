@@ -37,7 +37,7 @@ namespace BLL.CourseService
                         DurationHours = c.DurationHours,
                         LessonsCount = c.Lessons.Count(),
                         MediaPath = c.MediaPath,
-                        IsBought = c.CourseProgresses.Any(p => p.State == CourseProgressState.Bought && p.UserId == userId)
+                        State = c.CourseProgresses.Any(p => p.UserId == userId) ? c.CourseProgresses.FirstOrDefault(p => p.UserId == userId).State : CourseProgressState.Unknown
                     }
                 )
                 .ToListAsync();
