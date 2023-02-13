@@ -5,10 +5,15 @@ import backend from "../../backend";
 import LoaderModalContext from "../../contexts/loader-modal-context";
 import ErrorModalContext from "../../contexts/error-modal-context";
 import styles from './payment.module.css';
+import LangContext from "../../contexts/lang-context";
+import translations from "../../translations";
+
 
 export default () => {
+    let lang = useContext(LangContext).lang
     const loaderModal = useContext(LoaderModalContext)
     const errorModal = useContext(ErrorModalContext)
+    
 
     const [courses, setCourses] = useState([]);
 
@@ -76,22 +81,22 @@ export default () => {
     return (<>
         <div className={styles.gridContent}>
             <div className={styles.orderCompletion}>
-                <h1>Оформление заказа</h1>
+                <h1>{translations[lang].orderCompletion}</h1>
 
                 <div className={styles.fieldWrapper}>
-                    <label htmlFor="email-for-receipt">Электронная почта для получения чека</label>
+                    <label htmlFor="email-for-receipt">{translations[lang].mailForReceipt}</label>
                     <input id="email-for-receipt" type="email"/>
                 </div>
 
                 <div className={styles.fieldWrapper}>
-                    <label htmlFor="receiver">Получатель</label>
+                    <label htmlFor="receiver">{translations[lang].Reciever}</label>
                     <input id="receiver" type="text"/>
                 </div>
             </div>
 
             <div className={styles.totalInfoCard}>
                 <h2>
-                    <span>Всего: {courses.length} курса</span>
+                    <span>{translations[lang].Total}: {courses.length} {translations[lang].course}</span>
                     <span>{courses.map(c => c.price).reduce((acc, cur) => acc + cur, 0)} р</span>
                 </h2>
                 {courses.map((c, i) =>
@@ -102,11 +107,11 @@ export default () => {
                         </h4>
                     ))}
 
-                <button onClick={() => checkout()}>Перейти к оплате</button>
+                <button onClick={() => checkout()}>{translations[lang].GoToThePayment}</button>
             </div>
 
             <div className={styles.ordersContainer}>
-                <h2>Заказы</h2>
+                <h2>{translations[lang].Orders}</h2>
 
                 {courses.map((course, i) => (
                     <Order key={i} course={course} onCourseRemoved={removeCourse}/>

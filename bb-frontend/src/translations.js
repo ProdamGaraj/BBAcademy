@@ -78,22 +78,30 @@
         'reg': "Ro’yxatdan o’tish",
         'personalArea': "Shaxsiy kabinet",
         'someDescriptionForAdv': <span>Nima haqida ba'zi tavsif<br/>bu nima va nima uchun <br/>bir necha qatorda</span>,
-        'passed': 'Tugadi'
+        'passed': 'Tugadi',
+
+        'orderCompletion': 'Buyurtma',
+        'mailForReceipt': 'Chek olish uchun elektron pochta',
+        'Checkout': 'Chek olish uchun elektron pochta',
+        'EmailForReceipt': 'Qabul qiluvchi',
+        'Total': 'Jami',
+        'Reciever': 'Qabul qiluvchi',
+        'course': 'Albatta',
+        'GoToThePayment': 'To`lovga o`ting',
+        'Orders': 'Buyurtmalar',
+        'ProceedToPayment': 'To`lovga o`ting',
+
     },
 
     ru: {
-        'someDescriptionForAdv':<span>Какое то описание того,<br/>что это и зачем <br/>в несколько строк</span>,
-           
-        
+        'someDescriptionForAdv': <span>Какое то описание того,<br/>что это и зачем <br/>в несколько строк</span>,
         'personalArea': "Личный Кабинет",
         'editingAnswerOption': "Редактирование вопроса",
         'saveAnswerandreturntoQuestion': "Сохранить ответ, вернуться на вопрос",
-
         'rateSystem': "Система рейтинга",
         'aLotOfCourses': "Широкий выбор курсов",
         'learnWithBBAcademy': <span>Учись <br/> в BilimBank</span>,
         'improveYourProfessionalCapital': "Увеличивай свой профессиональный капитал",
-
         'autoExamination': "Автоматическая проверка работы",
         'professorCommunication': "Коммуникация с преподавателем ",
         'categories': "Категории",
@@ -106,11 +114,8 @@
         'mobileApp': "Наше мобильное приложение скоро в гугл плэй и эппл стор",
         'download': "Скачать",
         'ourPartners': "Наши партнёры",
-
         'investYourself': "Инвестируй в себя",
-
         'devpage': "Страница находится в разработке",
-
         'enter': "Войти",
         'exit': "Выход",
         'mycert': "Мои сертификаты",
@@ -122,7 +127,6 @@
         'start': "Начать",
         'startedcourses': "Начатые курсы",
         'inkart': "Удалить из корзины",
-
         'firstname': "Имя",
         'surname': "Фамилия",
         'middleName': "Отчество",
@@ -133,19 +137,15 @@
         'condition': "Если вы являетесь сотрудником банка, укажите банк*",
         'unnesessaryfield': "(Необязательное поле)",
         'endreg': "Завершить регистрацию",
-
         'downloadPDF': "Скачать PDF",
         'invforbeg': "Инвестиции для начинающих",
-
         'next': "Дальше",
         'prev': "Назад",
         'send': "Отправить",
         'end': "Заключение",
         'congratz': (title) => `Поздравляем! Вы завершили курс "${title}"`,
         'incart': "В корзину",
-
         'introduction': "Введение",
-
         'rights': "© 2023 Все права защищены, bilimbank",
         'learningproc': "Процесс обучения",
         'usagepol': "Условия использования",
@@ -159,18 +159,25 @@
         'webinars': "Вебинары",
         'fests': "Фестивали",
         'carrier': "Карьера",
-
         'lesson': "Урок",
         'block': "Блок",
         'test': "Тест",
         'links': "Ссылки и материалы",
         'ending': "Заключение и сертификат",
         'reg': "Регистрация",
-
         //Payment Page
-        'order-completion': 'Оформление заказа',
-        'mail-for-receipt': 'Электронная почта для получения чека',
-         // TODO: Finish all translation for payment page.
+        'orderCompletion': 'Оформление заказа',
+        'mailForReceipt': 'Электронная почта для получения чека',
+        'Checkout': 'Электронная почта для получения чека',
+        'EmailForReceipt': 'Получатель',
+        'Total': 'Всего',
+        'Reciever': 'Получатель',
+        'course': 'курса',
+        'GoToThePayment': 'Перейти к оплате',
+        'Orders': 'Заказы',
+        'ProceedToPayment': 'Перейти к оплате',
+
+        // TODO: Finish all translation for payment page.
         'passed': 'Пройден'
     }
 }
