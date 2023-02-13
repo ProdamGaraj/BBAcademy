@@ -48,11 +48,13 @@ namespace BLL.CourseService
         public async Task<ICollection<CourseForCartDto>> GetCartedCoursesForUser(long userId)
         {
             var courses = await _courseRepository.GetAll()
-                .Where(c => c.CourseProgresses.Any(p => p.State == CourseProgressState.Bought && p.UserId == userId))
+                .Where(c => c.CourseProgresses.Any(p => p.State == CourseProgressState.InCart && p.UserId == userId))
                 .Select(
                     c => new CourseForCartDto()
                     {
+                        Id = c.Id,
                         Title = c.Title, 
+                        Price = c.Price,
                         Description = c.Description,
                         DurationHours = c.DurationHours,
                         LessonsCount = c.Lessons.Count(),
@@ -64,16 +66,20 @@ namespace BLL.CourseService
             return courses;
         }
 
-        public async Task<GetCourseForLearningDto> GetForLearning(long courseId)
+        public async Task<GetCourseForLearningDto> GetForLearning(long courseId, long userId)
         {
             var course = await _courseRepository.GetAll()
                 .Include(c => c.Exam)
                 .ThenInclude(e => e.Questions.OrderBy(q => q.Order))
                 .ThenInclude(q => q.AnswerOptions.OrderBy(a => a.Order))
                 .Include(c => c.Lessons.OrderBy(l => l.Order))
+                .Include(c => c.CourseProgresses.Where(cp => cp.UserId == userId).Take(1))
                 .FirstOrDefaultAsync(c => c.Id == courseId);
 
             var resultDto = _mapper.Map<GetCourseForLearningDto>(course);
+
+            resultDto.CertName = course.CourseProgresses.FirstOrDefault()
+                ?.CertificateName;
 
             return resultDto;
         }

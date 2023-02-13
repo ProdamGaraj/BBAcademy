@@ -77,6 +77,7 @@
         'reg': "Ro’yxatdan o’tish",
         'personalArea': "Shaxsiy kabinet",
         'someDescriptionForAdv': <span>Nima haqida ba'zi tavsif<br/>bu nima va nima uchun <br/>bir necha qatorda</span>,
+        'passed': 'Tugadi'
     },
 
     ru: {
@@ -168,6 +169,7 @@
         'order-completion': 'Оформление заказа',
         'mail-for-receipt': 'Электронная почта для получения чека',
          // TODO: Finish all translation for payment page.
+        'passed': 'Пройден'
     }
 }
 export default translations;

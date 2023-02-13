@@ -29,7 +29,7 @@
     font-size: 16px;
     line-height: 20px;
     height: 20px;
-    
+
     cursor: pointer;
 }
 
@@ -39,6 +39,10 @@
 
 .filterIcon {
     margin-right: 18px;
+}
+
+.filterActive {
+    color: #0093DC;
 }
 
 .coursesListWrapper {
@@ -92,7 +96,7 @@
     font-weight: 400;
     font-size: 16px;
     color: rgb(0, 0, 0, 0.8);
-    
+
     padding-right: 5px;
 
     -webkit-box-orient: vertical;
@@ -142,6 +146,11 @@
     white-space: nowrap;
     user-select: none;
     cursor: pointer;
+}
+
+.cardButtonDisabled {
+    opacity: 0.7;
+    cursor: default;
 }
 
 .cardButtonRed {

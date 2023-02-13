@@ -5,7 +5,6 @@ namespace BLL.CertificateService
 {
     public interface ICertificateService
     {
-        Task<Certificate> CreateCertificate(CreateCertificateDto dto);
-        Task<List<Certificate>> GetCertificatesByUser(long userId);
+        Task<ICollection<string>> GetCertificatesByUser(long userId);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using AutoMapper;
+using BLL.DocumentService;
 using BLL.Models.GetExamForTesting;
 using BLL.Models.SaveCourseExamResults;
 using BLL.Services.Interfaces;
@@ -14,20 +15,20 @@ namespace BLL.ExamService;
 
 public class ExamService : IExamService
 {
-    private readonly IRepository<Exam> _examRepository;
     private readonly IRepository<Course> _courseRepository;
     private readonly ICourseProgressService _courseProgressService;
+    private readonly IDocumentService _documentService;
     private readonly ILogger<ExamService> _logger;
 
-    public ExamService(IRepository<Exam> examRepository, ILogger<ExamService> logger, ICourseProgressService courseProgressService, IRepository<Course> courseRepository)
+    public ExamService(ILogger<ExamService> logger, ICourseProgressService courseProgressService, IRepository<Course> courseRepository, IDocumentService documentService)
     {
-        _examRepository = examRepository;
         _logger = logger;
         _courseProgressService = courseProgressService;
         _courseRepository = courseRepository;
+        _documentService = documentService;
     }
 
-    public async Task<bool> SaveCourseExamResults(long userId, SaveCourseExamResultsDto dto)
+    public async Task<SaveCourseExamResultsResult> SaveCourseExamResults(long userId, SaveCourseExamResultsDto dto)
     {
         var exam = await _courseRepository.GetAll()
             .Where(c => c.Id == dto.CourseId)
@@ -97,23 +98,43 @@ public class ExamService : IExamService
             }
         }
 
-        var maxWeight = exam.Questions
-            .Select(
-                q => q.AnswerOptions
-                    .Where(a => a.IsCorrect)
-                    .Select(a => a.Weight)
-                    .Sum()
-            )
-            .Sum();
-
-        if (totalWeight == maxWeight)
+        if (totalWeight >= exam.MinimumPassingGrade)
         {
-            if (totalWeight >= exam.MinimumPassingGrade)
-            {
-                await _courseProgressService.TransitionToPassed(dto.CourseId, userId);
-            }
-        }
+            var template = await _courseRepository.GetAll()
+                .Where(c => c.Id == dto.CourseId)
+                .Select(c => c.CertificateTemplate)
+                .FirstOrDefaultAsync();
 
-        return true;
+            if (template?.MediaPath is null)
+            {
+                throw new BusinessException("Не удалось создать сертификат");
+            }
+
+            if (!File.Exists(template.MediaPath))
+            {
+                throw new BusinessException("Не найден шаблон сертификата на диске");
+            }
+
+            var templatePdf = await File.ReadAllBytesAsync(template.MediaPath);
+
+            var certName = await _documentService.Create("cert.pdf", "generated-certs", templatePdf);
+            
+            await _courseProgressService.TransitionToPassed(dto.CourseId, userId, certName);
+
+            return new SaveCourseExamResultsResult()
+            {
+                Passed = true,
+                CertName = certName
+            };
+        }
+        else
+        {
+            
+            return new SaveCourseExamResultsResult()
+            {
+                Passed = false,
+                CertName = null
+            };
+        }
     }
 }

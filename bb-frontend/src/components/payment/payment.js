@@ -45,6 +45,7 @@ export default () => {
     }
 
     useEffect(() => {
+        loaderModal.showModal()
         backend.Cart.GetAll()
             .then(courses => setCourses(courses))
             .catch(e => errorModal.showModal(e.message))
@@ -53,6 +54,7 @@ export default () => {
 
 
     function removeCourse(courseId) {
+        loaderModal.showModal()
         backend.Cart.RemoveCourse(courseId)
             .then(() => {
                 const _courses = courses.filter(value => value.id !== courseId);
@@ -62,6 +64,14 @@ export default () => {
             .finally(() => loaderModal.close())
         ;
     }
+
+    const checkout = () => {
+        loaderModal.showModal()
+        backend.Cart.Checkout()
+            .then(courses => window.location.href = '/courses')
+            .catch(e => errorModal.showModal(e.message))
+            .finally(() => loaderModal.close())
+    };
 
     return (<>
         <div className={styles.gridContent}>
@@ -81,25 +91,25 @@ export default () => {
 
             <div className={styles.totalInfoCard}>
                 <h2>
-                    <span>Всего: 2 курса</span>
-                    <span>10 000</span>
+                    <span>Всего: {courses.length} курса</span>
+                    <span>{courses.map(c => c.price).reduce((acc, cur) => acc + cur, 0)} р</span>
                 </h2>
-                <h4>
-                    <span>Введение в банковскую деятельность</span>
-                    <span>4000</span>
-                </h4>
-                <h4>
-                    <span>Инвестиции для начинающих</span>
-                    <span>4000</span>
-                </h4>
-                <button>Перейти к оплате</button>
+                {courses.map((c, i) =>
+                    (
+                        <h4>
+                            <span>{c.title}</span>
+                            <span>{c.price} р</span>
+                        </h4>
+                    ))}
+
+                <button onClick={() => checkout()}>Перейти к оплате</button>
             </div>
 
             <div className={styles.ordersContainer}>
                 <h2>Заказы</h2>
 
-                {courses.map(course => (
-                    <Order key={course.id} course={course} onCourseRemoved={removeCourse}/>
+                {courses.map((course, i) => (
+                    <Order key={i} course={course} onCourseRemoved={removeCourse}/>
                 ))}
             </div>
         </div>

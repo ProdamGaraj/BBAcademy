@@ -5,5 +5,5 @@ namespace BLL.ExamService;
 
 public interface IExamService
 {
-    Task<bool> SaveCourseExamResults(long userId, SaveCourseExamResultsDto dto);
+    Task<SaveCourseExamResultsResult> SaveCourseExamResults(long userId, SaveCourseExamResultsDto dto);
 }

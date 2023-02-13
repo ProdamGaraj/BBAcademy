@@ -32,7 +32,8 @@ public class MainMapperProfile : Profile
         CreateMap<AnswerOption, GetAnswerOptionForLearningDto>();
         CreateMap<Question, GetQuestionForLearningDto>();
         CreateMap<Lesson, GetLessonForLearningDto>();
-        CreateMap<Course, GetCourseForLearningDto>();
+        CreateMap<Course, GetCourseForLearningDto>()
+            .ForMember(dst => dst.CertName, cfg => cfg.Ignore());
         CreateMap<Exam, GetExamForLearningDto>();
         CreateMap<User, GetUserShortForAccountDto>();
     }

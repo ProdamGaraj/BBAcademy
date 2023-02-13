@@ -55,7 +55,7 @@ public class CartController : Controller
         return Ok();
     }
 
-    [HttpGet]
+    [HttpPost]
     [Authorize]
     public async Task<ActionResult> Checkout()
     {

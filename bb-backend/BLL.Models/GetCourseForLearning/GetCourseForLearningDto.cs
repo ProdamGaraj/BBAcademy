@@ -16,4 +16,5 @@ public class GetCourseForLearningDto
     public GetExamForLearningDto Exam { get; set; }
 
     public ICollection<GetLessonForLearningDto> Lessons { get; set; }
+    public string CertName { get; set; }
 }

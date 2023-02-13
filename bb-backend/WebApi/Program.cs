@@ -3,6 +3,7 @@ using BLL.AccountService;
 using BLL.CartService;
 using BLL.CertificateService;
 using BLL.CourseService;
+using BLL.DocumentService;
 using BLL.ExamService;
 using BLL.Models.Configs;
 using BLL.Services;
@@ -12,6 +13,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Models.Configs;
 using Serilog;
 using WebApi.Auth;
 using WebApi.Middlewares;
@@ -40,6 +42,8 @@ builder.Logging.ClearProviders();
 builder.Logging.SetMinimumLevel(LogLevel.Information);
 builder.Logging.AddSerilog(dispose: true);
 
+builder.Services.Configure<StaticConfig>(builder.Configuration.GetSection(nameof(StaticConfig)));
+
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddAutoMapper(typeof(Program));
@@ -53,6 +57,7 @@ builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<IExamService, ExamService>();
 builder.Services.AddScoped<ICourseProgressService, CourseProgressService>();
 builder.Services.AddScoped<ILessonService, LessonService>();
+builder.Services.AddScoped<IDocumentService, DocumentService>();
 
 builder.Services.AddSpaStaticFiles(opt => opt.RootPath = builder.Environment.WebRootPath);
 
@@ -193,8 +198,9 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseEndpoints(b => b.MapControllers());
+app.MapControllerRoute(name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
-app.MapFallbackToFile("/index.html");
+// app.MapFallbackToFile("/index.html");
 
 await app.RunAsync();

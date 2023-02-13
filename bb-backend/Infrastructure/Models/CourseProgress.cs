@@ -12,5 +12,7 @@ public class CourseProgress
 
     public virtual Course Course { get; set; }
 
+    public string CertificateName { get; set; }
+
     public CourseProgressState State { get; set; }
 }
