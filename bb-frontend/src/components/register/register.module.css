@@ -81,7 +81,12 @@
     line-height: 111%;
 }
 
-.logLabelUnnessesary {
+.logLabel:after {
+    content: " *";
+    color: red;
+}
+
+.logLabelUnnecessary {
     margin-bottom: 10px;
     margin-top: 20px;
 
@@ -101,7 +106,7 @@
     align-items: flex-start;
 }
 
-.logLabelUnnessesaryLabel {
+.logLabelUnnecessaryLabel {
     font-family: 'Raleway', sans-serif;
     font-size: 12px;
     font-weight: 400;

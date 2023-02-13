@@ -54,13 +54,13 @@ public static class DI
             context.Courses.Add(
                 new Course()
                 {
-                    Title = "This is Example Course Title",
+                    Title = "Course 1",
                     Description = "This is some Example Course long description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
                     Price = 505,
                     DurationHours = 10,
                     CertificateTemplate = new CertificateTemplate()
                     {
-                        MediaPath = "/templates/template1.pdf",
+                        MediaPath = "/mounted/templates/template1.pdf",
                         CreatedAt = DateTime.UtcNow
                     },
                     Lessons = new List<Lesson>()
@@ -82,7 +82,7 @@ public static class DI
                             Content = "Lesson VIDEO",
                             CreatedAt = DateTime.UtcNow,
                             LessonContentType = LessonContentType.Video,
-                            MediaContentPath = "/img/video.mp4"
+                            MediaContentPath = "/vid/6.mp4"
                         },
 
                         new Lesson()
@@ -172,13 +172,13 @@ public static class DI
             context.Courses.Add(
                 new Course()
                 {
-                    Title = "This is Example Course Title",
+                    Title = "Course 2",
                     Description = "This is some Example Course long description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
                     Price = 1000,
                     DurationHours = 10,
                     CertificateTemplate = new CertificateTemplate()
                     {
-                        MediaPath = "/templates/template1.pdf",
+                        MediaPath = "/mounted/templates/template1.pdf",
                         CreatedAt = DateTime.UtcNow
                     },
                     Lessons = new List<Lesson>()
@@ -200,7 +200,7 @@ public static class DI
                             Content = "Lesson VIDEO",
                             CreatedAt = DateTime.UtcNow,
                             LessonContentType = LessonContentType.Video,
-                            MediaContentPath = "/img/video.mp4"
+                            MediaContentPath = "/vid/6.mp4"
                         },
 
                         new Lesson()
@@ -289,13 +289,13 @@ public static class DI
              context.Courses.Add(
                 new Course()
                 {
-                    Title = "This is Example Course Title",
+                    Title = "Course 3",
                     Description = "3rd seeded course Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
                     Price = 700,
                     DurationHours = 10,
                     CertificateTemplate = new CertificateTemplate()
                     {
-                        MediaPath = "/templates/template1.pdf",
+                        MediaPath = "/mounted/templates/template1.pdf",
                         CreatedAt = DateTime.UtcNow
                     },
                     Lessons = new List<Lesson>()
@@ -317,7 +317,7 @@ public static class DI
                             Content = "Lesson VIDEO",
                             CreatedAt = DateTime.UtcNow,
                             LessonContentType = LessonContentType.Video,
-                            MediaContentPath = "/img/video.mp4"
+                            MediaContentPath = "/vid/6.mp4"
                         },
 
                         new Lesson()

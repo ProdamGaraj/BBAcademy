@@ -34,7 +34,7 @@ export default () => {
         backend.Course.GetForDashboard()
             .then(response => {
                 setAllCourses(response)
-                setVisibleCourses(response.filter(c => c.state === Unknown))
+                setVisibleCourses(response.filter(c => c.state === Unknown || c.state === InCart))
             })
             .catch(e => errorModal.showModal(e.message))
             .finally(() => loaderModal.close())
@@ -46,7 +46,7 @@ export default () => {
             .then(response => {
                 let courses = allCourses.map(c => (c.id === id ? {...c, state: Unknown} : c))
                 setAllCourses(courses)
-                setVisibleCourses(courses)
+                setVisibleCourses(courses.filter(c => c.state === Unknown || c.state === InCart))
             })
             .catch(e => errorModal.showModal(e.message))
             .finally(() => loaderModal.close())
@@ -58,7 +58,7 @@ export default () => {
             .then(response => {
                 let courses = allCourses.map(c => (c.id === id ? {...c, state: InCart} : c))
                 setAllCourses(courses)
-                setVisibleCourses(courses)
+                setVisibleCourses(courses.filter(c => c.state === Unknown || c.state === InCart))
             })
             .catch(e => errorModal.showModal(e.message))
             .finally(() => loaderModal.close())
@@ -66,7 +66,7 @@ export default () => {
 
     function showAll() {
         setMode(MODE_ALL)
-        setVisibleCourses(allCourses.filter(c => c.state === Unknown))
+        setVisibleCourses(allCourses.filter(c => c.state === Unknown || c.state === InCart))
     }
 
     function showBought() {
