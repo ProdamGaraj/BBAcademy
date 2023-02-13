@@ -10,8 +10,14 @@ public class CourseProgressConfiguration : IEntityTypeConfiguration<CourseProgre
     {
         builder.HasKey(p => new {p.UserId, p.CourseId});
 
-        builder.HasOne(c => c.User)
+        builder
+            .HasOne(c => c.User)
             .WithMany(u => u.CourseProgresses)
             .HasForeignKey(c => c.UserId);
+
+        builder
+            .HasOne(c => c.Course)
+            .WithMany(c => c.CourseProgresses)
+            .HasForeignKey(c => c.CourseId);
     }
 }

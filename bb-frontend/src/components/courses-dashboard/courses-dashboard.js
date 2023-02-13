@@ -9,6 +9,15 @@ import UserLeftLayout from "../user-left-layout/user-left-layout";
 import MainNavigator from "../main-navigator/main-navigator";
 import {NavLink} from "react-router-dom";
 
+const Unknown = 1
+const Bought = 2
+const InCart = 3
+const Passed = 4
+
+const MODE_ALL = 1
+const MODE_BOUGHT = 2
+const MODE_PASSED = 3
+
 export default () => {
 
     let lang = useContext(LangContext).lang
@@ -16,18 +25,58 @@ export default () => {
     let loaderModal = useContext(LoaderModalContext)
     let errorModal = useContext(ErrorModalContext)
 
-    let [courses, setCourses] = useState([]);
+    let [allCourses, setAllCourses] = useState([]);
+    let [visibleCourses, setVisibleCourses] = useState([])
+    let [mode, setMode] = useState(MODE_ALL)
 
     useEffect(() => {
         loaderModal.showModal()
         backend.Course.GetForDashboard()
-            .then(response => setCourses(response))
+            .then(response => {
+                setAllCourses(response)
+                setVisibleCourses(response)
+            })
             .catch(e => errorModal.showModal(e.message))
             .finally(() => loaderModal.close())
     }, [])
 
     const removeFromCart = (id) => {
+        loaderModal.showModal()
+        backend.Cart.RemoveCourse(id)
+            .then(response => {
+                let courses = allCourses.map(c => (c.id === id ? {...c, state: Unknown} : c))
+                setAllCourses(courses)
+                setVisibleCourses(courses)
+            })
+            .catch(e => errorModal.showModal(e.message))
+            .finally(() => loaderModal.close())
+    }
 
+    const addToCart = id => {
+        loaderModal.showModal()
+        backend.Cart.AddCourse(id)
+            .then(response => {
+                let courses = allCourses.map(c => (c.id === id ? {...c, state: InCart} : c))
+                setAllCourses(courses)
+                setVisibleCourses(courses)
+            })
+            .catch(e => errorModal.showModal(e.message))
+            .finally(() => loaderModal.close())
+    };
+
+    function showAll() {
+        setMode(MODE_ALL)
+        setVisibleCourses(allCourses)
+    }
+
+    function showBought() {
+        setMode(MODE_BOUGHT)
+        setVisibleCourses(allCourses.filter(c => c.state === Bought))
+    }
+
+    function showPassed() {
+        setMode(MODE_PASSED)
+        setVisibleCourses(allCourses.filter(c => c.state === Passed))
     }
 
     return (<>
@@ -35,18 +84,18 @@ export default () => {
             <MainNavigator/>
             <div className={styles.filterContainer}>
                 <div className={styles.filterButtonsContainer}>
-                    <span className={styles.filterElement}>
+                    <span className={styles.filterElement} onClick={() => showAll()}>
                         <span>
                             {translations[lang].allcourses}
                         </span>
                     </span>
-                    <span className={styles.filterElement}>
+                    <span className={styles.filterElement} onClick={() => showBought()}>
                         <img className={styles.filterIcon} src="/img/Account/book-open.svg" alt=""/>
                         <span>
                             {translations[lang].startedcourses}
                         </span>
                     </span>
-                    <span className={styles.filterElement}>
+                    <span className={styles.filterElement} onClick={() => showPassed()}>
                         <img className={styles.filterIcon} src="/img/Account/sber.svg" alt=""/>
                         <span>
                             {translations[lang].passedcourses}
@@ -58,7 +107,7 @@ export default () => {
             </div>
 
             <div className={styles.coursesListWrapper}>
-                {courses.map((item, i) => (
+                {visibleCourses.map((item, i) => (
                     <div key={i} className={styles.courseCard}>
                         <img className={styles.cardImage} src={item.mediaPath} alt=""/>
                         <div className={styles.cardInfoFlex}>
@@ -70,15 +119,18 @@ export default () => {
                                 <img src="/img/Account/bell.svg" alt=""/>
                                 <div className={styles.cardInfoText}>{item.lessonsCount} уроков</div>
                                 <div className={styles.cardInfoText}>{item.durationHours} часов</div>
-                                {item.state === 'InCart' ?
+                                {mode === MODE_ALL && item.state !== InCart ?
+                                    <span
+                                        className={styles.cardButton}
+                                        onClick={() => addToCart(item.id)}>
+                                        {translations[lang].incart}
+                                    </span> : ''}
+                                {mode === MODE_ALL && item.state === InCart ?
                                     <span
                                         className={styles.cardButton + ' ' + styles.cardButtonRed}
                                         onClick={() => removeFromCart(item.id)}>
-                                    {translations[lang].incart}
-                                </span> :
-                                    <NavLink to={"/learning?id=" + item.id} className={styles.cardButton}>
-                                        {translations[lang].start}
-                                    </NavLink>
+                                        {translations[lang].inkart}
+                                    </span> : ''
                                 }
                             </div>
                         </div>

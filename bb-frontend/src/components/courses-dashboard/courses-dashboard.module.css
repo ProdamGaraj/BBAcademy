@@ -53,6 +53,7 @@
     height: 150px;
 
     display: flex;
+    width: 935px;
 }
 
 .cardImage {
@@ -124,7 +125,8 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 8px 50px;
+    padding: 8px 0;
+    width: 226px;
 
     background: #0093DC;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
@@ -137,6 +139,9 @@
     line-height: 20px;
     text-decoration: none;
     color: white;
+    white-space: nowrap;
+    user-select: none;
+    cursor: pointer;
 }
 
 .cardButtonRed {

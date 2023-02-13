@@ -81,24 +81,51 @@ builder.Services.AddAuthentication(o =>
 });
 
 
-builder.Services.AddSwaggerGen(options =>
-    options.SwaggerDoc("v1", new OpenApiInfo
+builder.Services.AddSwaggerGen(
+    options =>
     {
-        Version = "v1",
-        Title = "bb API",
-        Description = "bb API",
-        TermsOfService = new Uri("https://example.com/terms"),
-        Contact = new OpenApiContact
-        {
-            Name = "Example Contact",
-            Url = new Uri("https://example.com/contact")
-        },
-        License = new OpenApiLicense
-        {
-            Name = "Example License",
-            Url = new Uri("https://example.com/license")
-        }
-    }));
+        options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme {
+            In = ParameterLocation.Header, 
+            Description = "Please insert JWT with Bearer into field",
+            Name = "Authorization",
+            Type = SecuritySchemeType.ApiKey 
+        });
+        options.AddSecurityRequirement(new OpenApiSecurityRequirement {
+            { 
+                new OpenApiSecurityScheme 
+                { 
+                    Reference = new OpenApiReference 
+                    { 
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer" 
+                    } 
+                },
+                new string[] { } 
+            } 
+        });
+
+        options.SwaggerDoc(
+            "v1",
+            new OpenApiInfo
+            {
+                Version = "v1",
+                Title = "bb API",
+                Description = "bb API",
+                TermsOfService = new Uri("https://example.com/terms"),
+                Contact = new OpenApiContact
+                {
+                    Name = "Example Contact",
+                    Url = new Uri("https://example.com/contact")
+                },
+                License = new OpenApiLicense
+                {
+                    Name = "Example License",
+                    Url = new Uri("https://example.com/license")
+                }
+            }
+        );
+    }
+);
 
 builder.Services.AddAuthorization();
 
@@ -128,6 +155,17 @@ if (!app.Environment.IsDevelopment())
 //     }
 // );
 
+// makes it work behind NGINX
+app.UseForwardedHeaders(
+    new ForwardedHeadersOptions
+    {
+        ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+    }
+);
+
+app.UseDefaultFiles();
+app.UseSpaStaticFiles();
+
 app.UseCors(
     builder => builder
         .WithOrigins(
@@ -148,17 +186,6 @@ app.UseCors(
         .AllowCredentials()
 );
 
-// makes it work behind NGINX
-app.UseForwardedHeaders(
-    new ForwardedHeadersOptions
-    {
-        ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-    }
-);
-
-app.UseDefaultFiles();
-app.UseSpaStaticFiles();
-
 app.UseMiddleware<ExceptionCatcherMiddleware>();
 
 app.UseRouting();
@@ -166,7 +193,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers();
+app.UseEndpoints(b => b.MapControllers());
 
 app.MapFallbackToFile("/index.html");
 

@@ -1,3 +1,5 @@
+using Infrastructure.Models.Enum;
+
 namespace BLL.Models.GetCoursesForDashboard;
 
 public class CourseForDashboardDto
@@ -13,5 +15,5 @@ public class CourseForDashboardDto
 
     public float DurationHours { get; set; }
 
-    public bool IsBought { get; set; }
+    public CourseProgressState? State { get; set; }
 }

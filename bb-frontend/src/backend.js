@@ -46,19 +46,8 @@ export default {
 
             return response.data;
         },
-        Tester: async () => {
-            let response = await axios.get(baseurl + '/Account/Tester', {
-                headers: {
-                    Authorization: 'Bearer ' + localStorage.getItem('token')
-                },
-                withCredentials: true,
-                validateStatus
-            })
-
-            return response.data;
-        },
         GetUser: async () => {
-            let response = await axios.post(baseurl + '/Account/GetUser', {},{
+            let response = await axios.post(baseurl + '/Account/GetUser', {}, {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('token')
                 },
@@ -83,7 +72,22 @@ export default {
         },
 
         RemoveCourse: async (courseId) => {
-            let response = await axios.get(baseurl + "/Cart/RemoveCourse", {
+            let response = await axios.post(baseurl + "/Cart/RemoveCourse", {}, {
+                params: {
+                    id: courseId
+                },
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                },
+                withCredentials: true,
+                validateStatus
+            });
+
+            return response.data;
+        },
+
+        AddCourse: async (courseId) => {
+            let response = await axios.post(baseurl + "/Cart/AddCourse", {}, {
                 params: {
                     id: courseId
                 },

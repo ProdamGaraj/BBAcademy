@@ -24,6 +24,11 @@ public class CourseProgressService : ICourseProgressService
         await TransitionToState(courseId, userId, CourseProgressState.InCart);
     }
 
+    public async Task TransitionToUnknown(long courseId, long userId)
+    {
+        await TransitionToState(courseId, userId, CourseProgressState.Unknown);
+    }
+
     public async Task TransitionToBought(long courseId, long userId)
     {
         await TransitionToState(courseId, userId, CourseProgressState.Bought);

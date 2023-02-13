@@ -6,5 +6,6 @@ namespace BLL.CartService;
 public interface ICartService
 {
     Task Checkout(long dto);
-    Task RemoveCourse(long courseId, long userId); 
+    Task AddCourse(long courseId, long userId);
+    Task RemoveCourse(long courseId, long userId);
 }
