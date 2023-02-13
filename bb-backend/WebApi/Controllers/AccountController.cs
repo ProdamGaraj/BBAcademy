@@ -2,6 +2,7 @@
 using BLL.AccountService;
 using BLL.Models.Login;
 using BLL.Models.Register;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Auth;
 
@@ -42,6 +43,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetUser()
         {
             long id = HttpContext.User.GetId();

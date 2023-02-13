@@ -1,9 +1,8 @@
 ﻿import {NavLink} from "react-router-dom";
 import translations from "translations";
-
 import styles from './user-left-layout.module.css'
 import {useContext, useEffect, useState} from "react";
-import UserContext from "contexts/user-context";
+//import UserContext from "contexts/user-context";
 import LangContext from "contexts/lang-context";
 import LoaderModalContext from "../../contexts/loader-modal-context";
 import ErrorModalContext from "../../contexts/error-modal-context";
@@ -18,13 +17,18 @@ export default ({children}) => {
     let errorModal = useContext(ErrorModalContext)
     
     useEffect(()=>{
+        
+        
+    },[])
+    
+    let getUser = ()=>{
         loaderModal.showModal()
-        backend.Account.GetUser()
+        user = backend.Account.GetUser()
             .then(u=>setUser(u))
             .catch(e => errorModal.showModal(e.response.data.error))
             .finally(() => loaderModal.close())
-    },[])
-    
+        console.log(user)
+    }
     
     return (<>
         <div className={styles.layout}>
@@ -32,6 +36,7 @@ export default ({children}) => {
                 <div className={styles.userDataLeft}>
                     <div className={styles.profileHeader}>
                         <img className={styles.profilePhoto} src="/img/perec-percovich.png" alt=""/>
+                        {getUser()}
                         <div className={styles.profilePhotoTitle}>{user.FirstName}</div>
                     </div>
                     <div className={styles.userInfoLine}>
