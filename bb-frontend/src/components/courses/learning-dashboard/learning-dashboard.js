@@ -7,6 +7,7 @@ import LessonContentView from "../lesson-content-view/lesson-content-view";
 
 import NavigationArrows from "../navigation-arrows/navigation-arrows";
 import ExamContentView from "../exam-content-view/exam-content-view";
+import CertContentView from "../cert-content-view/cert-content-view";
 
 const LESSON_MODE = 1;
 const EXAM_MODE = 2;
@@ -47,7 +48,7 @@ export default (props) => {
     }
 
     const switchToLesson = i => {
-        if (mode !== LESSON_MODE) {
+        if (mode !== LESSON_MODE && course.certName === null) {
             errorModal.showModal('Вы больше не можете просматривать контент уроков.')
             return
         }
@@ -109,7 +110,7 @@ export default (props) => {
                 )
             case CERT_MODE:
                 return (
-                    <div>Here should be cert view for {course.certName}</div>
+                    <CertContentView certName={course.certName} courseTitle={course.title}></CertContentView>
                 )
             default:
                 return 'UNKNOWN LAYOUT MODE'

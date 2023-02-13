@@ -22,18 +22,28 @@ export default ({children, course, toLesson, toExam, toCert, activeLessonIndex, 
                     </div>
 
                     {course.lessons.map((lesson, i) =>
-                        <div className={styles.lessonTitleLine + ' ' + styles.cursorPointer + (activeMode === LESSON_MODE && activeLessonIndex === i ? (' ' + styles.selectedLine) : '')} key={i} onClick={() => toLesson(i)}>
+                        <div
+                            className={styles.lessonTitleLine + ' ' + styles.cursorPointer + (activeMode === LESSON_MODE && activeLessonIndex === i ? (' ' + styles.selectedLine) : '')}
+                            key={i} onClick={() => toLesson(i)}>
                             <span>{lesson.title}</span>
                         </div>
                     )}
 
-                    <div className={styles.lessonTitleLine + ' ' + styles.cursorPointer + (activeMode === EXAM_MODE ? (' ' + styles.selectedLine) : '')} onClick={() => toExam()}>
-                        <span>{course.exam.title}</span>
-                    </div>
+                    {course.certName === null ?
+                        <div
+                            className={styles.lessonTitleLine + ' ' + styles.cursorPointer + (activeMode === EXAM_MODE ? (' ' + styles.selectedLine) : '')}
+                            onClick={() => toExam()}>
+                            <span>{course.exam.title}</span>
+                        </div> : ''
+                    }
 
-                    <div className={styles.lessonTitleLine + ' ' + styles.cursorPointer + (activeMode === CERT_MODE ? (' ' + styles.selectedLine) : '')} onClick={() => toCert()}>
-                        <span>{translations[currentLang].ending}</span>
-                    </div>
+                    {course.certName !== null ?
+                        <div
+                            className={styles.lessonTitleLine + ' ' + styles.cursorPointer + (activeMode === CERT_MODE ? (' ' + styles.selectedLine) : '')}
+                            onClick={() => toCert()}>
+                            <span>{translations[currentLang].ending}</span>
+                        </div> : ''
+                    }
                 </div>
 
                 <div className={styles.divider}/>
