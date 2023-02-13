@@ -21,7 +21,7 @@ export default () => {
 
 
     const onRegister = () => {
-        if (login === '' || password === '' || firstName === '' || surname === '' || middleName === '' || confirmPassword === '' || email === '') {
+        if (login === '' || password === '' || firstName === '' || surname === '' || confirmPassword === '' || email === '') {
             errorModal.showModal('Заполните все обязательные поля.');
             return;
         }
@@ -37,7 +37,7 @@ export default () => {
             errorModal.showModal('Слишком короткий пароль');
             return;
         }
-        if (/^[!@#№%:^&?*()+="'};.~{,_<>]+$/.test(firstName + middleName + surname)) {
+        if (/^[!@#№%:^&?*()+="'};.~{,_<>]+$/.test(firstName + surname)) {
             errorModal.showModal('Поля имя, фамилия и отчество, не могут содержать спецсимволы кроме "`" "-"');
             return;
         }
@@ -106,9 +106,9 @@ export default () => {
                    value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)}
             />
 
-            <label className={styles.logLabelUnnessesary}>
+            <label className={styles.logLabelUnnecessary}>
                 {translations[lang].condition}
-                <div className={styles.logLabelUnnessesaryLabel}>{translations[lang].unnesessaryfield}</div>
+                <div className={styles.logLabelUnnecessaryLabel}>{translations[lang].unnesessaryfield}</div>
             </label>
             <select className={styles.banksSelect}>
                 <option>Не выбрано</option>

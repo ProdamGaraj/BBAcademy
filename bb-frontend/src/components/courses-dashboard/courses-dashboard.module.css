@@ -48,6 +48,7 @@
 .coursesListWrapper {
     display: flex;
     flex-direction: column;
+    gap: 20px;
 }
 
 .courseCard {

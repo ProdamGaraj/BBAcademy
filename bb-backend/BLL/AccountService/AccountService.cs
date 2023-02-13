@@ -36,8 +36,8 @@ namespace BLL.AccountService
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             var resultDto = _mapper.Map<GetUserShortForAccountDto>(user);
-            resultDto.RecommendedBy = "Kogda MVP?";
-            resultDto.Rating = 404;
+            resultDto.RecommendedBy = "Will Smith";
+            resultDto.Rating = 505;
             return resultDto;
         }
 
