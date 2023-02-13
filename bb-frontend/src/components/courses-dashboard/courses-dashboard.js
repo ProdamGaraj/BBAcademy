@@ -141,7 +141,8 @@ export default () => {
                                 }
                                 {mode === MODE_PASSED ?
                                     <span
-                                        className={styles.cardButton + ' ' + styles.cardButtonDisabled}>
+                                        onClick={() => window.location.href = '/learning?id=' + item.id}
+                                        className={styles.cardButton}>
                                         {translations[lang].start}
                                     </span> : ''
                                 }

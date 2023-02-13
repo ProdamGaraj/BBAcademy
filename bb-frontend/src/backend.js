@@ -1,7 +1,7 @@
 ﻿import baseurl from "./base-url";
 import axios from "axios";
 
-// Promise не будет выбивать в catch, если статусы ответа 200-300, 400 или 500.
+// Promise не будет выбивать в catch, если статусы ответа 200-300
 const validateStatus = status => (status >= 200 && status <= 300) || [500].includes(status);
 
 export default {

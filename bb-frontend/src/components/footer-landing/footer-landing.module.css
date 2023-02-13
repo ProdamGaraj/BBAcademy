@@ -34,7 +34,7 @@
     justify-content: start;
     gap: 16px;
     padding: 29px 0;
-    width: 1250px;
+    width: 1320px;
 }
 
 .footerTile {
@@ -53,7 +53,7 @@
 .footerContentContainer {
     display: flex;
     justify-content: flex-start;
-    width: 1250px;
+    width: 1320px;
     margin-bottom: 20px;
 }
 

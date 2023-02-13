@@ -18,15 +18,23 @@ export default (props) => {
         if (localStorage.getItem('token') !== null) {
             window.location.href = '/courses'
         }
-        else{
+        else if (!isLogin) {
             window.location.href = '/login'
         }
+        else {
+            window.location.href = '/register'
+        }
+    };
+    const tryNavigateToRegister = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        window.location.href = '/register'
     };
 
     return (<>
         <header className={styles.headerWrapper}>
             <div className={styles.headerContainer}>
-                <div className={styles.headerContainerLeftSection}>
+                <div className={styles.headerContainerLeftSection} onClick={() => window.location.href = '/'}>
                     <img className={styles.svgLogo} src="/img/Shared/logo-icon-2.svg" alt="logo"/>
                     <div className={styles.headerContainerLeftSectionText}>BilimBank</div>
                 </div>
@@ -43,8 +51,10 @@ export default (props) => {
                                 onClick={() => changeLang('ru')}>ru</span>
                         </div>
                     </div>
-                    <span className={styles.headerContainerRightSectionLogin}
-                          onClick={() => tryNavigateToLogin()}>{translations[lang][(isLogin ? 'reg' : 'enter')]}</span>
+                    <span className={styles.loginButton + ' ' + styles.regButton}
+                          onClick={() => tryNavigateToRegister()}>{translations[lang].reg}</span>
+                    <span className={styles.loginButton}
+                          onClick={() => tryNavigateToLogin()}>{translations[lang].enter}</span>
                 </div>
             </div>
         </header>

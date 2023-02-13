@@ -71,3 +71,7 @@
     cursor: pointer;
     user-select: none;
 }
+
+.certImage {
+    height: 362px;
+}
