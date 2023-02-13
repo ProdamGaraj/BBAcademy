@@ -54,7 +54,7 @@ export default (props) => {
                    className={styles.loginInput}
                    type="password"/>
             <div className="d-grid gap-2 d-md-block float-right">
-                <div className={styles.loginBtn} onClick={() => onLogin()}>{translations[currentLang].exit}</div>
+                <div className={styles.loginBtn} onClick={() => onLogin()}>{translations[currentLang].enter}</div>
             </div>
         </div>
     </>)

@@ -111,6 +111,7 @@ export default () => {
                 <div className={styles.logLabelUnnessesaryLabel}>{translations[lang].unnesessaryfield}</div>
             </label>
             <select className={styles.banksSelect}>
+                <option>Не выбрано</option>
                 <option value="bank0">BilimBank</option>
                 <option value="bank1">BilimBank</option>
                 <option value="bank2">BilimBank</option>
