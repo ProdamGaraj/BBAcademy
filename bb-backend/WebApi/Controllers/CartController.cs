@@ -1,10 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-using BLL.CartService;
+﻿using BLL.CartService;
 using BLL.CourseService;
-using BLL.Models.GetCourseForLearning;
 using BLL.Models.GetCoursesForCart;
 using BLL.Models.GetCoursesForDashboard;
-using BLL.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,27 +32,27 @@ public class CartController : Controller
         return Ok(result);
     }
 
-    [HttpPost]
+    [HttpGet]
     [Authorize]
-    public async Task<ActionResult> RemoveCourse([Required] long id)
+    public async Task<ActionResult<ICollection<CourseForDashboardDto>>> GetForDashboard()
     {
         var userId = HttpContext.User.GetId();
-        await _cartService.RemoveCourse(id, userId);
+        var result = await _courseService.GetCoursesForDashboard(userId);
 
-        return Ok();
+        return Ok(result);
     }
 
     [HttpPost]
     [Authorize]
-    public async Task<ActionResult> AddCourse([Required] long id)
+    public async Task<ActionResult> RemoveCourse(long courseId)
     {
         var userId = HttpContext.User.GetId();
-        await _cartService.AddCourse(id, userId);
+        await _cartService.RemoveCourse(courseId, userId);
 
         return Ok();
     }
 
-    [HttpPost]
+    [HttpGet]
     [Authorize]
     public async Task<ActionResult> Checkout()
     {

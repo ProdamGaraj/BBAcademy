@@ -1,6 +1,4 @@
-﻿using BLL.CourseService;
-using BLL.Models.GetCoursesForCart;
-using BLL.Services.Interfaces;
+﻿using BLL.Services.Interfaces;
 using Infrastructure.Models;
 using Infrastructure.Models.Enum;
 using Infrastructure.Repositories;
