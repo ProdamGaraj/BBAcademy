@@ -18,18 +18,20 @@ export default (props) => {
     let [password, setPassword] = useState('')
 
     const onLogin = () => {
-        if (login===''||password===''){
-            {errorModal.showModal('Заполните все поля.');return;}
+        if (login === '' || password === '') {
+            errorModal.showModal('Заполните все поля.');
+            return;
         }
-        if (
-            login.length<6)
-        {errorModal.showModal('Логин должен содержать не менее 6 символов.');return;}
-        if (
-            password.length<6
-        )
-        {errorModal. showModal('Слишком короткий пароль');return;}
-        
-        
+        // if (login.length < 6) {
+        //     errorModal.showModal('Логин должен содержать не менее 6 символов.');
+        //     return;
+        // }
+        // if (password.length < 6) {
+        //     errorModal.showModal('Слишком короткий пароль');
+        //     return;
+        // }
+
+
         loaderModal.showModal()
         backend.Account.Login({Login: login, Password: password})
             .then((token) => {

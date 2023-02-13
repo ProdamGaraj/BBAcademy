@@ -27,9 +27,9 @@ export default (props) => (
     <>
         <div className={styles.verticalStretch}>
             {headerResolver()}
-                <div className={styles.content}>
-                    {props.children}
-                </div>
+            <div className={styles.content}>
+                {props.children}
+            </div>
             {footerResolver()}
         </div>
     </>)

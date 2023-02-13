@@ -42,7 +42,7 @@ namespace WebApi.Controllers
             return Ok(token);
         }
 
-        [HttpGet]
+        [HttpPost]
         [Authorize]
         public async Task<IActionResult> GetUser()
         {

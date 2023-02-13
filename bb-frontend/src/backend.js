@@ -58,14 +58,15 @@ export default {
             return response.data;
         },
         GetUser: async () => {
-            let responce = await axios.get(baseurl + '/Account/GetUser', {
-
+            let response = await axios.post(baseurl + '/Account/GetUser', {},{
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('token')
                 },
                 withCredentials: true,
                 validateStatus
             })
+
+            return response.data;
         }
     },
     Cart: {
