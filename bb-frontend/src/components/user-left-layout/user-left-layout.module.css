@@ -15,57 +15,6 @@
     min-width: 1320px;
 }
 
-.userDataLeft {
-    min-width: 255px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.profileHeader {
-    width: 100%;
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    margin-bottom: 24px;
-}
-
-.profilePhoto {
-    width: 76px;
-    height: 76px;
-    border-radius: 50%;
-}
-
-.profilePhotoTitle {
-    font-family: 'Raleway', sans-serif;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 28px;
-}
-
-.userInfoLine {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 20px;
-
-    height: 24px;
-
-    font-family: 'Raleway', sans-serif;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 19px;
-}
-
-.cursorPointer {
-    cursor: pointer;
-}
-.cursorPointer:hover {
-    color: #0093DC;
-    cursor: pointer;
-}
 
 .divider {
     height: 472px;
@@ -76,12 +25,4 @@
 
 .content {
     flex-grow: 1;
-}
-
-.certA {
-    text-decoration: none;
-    color: black;
-}
-.certA:hover{
-    color: #0093DC;
 }

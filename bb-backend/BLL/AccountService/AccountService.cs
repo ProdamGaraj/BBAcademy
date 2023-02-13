@@ -57,8 +57,8 @@ namespace BLL.AccountService
 
                 user = new User
                 {
-                    FirstName = dto.Name,
-                    MiddleName = dto.LastName,
+                    FirstName = dto.FirstName,
+                    MiddleName = dto.MiddleName,
                     Surname = dto.Surname,
                     Login = dto.Login,
                     Role = UserRole.User,

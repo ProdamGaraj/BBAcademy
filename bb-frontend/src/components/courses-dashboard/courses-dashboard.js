@@ -5,13 +5,13 @@ import translations from "../../translations";
 import backend from "../../backend";
 import LoaderModalContext from "../../contexts/loader-modal-context";
 import ErrorModalContext from "../../contexts/error-modal-context";
-import UserLeftLayoutContainer from "../user-left-layout/user-left-layout";
+import UserLeftLayout from "../user-left-layout/user-left-layout";
 import MainNavigator from "../main-navigator/main-navigator";
 import {NavLink} from "react-router-dom";
 
 export default () => {
 
-    let currentLang = useContext(LangContext).lang
+    let lang = useContext(LangContext).lang
 
     let loaderModal = useContext(LoaderModalContext)
     let errorModal = useContext(ErrorModalContext)
@@ -26,38 +26,30 @@ export default () => {
             .finally(() => loaderModal.close())
     }, [])
 
-    useEffect(() => {
-        loaderModal.showModal()
-        backend.Account.Tester()
-            .then(response => console.log(response))
-            .catch(e => errorModal.showModal(e.message))
-            .finally(() => loaderModal.close())
-    }, [])
-
     const removeFromCart = (id) => {
 
     }
 
     return (<>
-        <UserLeftLayoutContainer>
+        <UserLeftLayout>
             <MainNavigator/>
             <div className={styles.filterContainer}>
                 <div className={styles.filterButtonsContainer}>
                     <span className={styles.filterElement}>
                         <span>
-                            {translations[currentLang].allcourses}
+                            {translations[lang].allcourses}
                         </span>
                     </span>
                     <span className={styles.filterElement}>
                         <img className={styles.filterIcon} src="/img/Account/book-open.svg" alt=""/>
                         <span>
-                            {translations[currentLang].startedcourses}
+                            {translations[lang].startedcourses}
                         </span>
                     </span>
                     <span className={styles.filterElement}>
                         <img className={styles.filterIcon} src="/img/Account/sber.svg" alt=""/>
                         <span>
-                            {translations[currentLang].passedcourses}
+                            {translations[lang].passedcourses}
                         </span>
                     </span>
                 </div>
@@ -78,14 +70,14 @@ export default () => {
                                 <img src="/img/Account/bell.svg" alt=""/>
                                 <div className={styles.cardInfoText}>{item.lessonsCount} уроков</div>
                                 <div className={styles.cardInfoText}>{item.durationHours} часов</div>
-                                {item.State === 'InCart' ?
+                                {item.state === 'InCart' ?
                                     <span
                                         className={styles.cardButton + ' ' + styles.cardButtonRed}
                                         onClick={() => removeFromCart(item.id)}>
-                                    {translations[currentLang].incart}
+                                    {translations[lang].incart}
                                 </span> :
                                     <NavLink to={"/learning?id=" + item.id} className={styles.cardButton}>
-                                        {translations[currentLang].start}
+                                        {translations[lang].start}
                                     </NavLink>
                                 }
                             </div>
@@ -93,6 +85,6 @@ export default () => {
                     </div>
                 ))}
             </div>
-        </UserLeftLayoutContainer>
+        </UserLeftLayout>
     </>)
 }

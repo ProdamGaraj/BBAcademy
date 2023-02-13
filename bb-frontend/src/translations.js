@@ -122,7 +122,7 @@
 
         'firstname': "Имя",
         'surname': "Фамилия",
-        'lastname': "Отчество",
+        'middleName': "Отчество",
         'email': "Почта",
         'login': "Логин",
         'password': "Пароль",

@@ -7,7 +7,7 @@ import ErrorModalContext from "../../contexts/error-modal-context";
 import styles from "./register.module.css"
 
 export default () => {
-    let currentLang = useContext(LangContext).lang
+    let lang = useContext(LangContext).lang
     let loaderModal = useContext(LoaderModalContext)
     let errorModal = useContext(ErrorModalContext)
 
@@ -16,42 +16,51 @@ export default () => {
     let [confirmPassword, setConfirmPassword] = useState('')
     let [firstName, setFirstName] = useState('')
     let [middleName, setMiddleName] = useState('')
-    let [lastName, setLastName] = useState('')
+    let [surname, setSurname] = useState('')
     let [email, setEmail] = useState('')
 
 
     const onRegister = () => {
-        if (login===''||password===''||firstName===''||lastName===''||middleName===''||confirmPassword===''||email==='')
-        {errorModal.showModal('Заполните все обязательные поля.');return;}
-        if (
-            login.length<6)
-        {errorModal.showModal('Логин должен содержать не менее 6 символов.');return;}
-        if (
-            !/^[a-zA-Z0-9-_]+$/.test(login)
-        ){errorModal.showModal('Логин может состоять только из латинских букв, цифр и знаков "-" "_"');return;}
-        if (
-            password.length<6
-        )
-        {errorModal. showModal('Слишком короткий пароль');return;}
-        if (
-            /^[!@#№%:^&?*()+="'};.~{,_<>]+$/.test(firstName+middleName+lastName))
-        {errorModal.showModal('Поля имя, фамилия и отчество, не могут содержать спецсимволы кроме "`" "-"');return;}
-        if (!/^((([0-9A-Za-z]{1}[-0-9A-z\.]{1,}[0-9A-Za-z]{1})|([0-9А-Яа-я]{1}[-0-9А-я\.]{1,}[0-9А-Яа-я]{1}))@([-0-9A-Za-z]{1,}\.){1,2}[-A-Za-z]{2,})$/.test(email))
-        {errorModal.showModal('Почта введена неправильно.');return;}
-        if (password!==confirmPassword){
-            errorModal.showModal('Пароли не совпадают.');return;
+        if (login === '' || password === '' || firstName === '' || surname === '' || middleName === '' || confirmPassword === '' || email === '') {
+            errorModal.showModal('Заполните все обязательные поля.');
+            return;
         }
-        
+        if (login.length < 6) {
+            errorModal.showModal('Логин должен содержать не менее 6 символов.');
+            return;
+        }
+        if (!/^[a-zA-Z0-9-_]+$/.test(login)) {
+            errorModal.showModal('Логин может состоять только из латинских букв, цифр и знаков "-" "_"');
+            return;
+        }
+        if (password.length < 6) {
+            errorModal.showModal('Слишком короткий пароль');
+            return;
+        }
+        if (/^[!@#№%:^&?*()+="'};.~{,_<>]+$/.test(firstName + middleName + surname)) {
+            errorModal.showModal('Поля имя, фамилия и отчество, не могут содержать спецсимволы кроме "`" "-"');
+            return;
+        }
+        if (!/^((([0-9A-Za-z]{1}[-0-9A-z\.]{1,}[0-9A-Za-z]{1})|([0-9А-Яа-я]{1}[-0-9А-я\.]{1,}[0-9А-Яа-я]{1}))@([-0-9A-Za-z]{1,}\.){1,2}[-A-Za-z]{2,})$/.test(email)) {
+            errorModal.showModal('Почта введена неправильно.');
+            return;
+        }
+        if (password !== confirmPassword) {
+            errorModal.showModal('Пароли не совпадают.');
+            return;
+        }
+
         loaderModal.showModal()
-        backend.Account.Register({
-            Login: login,
-            Password: password,
-            FirstName: firstName,
-            LastName: lastName,
-            MiddleName: middleName,
-            ConfirmPassword: confirmPassword,
-            Email: email
-        })
+        backend.Account
+            .Register({
+                Login: login,
+                Password: password,
+                FirstName: firstName,
+                LastName: surname,
+                MiddleName: middleName,
+                ConfirmPassword: confirmPassword,
+                Email: email
+            })
             .then((token) => {
                 localStorage.setItem('token', token)
                 window.location.href = '/login'
@@ -62,44 +71,44 @@ export default () => {
 
     return (<>
         <div className={styles.logContainer}>
-            <label className={styles.logLabel}>{translations[currentLang].firstname}</label>
+            <label className={styles.logLabel}>{translations[lang].firstname}</label>
             <input className={styles.regLogInput} type="text" required
                    value={firstName} onChange={e => setFirstName(e.target.value)}
             />
 
-            <label className={styles.logLabel}>{translations[currentLang].surname}</label>
+            <label className={styles.logLabel}>{translations[lang].surname}</label>
             <input className={styles.regLogInput} type="text" required
-                   value={lastName} onChange={e => setLastName(e.target.value)}
+                   value={surname} onChange={e => setSurname(e.target.value)}
             />
 
-            <label className={styles.logLabel}>{translations[currentLang].lastname}</label>
+            <label className={styles.logLabel}>{translations[lang].middleName}</label>
             <input className={styles.regLogInput} type="text" required
                    value={middleName} onChange={e => setMiddleName(e.target.value)}
             />
 
-            <label className={styles.logLabel}>{translations[currentLang].email}</label>
+            <label className={styles.logLabel}>{translations[lang].email}</label>
             <input className={styles.regLogInput} type="text" required
                    value={email} onChange={e => setEmail(e.target.value)}
             />
 
-            <label className={styles.logLabel}>{translations[currentLang].login}</label>
+            <label className={styles.logLabel}>{translations[lang].login}</label>
             <input className={styles.regLogInput} type="text" required
                    value={login} onChange={e => setLogin(e.target.value)}
             />
 
-            <label className={styles.logLabel}>{translations[currentLang].password}</label>
+            <label className={styles.logLabel}>{translations[lang].password}</label>
             <input className={styles.regLogInput} type="password" required
                    value={password} onChange={e => setPassword(e.target.value)}
             />
 
-            <label className={styles.logLabel}>{translations[currentLang].confirmpassword}</label>
+            <label className={styles.logLabel}>{translations[lang].confirmpassword}</label>
             <input className={styles.regLogInput} type="password" required
                    value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)}
             />
 
             <label className={styles.logLabelUnnessesary}>
-                {translations[currentLang].condition}
-                <div className={styles.logLabelUnnessesaryLabel}>{translations[currentLang].unnesessaryfield}</div>
+                {translations[lang].condition}
+                <div className={styles.logLabelUnnessesaryLabel}>{translations[lang].unnesessaryfield}</div>
             </label>
             <select className={styles.banksSelect}>
                 <option value="bank0">BilimBank</option>
@@ -108,7 +117,7 @@ export default () => {
             </select>
             <button type="submit" className={styles.registerBtn}
                     onClick={() => onRegister()}>
-                {translations[currentLang].endreg}
+                {translations[lang].endreg}
             </button>
         </div>
     </>)
