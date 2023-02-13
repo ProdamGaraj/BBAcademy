@@ -23,10 +23,10 @@ public class ExamController : Controller
 
     [HttpPost]
     [Authorize]
-    public async Task<ActionResult> SaveCourseExamResults([FromBody] SaveCourseExamResultsDto dto)
+    public async Task<ActionResult<SaveCourseExamResultsResult>> SaveCourseExamResults([FromBody] SaveCourseExamResultsDto dto)
     {
         var userId = HttpContext.User.GetId();
-        await _examService.SaveCourseExamResults(userId, dto);
-        return Ok();
+        var result = await _examService.SaveCourseExamResults(userId, dto);
+        return Ok(result);
     }
 }

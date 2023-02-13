@@ -1,56 +1,41 @@
 import styles from './order.module.css';
 import backend from "backend";
+import translations from "../../translations";
+import {useContext} from "react";
+import LoaderModalContext from "../../contexts/loader-modal-context";
+import ErrorModalContext from "../../contexts/error-modal-context";
+import LangContext from "../../contexts/lang-context";
 
 export default (props) => {
+
+    let lang = useContext(LangContext).lang
+
     const course = props.course;
 
-    const  removeItem = () => {
+    const removeItem = () => {
         props.onCourseRemoved(course.id);
     }
 
-    function computeLessonsString(count) {
-        const remainder = count % 10;
-
-        if (remainder === 1) {
-            return count + ' урок'
-        }
-
-        if (1 < remainder && remainder < 6) {
-            return count + ' урока'
-        }
-
-        return count + ' уроков'
-    }
-
-    function computeHoursString(count) {
-        const remainder = count % 10;
-
-        if (remainder === 1) {
-            return count + ' час'
-        }
-
-        if (1 < remainder && remainder < 5) {
-            return count + ' часа'
-        }
-
-        return count + ' часов'
-    }
-
     return (
-        <div className={styles.orderContainer} tabIndex={0}>
-            <img alt="" aria-hidden="true" role="presentation" src="/img/perec-percovich.png"/>
+        <div className={styles.courseCard}>
+            <img className={styles.cardImage} src={course.mediaPath} alt=""/>
+            <div className={styles.cardInfoFlex}>
+                <div className={styles.cardTextBlock}>
+                    <div className={styles.cardTitle}>{course.title}</div>
+                    <div className={styles.cardDescription}>{course.description}</div>
+                </div>
+                <div className={styles.cardInfoBlock}>
+                    <img src="/img/Account/bell.svg" alt=""/>
+                    <div className={styles.cardInfoText}>{course.lessonsCount} уроков</div>
+                    <div className={styles.cardInfoText}>{course.durationHours} часов</div>
 
-            <div className={styles.orderInfoContainer}>
-                <h3>{course.name}</h3>
-                <p>{course.description}</p>
+                    <span
+                        className={styles.cardButton + ' ' + styles.cardButtonRed}
+                        onClick={() => props.onCourseRemoved(course.id)}>
+                        {translations[lang].inkart}
+                    </span>
+                </div>
             </div>
-
-            <div className={styles.courseStats}>
-                <h6>{computeLessonsString(course.lessonsCount)}</h6>
-                <h6>{computeHoursString(course.durationHours)}</h6>
-            </div>
-
-            <button onClick={removeItem} tabIndex={0} className={styles.deleteOrder}>x</button>
         </div>
     );
 }

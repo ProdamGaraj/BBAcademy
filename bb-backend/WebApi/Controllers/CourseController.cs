@@ -22,7 +22,8 @@ public class CourseController : Controller
     [Authorize]
     public async Task<ActionResult<GetCourseForLearningDto>> GetForLearning(long id)
     {
-        var result = await _courseService.GetForLearning(id);
+        var userId = HttpContext.User.GetId();
+        var result = await _courseService.GetForLearning(id, userId);
 
         return Ok(result);
     }

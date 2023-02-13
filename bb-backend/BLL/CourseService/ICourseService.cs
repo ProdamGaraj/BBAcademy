@@ -8,7 +8,7 @@ namespace BLL.CourseService
 {
     public interface ICourseService
     {
-        Task<GetCourseForLearningDto> GetForLearning(long courseId);
+        Task<GetCourseForLearningDto> GetForLearning(long courseId, long userId);
         Task<long> SaveCourseEdit(SaveCourseEditDto editDto);
         Task<ICollection<CourseForDashboardDto>> GetCoursesForDashboard(long userId);
         Task<ICollection<CourseForCartDto>> GetCartedCoursesForUser(long userId);

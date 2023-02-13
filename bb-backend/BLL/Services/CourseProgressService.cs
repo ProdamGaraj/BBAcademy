@@ -34,12 +34,38 @@ public class CourseProgressService : ICourseProgressService
         await TransitionToState(courseId, userId, CourseProgressState.Bought);
     }
 
-    public async Task TransitionToPassed(long courseId, long userId)
+    public async Task TransitionToBought(ICollection<long> courseId, long userId)
     {
-        await TransitionToState(courseId, userId, CourseProgressState.Passed);
+        await TransitionBulkToState(courseId, userId, CourseProgressState.Bought);
     }
 
-    private async Task TransitionToState(long courseId, long userId, CourseProgressState state)
+    public async Task TransitionToPassed(long courseId, long userId, string certName)
+    {
+        await TransitionToState(courseId, userId, CourseProgressState.Passed, certName);
+    }
+
+    private async Task TransitionBulkToState(ICollection<long> courseIds, long userId, CourseProgressState state)
+    {
+        try
+        {
+            var courseProgresses = await _repository.GetAll()
+                .Where(c => c.UserId == userId && courseIds.Contains(c.CourseId))
+                .ToListAsync();
+
+            foreach (var courseProgress in courseProgresses)
+            {
+                courseProgress.State = state;
+            }
+
+            await _repository.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            throw new BusinessException("Failed TransitionToCart", ex);
+        }
+    }
+
+    private async Task TransitionToState(long courseId, long userId, CourseProgressState state, string certName = null)
     {
         try
         {
@@ -51,12 +77,13 @@ public class CourseProgressService : ICourseProgressService
                 courseProgress = new CourseProgress()
                 {
                     UserId = userId,
-                    CourseId = courseId
+                    CourseId = courseId,
                 };
                 _repository.Add(courseProgress);
             }
 
             courseProgress.State = state;
+            courseProgress.CertificateName = certName;
 
             await _repository.SaveChangesAsync();
         }

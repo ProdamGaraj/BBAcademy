@@ -151,6 +151,21 @@ export default {
             })
 
             return response.data;
+        },
+        GetCertificate: async (name) => {
+            let response = await axios.get(baseurl + '/Certificate/GetCertificate', {
+                params: {
+                    name: name
+                },
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                },
+                responseType: 'blob',
+                withCredentials: true,
+                validateStatus
+            })
+
+            return response.data;
         }
     }
 }

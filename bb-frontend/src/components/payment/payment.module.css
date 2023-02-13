@@ -84,6 +84,9 @@
     line-height: 23px;
     color: rgba(0, 0, 0, 0.6);;
 }
+.totalInfoCard h4 span {
+    white-space: nowrap;
+}
 .totalInfoCard button {
     background: #0093DC;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);

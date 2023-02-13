@@ -67,8 +67,6 @@ export default (props) => {
         setCourse({...course, exam: e});
     };
     const onSubmitExam = () => {
-        // alert('SUBMIT EXAM NOT IMPLEMENTED')
-
         loaderModal.showModal()
         backend.Exam.SaveCourseExamResults({
             courseId: course.id,
@@ -77,8 +75,14 @@ export default (props) => {
                 selectedAnswerIds: q.selectedAnswerIndices?.map(i => q.answerOptions[i].id) ?? []
             }))
         })
-            .then(() => {
-                switchToCert()
+            .then(({passed, certName}) => {
+                if (passed) {
+                    setCourse({...course, certName: certName})
+                    switchToCert()
+                }
+                else {
+                    errorModal.showModal('К сожалению, вы не прошли экзамен, попробуйте ещё раз')
+                }
             })
             .catch(e => errorModal.showModal(e.response.data.error))
             .finally(() => loaderModal.close())
@@ -105,7 +109,7 @@ export default (props) => {
                 )
             case CERT_MODE:
                 return (
-                    <div>CERT VIEW IS NOT IMPLEMENTED</div>
+                    <div>Here should be cert view for {course.certName}</div>
                 )
             default:
                 return 'UNKNOWN LAYOUT MODE'

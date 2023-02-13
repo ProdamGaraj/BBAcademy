@@ -1,20 +1,34 @@
-﻿using BLL.Models.GetCoursesForCart;
+﻿using BLL.CourseService;
+using BLL.Models.GetCoursesForCart;
 using BLL.Services.Interfaces;
+using Infrastructure.Models;
+using Infrastructure.Models.Enum;
+using Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace BLL.CartService;
 
 public class CartService : ICartService
 {
-    private ICourseProgressService _courseProgressService;
+    private readonly IRepository<Course> _courseRepository;
+    private readonly ICourseProgressService _courseProgressService;
 
-    public CartService(ICourseProgressService courseProgressService)
+    public CartService(ICourseProgressService courseProgressService, IRepository<Course> courseRepository)
     {
         _courseProgressService = courseProgressService;
+        _courseRepository = courseRepository;
     }
 
-    public Task Checkout(long userId)
+    public async Task Checkout(long userId)
     {
-        throw new NotImplementedException();
+        var courses = await _courseRepository.GetAll()
+            .Where(c => c.CourseProgresses.Any(p => p.State == CourseProgressState.InCart && p.UserId == userId))
+            .Select(c => c.Id)
+            .ToListAsync();
+
+        // TODO: Actually calculate total and return acquiring url
+
+        await _courseProgressService.TransitionToBought(courses, userId);
     }
 
     public async Task AddCourse(long courseId, long userId)

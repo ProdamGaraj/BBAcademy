@@ -34,7 +34,7 @@ export default () => {
         backend.Course.GetForDashboard()
             .then(response => {
                 setAllCourses(response)
-                setVisibleCourses(response)
+                setVisibleCourses(response.filter(c => c.state === Unknown))
             })
             .catch(e => errorModal.showModal(e.message))
             .finally(() => loaderModal.close())
@@ -66,7 +66,7 @@ export default () => {
 
     function showAll() {
         setMode(MODE_ALL)
-        setVisibleCourses(allCourses)
+        setVisibleCourses(allCourses.filter(c => c.stack === Unknown))
     }
 
     function showBought() {
@@ -84,18 +84,18 @@ export default () => {
             <MainNavigator/>
             <div className={styles.filterContainer}>
                 <div className={styles.filterButtonsContainer}>
-                    <span className={styles.filterElement} onClick={() => showAll()}>
+                    <span className={styles.filterElement + (mode === MODE_ALL ? ' ' + styles.filterActive: '')} onClick={() => showAll()}>
                         <span>
                             {translations[lang].allcourses}
                         </span>
                     </span>
-                    <span className={styles.filterElement} onClick={() => showBought()}>
+                    <span className={styles.filterElement + (mode === MODE_BOUGHT ? ' ' + styles.filterActive: '')} onClick={() => showBought()}>
                         <img className={styles.filterIcon} src="/img/Account/book-open.svg" alt=""/>
                         <span>
                             {translations[lang].startedcourses}
                         </span>
                     </span>
-                    <span className={styles.filterElement} onClick={() => showPassed()}>
+                    <span className={styles.filterElement + (mode === MODE_PASSED ? ' ' + styles.filterActive: '')} onClick={() => showPassed()}>
                         <img className={styles.filterIcon} src="/img/Account/sber.svg" alt=""/>
                         <span>
                             {translations[lang].passedcourses}
@@ -130,6 +130,19 @@ export default () => {
                                         className={styles.cardButton + ' ' + styles.cardButtonRed}
                                         onClick={() => removeFromCart(item.id)}>
                                         {translations[lang].inkart}
+                                    </span> : ''
+                                }
+                                {mode === MODE_BOUGHT ?
+                                    <span
+                                        className={styles.cardButton}
+                                        onClick={() => window.location.href = '/learning?id=' + item.id}>
+                                        {translations[lang].start}
+                                    </span> : ''
+                                }
+                                {mode === MODE_PASSED ?
+                                    <span
+                                        className={styles.cardButton + ' ' + styles.cardButtonDisabled}>
+                                        {translations[lang].start}
                                     </span> : ''
                                 }
                             </div>

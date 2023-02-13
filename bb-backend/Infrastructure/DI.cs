@@ -35,7 +35,7 @@ public static class DI
             context.Users.Add(
                 new User()
                 {
-                    Login = "azaza",
+                    Login = "azaza1",
                     PasswordHash = PasswordHasher.GetPasswordHash("azaza123"),
                     Email = "azaza@zaza.aza",
                     Organisation = "Gryadka",
@@ -60,7 +60,7 @@ public static class DI
                     DurationHours = 10,
                     CertificateTemplate = new CertificateTemplate()
                     {
-                        MediaPath = "/templates/template1.pdf",
+                        MediaPath = "/mounted/templates/cert.pdf",
                         CreatedAt = DateTime.UtcNow
                     },
                     Lessons = new List<Lesson>()
@@ -101,7 +101,7 @@ public static class DI
                     {
                         Title = "Example EXAM",
                         CreatedAt = DateTime.UtcNow,
-                        MinimumPassingGrade = 99,
+                        MinimumPassingGrade = 8, // total 10
                         Questions = new List<Question>()
                         {
                             new Question()
@@ -118,14 +118,14 @@ public static class DI
                                         Title = "Answer Option CORRECT",
                                         IsCorrect = true,
                                         CreatedAt = DateTime.UtcNow,
-                                        Weight = 100
+                                        Weight = 6
                                     },
                                     new AnswerOption()
                                     {
                                         Title = "Answer Option INCORRECT",
                                         IsCorrect = false,
                                         CreatedAt = DateTime.UtcNow,
-                                        Weight = 100
+                                        Weight = 0
                                     },
                                 }
                             },
@@ -144,7 +144,7 @@ public static class DI
                                         Title = "Answer Option opt1 correct",
                                         IsCorrect = true,
                                         CreatedAt = DateTime.UtcNow,
-                                        Weight = 100
+                                        Weight = 2
                                     },
                                     new AnswerOption()
                                     {
@@ -152,7 +152,7 @@ public static class DI
                                         Title = "Answer Option opt2 correct",
                                         IsCorrect = true,
                                         CreatedAt = DateTime.UtcNow,
-                                        Weight = 100
+                                        Weight = 2
                                     },
                                     new AnswerOption()
                                     {
@@ -160,7 +160,7 @@ public static class DI
                                         Title = "Answer Option opt3 incorrect",
                                         IsCorrect = false,
                                         CreatedAt = DateTime.UtcNow,
-                                        Weight = 100
+                                        Weight = 0
                                     },
                                 }
                             }
