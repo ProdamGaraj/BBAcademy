@@ -98,6 +98,7 @@
     border-radius: 50%;
 }
 
+
 .loginButton {
     display: flex;
     flex-direction: row;
@@ -126,9 +127,10 @@
 
     text-decoration: none;
     user-select: none;
+
+    cursor: pointer;
 }
 
 .loginButton:hover {
     background-color: #33A9E3;
 }
-

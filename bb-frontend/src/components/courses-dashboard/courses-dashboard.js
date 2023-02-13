@@ -66,7 +66,7 @@ export default () => {
 
     function showAll() {
         setMode(MODE_ALL)
-        setVisibleCourses(allCourses.filter(c => c.stack === Unknown))
+        setVisibleCourses(allCourses.filter(c => c.state === Unknown))
     }
 
     function showBought() {

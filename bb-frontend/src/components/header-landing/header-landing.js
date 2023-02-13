@@ -21,9 +21,6 @@ export default (props) => {
         else if (!isLogin) {
             window.location.href = '/login'
         }
-        else {
-            window.location.href = '/register'
-        }
     };
     const tryNavigateToRegister = () => {
         localStorage.removeItem('token');
