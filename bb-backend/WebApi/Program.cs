@@ -1,5 +1,7 @@
 ﻿using System.Text;
 using BLL.AccountService;
+using BLL.CartService;
+using BLL.CertificateService;
 using BLL.CourseService;
 using BLL.ExamService;
 using BLL.Models.Configs;
@@ -45,9 +47,12 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddDb(builder.Configuration);
 
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<ICertificateService, CertificateService>();
 builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<IExamService, ExamService>();
 builder.Services.AddScoped<ICourseProgressService, CourseProgressService>();
+builder.Services.AddScoped<ILessonService, LessonService>();
 
 builder.Services.AddSpaStaticFiles(opt => opt.RootPath = builder.Environment.WebRootPath);
 

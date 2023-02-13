@@ -18,7 +18,7 @@ namespace WebApi.Controllers
             _certificateService = certificateService;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Authorize]
         public async Task<ActionResult<ICollection<CertificateOutDto>>> GetAllForDashboard()
         {
