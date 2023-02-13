@@ -14,6 +14,15 @@ export default (props) => {
 
     let isLogin = window.location.pathname.endsWith('/login')
 
+    const tryNavigateToLogin = () => {
+        if (localStorage.getItem('token') !== null) {
+            window.location.href = '/courses'
+        }
+        else{
+            window.location.href = '/login'
+        }
+    };
+
     return (<>
         <header className={styles.headerWrapper}>
             <div className={styles.headerContainer}>
@@ -24,16 +33,18 @@ export default (props) => {
                 <div className={styles.headerContainerRightSection}>
                     <div className={styles.headerContainerRightSectionLang}>
                         <div className={styles.headerContainerRightSectionLangElement}>
-                            <span className={styles.headerLangElement + (lang === 'uz' ? (' ' + styles.langSelected) : '')}
-                                  onClick={() => changeLang('uz')}>uz</span>
+                            <span
+                                className={styles.headerLangElement + (lang === 'uz' ? (' ' + styles.langSelected) : '')}
+                                onClick={() => changeLang('uz')}>uz</span>
                         </div>
                         <div className={styles.headerContainerRightSectionLangElement}>
-                            <span className={styles.headerLangElement + (lang === 'ru' ? (' ' + styles.langSelected) : '')}
-                                  onClick={() => changeLang('ru')}>ru</span>
+                            <span
+                                className={styles.headerLangElement + (lang === 'ru' ? (' ' + styles.langSelected) : '')}
+                                onClick={() => changeLang('ru')}>ru</span>
                         </div>
                     </div>
-                    <a className={styles.headerContainerRightSectionLogin}
-                       href={(isLogin ? '/register' : '/login')}>{translations[lang][(isLogin ? 'reg' : 'enter')]}</a>
+                    <span className={styles.headerContainerRightSectionLogin}
+                          onClick={() => tryNavigateToLogin()}>{translations[lang][(isLogin ? 'reg' : 'enter')]}</span>
                 </div>
             </div>
         </header>

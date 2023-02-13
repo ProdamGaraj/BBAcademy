@@ -22,7 +22,7 @@ export default ({exam, onUpdated, onSubmitExam}) => {
         onUpdated(duplicate)
     };
     const onMultiAnswerIndicesChange = (question, answerIndices) => {
-        console.log('multi answer change: ', answerIndices)
+        // console.log('multi answer change: ', answerIndices)
         let duplicate = {
             ...exam,
             questions: exam.questions.map(q => q.id === question.id ? ({

@@ -32,7 +32,7 @@
         'prev': "Orqaga",
         'send': "Tugatish",
         'end': "Xulosa",
-        'congratz': "Tabriklaymiz! Siz “Yangilar uchun Investitsiya” kursini tamomladingiz",
+        'congratz': (title) => `Tabriklaymiz! Siz “${title}” kursini tamomladingiz`,
         'incart': "Savatchaga qo'shish",
         'introduction': "Kirish",
 
@@ -139,7 +139,7 @@
         'prev': "Назад",
         'send': "Отправить",
         'end': "Заключение",
-        'congratz': "Поздравляем! Вы завершили курс Инвестиции для начинающих",
+        'congratz': (title) => `Поздравляем! Вы завершили курс "${title}"`,
         'incart': "В корзину",
 
         'introduction': "Введение",

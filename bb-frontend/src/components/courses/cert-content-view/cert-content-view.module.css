@@ -1,0 +1,65 @@
+﻿.contentContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    gap: 24px;
+}
+
+.contentHeading {
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 28px;
+
+    display: flex;
+    width: 100%;
+}
+
+.contentText {
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+
+    width: 100%;
+}
+
+.certImageContainer {
+    align-self: flex-start;
+}
+
+.certImage {
+    height: 362px;
+}
+.certDownloadButton {
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+
+    color: #FFFFFF;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    width: 172px;
+    height: 27px;
+
+    background: #0093DC;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
+    border-radius: 55px;
+
+    cursor: pointer;
+    user-select: none;
+}
+
+.buttonsWrapper {
+    display: flex;
+    margin-top: 20px;
+    gap: 20px;
+    align-self: flex-start;
+}
