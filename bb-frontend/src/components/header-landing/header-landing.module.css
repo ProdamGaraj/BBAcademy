@@ -3,13 +3,14 @@
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
     justify-content: center;
     width: 100%;
-    padding: 32px 0;
+    padding: 24px 0;
     box-sizing: border-box;
 }
 
 .headerContainer{
     display: flex;
-    width: 1250px;
+    width: 1320px;
+    justify-content: space-between;
 }
 
 .headerLang {
@@ -43,7 +44,8 @@
 .headerContainerLeftSection {
     display: flex;
     flex-direction: row;
-    margin-right: auto;
+    user-select: none;
+    cursor: pointer;
 }
 
 .headerContainerLeftSectionText {
@@ -60,16 +62,14 @@
 }
 
 .headerContainerRightSection {
-    margin-left: auto;
     display: flex;
     flex-direction: row;
-
+    gap: 10px;
 }
 
 .headerContainerRightSectionLang {
     display: flex;
     align-items: center;
-    margin-right: 70px;
 }
 
 .headerContainerRightSectionLangElement {
@@ -90,16 +90,13 @@
     cursor: pointer;
 }
 
-.headerContainerRightSectionLogin {
+.loginButton {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     padding: 8px 47px;
     gap: 10px;
-
-    width: 113px;
-    height: 36px;
 
     /* primary_ver_1 */
 
@@ -120,8 +117,21 @@
     color: #FFFFFF;
 
     text-decoration: none;
+    user-select: none;
+    
+    cursor: pointer;
 }
 
-.headerContainerRightSectionLogin:hover {
+.loginButton:hover {
     background-color: #33A9E3;
+}
+
+.regButton {
+    color: #0093DC;
+    border: 4px solid #0093DC;
+    background: white;
+}
+.regButton:hover {
+    background: #0093DC;
+    color: white;
 }

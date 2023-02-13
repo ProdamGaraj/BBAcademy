@@ -39,7 +39,7 @@ export default (props) => {
                 console.log('Authorized: ' + token)
                 window.location.href = '/courses'
             })
-            .catch(e => errorModal.showModal(e.response.data.error))
+            .catch(e =>  errorModal.showModal(e.response.data.error))
             .finally(() => loaderModal.close())
     }
 
@@ -54,7 +54,7 @@ export default (props) => {
                    className={styles.loginInput}
                    type="password"/>
             <div className="d-grid gap-2 d-md-block float-right">
-                <div className={styles.loginBtn} onClick={() => onLogin()}>{translations[currentLang].enter}</div>
+                <div className={styles.loginBtn} onClick={() => onLogin()}>{translations[currentLang].exit}</div>
             </div>
         </div>
     </>)

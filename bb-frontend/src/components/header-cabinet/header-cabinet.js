@@ -12,6 +12,11 @@ export default (props) => {
         langContext.setLang(lng)
     }
 
+    const dropTokenNavigateToLogin = () => {
+        localStorage.removeItem('token');
+        window.location.href = '/login'
+    };
+
     return (<>
         <header className={styles.headerContainer}>
             <a className={styles.leftContainer} href="/">
@@ -37,7 +42,9 @@ export default (props) => {
                 </a>
                 <a href="/payment"><img src="/img/Account/shop.svg" alt="logo"/></a>
                 <img src="/img/Shared/bell.svg" alt="logo"/>
-                <img src="/img/perec-percovich.png" className={styles.userMiniAvatar} alt="logo"/>
+
+                <span className={styles.headerContainerRightSectionLogin}
+                      onClick={() => dropTokenNavigateToLogin()}>{translations[lang].exit}</span>
             </div>
         </header>
     </>)

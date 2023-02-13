@@ -4,13 +4,14 @@
         'saveAnswerandreturntoQuestion': "Javobni saqlang va Savolga qayting",
         'devpage': "Sahifa ishlab chiqilmoqda",
         'enter': "Tizimga kirish",
+        'exit': "Chiqish",
         'mycourse': "Mening kurslaring",
         'myrecom': "Mening tavsiyalarim",
         'rating': "Reyting",
         'allcourses': "Barchasi kurslar",
         'passedcourses': "Tugallanganlari",
         'start': "Sotib olish",
-        'startedcourses': "Started courses",
+        'startedcourses': "Jarayonda",
         'inkart': "Savatdan olib tashlang",
 
         'firstname': "Ism",
@@ -111,6 +112,7 @@
         'devpage': "Страница находится в разработке",
 
         'enter': "Войти",
+        'exit': "Выход",
         'mycert': "Мои сертификаты",
         'mycourse': "Мои курсы",
         'myrecom': "Мои рекомендации",

@@ -9,6 +9,7 @@ axios.interceptors.response.use(v => v, e => {
         localStorage.removeItem('token')
         window.location.href = '/login'
     }
+    return Promise.reject(e)
 })
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
