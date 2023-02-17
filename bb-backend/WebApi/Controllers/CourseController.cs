@@ -1,4 +1,5 @@
-﻿using BLL.CourseService;
+﻿using System.ComponentModel.DataAnnotations;
+using BLL.CourseService;
 using BLL.Models.GetCourseForLearning;
 using BLL.Models.GetCoursesForDashboard;
 using Microsoft.AspNetCore.Authorization;
@@ -20,7 +21,7 @@ public class CourseController : Controller
 
     [HttpPost]
     [Authorize]
-    public async Task<ActionResult<GetCourseForLearningDto>> GetForLearning(long id)
+    public async Task<ActionResult<GetCourseForLearningDto>> GetForLearning([Required] long id)
     {
         var userId = HttpContext.User.GetId();
         var result = await _courseService.GetForLearning(id, userId);

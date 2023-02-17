@@ -18,7 +18,10 @@ export default {
             return response.data;
         },
         GetForLearning: async (courseId) => {
-            let response = await axios.post(`${baseurl}/Course/GetForLearning?id=${courseId}`, {}, {
+            let response = await axios.post(`${baseurl}/Course/GetForLearning`, {}, {
+                params: {
+                    id: courseId
+                },
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('token')
                 },
@@ -116,20 +119,6 @@ export default {
     Exam: {
         SaveCourseExamResults: async (data) => {
             let response = await axios.post(baseurl + '/Exam/SaveCourseExamResults', data, {
-                headers: {
-                    Authorization: 'Bearer ' + localStorage.getItem('token')
-                },
-                withCredentials: true,
-                validateStatus
-            })
-
-            return response.data;
-        },
-        GetByCourse: async (courseId) => {
-            let response = await axios.post(baseurl + '/Exam/GetByCourse', {}, {
-                params: {
-                    id: courseId
-                },
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('token')
                 },
