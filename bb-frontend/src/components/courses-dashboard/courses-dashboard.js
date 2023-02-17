@@ -103,7 +103,7 @@ export default () => {
                     </span>
                 </div>
 
-                <img src="/img/Account/sort.svg" alt=""/>
+                {/*<img src="/img/Account/sort.svg" alt=""/>*/}
             </div>
 
             <div className={styles.coursesListWrapper}>

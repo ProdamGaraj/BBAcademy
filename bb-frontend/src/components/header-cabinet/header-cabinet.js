@@ -41,7 +41,7 @@ export default (props) => {
                     </div>
                 </a>
                 <a href="/payment"><img src="/img/Account/shop.svg" alt="logo"/></a>
-                <img src="/img/Shared/bell.svg" alt="logo"/>
+                {/*<img src="/img/Shared/bell.svg" alt="logo"/>*/}
 
                 <span className={styles.loginButton}
                       onClick={() => dropTokenNavigateToLogin()}>{translations[lang].exit}</span>

@@ -71,7 +71,7 @@ export default () => {
             </div>
 
 
-            <div className={styles.categoryAndPopular}>
+            {/*<div className={styles.categoryAndPopular}>
                 <div className={styles.category}>
                     <div className={styles.categoryTop}>
                         <div className={styles.categoryTopLeft}>{translations[lang].categories}</div>
@@ -159,17 +159,18 @@ export default () => {
                 <button className={styles.showMore}>
                     {translations[lang].showMore}
                 </button>
-            </div>
+            </div>*/}
             <div className={styles.mobility}>
                 <div className={styles.mobilityLeft}>
                     <div className={styles.mobilityTitle}>{translations[lang].moreStability}</div>
                     <div className={styles.mobilityText}>{translations[lang].mobileApp}</div>
-                    <button className={styles.mobilityLeftDownload}>{translations[lang].download}</button>
+                    {/*<button className={styles.mobilityLeftDownload}>{translations[lang].download}</button>*/}
                 </div>
                 <div className={styles.mobilityRight}>
                     <img src="/img/Home/Mask group.png" alt=""/>
                 </div>
             </div>
+            {/*
             <div className={styles.partners}>
                 <div className={styles.partnersTop}>{translations[lang].ourPartners}</div>
                 <div className={styles.partnersPhotoBlock}>
@@ -180,7 +181,7 @@ export default () => {
                     <img className={styles.partnersPhoto} src="/img/Home/partn.png" alt=""/>
                     <img className={styles.partnersPhoto} src="/img/Home/partn.png" alt=""/>
                 </div>
-            </div>
+            </div>*/}
 
         </main>
     </>)

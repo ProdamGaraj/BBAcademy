@@ -8,7 +8,7 @@ export default () => {
     let lang = useContext(LangContext).lang
     return (
         <div className={styles.navigator}>
-            <NavLink to={"/courses"} className={styles.navigatorElement + " " + styles.navigatorElementClickable}>
+            {/*<NavLink to={"/courses"} className={styles.navigatorElement + " " + styles.navigatorElementClickable}>
                     <img src="/img/Account/user.svg" alt=""/>
                     <span>
                         {translations[lang].personalArea}
@@ -19,6 +19,6 @@ export default () => {
                     <span>
                         {translations[lang].mycourse}
                     </span>
-            </NavLink>
+            </NavLink>*/}
         </div>);
 };
