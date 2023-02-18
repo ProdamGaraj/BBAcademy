@@ -7,7 +7,6 @@ import LoaderModalContext from "../../contexts/loader-modal-context";
 import ErrorModalContext from "../../contexts/error-modal-context";
 import UserLeftLayout from "../user-left-layout/user-left-layout";
 import MainNavigator from "../main-navigator/main-navigator";
-import {NavLink} from "react-router-dom";
 
 const Unknown = 1
 const Bought = 2
@@ -117,8 +116,8 @@ export default () => {
                             </div>
                             <div className={styles.cardInfoBlock}>
                                 <img src="/img/Account/bell.svg" alt=""/>
-                                <div className={styles.cardInfoText}>{item.lessonsCount} уроков</div>
-                                <div className={styles.cardInfoText}>{item.durationHours} часов</div>
+                                <span className={styles.cardInfoText}>{item.lessonsCount} уроков</span>
+                                <span className={styles.cardInfoText}>{item.durationHours} часов</span>
                                 {mode === MODE_ALL && item.state !== InCart ?
                                     <span
                                         className={styles.cardButton}

@@ -26,3 +26,9 @@
 .navigatorElementClickable:hover {
     color: #0093DC;
 }
+
+@media only screen and (max-width: 1340px) {
+    .navigator {
+        margin-bottom: 0;
+    }
+}

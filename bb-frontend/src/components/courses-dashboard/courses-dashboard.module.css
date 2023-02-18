@@ -66,6 +66,8 @@
     max-width: 200px;
     width: auto;
     height: auto;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
 }
 
 .cardInfoFlex {
@@ -156,4 +158,68 @@
 
 .cardButtonRed {
     background: #FF6565;
+}
+
+@media only screen and (max-width: 1340px) {
+    .filterContainer {
+        padding: 1rem 12px;
+        height: auto;
+    }
+
+    .filterElement {
+        height: auto;
+    }
+
+    .courseCard {
+        width: auto;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .courseCard {
+        flex-wrap: wrap;
+        height: auto;
+    }
+
+    .cardImage {
+        border-bottom-left-radius: 0;
+    }
+}
+
+@media only screen and (max-width: 520px) {
+    .filterButtonsContainer {
+        gap: 0;
+    }
+}
+
+@media only screen and (max-width: 460px) {
+    .cardInfoFlex {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    .cardInfoBlock {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        grid-template-rows: 1fr 1fr;
+    }
+    .cardInfoBlock{
+        text-align: center;
+    }
+    .cardButton {
+        grid-column-start: 1;
+        grid-column-end: 3;
+        grid-row-start: 2;
+    }
+
+    .cardInfoBlock > img {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 445px) {
+    .filterButtonsContainer {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
 }

@@ -1,9 +1,19 @@
-﻿
+﻿@keyframes fade-inside {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+
 .userDataLeft {
     min-width: 255px;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    transition: 1s;
 }
 
 .profileHeader {
@@ -57,4 +67,83 @@
 }
 .certA:hover{
     color: #0093DC;
+}
+
+.shortenNav {
+    min-height: 24px;
+    position: relative;
+}
+
+.shortenNavOpened {
+    position: absolute;
+    left: 0;
+    width: 200px !important;
+    background: white;
+    padding: 1rem;
+    box-shadow: rgb(38 57 77) 0 20px 30px -10px;
+}
+
+.shortenNavOpened span {
+    display: inline !important;
+    animation: fade-inside 1s ease-in;
+}
+
+.expandingButton {
+    display: none;
+}
+
+.expandingButton > img {
+    background-color: #5555fd;
+    box-sizing: border-box;
+    padding: 5px;
+    cursor: pointer;
+    transition: 1s;
+}
+.expandingButton:focus {
+    outline: none;
+}
+.expandingButton:focus > img {
+    outline: 2px solid black;
+}
+
+.closeInfoExpansion {
+    transform: rotate(180deg);
+}
+
+@media only screen and (max-width: 844px) {
+    .expandingButton {
+        display: inline;
+    }
+
+    .shortenNav span  {
+        display: none;
+    }
+
+    .shortenNav .profileHeader img {
+        width: auto;
+        height: 24px;
+    }
+
+    .shortenNav {
+        min-width: 24px;
+        box-sizing: border-box;
+        padding-top: 2rem;
+    }
+
+    .shortenNav .profileHeader {
+        margin-bottom: 0;
+    }
+
+    .shortenNav > div {
+        justify-content: center;
+    }
+
+    .userDataLeft {
+        position: absolute;
+        min-width: auto;
+    }
+}
+
+@media only screen and (max-width: 745px) {
+
 }
