@@ -13,7 +13,7 @@ export default () => {
     let lang = useContext(LangContext).lang
     const loaderModal = useContext(LoaderModalContext)
     const errorModal = useContext(ErrorModalContext)
-    
+
 
     const [courses, setCourses] = useState([]);
 
@@ -83,7 +83,7 @@ export default () => {
             <div className={styles.orderCompletion}>
                 <h1>{translations[lang].orderCompletion}</h1>
 
-                {/*<div className={styles.fieldWrapper}>
+                <div className={styles.fieldWrapper}>
                     <label htmlFor="email-for-receipt">{translations[lang].mailForReceipt}</label>
                     <input id="email-for-receipt" type="email"/>
                 </div>
@@ -91,7 +91,7 @@ export default () => {
                 <div className={styles.fieldWrapper}>
                     <label htmlFor="receiver">{translations[lang].Reciever}</label>
                     <input id="receiver" type="text"/>
-                </div>*/}
+                </div>
             </div>
 
             <div className={styles.totalInfoCard}>

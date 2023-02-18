@@ -6,7 +6,8 @@
     height: 150px;
 
     display: flex;
-    width: 935px;
+    /*width: 935px;*/
+    width: 100%;
 }
 
 .cardImage {
@@ -100,3 +101,42 @@
 .cardButtonRed {
     background: #FF6565;
 }
+
+
+@media only screen and (max-width: 700px) {
+    .courseCard {
+        flex-wrap: wrap;
+        height: auto;
+    }
+
+    .cardImage {
+        border-bottom-left-radius: 0;
+    }
+}
+
+@media only screen and (max-width: 460px) {
+    .cardInfoFlex {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    .cardInfoBlock {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        grid-template-rows: 1fr 1fr;
+    }
+    .cardInfoBlock{
+        text-align: center;
+    }
+    .cardButton {
+        grid-column-start: 1;
+        grid-column-end: 3;
+        grid-row-start: 2;
+    }
+
+    .cardInfoBlock > img {
+        display: none;
+    }
+}
+
+
