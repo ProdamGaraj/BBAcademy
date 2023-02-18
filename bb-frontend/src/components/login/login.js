@@ -9,7 +9,7 @@ import LoaderModalContext from "contexts/loader-modal-context";
 import ErrorModalContext from "contexts/error-modal-context";
 
 
-export default (props) => {
+export default (_) => {
     let currentLang = useContext(LangContext).lang
     let loaderModal = useContext(LoaderModalContext)
     let errorModal = useContext(ErrorModalContext)
@@ -45,12 +45,12 @@ export default (props) => {
 
     return (<>
         <div className={styles.logContainer}>
-            <label className={styles.logLabel}>{translations[currentLang].login}</label>
-            <input placeholder="" value={login} onChange={e => setLogin(e.target.value)}
+            <label form="login-input"  className={styles.logLabel}>{translations[currentLang].login}</label>
+            <input id="login-input" placeholder="" value={login} onChange={e => setLogin(e.target.value)}
                    className={styles.loginInput}
                    type="text"/>
-            <label className={styles.logLabel}>{translations[currentLang].password}</label>
-            <input placeholder="" value={password} onChange={e => setPassword(e.target.value)}
+            <label form="password-input" className={styles.logLabel}>{translations[currentLang].password}</label>
+            <input id="password-input" placeholder="" value={password} onChange={e => setPassword(e.target.value)}
                    className={styles.loginInput}
                    type="password"/>
             <div className="d-grid gap-2 d-md-block float-right">
