@@ -1,4 +1,89 @@
-﻿.headerContainer {
+﻿@keyframes sun-rise {
+    from {
+        transform: translateY(70%);
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.75;
+    }
+    65% {
+        transform: translateY(-45%);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+.navMenu {
+    display: flex;
+    flex-direction: column;
+    gap: 10vh;
+    box-sizing: border-box;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    padding-top: 130px;
+    opacity: .3;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 900;
+    transition-duration: 350ms;
+    transition-timing-function: ease-out;
+    transform: translateX(110%);
+    background-color: white;
+}
+
+.navMenuShown {
+    transform: translateX(0);
+    opacity: 1;
+}
+.navMenuShown span,
+.navMenuShown img {
+    animation-delay: 380ms;
+    animation-duration: .5s;
+    animation-name: sun-rise;
+    animation-fill-mode: backwards;
+}
+
+.menuTrigger {
+    background: none;
+    border: none;
+    outline: none;
+    display: none;
+    position: relative;
+    padding: 0;
+}
+
+.menuTrigger:focus {
+    outline: 1px solid #77bbfe;
+}
+.shownTrigger {
+    opacity: 1 !important;
+    position: absolute;
+    left: 0;
+    right: 0;
+    transform: rotate(360deg) !important;
+}
+
+.menuTrigger img {
+    max-height: 45px;
+    transition-delay: 300ms;
+    transition-duration: 300ms;
+    opacity: 0;
+}
+
+@media only screen and (max-width: 844px) {
+    .menuTrigger {
+        display: inline;
+    }
+}
+
+.headerContainer {
     display: flex;
     justify-content: space-between;
     box-shadow: none;
@@ -6,6 +91,7 @@
     background-color: #FAFAFA;
     padding: 10px 50px;
     box-sizing: border-box;
+    z-index: 999;
 }
 
 .leftContainer {
@@ -63,7 +149,7 @@
     font-weight: 400;
     font-size: 16px;
     line-height: 19px;
-    
+
     /* identical to box height */
 }
 
@@ -133,4 +219,31 @@
 
 .loginButton:hover {
     background-color: #33A9E3;
+}
+
+
+@media only screen and (max-width: 844px) {
+    .headerContainer {
+        justify-content: space-between;
+        padding: 24px 1rem;
+    }
+
+
+    .rightContainer {
+        display: none;
+    }
+
+    .headerLang {
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .allCoursesButton {
+        justify-content: center;
+    }
+
+    a {
+        text-align: center;
+    }
+
 }
