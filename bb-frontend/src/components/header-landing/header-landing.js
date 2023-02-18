@@ -1,5 +1,5 @@
 ﻿import translations from "translations";
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import LangContext from "contexts/lang-context";
 import styles from './header-landing.module.css'
 
@@ -13,6 +13,10 @@ export default () => {
     }
 
     const [menuOpened, setMenyOpened] = useState(false);
+
+    useEffect(() => {
+        document.querySelector('body').style.overflow = menuOpened ? 'hidden' : 'auto';
+    }, [menuOpened]);
 
     let isLogin = window.location.pathname.endsWith('/login')
 

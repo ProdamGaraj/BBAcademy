@@ -28,7 +28,7 @@
 .navMenu {
     display: flex;
     flex-direction: column;
-    gap: 5rem;
+    gap: 10vh;
     box-sizing: border-box;
     padding-right: 1rem;
     padding-left: 1rem;
@@ -86,7 +86,7 @@
     opacity: 0;
 }
 
-@media only screen and (max-width: 425px) {
+@media only screen and (max-width: 844px) {
     .menuTrigger {
         display: inline;
     }
@@ -224,7 +224,7 @@
 }
 
 
-@media only screen and (max-width: 425px) {
+@media only screen and (max-width: 844px) {
     .headerWrapper {
         justify-content: space-between;
         padding: 24px 1rem;
