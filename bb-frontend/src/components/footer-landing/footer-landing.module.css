@@ -88,3 +88,17 @@
     font-weight: 300;
     font-size: 20px;
 }
+
+@media only screen and (max-width: 844px) {
+    .footerTitleContainer {
+        align-self: flex-start;
+        margin-left: 24px;
+        width: auto;
+    }
+    .footerContentContainer {
+        width: auto;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        row-gap: 2rem;
+    }
+}
