@@ -23,12 +23,12 @@ let footerResolver = () => {
     return <FooterCabinet></FooterCabinet>
 }
 
-export default () => (
+export default (props) => (
     <>
         <div className={styles.verticalStretch}>
             {headerResolver()}
             <div className={styles.content}>
-                {/*{props.children}*/}
+                {props.children}
             </div>
             {footerResolver()}
         </div>

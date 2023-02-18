@@ -162,8 +162,8 @@ export default () => {
             </div>*/}
             <div className={styles.mobility}>
                 <div className={styles.mobilityLeft}>
-                    <div className={styles.mobilityTitle}>{translations[lang].moreStability}</div>
-                    <div className={styles.mobilityText}>{translations[lang].mobileApp}</div>
+                    <span className={styles.mobilityTitle}>{translations[lang].moreStability}</span>
+                    <span className={styles.mobilityText}>{translations[lang].mobileApp}</span>
                     {/*<button className={styles.mobilityLeftDownload}>{translations[lang].download}</button>*/}
                 </div>
                 <div className={styles.mobilityRight}>

@@ -86,7 +86,7 @@
     display: flex;
     max-width: 504px;
     background-color: #0093DC;
-    box-shadow: 0px 2px 7px 1px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 2px 7px 1px rgba(0, 0, 0, 0.25);
     border-radius: 16px;
     padding: 20px 20px;
 }
@@ -124,21 +124,21 @@
 
 .advRightCardTop{
     display: flex;
-    box-shadow: 0px 2px 7px 1px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 2px 7px 1px rgba(0, 0, 0, 0.25);
     border-radius: 16px;
     background-color: #004186;
 }
 .advRightCardMiddle{
     display: flex;
     min-height: 225px;
-    box-shadow: 0px 2px 7px 1px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 2px 7px 1px rgba(0, 0, 0, 0.25);
     border-radius: 16px;
     background-color: #02C59D;
 }
 .advRightCardBottom{
     display: flex;
     min-height: 225px;
-    box-shadow: 0px 2px 7px 1px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 2px 7px 1px rgba(0, 0, 0, 0.25);
     border-radius: 16px;
     background-color: #00AFB5;
 }
@@ -559,3 +559,108 @@ footer {
     align-items: center;
     width: 100%;
 }
+
+@media only screen and (max-width: 844px) {
+    .blockLearnIn {
+        scale: 0.6;
+        margin-top: -3rem;
+        height: 100vh;
+        margin-bottom: 10rem;
+    }
+}
+@media only screen and (max-width: 772px) {
+    .blockLearnIn {
+        scale: 0.5;
+        margin-top: -5rem;
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .blockLearnIn {
+        scale: 0.4;
+        margin-top: -6rem;
+    }
+}
+
+@media only screen and (max-width: 510px) {
+    .blockLearnIn {
+        scale: 0.3;
+        margin-top: -7rem;
+    }
+}
+@media only screen and (max-width: 390px) {
+    .blockLearnIn {
+        scale: 0.27;
+        margin-top: -4.5rem;
+        margin-left: -2rem;
+        height: 40vh;
+    }
+}
+
+
+@media only screen and (max-width: 844px) {
+    .advContainer {
+        width: 100%;
+        margin: 0;
+    }
+    .advTop {
+        text-align: center;
+    }
+    .advContentContainer {
+        flex-wrap: wrap;
+        box-sizing: border-box;
+        padding: 1rem;
+    }
+    .advContentContainer  img {
+        max-width: 80%;
+    }
+    .advRightCardTop,
+    .advRightCardMiddle,
+    .advRightCardBottom {
+        flex-wrap: wrap;
+    }
+
+    .advRightCardTop span,
+    .advRightCardMiddle span,
+    .advRightCardBottom span {
+        margin: 0 1rem 1rem;
+    }
+}
+
+@media only screen and (max-width: 844px) {
+    .mobility {
+        width: 100%;
+        flex-wrap: wrap;
+        height: auto;
+        margin-top: 0;
+    }
+    .mobilityTitle {
+        width: 100vw;
+        margin-top: 0;
+        padding: 1rem;
+        height: auto;
+        font-size: 6vw;
+        word-break: break-word;
+        white-space: normal;
+        box-sizing: border-box;
+        word-wrap: break-word;
+    }
+    .mobilityText {
+        box-sizing: border-box;
+        height: auto;
+        font-size: 4vw;
+        padding: 0 1rem 1rem;
+        word-break: break-word;
+        white-space: normal;
+        word-wrap: break-word;
+    }
+    .mobilityRight {
+        margin-top: 0;
+        display: flex;
+        justify-content: center;
+    }
+    .mobilityRight img {
+        width: 50%;
+    }
+}
+
