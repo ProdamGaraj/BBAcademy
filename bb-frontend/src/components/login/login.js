@@ -45,11 +45,11 @@ export default (_) => {
 
     return (<>
         <div className={styles.logContainer}>
-            <label form="login-input"  className={styles.logLabel}>{translations[currentLang].login}</label>
+            <label htmlFor="login-input" className={styles.logLabel}>{translations[currentLang].login}</label>
             <input id="login-input" placeholder="" value={login} onChange={e => setLogin(e.target.value)}
                    className={styles.loginInput}
                    type="text"/>
-            <label form="password-input" className={styles.logLabel}>{translations[currentLang].password}</label>
+            <label htmlFor="password-input" className={styles.logLabel}>{translations[currentLang].password}</label>
             <input id="password-input" placeholder="" value={password} onChange={e => setPassword(e.target.value)}
                    className={styles.loginInput}
                    type="password"/>
