@@ -14,16 +14,20 @@ export default () => {
                     <span className={styles.allRights}>
                         {translations[lang].rights}
                     </span>
-                    
+
                 </div>
                 <div className={styles.rightContainer}>
                     <a className={styles.contactHref} href="#">{translations[lang].learningproc}</a>
                     <a className={styles.contactHref} href="#">{translations[lang].usagepol}</a>
                     <a className={styles.contactHref} href="#">{translations[lang].privpol}</a>
-                    <img className={styles.contactImg} src="/img/Shared/foot-teleg.png" alt="telegram"/>
-                    <a className={styles.contactHref} href="#">@bilimbank</a>
-                    <img className={styles.contactImg} src="/img/Shared/foot-inst.png" alt="instagram"/>
-                    <a className={styles.contactHref} href="#">@bilimbank</a>
+                    <div className={styles.linkWrapper}>
+                        <img className={styles.contactImg} src="/img/Shared/foot-teleg.png" alt="telegram"/>
+                        <a className={styles.contactHref} href="#">@bilimbank</a>
+                    </div>
+                    <div className={styles.linkWrapper}>
+                        <img className={styles.contactImg} src="/img/Shared/foot-inst.png" alt="instagram"/>
+                        <a className={styles.contactHref} href="#">@bilimbank</a>
+                    </div>
                 </div>
 
             </footer>
