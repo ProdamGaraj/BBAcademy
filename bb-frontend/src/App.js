@@ -1,6 +1,6 @@
 import './App.css';
 import Template from "./components/template/template";
-import Landing from "./components/landing/landing";
+import Landing from "./components/Landing/landing";
 import LangContext from "./contexts/lang-context";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Login from "./components/login/login";
@@ -51,7 +51,7 @@ function App() {
     }
     let openErrorModal = (message) => {
         setErrorVisible(true)
-        setErrorText(prev => message)
+        setErrorText(_ => message)
     }
     let closeErrorModal = () => {
         setErrorVisible(false)
@@ -78,13 +78,14 @@ function App() {
                                 <Route path='/courses' element={<CoursesDashboard/>}/>
                                 <Route path='/learning' element={<LearningDashboard/>}/>
                                 <Route path='/data/*' element={<DataDashboard/>}/>
+                                {/* TODO:  Don't touch /data !!! */}
                                 <Route path='/my-certificates' element={<MyCertificates/>}/>
                                 <Route path='/payment' element={<Payment/>}/>
                             </Routes>
                         </BrowserRouter>
                     </Template>
                 </ErrorModalContext.Provider>
-            </LoaderModalContext.Provider>          
+            </LoaderModalContext.Provider>
         </LangContext.Provider>
     </>);
 }
