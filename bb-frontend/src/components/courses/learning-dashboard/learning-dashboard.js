@@ -5,7 +5,6 @@ import LoaderModalContext from "contexts/loader-modal-context";
 import ErrorModalContext from "contexts/error-modal-context";
 import LessonContentView from "../lesson-content-view/lesson-content-view";
 
-import NavigationArrows from "../navigation-arrows/navigation-arrows";
 import ExamContentView from "../exam-content-view/exam-content-view";
 import CertContentView from "../cert-content-view/cert-content-view";
 
@@ -13,7 +12,7 @@ const LESSON_MODE = 1;
 const EXAM_MODE = 2;
 const CERT_MODE = 3;
 
-export default (props) => {
+export default (_) => {
 
     let loaderModal = useContext(LoaderModalContext)
     let errorModal = useContext(ErrorModalContext)
@@ -27,7 +26,7 @@ export default (props) => {
         const query = new URLSearchParams(window.location.search);
         const courseId = query.get('id')
 
-        if (courseId !== undefined) {
+        if (courseId !== null) {
             loaderModal.showModal()
             backend.Course.GetForLearning(courseId)
                 .then(response => setCourse(response))
@@ -36,7 +35,7 @@ export default (props) => {
         }
         else {
             errorModal.showModal('courseId missing')
-            window.location.back()
+            window.history.back()
         }
     }, [])
 
