@@ -74,3 +74,62 @@
 .selectedLine {
     color: #0093DC;
 }
+
+.layoutContainerMobile {
+    display: none;
+
+    font-family: Prompt, serif;
+}
+
+@media only screen and (max-width: 844px) {
+
+    .layout {
+        width: 100vw;
+        box-sizing: border-box;
+        padding: 0 2rem;
+        margin-top: 1rem;
+    }
+
+    .layoutContainer {
+        display: none;
+    }
+
+    .layoutContainerMobile {
+        display: inline;
+        width: 100%;
+    }
+
+    .courseHeader {
+        display: flex;
+        justify-content: space-between;
+        box-sizing: border-box;
+        padding: 0 2rem 1rem;
+        border-bottom: 2px solid #F5F5F5;
+        flex-wrap: wrap;
+        gap:0.5rem;
+    }
+    .courseHeader h1 {
+        margin: 0;
+    }
+    .courseHeader h1,
+    .courseHeader nav {
+        white-space: nowrap;
+    }
+
+    .courseNavigation {
+        display: flex;
+        gap: .5rem;
+        font-size: 4vw;
+        align-items: center;
+    }
+
+    .courseNavigation select {
+        width: 100%;
+        padding: 0.5rem;
+    }
+
+    .lessonContent {
+        box-sizing: border-box;
+        height: auto;
+    }
+}
