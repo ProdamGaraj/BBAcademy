@@ -18,7 +18,7 @@
 .navMenu {
     display: flex;
     flex-direction: column;
-    gap: 10vh;
+    gap: 5vh;
     box-sizing: border-box;
     padding-right: 1rem;
     padding-left: 1rem;
@@ -99,6 +99,7 @@
     position: relative;
     gap: 15px;
     text-decoration: none;
+    align-items: center;
 }
 
 .rightContainer {
@@ -192,6 +193,7 @@
     align-items: center;
     padding: 8px 47px;
     gap: 10px;
+    box-sizing: border-box;
 
     /* primary_ver_1 */
 
@@ -229,7 +231,8 @@
     }
 
 
-    .rightContainer {
+    .rightContainer > span,
+    .rightContainer > a {
         display: none;
     }
 
@@ -242,8 +245,35 @@
         justify-content: center;
     }
 
+    .loginButton {
+        max-width: 350px;
+        width: 100%;
+        margin: 1rem auto 0;
+    }
+
+    .headerContainer {
+        flex: 1;
+    }
+
     a {
         text-align: center;
     }
 
+    .rightContainer {
+        flex: 1;
+        margin-right: 4rem;
+    }
 }
+
+@media only screen and (max-width: 425px) {
+    .logoTitle {
+        display: none;
+    }
+    .logoImage {
+        min-width: 40px;
+    }
+    .loginButton {
+        width: auto;
+    }
+}
+

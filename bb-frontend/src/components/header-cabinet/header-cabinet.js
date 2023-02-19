@@ -30,7 +30,7 @@ export default (_) => {
     return (<>
         <header className={styles.headerContainer}>
             <a className={styles.leftContainer} href="/">
-                <img src="/img/Shared/main-logo.png" className={styles.logoImage} alt="logo"/>
+                <img src="/img/Shared/logo-icon-2.svg" className={styles.logoImage} alt="logo"/>
                 <div className={styles.logoTitle}>BilimBank</div>
             </a>
             <div className={styles.rightContainer}>
@@ -66,16 +66,16 @@ export default (_) => {
         </header>
 
         <nav className={`${styles.navMenu} ${menuOpened && styles.navMenuShown}`}>
-            <div className={styles.headerLang}>
+            {/*<div className={styles.headerLang}>*/}
 
-                <span className={styles.headerLangElement + (lang === 'uz' ? (' ' + styles.langSelected) : '')}
-                     onClick={() => changeLang('uz')}>uz
-                </span>
+            {/*    <span className={styles.headerLangElement + (lang === 'uz' ? (' ' + styles.langSelected) : '')}*/}
+            {/*         onClick={() => changeLang('uz')}>uz*/}
+            {/*    </span>*/}
 
-                <span className={styles.headerLangElement + (lang === 'ru' ? (' ' + styles.langSelected) : '')}
-                     onClick={() => changeLang('ru')}>ru
-                </span>
-            </div>
+            {/*    <span className={styles.headerLangElement + (lang === 'ru' ? (' ' + styles.langSelected) : '')}*/}
+            {/*         onClick={() => changeLang('ru')}>ru*/}
+            {/*    </span>*/}
+            {/*</div>*/}
             <a className={styles.allCoursesA} href="/courses">
                 <div className={styles.allCoursesButton}>
                     <img src="/img/Shared/all-courses-arrow.svg" alt="logo"/>

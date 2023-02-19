@@ -247,6 +247,7 @@
         max-width: 350px;
         width: 100%;
         margin: 1rem auto 0;
+        box-sizing: border-box;
     }
 
     .headerContainer {
