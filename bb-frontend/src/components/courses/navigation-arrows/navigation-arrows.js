@@ -1,9 +1,15 @@
 ﻿import styles from "./navigation-arrows.module.css";
 import translations from "translations";
-import {useContext} from "react";
+import {useContext, useEffect} from "react";
 import LangContext from "contexts/lang-context";
 
-export default ({onPrev, onNext, isFirst, isLast}) => {
+export default (props) => {
+
+    const {onPrev, onNext, onFinalPage, isFirst, isLast, finalPage} = props;
+
+    useEffect(() => {
+
+    }, [])
 
     let lang = useContext(LangContext).lang
 
@@ -23,6 +29,14 @@ export default ({onPrev, onNext, isFirst, isLast}) => {
                     <div className="next">{(translations[lang].next)}</div>
                     <img className={styles.arrowRight} src="/img/Course/arrow-right.svg"
                          alt=""/>
-                </div> : ''}
+                </div> : ''
+            }
+
+            {isLast && finalPage !== null ?
+                <div className={styles.lessonButton}
+                     onClick={() => onFinalPage()}>
+                    <div className="next">{finalPage}</div>
+                </div> : ''
+            }
         </div>)
 }

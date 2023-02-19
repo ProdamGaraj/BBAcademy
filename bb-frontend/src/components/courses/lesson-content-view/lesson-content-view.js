@@ -17,7 +17,7 @@ const mapContentType = (type, path) => {
             </div>)
         case 3: //photo
             return (<div className={styles.contentMedia}>
-                <object data="/img/home/girl2.png" type="image/png">
+                <object data="/img/Home/girl2.png" type="image/png">
                     <img src={path} alt=""/>
                 </object>
 
@@ -27,7 +27,7 @@ const mapContentType = (type, path) => {
     }
 }
 
-export default ({lesson, toNextLesson, toPrevLesson, isFirst, isLast}) => {
+export default ({lesson, toNextLesson, toPrevLesson, toFinalPage, isFirst, isLast, finalPage}) => {
 
     return (
         <>
@@ -45,8 +45,10 @@ export default ({lesson, toNextLesson, toPrevLesson, isFirst, isLast}) => {
                 <NavigationArrows
                     onNext={toNextLesson}
                     onPrev={toPrevLesson}
+                    onFinalPage={toFinalPage}
                     isFirst={isFirst}
                     isLast={isLast}
+                    finalPage={finalPage}
                 />
             </div>
         </>

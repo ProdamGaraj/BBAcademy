@@ -7,6 +7,8 @@ import LessonContentView from "../lesson-content-view/lesson-content-view";
 
 import ExamContentView from "../exam-content-view/exam-content-view";
 import CertContentView from "../cert-content-view/cert-content-view";
+import translations from "../../../translations";
+import LangContext from "../../../contexts/lang-context";
 
 const LESSON_MODE = 1;
 const EXAM_MODE = 2;
@@ -16,6 +18,8 @@ export default (_) => {
 
     let loaderModal = useContext(LoaderModalContext)
     let errorModal = useContext(ErrorModalContext)
+
+    const currentLang = useContext(LangContext).lang
 
     let [mode, setMode] = useState(LESSON_MODE);
 
@@ -44,6 +48,14 @@ export default (_) => {
     }
     let toNextLesson = () => {
         setLessonIndex(prev => prev + 1)
+    }
+
+    const toFinalPage = () => {
+        if (course.certName) {
+            return switchToCert();
+        }
+
+        return switchToExam();
     }
 
     const switchToLesson = i => {
@@ -88,6 +100,18 @@ export default (_) => {
             .finally(() => loaderModal.close())
     };
 
+    const getFinalPageButtonTitle = () => {
+        if (course.certName) {
+            return translations[currentLang].ending
+        }
+
+        if (course.exam) {
+            return course.exam.title;
+        }
+
+        return null;
+    }
+
     const switchLayoutMode = (mode) => {
 
         switch (mode) {
@@ -97,8 +121,11 @@ export default (_) => {
                         lesson={course.lessons[lessonIndex]}
                         toNextLesson={toNextLesson}
                         toPrevLesson={toPrevLesson}
+                        toFinalPage={toFinalPage}
                         isFirst={lessonIndex === 0}
-                        isLast={lessonIndex === (course.lessons.length - 1)}/>)
+                        isLast={lessonIndex === (course.lessons.length - 1)}
+                        finalPage={getFinalPageButtonTitle()}
+                    />)
             case EXAM_MODE:
                 return (
                     <ExamContentView
