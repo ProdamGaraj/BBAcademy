@@ -69,6 +69,7 @@ export default () => {
                     </div>
                 </div>
 
+                {/* Exists only for mobile version */}
                 <div className={styles.advContentContainerGrid}>
                     <div className={styles.advLeftContainer}>
                         <div className={styles.advLeftCard}>

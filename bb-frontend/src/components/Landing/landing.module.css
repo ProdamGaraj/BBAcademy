@@ -19,7 +19,7 @@
     position: absolute;
     /*width: 689px;*/
     height: 676px;
-    left: 0;
+    left: 10px;
     object-fit: contain;
 
     z-index: 1;
@@ -574,9 +574,9 @@ footer {
         max-width: 1320px;
     }
     .blockLearnInLeftSection {
-        width: 50vw;
+        width: 45vw;
         height: auto;
-        transform: translateX(-10%);
+        transform: translateY(-12px);
     }
 
     .blockLearnInRightSection {
