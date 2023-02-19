@@ -78,7 +78,6 @@ function App() {
                                 <Route path='/courses' element={<CoursesDashboard/>}/>
                                 <Route path='/learning' element={<LearningDashboard/>}/>
                                 <Route path='/data/*' element={<DataDashboard/>}/>
-                                {/* TODO:  Don't touch /data !!! */}
                                 <Route path='/my-certificates' element={<MyCertificates/>}/>
                                 <Route path='/payment' element={<Payment/>}/>
                             </Routes>
