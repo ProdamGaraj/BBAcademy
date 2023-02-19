@@ -72,18 +72,6 @@ export default () => {
             </button>
         </header>
         <nav className={`${styles.navMenu} ${menuOpened && styles.navMenuShown}`}>
-            <div className={styles.headerContainerRightSectionLang}>
-                <div className={styles.headerContainerRightSectionLangElement}>
-                            <span
-                                className={styles.headerLangElement + (lang === 'uz' ? (' ' + styles.langSelected) : '')}
-                                onClick={() => changeLang('uz')}>uz</span>
-                </div>
-                <div className={styles.headerContainerRightSectionLangElement}>
-                            <span
-                                className={styles.headerLangElement + (lang === 'ru' ? (' ' + styles.langSelected) : '')}
-                                onClick={() => changeLang('ru')}>ru</span>
-                </div>
-            </div>
             <span className={styles.loginButton + ' ' + styles.regButton}
                   onClick={() => tryNavigateToRegister()}>{translations[lang].reg}</span>
             <span className={styles.loginButton}

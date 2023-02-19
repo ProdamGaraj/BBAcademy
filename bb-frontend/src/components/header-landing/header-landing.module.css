@@ -28,7 +28,7 @@
 .navMenu {
     display: flex;
     flex-direction: column;
-    gap: 10vh;
+    gap: 5vh;
     box-sizing: border-box;
     padding-right: 1rem;
     padding-left: 1rem;
@@ -234,12 +234,28 @@
         width: auto;
     }
 
-    .headerContainerRightSection {
+    .headerContainerRightSection > span {
         display: none;
     }
 
     .headerContainerRightSectionLang {
         flex-direction: row;
         justify-content: space-around;
+    }
+
+    .loginButton {
+        max-width: 350px;
+        width: 100%;
+        margin: 1rem auto 0;
+    }
+
+    .headerContainer {
+        flex: 1;
+    }
+}
+
+@media only screen and (max-width: 425px) {
+    .headerContainerLeftSectionText {
+        display: none;
     }
 }
