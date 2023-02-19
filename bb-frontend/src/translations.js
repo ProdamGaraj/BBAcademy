@@ -57,7 +57,7 @@
         'links': "Havolalar va materiallar",
         'ending': "Xulosa va sertifikat",
 
-        'learnWithBBAcademy': "BilimBankda ta’lim oling",
+        'learnWithBBAcademy': <><span>BilimBankda</span><span>ta’lim oling</span></>,
         'improveYourProfessionalCapital': "Professional kapitalingizni oshiring",
         'investYourself': "O’zingizga investitsiya qiling",
         'aLotOfCourses': "Keng ko’lamli kurslar",
