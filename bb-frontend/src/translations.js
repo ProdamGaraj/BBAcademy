@@ -94,13 +94,13 @@
     },
 
     ru: {
-        'someDescriptionForAdv': <span>Какое то описание того,<br/>что это и зачем <br/>в несколько строк</span>,
+        'someDescriptionForAdv': <span>Какое то описание того, что это и зачем в несколько строк</span>,
         'personalArea': "Личный Кабинет",
         'editingAnswerOption': "Редактирование вопроса",
         'saveAnswerandreturntoQuestion': "Сохранить ответ, вернуться на вопрос",
         'rateSystem': "Система рейтинга",
         'aLotOfCourses': "Широкий выбор курсов",
-        'learnWithBBAcademy': <span>Учись <br/> в BilimBank</span>,
+        'learnWithBBAcademy': <><span>Учись</span><span>в BilimBank</span></>,
         'improveYourProfessionalCapital': "Увеличивай свой профессиональный капитал",
         'autoExamination': "Автоматическая проверка работы",
         'professorCommunication': "Коммуникация с преподавателем ",

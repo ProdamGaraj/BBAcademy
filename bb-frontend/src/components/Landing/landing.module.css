@@ -56,8 +56,11 @@
 }
 
 .advContainer {
-    width: 1320px;
-    margin: 100px 0;
+    width: 100%;
+    max-width: 1320px;
+    box-sizing: border-box;
+    padding: 0 1rem;
+    margin: 50px 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -80,6 +83,9 @@
     flex-direction: row;
     justify-content: space-between;
     gap: 10px;
+}
+.advContentContainerGrid {
+    display: none;
 }
 
 .advLeftContainer {
@@ -562,105 +568,142 @@ footer {
 
 @media only screen and (max-width: 844px) {
     .blockLearnIn {
-        scale: 0.6;
-        margin-top: -3rem;
-        height: 100vh;
-        margin-bottom: 10rem;
-    }
-}
-@media only screen and (max-width: 772px) {
-    .blockLearnIn {
-        scale: 0.5;
-        margin-top: -5rem;
-    }
-}
-
-@media only screen and (max-width: 640px) {
-    .blockLearnIn {
-        scale: 0.4;
-        margin-top: -6rem;
-    }
-}
-
-@media only screen and (max-width: 510px) {
-    .blockLearnIn {
-        scale: 0.3;
-        margin-top: -7rem;
-    }
-}
-@media only screen and (max-width: 390px) {
-    .blockLearnIn {
-        scale: 0.27;
-        margin-top: -4.5rem;
-        margin-left: -2rem;
-        height: 40vh;
-    }
-}
-
-
-@media only screen and (max-width: 844px) {
-    .advContainer {
+        min-height: 400px;
+        height: auto;
         width: 100%;
+        max-width: 1320px;
+    }
+    .blockLearnInLeftSection {
+        width: 50vw;
+        height: auto;
+        transform: translateX(-10%);
+    }
+
+    .blockLearnInRightSection {
+        right: 0;
         margin: 0;
+        left: 45%;
     }
-    .advTop {
-        text-align: center;
+    .blockLearnInRightSectionTopTop {
+        display: flex;
+        flex-direction: column;
     }
-    .advContentContainer {
-        flex-wrap: wrap;
+    .blockLearnInRightSectionTopTop span {
+        font-size: 8vw;
+        white-space: nowrap;
+    }
+    .blockLearnInRightSectionTopBot {
+        margin: 0;
+        height: auto;
+        font-size: 5vw;
+    }
+
+    .advContainer {
+        margin-top: 50px;
+    }
+
+    .advLeftContainer {
+        min-width: 50%;
         box-sizing: border-box;
-        padding: 1rem;
     }
-    .advContentContainer  img {
-        max-width: 80%;
+    .advCardLeftImage,
+    .advCardImage {
+        width: 100%;
+        box-sizing: border-box;
     }
     .advRightCardTop,
     .advRightCardMiddle,
     .advRightCardBottom {
-        flex-wrap: wrap;
+        flex-direction: column;
+        box-sizing: border-box;
+        padding: 1rem;
     }
 
-    .advRightCardTop span,
-    .advRightCardMiddle span,
-    .advRightCardBottom span {
-        margin: 0 1rem 1rem;
+    .advCardImage {
+        padding: 0;
     }
 }
 
-@media only screen and (max-width: 844px) {
-    .mobility {
+@media only screen and (max-width: 425px) {
+    .blockLearnIn {
+        min-height: 25vh;
+    }
+
+    .advTop {
+        box-sizing: border-box;
+        padding: 0 1rem;
+        font-size: 7vw;
+        margin-bottom: 1rem;
+        margin-top: 2rem;
+    }
+    .advContainer {
+        padding: 0;
+    }
+    .advContentContainerGrid {
+        display: grid;
+        grid-template: 1fr 1fr / 1fr 1fr;
         width: 100%;
-        flex-wrap: wrap;
-        height: auto;
+        box-sizing: border-box;
+        padding: 0 1rem;
+        gap: 1rem;
+    }
+    .advContentContainer {
+        display: none;
+    }
+    .advCardLeftImage,
+    .advCardImage {
+        padding: 0;
+        margin: 0;
+        height: 50%;
+    }
+    .advCardTitle {
+        text-align: center;
+        flex: 1;
+        margin-top: 10px;
+        font-size: 4vw;
+    }
+    .advCardText {
+        font-size: inherit;
+    }
+    .advCardText > span {
+        font-size: 3vw;
+    }
+
+    .mobility {
         margin-top: 0;
+        width: 100%;
+        flex-direction: column;
+        height: auto;
     }
     .mobilityTitle {
-        width: 100vw;
         margin-top: 0;
-        padding: 1rem;
-        height: auto;
-        font-size: 6vw;
-        word-break: break-word;
+        width: 100%;
         white-space: normal;
+        font-size: 7vw;
         box-sizing: border-box;
-        word-wrap: break-word;
+        height: auto;
+        padding: 0 1rem;
+        word-break: break-word;
+        margin-bottom: 1.5rem;
     }
     .mobilityText {
+        width: 100%;
+        white-space: normal;
+        font-size: 4vw;
         box-sizing: border-box;
         height: auto;
-        font-size: 4vw;
-        padding: 0 1rem 1rem;
+        padding: 0 1rem;
         word-break: break-word;
-        white-space: normal;
-        word-wrap: break-word;
+        line-height: normal;
     }
     .mobilityRight {
         margin-top: 0;
-        display: flex;
-        justify-content: center;
+        align-self: center;
     }
-    .mobilityRight img {
-        width: 50%;
+    .mobilityRight > img {
+        width: 100%;
+        height: 50vw;
+        margin: 0 auto;
     }
 }
 

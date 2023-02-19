@@ -28,6 +28,7 @@ export default () => {
                 <div className={styles.advTop}>
                     {translations[lang].investYourself}
                 </div>
+
                 <div className={styles.advContentContainer}>
                     <div className={styles.advLeftContainer}>
                         <div className={styles.advLeftCard}>
@@ -66,6 +67,43 @@ export default () => {
                         </div>
 
                     </div>
+                </div>
+
+                <div className={styles.advContentContainerGrid}>
+                    <div className={styles.advLeftContainer}>
+                        <div className={styles.advLeftCard}>
+                            <img className={styles.advCardLeftImage} src="/img/Home/AdvLeftImage.svg" alt=""/>
+                            <span className={styles.advCardTitle}>
+                                        {translations[lang].rateSystem}
+                                </span>
+                            <span className={styles.advCardText}>
+                                    {translations[lang].someDescriptionForAdv}
+                                </span>
+                        </div>
+                    </div>
+                    <div className={styles.advRightCardTop}>
+                        <img className={styles.advCardImage} src="/img/Home/AdvRightTopImage.svg" alt=""/>
+                        <span className={styles.advCardTitle}>
+                                {translations[lang].aLotOfCourses}
+                            </span>
+                    </div>
+
+
+                    <div className={styles.advRightCardMiddle}>
+                        <img className={styles.advCardImage} src="/img/Home/AdvRightMiddleImage.svg" alt=""/>
+                        <span className={styles.advCardTitle}>
+                                {translations[lang].autoExamination}
+                            </span>
+                    </div>
+
+
+                    <div className={styles.advRightCardBottom}>
+                        <img className={styles.advCardImage} src="/img/Home/AdvRightBottomImage.svg" alt=""/>
+                        <span className={styles.advCardTitle}>
+                                {translations[lang].professorCommunication}
+                            </span>
+                    </div>
+
                 </div>
 
             </div>
@@ -160,6 +198,7 @@ export default () => {
                     {translations[lang].showMore}
                 </button>
             </div>*/}
+
             <div className={styles.mobility}>
                 <div className={styles.mobilityLeft}>
                     <span className={styles.mobilityTitle}>{translations[lang].moreStability}</span>
@@ -170,6 +209,7 @@ export default () => {
                     <img src="/img/Home/Mask group.png" alt=""/>
                 </div>
             </div>
+
             {/*
             <div className={styles.partners}>
                 <div className={styles.partnersTop}>{translations[lang].ourPartners}</div>
