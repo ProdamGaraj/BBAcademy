@@ -17,7 +17,7 @@
 
 .blockLearnInLeftSection {
     position: absolute;
-    /*width: 689px;*/
+    transform: translateX(-100px);
     height: 676px;
     left: 10px;
     object-fit: contain;
@@ -40,6 +40,8 @@
 
     color: #333333;
     margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
 }
 
 .blockLearnInRightSectionTopBot {

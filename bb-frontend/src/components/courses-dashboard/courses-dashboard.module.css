@@ -183,6 +183,16 @@
 
     .cardImage {
         border-bottom-left-radius: 0;
+        min-width: 100%;
+        border-top-right-radius: 10px;
+    }
+
+
+    .cardInfoBlock {
+        width: 100%;
+    }
+    .cardButton {
+        width: 100%;
     }
 }
 
