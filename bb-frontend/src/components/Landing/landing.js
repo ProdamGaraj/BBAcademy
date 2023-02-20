@@ -1,12 +1,25 @@
 ﻿import translations from 'translations'
 import LangContext from "../../contexts/lang-context";
-import {useContext} from "react";
+import {useContext, useEffect, useState} from "react";
 
 import styles from './landing.module.css'
+import {getRandomLesson} from "../../services/lesson.service";
 
 export default () => {
 
     let lang = useContext(LangContext).lang
+
+    const [videoPath, setVideoPath] = useState('');
+    const fetchVideoPath = () => {
+        getRandomLesson().then(lesson => {
+            setVideoPath(lesson.mediaContentPath)
+        });
+    }
+
+    useEffect(() => {
+        fetchVideoPath();
+    }, []);
+
 
     return (<>
         <main role="main" className={styles.pb3}>
@@ -109,6 +122,11 @@ export default () => {
 
             </div>
 
+            <section className={styles.videoContainer}>
+                <video width="100%" controls>
+                    <source src={videoPath} type="video/mp4"/>
+                </video>
+            </section>
 
             {/*<div className={styles.categoryAndPopular}>
                 <div className={styles.category}>

@@ -169,6 +169,14 @@
     padding-top: 22px;
 }
 
+.videoContainer {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 1rem;
+    max-width: 1320px;
+    margin: clamp(3vh, 10vw, 117px) 0;
+}
+
 .categoryAndPopular {
     background-color: #F5F5F5;
     display: flex;
