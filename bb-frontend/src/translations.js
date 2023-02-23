@@ -90,10 +90,14 @@
         'GoToThePayment': 'To`lovga o`ting',
         'Orders': 'Buyurtmalar',
         'ProceedToPayment': 'To`lovga o`ting',
+        'iConfirmLicense': " o'qing va rozi bo'ling",
+        'license':"litsenziyani",
 
     },
 
     ru: {
+        'license':"Лицензию",
+        'iConfirmLicense':" прочёл и согласен",
         'someDescriptionForAdv': <span>Какое то описание того, что это и зачем в несколько строк</span>,
         'personalArea': "Личный Кабинет",
         'editingAnswerOption': "Редактирование вопроса",

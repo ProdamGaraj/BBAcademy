@@ -5,6 +5,7 @@ import backend from "../../backend";
 import LoaderModalContext from "../../contexts/loader-modal-context";
 import ErrorModalContext from "../../contexts/error-modal-context";
 import styles from "./register.module.css"
+import QuestionCheckboxGroup from "../courses/question-checkbox-group/question-checkbox-group";
 
 export default () => {
     let lang = useContext(LangContext).lang
@@ -18,6 +19,7 @@ export default () => {
     let [middleName, setMiddleName] = useState('')
     let [surname, setSurname] = useState('')
     let [email, setEmail] = useState('')
+    let [license, setLicense] = useState(false)
 
 
     const onRegister = () => {
@@ -49,6 +51,11 @@ export default () => {
             errorModal.showModal('Пароли не совпадают.');
             return;
         }
+        if (license!==true){
+            errorModal.showModal('Прочтите и подтвердите согласие с условиями соглашения.');
+            return;
+        }
+        
 
         loaderModal.showModal()
         backend.Account
@@ -116,6 +123,16 @@ export default () => {
                 <option value="bank1">BilimBank</option>
                 <option value="bank2">BilimBank</option>
             </select>
+            <span className={styles.licenseCheck}>
+                <input
+                    className={styles.checkInput}
+                    type="checkbox" 
+                    required
+                    checked={license}
+                    onChange={e=>setLicense(e.target.checked)}
+                />
+                <label className={styles.logLabel}><a href="license\license.docx" download="" target="_blank">{translations[lang].license}</a>{translations[lang].iConfirmLicense}</label>
+            </span>
             <button type="submit" className={styles.registerBtn}
                     onClick={() => onRegister()}>
                 {translations[lang].endreg}

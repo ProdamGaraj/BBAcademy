@@ -10,7 +10,7 @@ export default () => {
     let lang = useContext(LangContext).lang
 
     const [videoPath, setVideoPath] = useState('');
-    const fetchVideoPath = () => {
+    {/*const fetchVideoPath = () => {
         getRandomLesson().then(lesson => {
             setVideoPath(lesson.mediaContentPath)
         });
@@ -19,7 +19,7 @@ export default () => {
     useEffect(() => {
         fetchVideoPath();
     }, []);
-
+    */}
 
     return (<>
         <main role="main" className={styles.pb3}>
@@ -124,7 +124,7 @@ export default () => {
 
             <section className={styles.videoContainer}>
                 <video width="100%" controls>
-                    <source src={videoPath} type="video/mp4"/>
+                    <source src="/videos/landing.mp4" type="video/mp4"/>
                 </video>
             </section>
 

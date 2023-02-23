@@ -132,6 +132,16 @@
     font-size: 16px;
 }
 
+.licenseCheck{
+    display: flex;
+}
+
+.checkInput{
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+
 @media only screen and (max-width: 844px) {
     .logContainer {
         margin: 0 auto;
