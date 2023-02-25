@@ -23,9 +23,6 @@ public class CartService : ICartService
             .Where(c => c.CourseProgresses.Any(p => p.State == CourseProgressState.InCart && p.UserId == userId))
             .Select(c => c.Id)
             .ToListAsync();
-
-        // TODO: Actually calculate total and return acquiring url
-
         await _courseProgressService.TransitionToBought(courses, userId);
     }
 

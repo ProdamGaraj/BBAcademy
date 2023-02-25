@@ -78,6 +78,9 @@ export default () => {
             .finally(() => loaderModal.close())
     };
 
+    const pay = () =>{
+        window.location.href = backend.Payment.GetUrlForPurchase()
+    }
     return (<>
         <div className={styles.gridContent}>
             <div className={styles.orderCompletion}>
@@ -107,7 +110,7 @@ export default () => {
                         </h4>
                     ))}
 
-                <button onClick={() => checkout()}>{translations[lang].GoToThePayment}</button>
+                <button onClick={() => pay()}>{translations[lang].GoToThePayment}</button>
             </div>
 
             <div className={styles.ordersContainer}>

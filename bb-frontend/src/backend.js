@@ -116,6 +116,21 @@ export default {
             return response.data;
         }
     },
+    
+    Payment:{
+        GetUrlForPurchase: async () => {
+            let response = await axios.post(baseurl + "/Cart/Checkout", {}, {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                },
+                withCredentials: true,
+                validateStatus
+            });
+
+            return response.data;
+        }
+    },
+    
     Exam: {
         SaveCourseExamResults: async (data) => {
             let response = await axios.post(baseurl + '/Exam/SaveCourseExamResults', data, {
