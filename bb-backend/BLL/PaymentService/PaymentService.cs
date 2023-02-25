@@ -13,7 +13,7 @@ namespace BLL.PaymentService
         public async Task<string> GetUrlForPurchase(long payment)
         {
             PaymentConfig paymentConfig = JsonConvert.DeserializeObject<PaymentConfig>(File.ReadAllText("PaymentDetails.json"));
-            string paymentUrl = $"https://my.click.uz/services/pay?service_id={paymentConfig.ServiceId}&merchant_id={paymentConfig.MerchantId}&amount={payment}&return_url={paymentConfig.Return_url}";
+            string paymentUrl = $"https://my.click.uz/services/pay?service_id={paymentConfig.ServiceId}&merchant_id={paymentConfig.MerchantId}&amount={payment}&return_url={paymentConfig.ReturnUrl}";
             if (paymentConfig.CardType is not null)
             {
                 paymentUrl += "&card_type =" + paymentConfig.CardType;

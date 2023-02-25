@@ -9,6 +9,6 @@ namespace BLL.PaymentService
 {
     internal interface IPaymentService
     {
-        Task GetUrlForPurchase(long payment);
+        Task<string> GetUrlForPurchase(long payment);
     }
 }
