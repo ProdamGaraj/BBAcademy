@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace BLL.PaymentService
 {
-    internal interface IPaymentService
+    public interface IPaymentService
     {
-        Task<string> GetUrlForPurchase(int userId);
+        Task<string> GetUrlForPurchase(long userId);
     }
 }

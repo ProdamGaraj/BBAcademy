@@ -23,6 +23,9 @@ public class CartService : ICartService
             .Where(c => c.CourseProgresses.Any(p => p.State == CourseProgressState.InCart && p.UserId == userId))
             .Select(c => c.Id)
             .ToListAsync();
+        
+        
+        // возврат строки эквайринга
         await _courseProgressService.TransitionToBought(courses, userId);
     }
 

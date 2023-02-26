@@ -79,7 +79,11 @@ export default () => {
     };
 
     const pay = () =>{
-        window.location.href = backend.Payment.GetUrlForPurchase()
+        loaderModal.showModal()
+        backend.Payment.GetUrlForPurchase()
+            .then(payUrl => window.location.href = payUrl)
+            .catch(e => errorModal.showModal(e.message))
+            .finally(() => loaderModal.close())
     }
     return (<>
         <div className={styles.gridContent}>

@@ -21,7 +21,7 @@ namespace BLL.PaymentService
         {
             _courseRepository = courseRepository;
         }
-        public async Task<string> GetUrlForPurchase(int userId)
+        public async Task<string> GetUrlForPurchase(long userId)
         {
             var courses = await _courseRepository.GetAll()
                 .Where(c => c.CourseProgresses.Any(p => p.State == CourseProgressState.InCart && p.UserId == userId))

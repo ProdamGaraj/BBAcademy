@@ -119,7 +119,7 @@ export default {
     
     Payment:{
         GetUrlForPurchase: async () => {
-            let response = await axios.post(baseurl + "/Cart/Checkout", {}, {
+            let response = await axios.post(baseurl + "/Payment/Pay", {}, {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('token')
                 },

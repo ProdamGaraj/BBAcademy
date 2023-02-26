@@ -22,8 +22,8 @@ services:
     environment:
       ASPNETCORE_ConnectionStrings__Bilim: "Host=postgres_db;Port=5432;Database=BBAcademyDb;Username=postgres;Password=Garbage1"
       StaticConfig__StaticFilesPath: '/mounted/static'
-      JwtConfig__Issuer: "birdegop.ru"
-      JwtConfig__Audience: "birdegop.ru"
+      JwtConfig__Issuer: "localhost"
+      JwtConfig__Audience: "localhost"
       JwtConfig__Key: "Al3x3yGaY!69420HanD$$0M3$$qU1DWarD"
     restart: unless-stopped
 
@@ -51,4 +51,4 @@ services:
       - /home/egop/bb/seq:/data
     environment:
       ACCEPT_EULA: "Y"
-      SEQ_API_CANONICALURI: "http://birdegop.ru:50505"
+      SEQ_API_CANONICALURI: "http://localhost:50505"
