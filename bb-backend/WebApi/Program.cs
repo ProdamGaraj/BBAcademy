@@ -42,7 +42,10 @@ builder.Logging.ClearProviders();
 builder.Logging.SetMinimumLevel(LogLevel.Information);
 builder.Logging.AddSerilog(dispose: true);
 
+builder.Configuration.AddJsonFile("PaymentDetails.json", false);
+
 builder.Services.Configure<StaticConfig>(builder.Configuration.GetSection(nameof(StaticConfig)));
+builder.Services.Configure<PaymentConfig>(builder.Configuration.GetSection(nameof(PaymentConfig)));
 
 builder.Services.AddControllersWithViews();
 

@@ -1,0 +1,9 @@
+﻿{
+  "PaymentConfig": {
+    "MerchantId": 0,
+    "ServiceId": 0,
+    "MerchantUserId": 0,
+    "CardType": "",
+    "ReturnUrl": ""
+  }
+}

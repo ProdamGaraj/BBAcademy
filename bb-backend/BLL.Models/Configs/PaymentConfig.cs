@@ -12,8 +12,6 @@ namespace BLL.Models.Configs
         public int MerchantId { get; set; }
         public int ServiceId { get; set; }
         
-        [JsonPropertyName("Merchant_User_Id")]
-        public string MerchantUserId { get; set; }
         public string CardType { get; set; }
         public string ReturnUrl { get; set; }
     }
