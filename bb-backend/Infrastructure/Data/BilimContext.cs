@@ -29,5 +29,7 @@ namespace Infrastructure.Data
         public DbSet<Question> Questions { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<CertificateTemplate> CertificateTemplates { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderLine> OrderLines { get; set; }
     }
 }
