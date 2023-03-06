@@ -19,6 +19,7 @@ export default () => {
     let [middleName, setMiddleName] = useState('')
     let [surname, setSurname] = useState('')
     let [email, setEmail] = useState('')
+    let [phone,  setPhone] = useState('')
     let [license, setLicense] = useState(false)
 
 
@@ -55,6 +56,10 @@ export default () => {
             errorModal.showModal('Прочтите и подтвердите согласие с условиями соглашения.');
             return;
         }
+        if(!/^((8|\+374|\+994|\+995|\+375|\+7|\+380|\+38|\+996|\+998|\+993)[\- ]?)?\(?\d{3,5}\)?[\- ]?\d{1}[\- ]?\d{1}[\- ]?\d{1}[\- ]?\d{1}[\- ]?\d{1}(([\- ]?\d{1})?[\- ]?\d{1})?$/.test(phone)){
+            errorModal.showModal('Введите корректный телефон.');
+            return;
+        }
         
 
         loaderModal.showModal()
@@ -66,7 +71,8 @@ export default () => {
                 LastName: surname,
                 MiddleName: middleName,
                 ConfirmPassword: confirmPassword,
-                Email: email
+                Email: email,
+                Phone: phone
             })
             .then((token) => {
                 localStorage.setItem('token', token)
@@ -97,7 +103,10 @@ export default () => {
             <input className={styles.regLogInput} type="text" required
                    value={email} onChange={e => setEmail(e.target.value)}
             />
-
+            <label className={styles.logLabel}>{translations[lang].phone}</label>
+            <input className={styles.regLogInput} type="text" required
+                   value={phone} onChange={e => setPhone(e.target.value)}
+            />
             <label className={styles.logLabel}>{translations[lang].login}</label>
             <input className={styles.regLogInput} type="text" required
                    value={login} onChange={e => setLogin(e.target.value)}
