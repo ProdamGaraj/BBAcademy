@@ -32,5 +32,7 @@ namespace Infrastructure.Models
         public virtual ICollection<CourseProgress> CourseProgresses { get; set; }
 
         public virtual ICollection<Certificate> Certificates { get; set; }
+
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

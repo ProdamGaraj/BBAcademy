@@ -4,18 +4,29 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.Configurations;
 
-public class OrderConfiguration : IEntityTypeConfiguration<OrderLine>
+public class OrderConfiguration : IEntityTypeConfiguration<Order>
 {
-    public void Configure(EntityTypeBuilder<OrderLine> builder)
+    public void Configure(EntityTypeBuilder<Order> builder)
     {
-        builder.HasKey(o => o.Id);
+        builder.HasKey(x => x.Id);
 
-        builder.HasOne(ol => ol.Order)
-            .WithMany(o => o.OrderLines)
-            .HasForeignKey(ol => ol.OrderId);
+        builder.HasOne(x => x.User)
+            .WithMany(u => u.Orders)
+            .HasForeignKey(x => x.UserId);
         
-        builder.HasOne(ol => ol.Course)
-            .WithMany(c => c.OrderLines)
-            .HasForeignKey(ol => ol.CourseId);
+        builder.HasMany(o => o.Courses)
+            .WithMany(c => c.Orders)
+            .UsingEntity<OrderLine>(
+                r => r
+                    .HasOne(k => k.Course)
+                    .WithMany(m => m.OrderLines)
+                    .HasForeignKey(k => k.CourseId),
+                l => l
+                    .HasOne(k => k.Order)
+                    .WithMany(m => m.OrderLines)
+                    .HasForeignKey(k => k.OrderId),
+                cfg => cfg
+                    .HasKey(r => new {r.OrderId, r.CourseId})
+            );
     }
 }
