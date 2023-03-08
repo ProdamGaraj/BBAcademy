@@ -18,10 +18,10 @@ public class PaymentController : Controller
 
     [HttpPost]
     [Authorize]
-    public async Task<ActionResult> Pay()
+    public async Task<ActionResult> CreatePayment()
     {
         var userId = HttpContext.User.GetId();
-        var url = await _paymentService.GetUrlForPurchase(userId);
-        return Ok(url);
+        await _paymentService.CreatePayment(userId);
+        return Ok();
     }
 }

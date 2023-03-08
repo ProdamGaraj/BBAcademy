@@ -11,8 +11,6 @@ namespace BLL.Models.Configs
     {
         public int MerchantId { get; set; }
         public int ServiceId { get; set; }
-        
-        public string CardType { get; set; }
-        public string ReturnUrl { get; set; }
+        public string SecretKey { get; set; }
     }
 }

@@ -25,6 +25,9 @@ services:
       JwtConfig__Issuer: "localhost"
       JwtConfig__Audience: "localhost"
       JwtConfig__Key: "Al3x3yGaY!69420HanD$$0M3$$qU1DWarD"
+      PaymentConfig__MerchantId: 18805,
+      PaymentConfig__ServiceId: 26523,
+      PaymentConfig__SecretKey: "Dks8s0nCyfHscI"
     restart: unless-stopped
 
   postgres_db:

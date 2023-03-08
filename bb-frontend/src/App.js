@@ -1,6 +1,6 @@
 import './App.css';
 import Template from "./components/template/template";
-import Landing from "./components/Landing/landing";
+import Landing from "./components/landing/landing";
 import LangContext from "./contexts/lang-context";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Login from "./components/login/login";
@@ -10,6 +10,7 @@ import CoursesDashboard from "./components/courses-dashboard/courses-dashboard";
 import MyCertificates from 'components/my-certificates/my-certificates';
 import LoaderModalContext from "./contexts/loader-modal-context";
 import ErrorModalContext from "./contexts/error-modal-context";
+import SuccessModalContext from "./contexts/success-modal-context";
 import {LoaderModal} from "./components/loader-modal/loader-modal";
 import {ErrorModal} from "./components/error-modal/error-modal";
 import DataDashboard from "./components/data/data-dashboard/data-dashboard";
@@ -42,6 +43,8 @@ function App() {
     const [loaderVisible, setLoaderVisible] = useState(false)
     const [errorVisible, setErrorVisible] = useState(false)
     const [errorText, setErrorText] = useState('')
+    const [successVisible, setSuccessVisible] = useState(false)
+    const [successText, setSuccessText] = useState('')
 
     let openLoaderModal = () => {
         setLoaderVisible(true)
@@ -56,6 +59,13 @@ function App() {
     let closeErrorModal = () => {
         setErrorVisible(false)
     }
+    let openSuccessModal = (message) => {
+        setSuccessVisible(true)
+        setSuccessText(_ => message)
+    }
+    let closeSuccessModal = () => {
+        setSuccessVisible(false)
+    }
 
     return (<>
         <LangContext.Provider value={{lang: lang, setLang: onSetLang}}>
@@ -67,22 +77,29 @@ function App() {
                     showModal: openErrorModal,
                     close: closeErrorModal
                 }}>
-                    <Template>
-                        <LoaderModal/>
-                        <ErrorModal/>
-                        <BrowserRouter>
-                            <Routes>
-                                <Route path='/' element={<Landing/>}/>
-                                <Route path='/login' element={<Login/>}/>
-                                <Route path='/register' element={<Register/>}/>
-                                <Route path='/courses' element={<CoursesDashboard/>}/>
-                                <Route path='/learning' element={<LearningDashboard/>}/>
-                                <Route path='/data/*' element={<DataDashboard/>}/>
-                                <Route path='/my-certificates' element={<MyCertificates/>}/>
-                                <Route path='/payment' element={<Payment/>}/>
-                            </Routes>
-                        </BrowserRouter>
-                    </Template>
+                    <SuccessModalContext.Provider value={{
+                        isOpen: successVisible,
+                        message: successText,
+                        showModal: openSuccessModal,
+                        close: closeSuccessModal
+                    }}>
+                        <Template>
+                            <LoaderModal/>
+                            <ErrorModal/>
+                            <BrowserRouter>
+                                <Routes>
+                                    <Route path='/' element={<Landing/>}/>
+                                    <Route path='/login' element={<Login/>}/>
+                                    <Route path='/register' element={<Register/>}/>
+                                    <Route path='/courses' element={<CoursesDashboard/>}/>
+                                    <Route path='/learning' element={<LearningDashboard/>}/>
+                                    <Route path='/data/*' element={<DataDashboard/>}/>
+                                    <Route path='/my-certificates' element={<MyCertificates/>}/>
+                                    <Route path='/payment' element={<Payment/>}/>
+                                </Routes>
+                            </BrowserRouter>
+                        </Template>
+                    </SuccessModalContext.Provider>
                 </ErrorModalContext.Provider>
             </LoaderModalContext.Provider>
         </LangContext.Provider>

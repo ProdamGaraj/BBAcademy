@@ -6,6 +6,8 @@ namespace Infrastructure.Models
     {
         public UserRole Role { get; set; }
 
+        public string Phone { get; set; }
+
         public string FirstName { get; set; }
 
         public string MiddleName { get; set; }

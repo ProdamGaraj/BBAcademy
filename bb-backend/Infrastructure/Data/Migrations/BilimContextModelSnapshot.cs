@@ -283,6 +283,9 @@ namespace Infrastructure.Data.Migrations
                     b.Property<bool>("Deleted")
                         .HasColumnType("boolean");
 
+                    b.Property<string>("ExternalPaymentId")
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("ModifiedAt")
                         .HasColumnType("timestamp without time zone");
 
@@ -393,6 +396,9 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("PasswordHash")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Phone")
                         .HasColumnType("text");
 
                     b.Property<string>("PhotoPath")

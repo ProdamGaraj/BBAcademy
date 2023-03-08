@@ -7,12 +7,14 @@ import ErrorModalContext from "../../contexts/error-modal-context";
 import styles from './payment.module.css';
 import LangContext from "../../contexts/lang-context";
 import translations from "../../translations";
+import SuccessModalContext from "../../contexts/success-modal-context";
 
 
 export default () => {
     let lang = useContext(LangContext).lang
     const loaderModal = useContext(LoaderModalContext)
     const errorModal = useContext(ErrorModalContext)
+    const successModal = useContext(SuccessModalContext)
 
 
     const [courses, setCourses] = useState([]);
@@ -70,18 +72,10 @@ export default () => {
         ;
     }
 
-    const checkout = () => {
+    const createPayment = () =>{
         loaderModal.showModal()
-        backend.Cart.Checkout()
-            .then(courses => window.location.href = '/courses')
-            .catch(e => errorModal.showModal(e.message))
-            .finally(() => loaderModal.close())
-    };
-
-    const pay = () =>{
-        loaderModal.showModal()
-        backend.Payment.GetUrlForPurchase()
-            .then(payUrl => window.location.href = payUrl)
+        backend.Payment.CreatePayment()
+            .then(() => successModal.showModal("Вам успешно выставлен счёт"))
             .catch(e => errorModal.showModal(e.message))
             .finally(() => loaderModal.close())
     }
@@ -114,7 +108,7 @@ export default () => {
                         </h4>
                     ))}
 
-                <button onClick={() => pay()}>{translations[lang].GoToThePayment}</button>
+                <button onClick={() => createPayment()}>{translations[lang].GoToThePayment}</button>
             </div>
 
             <div className={styles.ordersContainer}>

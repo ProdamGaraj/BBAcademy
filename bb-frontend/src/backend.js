@@ -102,24 +102,12 @@ export default {
             });
 
             return response.data;
-        },
-
-        Checkout: async () => {
-            let response = await axios.post(baseurl + "/Cart/Checkout", {}, {
-                headers: {
-                    Authorization: 'Bearer ' + localStorage.getItem('token')
-                },
-                withCredentials: true,
-                validateStatus
-            });
-
-            return response.data;
         }
     },
     
     Payment:{
-        GetUrlForPurchase: async () => {
-            let response = await axios.post(baseurl + "/Payment/Pay", {}, {
+        CreatePayment: async () => {
+            let response = await axios.post(baseurl + "/Payment/CreatePayment", {}, {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('token')
                 },

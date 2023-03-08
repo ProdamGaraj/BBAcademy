@@ -2,10 +2,12 @@
 using BLL.AccountService;
 using BLL.CartService;
 using BLL.CertificateService;
+using BLL.ClickService;
 using BLL.CourseService;
 using BLL.DocumentService;
 using BLL.ExamService;
 using BLL.Models.Configs;
+using BLL.PaymentService;
 using BLL.Services;
 using BLL.Services.Interfaces;
 using Infrastructure;
@@ -61,6 +63,8 @@ builder.Services.AddScoped<IExamService, ExamService>();
 builder.Services.AddScoped<ICourseProgressService, CourseProgressService>();
 builder.Services.AddScoped<ILessonService, LessonService>();
 builder.Services.AddScoped<IDocumentService, DocumentService>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
+builder.Services.AddSingleton<IClickService, ClickService>();
 
 builder.Services.AddSpaStaticFiles(opt => opt.RootPath = builder.Environment.WebRootPath);
 
