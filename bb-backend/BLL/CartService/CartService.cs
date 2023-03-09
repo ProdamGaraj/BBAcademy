@@ -17,15 +17,6 @@ public class CartService : ICartService
         _courseRepository = courseRepository;
     }
 
-    public async Task Checkout(long userId)
-    {
-        var courses = await _courseRepository.GetAll()
-            .Where(c => c.CourseProgresses.Any(p => p.State == CourseProgressState.InCart && p.UserId == userId))
-            .Select(c => c.Id)
-            .ToListAsync();
-        await _courseProgressService.TransitionToBought(courses, userId);
-    }
-
     public async Task AddCourse(long courseId, long userId)
     {
         await _courseProgressService.TransitionToCart(courseId, userId);

@@ -1,5 +1,6 @@
 ﻿let translations = {
     uz: {
+        'phone':'Telefon raqami',
         'editingAnswerOption': "Javobni tahrirlash opsiyasi",
         'saveAnswerandreturntoQuestion': "Javobni saqlang va Savolga qayting",
         'devpage': "Sahifa ishlab chiqilmoqda",
@@ -96,6 +97,7 @@
     },
 
     ru: {
+        'phone':'Номер телефона',
         'license':"Лицензию",
         'iConfirmLicense':" прочёл и согласен",
         'someDescriptionForAdv': <span>Какое то описание того, что это и зачем в несколько строк</span>,

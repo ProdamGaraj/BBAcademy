@@ -3,6 +3,7 @@ using System;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(BilimContext))]
-    partial class BilimContextModelSnapshot : ModelSnapshot
+    [Migration("20230304093226_PaymentEntities")]
+    partial class PaymentEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -277,23 +279,20 @@ namespace Infrastructure.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
+                    b.Property<DateTime>("CompleatingResponseTime")
+                        .HasColumnType("timestamp without time zone");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<bool>("Deleted")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("ExternalPaymentId")
-                        .HasColumnType("text");
+                    b.Property<DateTime>("InvoiceCreationTime")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("ModifiedAt")
                         .HasColumnType("timestamp without time zone");
-
-                    b.Property<long>("PaymentStatus")
-                        .HasColumnType("bigint");
-
-                    b.Property<float>("TotalSum")
-                        .HasColumnType("real");
 
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
@@ -302,22 +301,28 @@ namespace Infrastructure.Data.Migrations
 
                     b.HasIndex("Deleted");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("Infrastructure.Models.OrderLine", b =>
                 {
-                    b.Property<long>("OrderId")
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<long>("CourseId")
                         .HasColumnType("bigint");
 
-                    b.HasKey("OrderId", "CourseId");
+                    b.Property<long>("OrderId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("CourseId");
+
+                    b.HasIndex("OrderId");
 
                     b.ToTable("OrderLines");
                 });
@@ -402,9 +407,6 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Phone")
                         .HasColumnType("text");
 
                     b.Property<string>("PhotoPath")
@@ -505,17 +507,6 @@ namespace Infrastructure.Data.Migrations
                     b.Navigation("Course");
                 });
 
-            modelBuilder.Entity("Infrastructure.Models.Order", b =>
-                {
-                    b.HasOne("Infrastructure.Models.User", "User")
-                        .WithMany("Orders")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Infrastructure.Models.OrderLine", b =>
                 {
                     b.HasOne("Infrastructure.Models.Course", "Course")
@@ -584,8 +575,6 @@ namespace Infrastructure.Data.Migrations
                     b.Navigation("Certificates");
 
                     b.Navigation("CourseProgresses");
-
-                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

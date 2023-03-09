@@ -61,6 +61,8 @@ namespace BLL.AccountService
                     MiddleName = dto.MiddleName,
                     Surname = dto.Surname,
                     Login = dto.Login,
+                    Phone = dto.Phone,
+                    Email = dto.Email,
                     Role = UserRole.User,
                     PasswordHash = PasswordHasher.GetPasswordHash(dto.Password)
                 };

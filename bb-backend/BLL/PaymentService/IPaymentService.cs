@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BLL.Models.CreatePayment;
 
 namespace BLL.PaymentService
 {
-    internal interface IPaymentService
+    public interface IPaymentService
     {
-        Task<string> GetUrlForPurchase(int userId);
+        Task<CreatePaymentResponse> CreatePayment(long userId);
     }
 }

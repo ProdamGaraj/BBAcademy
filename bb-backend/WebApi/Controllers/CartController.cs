@@ -62,14 +62,4 @@ public class CartController : Controller
 
         return Ok();
     }
-
-    [HttpPost]
-    [Authorize]
-    public async Task<ActionResult> Checkout()
-    {
-        var userId = HttpContext.User.GetId();
-        await _cartService.Checkout(userId);
-
-        return Ok();
-    }
 }

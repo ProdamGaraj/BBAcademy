@@ -21,5 +21,8 @@
 
         public virtual ICollection<Lesson> Lessons { get; set; }
         public virtual ICollection<CourseProgress> CourseProgresses { get; set; }
+
+        public virtual ICollection<OrderLine> OrderLines { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

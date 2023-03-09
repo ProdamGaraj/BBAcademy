@@ -2,10 +2,12 @@
 using BLL.AccountService;
 using BLL.CartService;
 using BLL.CertificateService;
+using BLL.ClickService;
 using BLL.CourseService;
 using BLL.DocumentService;
 using BLL.ExamService;
 using BLL.Models.Configs;
+using BLL.PaymentService;
 using BLL.Services;
 using BLL.Services.Interfaces;
 using Infrastructure;
@@ -14,6 +16,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Models.Configs;
+using Newtonsoft.Json;
 using Serilog;
 using WebApi.Auth;
 using WebApi.Middlewares;
@@ -44,6 +47,10 @@ builder.Logging.AddSerilog(dispose: true);
 
 builder.Services.Configure<StaticConfig>(builder.Configuration.GetSection(nameof(StaticConfig)));
 
+Log.Logger.Warning(JsonConvert.SerializeObject(builder.Configuration.GetSection(nameof(PaymentConfig)).Get<PaymentConfig>()));
+
+builder.Services.Configure<PaymentConfig>(builder.Configuration.GetSection(nameof(PaymentConfig)));
+
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddAutoMapper(typeof(Program));
@@ -58,6 +65,8 @@ builder.Services.AddScoped<IExamService, ExamService>();
 builder.Services.AddScoped<ICourseProgressService, CourseProgressService>();
 builder.Services.AddScoped<ILessonService, LessonService>();
 builder.Services.AddScoped<IDocumentService, DocumentService>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
+builder.Services.AddScoped<IClickService, ClickService>();
 
 builder.Services.AddSpaStaticFiles(opt => opt.RootPath = builder.Environment.WebRootPath);
 
