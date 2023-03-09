@@ -38,7 +38,7 @@ public class Seeder
                 {
                     Title = "Course 1",
                     Description = "This is some Example Course long description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                    Price = 505,
+                    Price = 500,
                     DurationHours = 10,
                     CertificateTemplate = new CertificateTemplate()
                     {
@@ -156,7 +156,7 @@ public class Seeder
                 {
                     Title = "Course 2",
                     Description = "This is some Example Course long description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                    Price = 1000,
+                    Price = 500,
                     DurationHours = 10,
                     CertificateTemplate = new CertificateTemplate()
                     {
@@ -273,7 +273,7 @@ public class Seeder
                 {
                     Title = "Course 3",
                     Description = "3rd seeded course Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                    Price = 700,
+                    Price = 500,
                     DurationHours = 10,
                     CertificateTemplate = new CertificateTemplate()
                     {

@@ -1,12 +1,12 @@
 ﻿import {useContext, useEffect, useRef} from "react";
 import styles from './success-modal.module.css'
-import ErrorModalContext from "contexts/error-modal-context";
+import SuccessModalContext from "contexts/success-modal-context";
 
 const Modal = () => {
 
     let dialogRef = useRef(null);
-    
-    let context = useContext(ErrorModalContext);
+
+    let context = useContext(SuccessModalContext);
 
     useEffect(() => {
         if (context.isOpen) {
@@ -21,10 +21,8 @@ const Modal = () => {
         <div className={styles.background} style={{display: context.isOpen ? 'block' : 'none'}}>
             <dialog
                 ref={dialogRef}
-                className={styles.modal}
-            >
-                <p className={styles.heading}><b>ERROR</b></p>
-                <div className={styles.errorCircle}/>
+                className={styles.modal}>
+                <p className={styles.heading}><b>Success</b></p>
                 <p className={styles.heading}>{context.message}</p>
                 <button className={styles.closeButton} onClick={() => context.close()} autoFocus={false}>CLOSE</button>
             </dialog>
@@ -32,4 +30,4 @@ const Modal = () => {
     </>)
 }
 
-export const ErrorModal = Modal
+export const SuccessModal = Modal

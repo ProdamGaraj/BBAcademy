@@ -16,7 +16,7 @@ public static class DI
     {
         var connectionString = configuration.GetConnectionString("Bilim");
 
-        services.AddDbContext<BilimContext>(options => options.UseNpgsql(connectionString));
+        services.AddDbContext<BilimContext>(options => options.UseNpgsql(connectionString, b => b.MigrationsAssembly("Infrastructure")));
         services.AddScoped(typeof(IRepository<>), typeof(RepositoryBase<>));
 
         return services;
