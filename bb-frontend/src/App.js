@@ -12,6 +12,7 @@ import LoaderModalContext from "./contexts/loader-modal-context";
 import ErrorModalContext from "./contexts/error-modal-context";
 import SuccessModalContext from "./contexts/success-modal-context";
 import {LoaderModal} from "./components/loader-modal/loader-modal";
+import {SuccessModal} from "./components/success-modal/success-modal";
 import {ErrorModal} from "./components/error-modal/error-modal";
 import DataDashboard from "./components/data/data-dashboard/data-dashboard";
 import LearningDashboard from "./components/courses/learning-dashboard/learning-dashboard";
@@ -86,6 +87,7 @@ function App() {
                         <Template>
                             <LoaderModal/>
                             <ErrorModal/>
+                            <SuccessModal/>
                             <BrowserRouter>
                                 <Routes>
                                     <Route path='/' element={<Landing/>}/>

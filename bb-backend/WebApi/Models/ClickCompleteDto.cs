@@ -22,7 +22,7 @@ public class ClickCompleteDto
 
     /// ID платежа в биллинг системе поставщика для подтверждения, полученный при запросе «Prepare»
     [BindProperty(Name = "merchant_prepare_id")]
-    public int MerchantPrepareId { get; set; }
+    public long MerchantPrepareId { get; set; }
 
     /// Сумма оплаты (в сумах)
     [BindProperty(Name = "amount")]

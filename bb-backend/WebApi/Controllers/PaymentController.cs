@@ -1,4 +1,5 @@
-﻿using BLL.PaymentService;
+﻿using BLL.Models.CreatePayment;
+using BLL.PaymentService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,10 +19,10 @@ public class PaymentController : Controller
 
     [HttpPost]
     [Authorize]
-    public async Task<ActionResult> CreatePayment()
+    public async Task<ActionResult<CreatePaymentResponse>> CreatePayment()
     {
         var userId = HttpContext.User.GetId();
-        await _paymentService.CreatePayment(userId);
-        return Ok();
+        var response = await _paymentService.CreatePayment(userId);
+        return Ok(response);
     }
 }

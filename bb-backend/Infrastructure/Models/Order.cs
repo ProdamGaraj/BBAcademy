@@ -7,6 +7,8 @@ public class Order : Entity
 
     public PaymentStatus PaymentStatus { get; set; }
 
+    public float TotalSum { get; set; }
+
     /// <summary>
     /// Invoice Id
     /// </summary>

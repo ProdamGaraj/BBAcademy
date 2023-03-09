@@ -3,5 +3,6 @@
 public enum PaymentStatus : uint
 {
     Unpayed = 0,
-    Payed = 1
+    Payed = 1,
+    Cancelled = 2
 }

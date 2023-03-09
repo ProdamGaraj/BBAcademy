@@ -12,5 +12,6 @@ public class ClickMapping : Profile
         CreateMap<ClickPrepareBllResponseModel, ClickPrepareResponseDto>();
 
         CreateMap<ClickCompleteDto, ClickCompleteBllModel>();
+        CreateMap<ClickCompleteBllResponseModel, ClickCompleteResponseDto>();
     }
 }

@@ -2,6 +2,7 @@
 using BLL.ClickService;
 using BLL.Models.Click;
 using Microsoft.AspNetCore.Mvc;
+using WebApi.Models;
 using ClickPrepareDto = WebApi.Models.ClickPrepareDto;
 using ClickPrepareResponseDto = WebApi.Models.ClickPrepareResponseDto;
 
@@ -28,6 +29,17 @@ public class ClickController : Controller
         var response = await _clickService.ProcessPrepare(bllModel);
 
         var responseDto = _mapper.Map<ClickPrepareResponseDto>(response);
+
+        return responseDto;
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<ClickCompleteResponseDto>> Complete([FromForm] ClickCompleteDto dto)
+    {
+        var bllModel = _mapper.Map<ClickCompleteBllModel>(dto);
+        var response = await _clickService.ProcessComplete(bllModel);
+
+        var responseDto = _mapper.Map<ClickCompleteResponseDto>(response);
 
         return responseDto;
     }

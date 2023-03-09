@@ -289,6 +289,12 @@ namespace Infrastructure.Data.Migrations
                     b.Property<DateTime>("ModifiedAt")
                         .HasColumnType("timestamp without time zone");
 
+                    b.Property<long>("PaymentStatus")
+                        .HasColumnType("bigint");
+
+                    b.Property<float>("TotalSum")
+                        .HasColumnType("real");
+
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
 

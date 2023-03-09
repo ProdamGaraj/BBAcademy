@@ -15,7 +15,7 @@ public class ClickCompleteBllModel
     public string MerchantTransId { get; set; }
 
     /// ID платежа в биллинг системе поставщика для подтверждения, полученный при запросе «Prepare»
-    public int MerchantPrepareId { get; set; }
+    public long MerchantPrepareId { get; set; }
 
     /// Сумма оплаты (в сумах)
     public float Amount { get; set; }

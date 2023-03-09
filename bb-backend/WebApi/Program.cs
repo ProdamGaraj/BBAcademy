@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Models.Configs;
+using Newtonsoft.Json;
 using Serilog;
 using WebApi.Auth;
 using WebApi.Middlewares;
@@ -44,9 +45,10 @@ builder.Logging.ClearProviders();
 builder.Logging.SetMinimumLevel(LogLevel.Information);
 builder.Logging.AddSerilog(dispose: true);
 
-builder.Configuration.AddJsonFile("PaymentDetails.json", false);
-
 builder.Services.Configure<StaticConfig>(builder.Configuration.GetSection(nameof(StaticConfig)));
+
+Log.Logger.Warning(JsonConvert.SerializeObject(builder.Configuration.GetSection(nameof(PaymentConfig)).Get<PaymentConfig>()));
+
 builder.Services.Configure<PaymentConfig>(builder.Configuration.GetSection(nameof(PaymentConfig)));
 
 builder.Services.AddControllersWithViews();
@@ -64,7 +66,7 @@ builder.Services.AddScoped<ICourseProgressService, CourseProgressService>();
 builder.Services.AddScoped<ILessonService, LessonService>();
 builder.Services.AddScoped<IDocumentService, DocumentService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
-builder.Services.AddSingleton<IClickService, ClickService>();
+builder.Services.AddScoped<IClickService, ClickService>();
 
 builder.Services.AddSpaStaticFiles(opt => opt.RootPath = builder.Environment.WebRootPath);
 
