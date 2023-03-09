@@ -5,10 +5,10 @@ namespace BLL;
 
 public static class Utilities
 {
-    public static string Sha1(this string stringToHash)
+    public static string Md5(this string stringToHash)
     {
-        using var sha1 = SHA1.Create();
-        return BitConverter.ToString(sha1.ComputeHash(Encoding.UTF8.GetBytes(stringToHash)));
+        using var sha1 = MD5.Create();
+        return string.Join("", sha1.ComputeHash(Encoding.UTF8.GetBytes(stringToHash)).Select(x => x.ToString("X2")));
     }
     
     public static long ToUnixTime(this DateTime date)

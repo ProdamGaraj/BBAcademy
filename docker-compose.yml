@@ -44,7 +44,7 @@ services:
       - "5432:5432"
     networks:
       - default
-  
+
   seq:
     image: datalust/seq
     restart: unless-stopped
