@@ -12,11 +12,11 @@ services:
       context: ./bb-backend
       dockerfile: ./WebApi/Dockerfile
     ports:
-      - "8080:80"
+      - "80:80"
     volumes:
-      - /home/egop/bb/frontend:/app/wwwroot
-      - /home/egop/bb/statics:/mounted/static
-      - /home/egop/bb/templates:/mounted/templates
+      - /home/host6/frontend:/app/wwwroot
+      - /home/host6/statics:/mounted/static
+      - /home/host6/templates:/mounted/templates
     networks:
       - default
     environment:
@@ -39,7 +39,7 @@ services:
       POSTGRES_PASSWORD: "Garbage1"
     restart: unless-stopped
     volumes:
-      - /home/egop/bb/pgdata:/var/lib/postgresql/data
+      - /home/host6/pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     networks:
@@ -49,9 +49,9 @@ services:
     image: datalust/seq
     restart: unless-stopped
     ports:
-      - "50505:80"
+      - "50505:80" #left - outer port, right - inner port
     volumes:
-      - /home/egop/bb/seq:/data
+      - /home/host6/seq:/data
     environment:
       ACCEPT_EULA: "Y"
       SEQ_API_CANONICALURI: "http://localhost:50505"

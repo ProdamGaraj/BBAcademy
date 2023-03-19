@@ -107,5 +107,4 @@ function App() {
         </LangContext.Provider>
     </>);
 }
-
 export default App;
