@@ -22,11 +22,11 @@ export default () => {
                     <a className={styles.contactHref} href="#">{translations[lang].privpol}</a>
                     <div className={styles.linkWrapper}>
                         <img className={styles.contactImg} src="/img/Shared/foot-teleg.png" alt="telegram"/>
-                        <a className={styles.contactHref} href="#">@bilimbank</a>
+                        <a className={styles.contactHref} href="#">@bilimtextile</a>
                     </div>
                     <div className={styles.linkWrapper}>
                         <img className={styles.contactImg} src="/img/Shared/foot-inst.png" alt="instagram"/>
-                        <a className={styles.contactHref} href="#">@bilimbank</a>
+                        <a className={styles.contactHref} href="#">@bilimtextile</a>
                     </div>
                 </div>
 
