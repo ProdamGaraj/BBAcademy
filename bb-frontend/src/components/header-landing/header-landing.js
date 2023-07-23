@@ -41,8 +41,8 @@ export default () => {
         <header className={styles.headerWrapper}>
             <div className={styles.headerContainer}>
                 <div className={styles.headerContainerLeftSection} onClick={() => window.location.href = '/'}>
-                    <img className={styles.svgLogo} src="/img/Shared/logo-icon-2.svg" alt="logo"/>
-                    <div className={styles.headerContainerLeftSectionText}>BilimBank</div>
+                    {/* <img className={styles.svgLogo} src="/img/Shared/logo-icon-2.svg" alt="logo"/> */}
+                    <div className={styles.headerContainerLeftSectionText}>BilimTextile</div>
                 </div>
                 <div className={styles.headerContainerRightSection}>
                     <div className={styles.headerContainerRightSectionLang}>

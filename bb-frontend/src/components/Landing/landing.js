@@ -121,13 +121,13 @@ export default () => {
                 </div>
 
             </div>
-
+            {/* 
             <section className={styles.videoContainer}>
                 <video width="100%" controls>
                     <source src="/videos/landing.mp4" type="video/mp4"/>
                 </video>
             </section>
-
+ */}
             {/*<div className={styles.categoryAndPopular}>
                 <div className={styles.category}>
                     <div className={styles.categoryTop}>

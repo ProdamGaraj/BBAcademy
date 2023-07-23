@@ -10,7 +10,7 @@ export default () => {
         <footer className={styles.footer}>
             <div className={styles.footerTitleContainer}>
                 <img className={styles.footerLogo} src="/img/Shared/logo-icon-1.svg" alt="logo"/>
-                <label className={styles.footerTile}>BilimBank</label>
+                <label className={styles.footerTile}>BilimTextile</label>
             </div>
             <div className={styles.footerContentContainer}>
                 <div className={styles.footerColumn}>
@@ -33,11 +33,11 @@ export default () => {
                 <div className={styles.footerColumn}>
                     <div className={styles.columnElement}>
                         <img className={styles.footerIcon} src="/img/Shared/foot-teleg.png" alt="telegram"/>
-                        <a className={styles.columnHref} href="#">@bilimbank</a>
+                        <a className={styles.columnHref} href="#">@bilimtextile</a>
                     </div>
                     <div className={styles.columnElement}>
                         <img className={styles.footerIcon} src="/img/Shared/foot-inst.png" alt="instagram"/>
-                        <a className={styles.columnHref} href="#">@bilimbank</a>
+                        <a className={styles.columnHref} href="#">@bilimtextile</a>
                     </div>
                 </div>
             </div>

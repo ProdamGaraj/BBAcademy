@@ -30,8 +30,8 @@ export default (_) => {
     return (<>
         <header className={styles.headerContainer}>
             <a className={styles.leftContainer} href="/">
-                <img src="/img/Shared/logo-icon-2.svg" className={styles.logoImage} alt="logo"/>
-                <div className={styles.logoTitle}>BilimBank</div>
+                {/* <img src="/img/Shared/logo-icon-2.svg" className={styles.logoImage} alt="logo"/> */}
+                <div className={styles.logoTitle}>BilimTextile</div>
             </a>
             <div className={styles.rightContainer}>
                 <div className={styles.headerLang}>
